@@ -72,7 +72,7 @@ export default function LeadershipTeamSection() {
   return (
     <Box
       sx={{
-        py: { xs: 10, md: 16 },
+        py: { xs: 6, md: 8 },
         position: "relative",
         bgcolor: "#0B1120",
         overflow: "hidden",
@@ -126,7 +126,7 @@ export default function LeadershipTeamSection() {
                   bgcolor: "rgba(99, 102, 241, 0.1)",
                 }}
               >
-                LEADERSHIP TEAM
+                LEADERSHIP & MENTORSHIP
               </Typography>
             </motion.div>
             <motion.div variants={fadeInUp}>
@@ -141,7 +141,7 @@ export default function LeadershipTeamSection() {
                   lineHeight: 1.2,
                 }}
               >
-                The Team Behind Student Success
+                Industry Experts Behind THAKSA.AI
               </Typography>
             </motion.div>
             <motion.div variants={fadeInUp}>
@@ -154,14 +154,49 @@ export default function LeadershipTeamSection() {
                   lineHeight: 1.6,
                 }}
               >
-                Industry professionals, mentors, and business leaders working together to help students become career-ready through practical learning and real-world guidance.
+                Industry professionals helping students bridge the gap between academics and real-world careers.
               </Typography>
             </motion.div>
           </motion.div>
         </Box>
 
+        {/* Metrics Strip */}
+        <Box sx={{ mb: { xs: 6, md: 8 }, display: "flex", justifyContent: "center" }}>
+          <motion.div initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-50px" }} variants={fadeInUp}>
+            <Box
+              sx={{
+                display: "inline-flex",
+                flexWrap: "wrap",
+                gap: { xs: 3, md: 6 },
+                background: "rgba(255,255,255,0.03)",
+                backdropFilter: "blur(10px)",
+                border: "1px solid rgba(255,255,255,0.08)",
+                borderRadius: "100px",
+                py: 2,
+                px: { xs: 4, md: 6 },
+                justifyContent: "center",
+              }}
+            >
+              {[
+                { label: "1000+", desc: "Students Reached" },
+                { label: "50+", desc: "Programs" },
+                { label: "40+", desc: "Workshops" }
+              ].map((metric, idx) => (
+                <Box key={idx} sx={{ display: "flex", alignItems: "baseline", gap: 1 }}>
+                  <Typography sx={{ color: "#ffffff", fontWeight: 700, fontSize: { xs: "1.1rem", md: "1.25rem" } }}>
+                    {metric.label}
+                  </Typography>
+                  <Typography sx={{ color: "#94A3B8", fontWeight: 500, fontSize: { xs: "0.85rem", md: "0.95rem" } }}>
+                    {metric.desc}
+                  </Typography>
+                </Box>
+              ))}
+            </Box>
+          </motion.div>
+        </Box>
+
         {/* Executive Cards Grid */}
-        <Grid container spacing={{ xs: 4, md: 6 }} justifyContent="center">
+        <Grid container spacing={{ xs: 3, md: 4 }} justifyContent="center">
           {/* Executive Card 01 */}
           <Grid size={{ xs: 12, md: 6 }}>
             <motion.div
@@ -169,57 +204,41 @@ export default function LeadershipTeamSection() {
               whileInView="visible"
               viewport={{ once: true, margin: "-50px" }}
               variants={{
-                hidden: { opacity: 0, y: 40 },
-                visible: { opacity: 1, y: 0, transition: { duration: 0.6, delay: 0.1 } },
+                hidden: { opacity: 0, y: 30 },
+                visible: { opacity: 1, y: 0, transition: { duration: 0.5, delay: 0.1 } },
               }}
               style={{ height: "100%" }}
             >
-              <GlassCard sx={{ height: "100%", display: "flex", flexDirection: "column", alignItems: "center", p: { xs: 4, md: 5 } }}>
-                <Box sx={{ position: "relative", mb: 3 }}>
-                   <Box sx={{ width: 130, height: 130, borderRadius: "50%", border: "4px solid #fdba74", display: "flex", justifyContent: "center", alignItems: "center", p: 0.5 }}>
+              <GlassCard sx={{ height: "100%", display: "flex", flexDirection: "row", alignItems: "center", p: { xs: 3, md: 4 }, gap: 3 }}>
+                <Box sx={{ position: "relative", flexShrink: 0 }}>
+                   <Box sx={{ width: 80, height: 80, borderRadius: "50%", border: "2px solid #fdba74", display: "flex", justifyContent: "center", alignItems: "center", p: 0.5 }}>
                      <Avatar
                       sx={{
                         width: "100%",
                         height: "100%",
-                        background: "linear-gradient(135deg, #6366f1 0%, #4f46e5 100%)",
-                        fontSize: "2.5rem",
+                        background: "linear-gradient(135deg, #0ea5e9 0%, #0284c7 100%)",
+                        fontSize: "1.5rem",
                         fontWeight: 700,
                       }}
                     >
-                      PS
+                      MR
                     </Avatar>
                    </Box>
                 </Box>
 
-                <Typography variant="h5" sx={{ color: "#ffffff", fontWeight: 500, mb: 2, fontFamily: "'Sora', sans-serif" }}>
-                  P. Sadavisha
-                </Typography>
-
-                <Typography sx={{ color: "#ffffff", fontSize: "0.8rem", fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.05em", mb: 2 }}>
-                  Business Dev Associate
-                </Typography>
-
-                <Typography sx={{ color: "#6366f1", fontWeight: 600, fontSize: "0.95rem", textAlign: "center", mb: 2 }}>
-                  Building Industry Connections For Student Growth
-                </Typography>
-
-                <Typography sx={{ color: "rgba(255,255,255,0.7)", fontStyle: "italic", textAlign: "center", fontSize: "0.85rem", lineHeight: 1.8, mb: 3, flexGrow: 1 }}>
-                  Focused on strengthening industry partnerships, student outreach initiatives, workshop coordination, and opportunity creation. Plays a key role in connecting learners with meaningful career pathways and professional development opportunities.
-                </Typography>
-
-                <Box sx={{ width: "100%", mt: 2, mb: 3, borderTop: "1px solid rgba(0,0,0,0.05)", pt: 3 }}>
-                  <Typography sx={{ color: "#ffffff", fontSize: "0.75rem", fontWeight: 700, textTransform: "uppercase", mb: 2, textAlign: "left" }}>
-                    Expertise Areas:
+                <Box sx={{ flexGrow: 1, textAlign: "left" }}>
+                  <Typography variant="h6" sx={{ color: "#ffffff", fontWeight: 600, mb: 0.5 }}>
+                    Dr. Madhukar Reddy
                   </Typography>
-                  <Stack direction="row" flexWrap="wrap" gap={1}>
-                    {["Business Development", "Industry Partnerships", "Workshop Coordination", "Student Engagement", "Career Ecosystem Growth"].map((skill) => (
-                      <Box key={skill} sx={{ bgcolor: "rgba(99,102,241,0.05)", color: "#6366f1", px: 1.5, py: 0.5, borderRadius: "4px", fontSize: "0.75rem", fontWeight: 600 }}>
-                        {skill}
-                      </Box>
-                    ))}
-                  </Stack>
-                </Box>
 
+                  <Typography variant="body2" sx={{ color: "#94A3B8", fontWeight: 600, textTransform: "uppercase", letterSpacing: "0.05em", mb: 1 }}>
+                    Head of Business Operations
+                  </Typography>
+
+                  <Typography variant="body1" sx={{ color: "#0ea5e9", fontWeight: 500, fontSize: "0.95rem" }}>
+                    Cybersecurity & Global Technology Leadership
+                  </Typography>
+                </Box>
               </GlassCard>
             </motion.div>
           </Grid>
@@ -231,104 +250,47 @@ export default function LeadershipTeamSection() {
               whileInView="visible"
               viewport={{ once: true, margin: "-50px" }}
               variants={{
-                hidden: { opacity: 0, y: 40 },
-                visible: { opacity: 1, y: 0, transition: { duration: 0.6, delay: 0.2 } },
+                hidden: { opacity: 0, y: 30 },
+                visible: { opacity: 1, y: 0, transition: { duration: 0.5, delay: 0.2 } },
               }}
               style={{ height: "100%" }}
             >
-              <GlassCard sx={{ height: "100%", display: "flex", flexDirection: "column", alignItems: "center", p: { xs: 4, md: 5 } }}>
-                <Box sx={{ position: "relative", mb: 3 }}>
-                   <Box sx={{ width: 130, height: 130, borderRadius: "50%", border: "4px solid #fdba74", display: "flex", justifyContent: "center", alignItems: "center", p: 0.5 }}>
+              <GlassCard sx={{ height: "100%", display: "flex", flexDirection: "row", alignItems: "center", p: { xs: 3, md: 4 }, gap: 3 }}>
+                <Box sx={{ position: "relative", flexShrink: 0 }}>
+                   <Box sx={{ width: 80, height: 80, borderRadius: "50%", border: "2px solid #fdba74", display: "flex", justifyContent: "center", alignItems: "center", p: 0.5 }}>
                      <Avatar
                       sx={{
                         width: "100%",
                         height: "100%",
-                        background: "linear-gradient(135deg, #0ea5e9 0%, #0284c7 100%)",
-                        fontSize: "2.5rem",
+                        background: "linear-gradient(135deg, #6366f1 0%, #4f46e5 100%)",
+                        fontSize: "1.5rem",
                         fontWeight: 700,
                       }}
                     >
-                      MR
+                      PS
                     </Avatar>
                    </Box>
                 </Box>
 
-                <Typography variant="h5" sx={{ color: "#ffffff", fontWeight: 500, mb: 2, fontFamily: "'Sora', sans-serif" }}>
-                  Dr. Madhukar Reddy
-                </Typography>
-
-                <Typography sx={{ color: "#ffffff", fontSize: "0.8rem", fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.05em", mb: 2 }}>
-                  Head of Business Operations • California, USA
-                </Typography>
-
-                <Typography sx={{ color: "#0ea5e9", fontWeight: 600, fontSize: "0.95rem", textAlign: "center", mb: 2 }}>
-                  Driving Global Industry Perspective And Strategic Growth
-                </Typography>
-
-                <Typography sx={{ color: "rgba(255,255,255,0.7)", fontStyle: "italic", textAlign: "center", fontSize: "0.85rem", lineHeight: 1.8, mb: 3, flexGrow: 1 }}>
-                  Experienced business and technology leader with expertise spanning cybersecurity, enterprise operations, and strategic business growth. Provides global industry insights and operational direction to ensure THAKSA.AI remains aligned with evolving workforce demands.
-                </Typography>
-
-                <Box sx={{ width: "100%", mt: 2, mb: 3, borderTop: "1px solid rgba(0,0,0,0.05)", pt: 3 }}>
-                  <Typography sx={{ color: "#ffffff", fontSize: "0.75rem", fontWeight: 700, textTransform: "uppercase", mb: 2, textAlign: "left" }}>
-                    Professional Highlights:
+                <Box sx={{ flexGrow: 1, textAlign: "left" }}>
+                  <Typography variant="h6" sx={{ color: "#ffffff", fontWeight: 600, mb: 0.5 }}>
+                    P. Sadavisha
                   </Typography>
-                  <Stack direction="row" flexWrap="wrap" gap={1}>
-                    {["Cybersecurity", "Enterprise Technology", "Business Operations", "Global Leadership", "Strategic Planning", "Industry Transformation"].map((skill) => (
-                      <Box key={skill} sx={{ bgcolor: "rgba(14,165,233,0.05)", color: "#0ea5e9", px: 1.5, py: 0.5, borderRadius: "4px", fontSize: "0.75rem", fontWeight: 600 }}>
-                        {skill}
-                      </Box>
-                    ))}
-                  </Stack>
-                  <Typography sx={{ color: "#ffffff", fontSize: "0.75rem", fontWeight: 700, textTransform: "uppercase", mt: 3, mb: 2, textAlign: "left" }}>
-                    Former Experience:
+
+                  <Typography variant="body2" sx={{ color: "#94A3B8", fontWeight: 600, textTransform: "uppercase", letterSpacing: "0.05em", mb: 1 }}>
+                    Business Development Associate
                   </Typography>
-                  <Stack direction="row" flexWrap="wrap" gap={1}>
-                    {["IBM", "John Deere", "Global Technology Ecosystem"].map((skill) => (
-                      <Box key={skill} sx={{ bgcolor: "rgba(0,0,0,0.03)", color: "#64748b", px: 1.5, py: 0.5, borderRadius: "4px", fontSize: "0.75rem", fontWeight: 600 }}>
-                        {skill}
-                      </Box>
-                    ))}
-                  </Stack>
+
+                  <Typography variant="body1" sx={{ color: "#6366f1", fontWeight: 500, fontSize: "0.95rem" }}>
+                    Building Industry Partnerships & Student Opportunities
+                  </Typography>
                 </Box>
-
               </GlassCard>
             </motion.div>
           </Grid>
         </Grid>
 
-        {/* Trust Bar */}
-        <Box sx={{ mt: { xs: 10, md: 14 } }}>
-          <motion.div initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-50px" }} variants={fadeInUp}>
-             <Box
-                sx={{
-                  background: "rgba(255,255,255,0.04)",
-                  backdropFilter: "blur(10px)",
-                  border: "1px solid rgba(255,255,255,0.08)",
-                  borderRadius: "24px",
-                  py: 4,
-                  px: { xs: 3, md: 6 },
-                  boxShadow: "0 10px 30px -10px rgba(15, 23, 42, 0.05)",
-                }}
-             >
-                <Typography sx={{ color: "#64748b", fontSize: "0.85rem", fontWeight: 600, textTransform: "uppercase", letterSpacing: "0.1em", textAlign: "center", mb: 3 }}>
-                   Guided By Experts In
-                </Typography>
-                <Stack direction="row" flexWrap="wrap" justifyContent="center" gap={{ xs: 2, md: 4 }}>
-                   {["Industry Mentors", "Business Leaders", "Technology Experts", "Career Coaches", "Workshop Facilitators", "CRT Specialists"].map((badge) => (
-                      <Box key={badge} sx={{ display: "flex", alignItems: "center", gap: 1 }}>
-                         <Box sx={{ width: 6, height: 6, borderRadius: "50%", bgcolor: "#6366f1" }} />
-                         <Typography sx={{ color: "#ffffff", fontWeight: 600, fontSize: { xs: "0.9rem", md: "1rem" } }}>
-                            {badge}
-                         </Typography>
-                      </Box>
-                   ))}
-                </Stack>
-             </Box>
-          </motion.div>
-        </Box>
-
-      </Container>
+        </Container>
     </Box>
   );
 }
