@@ -1,5 +1,4 @@
 import { Box, Container, Typography, Stack, IconButton, Link as MuiLink } from "@mui/material";
-import Grid from "@mui/material/Grid";
 import { Link as RouterLink } from "react-router-dom";
 import LinkedInIcon from "@mui/icons-material/LinkedIn";
 import InstagramIcon from "@mui/icons-material/Instagram";
@@ -7,130 +6,21 @@ import EmailRoundedIcon from "@mui/icons-material/EmailRounded";
 import PhoneRoundedIcon from "@mui/icons-material/PhoneRounded";
 import LocationOnRoundedIcon from "@mui/icons-material/LocationOnRounded";
 
-const quickLinks = [
-  { label: "Home", to: "/" },
-  { label: "About Us", to: "/about" },
-];
-
-const programs = [
-  { label: "CRT Training", to: "/crt" },
-  { label: "Workshops", to: "/workshops" },
-];
-
-function FooterLink({ label, to }) {
-  return (
-    <MuiLink
-      component={RouterLink}
-      to={to}
-      underline="none"
-      sx={{
-        color: "#94A3B8",
-        fontSize: "14px",
-        fontWeight: 500,
-        transition: "all 0.2s ease",
-        display: "inline-block",
-        "&:hover": {
-          color: "#F8FAFC",
-          transform: "translateX(2px)"
-        },
-      }}
-    >
-      {label}
-    </MuiLink>
-  );
-}
-
-function ContactRow({ icon, primary, secondary, href }) {
-  const content = (
-    <Stack direction="row" spacing={2} alignItems="flex-start">
-      <Box sx={{
-        color: "#94A3B8",
-        mt: 0.5
-      }}>
-        {icon}
-      </Box>
-      <Box>
-        <Typography sx={{
-          color: "#F8FAFC",
-          fontSize: "14px",
-          fontWeight: 600,
-          fontFamily: "'Inter', sans-serif"
-        }}>
-          {primary}
-        </Typography>
-        {secondary && (
-          <Typography sx={{
-            color: "#94A3B8",
-            fontSize: "13px",
-            fontFamily: "'Inter', sans-serif",
-            mt: 0.25
-          }}>
-            {secondary}
-          </Typography>
-        )}
-      </Box>
-    </Stack>
-  );
-
-  if (href) {
-    return (
-      <Box
-        component="a"
-        href={href}
-        sx={{
-          textDecoration: "none",
-          display: "block",
-          p: 2,
-          bgcolor: "rgba(255,255,255,0.02)",
-          border: "1px solid rgba(255,255,255,0.08)",
-          borderRadius: "18px",
-          transition: "all 0.2s ease",
-          "&:hover": {
-            borderColor: "rgba(99,102,241,0.3)",
-            bgcolor: "rgba(255,255,255,0.04)",
-            boxShadow: "0 4px 12px rgba(168, 85, 247, 0.08)",
-            transform: "translateY(-2px)"
-          }
-        }}
-      >
-        {content}
-      </Box>
-    );
-  }
-
-  return (
-    <Box sx={{
-      p: 2,
-      bgcolor: "rgba(255,255,255,0.02)",
-      border: "1px solid rgba(255,255,255,0.08)",
-      borderRadius: "18px"
-    }}>
-      {content}
-    </Box>
-  );
-}
-
 export default function Footer() {
   return (
     <Box component="footer" sx={{ fontFamily: "'Inter', sans-serif" }}>
-      {/* Dark-to-Light Gradient Bridge -> Changed to Darker Gradient */}
-      <Box
-        sx={{
-          width: "100%",
-          height: { xs: "100px", md: "120px" },
-          background: "linear-gradient(180deg, #020617 0%, #0F172A 30%, #1E293B 100%)",
-        }}
-      />
-
+      {/* Dark professional SaaS theme */}
       <Box
         sx={{
           position: "relative",
-          bgcolor: "#1E293B",
+          bgcolor: "#020617",
+          borderTop: "1px solid rgba(255,255,255,0.04)",
           overflow: "hidden",
-          pb: { xs: 4, md: 6 },
+          pb: { xs: 4, md: 5 },
+          pt: { xs: 4, md: 6 }
         }}
       >
-        {/* Subtle radial gradients & light glass highlights */}
+        {/* Subtle premium gradient glow */}
         <Box sx={{
           position: "absolute",
           top: 0,
@@ -138,257 +28,191 @@ export default function Footer() {
           transform: "translateX(-50%)",
           width: "100%",
           maxWidth: "1000px",
-          height: "500px",
-          background: "radial-gradient(ellipse at top, rgba(255, 255, 255, 0.05), transparent 70%)",
+          height: "400px",
+          background: "radial-gradient(ellipse at top center, rgba(79,70,229,0.06), transparent 70%)",
           pointerEvents: "none",
         }} />
 
-        <Container maxWidth="lg" sx={{ position: "relative", zIndex: 1, pt: { xs: 2, md: 3 } }}>
-          <Grid container spacing={{ xs: 4, md: 3 }}>
-            {/* Column 1: Brand Info */}
-            <Grid size={{ xs: 12, md: 4 }}>
-              <Stack spacing={3} sx={{ maxWidth: "420px" }}>
-                <Box>
-                  <Box
-                    component={RouterLink}
-                    to="/"
+        <Container maxWidth="lg" sx={{ position: "relative", zIndex: 1 }}>
+          <Stack spacing={{ xs: 5, md: 6 }}>
+
+            {/* Row 1: Brand & Socials */}
+            <Stack
+              direction={{ xs: "column", md: "row" }}
+              justifyContent="space-between"
+              alignItems={{ xs: "flex-start", md: "center" }}
+              spacing={3}
+            >
+              <Box>
+                <Typography sx={{
+                  fontFamily: "'Inter', sans-serif",
+                  fontWeight: 800,
+                  color: "#FFFFFF",
+                  lineHeight: 1,
+                  fontSize: { xs: "24px", md: "28px" },
+                  mb: 1.5,
+                  letterSpacing: "-0.02em"
+                }}>
+                  THAKSA.AI
+                </Typography>
+                <Typography sx={{
+                  fontFamily: "'Inter', sans-serif",
+                  fontSize: "14px",
+                  color: "#94A3B8",
+                  whiteSpace: { xs: "normal", md: "nowrap" }
+                }}>
+                  Industry-led workshops, CRT programs, and career readiness experiences.
+                </Typography>
+              </Box>
+
+              <Stack direction="row" spacing={1.5}>
+                {[
+                  { Icon: LinkedInIcon, href: "#" },
+                  { Icon: InstagramIcon, href: "#" },
+                  { Icon: EmailRoundedIcon, href: "mailto:thaksaai@gmail.com" }
+                ].map((item, idx) => (
+                  <IconButton
+                    key={idx}
+                    component="a"
+                    href={item.href}
+                    target={item.href.startsWith("mailto") ? "_self" : "_blank"}
+                    rel={item.href.startsWith("mailto") ? undefined : "noopener noreferrer"}
                     sx={{
-                      display: "inline-flex",
-                      alignItems: "center",
-                      gap: 1.5,
-                      textDecoration: "none",
-                      mb: 1.5
+                      width: 40,
+                      height: 40,
+                      bgcolor: "rgba(255,255,255,0.03)",
+                      border: "1px solid rgba(255,255,255,0.08)",
+                      color: "#94A3B8",
+                      transition: "all 0.2s ease",
+                      "&:hover": {
+                        color: "#FFFFFF",
+                        borderColor: "rgba(99,102,241,0.5)",
+                        bgcolor: "rgba(255,255,255,0.06)",
+                        boxShadow: "0 4px 12px rgba(99,102,241,0.15)",
+                        transform: "translateY(-2px)"
+                      }
                     }}
                   >
-                    <Box
-                      component="img"
-                      loading="lazy"
-                      src="/new-logo.png"
-                      alt="THAKSA.AI Logo"
-                      sx={{
-                        width: 40,
-                        height: 40,
-                        borderRadius: "10px",
-                        objectFit: "cover",
-                        boxShadow: "0 2px 8px rgba(0,0,0,0.2)",
-                      }}
-                    />
-                    <Stack spacing={0.25}>
-                      <Typography sx={{
-                        fontFamily: "'Inter', sans-serif",
-                        fontWeight: 800,
-                        color: "#F8FAFC",
-                        lineHeight: 1,
-                        fontSize: { xs: "22px", md: "26px" }
-                      }}>
-                        THAKSA.AI
-                      </Typography>
-                      <Typography sx={{
-                        fontFamily: "'Inter', sans-serif",
-                        fontSize: "12px",
-                        fontWeight: 600,
-                        letterSpacing: "0.12em",
-                        textTransform: "uppercase",
-                        color: "#94A3B8",
-                        lineHeight: 1
-                      }}>
-                        Career Planet
-                      </Typography>
-                    </Stack>
-                  </Box>
+                    <item.Icon fontSize="small" />
+                  </IconButton>
+                ))}
+              </Stack>
+            </Stack>
 
-                  <Typography sx={{
-                    fontFamily: "'Inter', sans-serif",
-                    fontSize: "14px",
-                    lineHeight: 1.6,
-                    color: "#94A3B8",
-                  }}>
-                    Industry-led workshops, CRT programs, and career readiness experiences for engineering students.
-                  </Typography>
-                </Box>
-
-                <Stack direction="row" spacing={2}>
+            {/* Row 2: Navigation */}
+            <Stack
+              direction={{ xs: "column", md: "row" }}
+              spacing={{ xs: 3, md: 6 }}
+              alignItems={{ xs: "flex-start", md: "center" }}
+            >
+              <Stack direction={{ xs: "column", sm: "row" }} alignItems={{ xs: "flex-start", sm: "center" }} spacing={{ xs: 1.5, sm: 3 }}>
+                <Typography sx={{ fontSize: "13px", fontWeight: 600, color: "#F8FAFC", textTransform: "uppercase", letterSpacing: "0.05em" }}>Platform</Typography>
+                <Stack direction="row" spacing={3} flexWrap="wrap" useFlexGap sx={{ rowGap: 1 }}>
                   {[
-                    { Icon: LinkedInIcon, href: "#" },
-                    { Icon: InstagramIcon, href: "#" },
-                    { Icon: EmailRoundedIcon, href: "mailto:thaksaai@gmail.com" }
-                  ].map((item, idx) => (
-                    <IconButton
-                      key={idx}
-                      component="a"
-                      href={item.href}
-                      target={item.href.startsWith("mailto") ? "_self" : "_blank"}
-                      rel={item.href.startsWith("mailto") ? undefined : "noopener noreferrer"}
+                    { label: "Home", to: "/" },
+                    { label: "Workshops", to: "/workshops" },
+                    { label: "CRT Training", to: "/crt" },
+                    { label: "Contact", to: "/contact" }
+                  ].map((link) => (
+                    <MuiLink
+                      key={link.label}
+                      component={RouterLink}
+                      to={link.to}
+                      underline="none"
                       sx={{
-                        width: 40,
-                        height: 40,
-                        bgcolor: "rgba(255,255,255,0.02)",
-                        border: "1px solid rgba(255,255,255,0.08)",
                         color: "#94A3B8",
-                        transition: "all 0.2s ease",
-                        "&:hover": {
-                          color: "#F8FAFC",
-                          borderColor: "rgba(99,102,241,0.5)",
-                          background: "linear-gradient(135deg, rgba(99,102,241,0.1), rgba(59,130,246,0.08), rgba(16,185,129,0.04))",
-                          boxShadow: "0 4px 12px rgba(168, 85, 247, 0.15)",
-                          transform: "translateY(-2px)"
-                        }
+                        fontSize: "14px",
+                        fontWeight: 400,
+                        transition: "color 0.2s ease",
+                        "&:hover": { color: "#FFFFFF" }
                       }}
                     >
-                      <item.Icon fontSize="small" />
-                    </IconButton>
+                      {link.label}
+                    </MuiLink>
                   ))}
                 </Stack>
               </Stack>
-            </Grid>
 
-            {/* Column 2: Platform Links */}
-            <Grid size={{ xs: 6, md: 2 }}>
-              <Stack spacing={3}>
-                <Typography sx={{
-                  fontFamily: "'Inter', sans-serif",
-                  fontSize: "13px",
-                  fontWeight: 700,
-                  letterSpacing: "0.08em",
-                  textTransform: "uppercase",
-                  color: "#F8FAFC"
-                }}>
-                  Platform
-                </Typography>
-                <Stack spacing={2}>
-                  {quickLinks.map((link) => (
-                    <FooterLink key={link.to} {...link} />
+              <Stack direction={{ xs: "column", sm: "row" }} alignItems={{ xs: "flex-start", sm: "center" }} spacing={{ xs: 1.5, sm: 3 }}>
+                <Typography sx={{ fontSize: "13px", fontWeight: 600, color: "#F8FAFC", textTransform: "uppercase", letterSpacing: "0.05em" }}>Programs</Typography>
+                <Stack direction="row" spacing={3} flexWrap="wrap" useFlexGap sx={{ rowGap: 1 }}>
+                  {[
+                    { label: "Courses", to: "/courses" },
+                    { label: "Batches", to: "/batches" }
+                  ].map((link) => (
+                    <MuiLink
+                      key={link.label}
+                      component={RouterLink}
+                      to={link.to}
+                      underline="none"
+                      sx={{
+                        color: "#94A3B8",
+                        fontSize: "14px",
+                        fontWeight: 400,
+                        transition: "color 0.2s ease",
+                        "&:hover": { color: "#FFFFFF" }
+                      }}
+                    >
+                      {link.label}
+                    </MuiLink>
                   ))}
                 </Stack>
               </Stack>
-            </Grid>
+            </Stack>
 
-            {/* Column 3: Programs Links */}
-            <Grid size={{ xs: 6, md: 2 }}>
-              <Stack spacing={3}>
-                <Typography sx={{
-                  fontFamily: "'Inter', sans-serif",
-                  fontSize: "13px",
-                  fontWeight: 700,
-                  letterSpacing: "0.08em",
-                  textTransform: "uppercase",
-                  color: "#F8FAFC"
-                }}>
-                  Programs
-                </Typography>
-                <Stack spacing={2}>
-                  {programs.map((link) => (
-                    <FooterLink key={link.to} {...link} />
-                  ))}
-                </Stack>
-              </Stack>
-            </Grid>
-
-            {/* Column 4: Contact Information */}
-            <Grid size={{ xs: 12, md: 4 }}>
-              <Stack spacing={3}>
-                <Typography sx={{
-                  fontFamily: "'Inter', sans-serif",
-                  fontSize: "13px",
-                  fontWeight: 700,
-                  letterSpacing: "0.08em",
-                  textTransform: "uppercase",
-                  color: "#F8FAFC"
-                }}>
-                  Get in Touch
-                </Typography>
-                <Stack spacing={2.5}>
-                  <ContactRow
-                    icon={<EmailRoundedIcon fontSize="small" />}
-                    primary="thaksaai@gmail.com"
-                    href="mailto:thaksaai@gmail.com"
-                  />
-                  <ContactRow
-                    icon={<PhoneRoundedIcon fontSize="small" />}
-                    primary="+91 94948 08669"
-                    href="tel:+919494808669"
-                  />
-                  <ContactRow
-                    icon={<LocationOnRoundedIcon fontSize="small" />}
-                    primary="Gachibowli, Hyderabad"
-                    secondary="Gachibowli Technology District"
-                  />
-                </Stack>
-              </Stack>
-            </Grid>
-          </Grid>
-
-          {/* Credibility Bar */}
-          <Box
-            sx={{
-              mt: { xs: 4, md: 6 },
-              pt: 3,
-              borderTop: "1px solid rgba(255,255,255,0.08)",
-              display: "flex",
-              justifyContent: "center",
-              alignItems: "center",
-            }}
-          >
-            <Typography sx={{
-              fontFamily: "'Inter', sans-serif",
-              fontSize: "12px",
-              fontWeight: 500,
-              color: "#94A3B8",
-              textTransform: "uppercase",
-              letterSpacing: "0.12em",
-              textAlign: "center"
-            }}>
-              Industry Workshops • CRT Programs • Career Readiness
-            </Typography>
-          </Box>
-
-          {/* Bottom Bar */}
-          <Box
-            sx={{
-              mt: 4,
-              display: "flex",
-              justifyContent: "center",
-              alignItems: "center",
-              flexDirection: "column",
-              gap: 1.5,
-            }}
-          >
+            {/* Row 3: Contact */}
             <Stack
-              direction="column"
-              spacing={0.5}
+              direction={{ xs: "column", md: "row" }}
+              spacing={{ xs: 2.5, md: 4 }}
+              alignItems={{ xs: "flex-start", md: "center" }}
+            >
+              <Stack direction="row" spacing={1.5} alignItems="center" component="a" href="mailto:thaksaai@gmail.com" sx={{ textDecoration: "none", color: "#94A3B8", "&:hover": { color: "#FFFFFF" }, transition: "color 0.2s" }}>
+                <EmailRoundedIcon sx={{ fontSize: 18 }} />
+                <Typography sx={{ fontSize: "14px", fontWeight: 400 }}>thaksaai@gmail.com</Typography>
+              </Stack>
+
+              <Stack direction="row" spacing={1.5} alignItems="center" component="a" href="tel:+919494808669" sx={{ textDecoration: "none", color: "#94A3B8", "&:hover": { color: "#FFFFFF" }, transition: "color 0.2s" }}>
+                <PhoneRoundedIcon sx={{ fontSize: 18 }} />
+                <Typography sx={{ fontSize: "14px", fontWeight: 400 }}>+91 94948 08669</Typography>
+              </Stack>
+
+              <Stack direction="row" spacing={1.5} alignItems="center" sx={{ color: "#94A3B8" }}>
+                <LocationOnRoundedIcon sx={{ fontSize: 18 }} />
+                <Typography sx={{ fontSize: "14px", fontWeight: 400 }}>Gachibowli, Hyderabad</Typography>
+              </Stack>
+            </Stack>
+
+            <Box sx={{ borderTop: "1px solid rgba(255,255,255,0.06)", pt: 4 }} />
+
+            {/* Row 4: Professional Footer Bottom */}
+            <Stack
+              direction={{ xs: "column", md: "row" }}
+              spacing={{ xs: 2, md: 0 }}
+              justifyContent="space-between"
               alignItems="center"
             >
-              <Typography sx={{ color: "#F8FAFC", fontSize: "14px", fontWeight: 600, fontFamily: "'Inter', sans-serif" }}>
+              {/* Left */}
+              <Typography sx={{ fontSize: "13px", fontWeight: 400, color: "#64748B", order: { xs: 2, md: 1 } }}>
                 © 2026 THAKSA.AI
               </Typography>
-              <Typography sx={{ color: "#94A3B8", fontSize: "14px", fontWeight: 400, fontFamily: "'Inter', sans-serif" }}>
-                Built for Career Transformation
+
+              {/* Center */}
+              <Typography sx={{ fontSize: "13px", fontWeight: 400, color: "#64748B", textAlign: "center", order: { xs: 1, md: 2 } }}>
+                Industry Workshops • CRT Programs • Career Readiness
               </Typography>
+
+              {/* Right */}
+              <Stack direction="row" spacing={2} alignItems="center" sx={{ order: 3 }}>
+                <MuiLink href="#" underline="none" sx={{ color: "#64748B", fontSize: "13px", fontWeight: 400, transition: "color 0.2s", "&:hover": { color: "#94A3B8" } }}>
+                  Privacy Policy
+                </MuiLink>
+                <MuiLink href="#" underline="none" sx={{ color: "#64748B", fontSize: "13px", fontWeight: 400, transition: "color 0.2s", "&:hover": { color: "#94A3B8" } }}>
+                  Terms of Service
+                </MuiLink>
+              </Stack>
             </Stack>
 
-            <Stack direction="row" spacing={3} alignItems="center" mt={1}>
-              <MuiLink href="#" underline="none" sx={{
-                color: "#94A3B8",
-                fontSize: "13px",
-                fontWeight: 500,
-                fontFamily: "'Inter', sans-serif",
-                transition: "color 0.2s ease",
-                "&:hover": { color: "#F8FAFC" }
-              }}>
-                Privacy Policy
-              </MuiLink>
-              <MuiLink href="#" underline="none" sx={{
-                color: "#94A3B8",
-                fontSize: "13px",
-                fontWeight: 500,
-                fontFamily: "'Inter', sans-serif",
-                transition: "color 0.2s ease",
-                "&:hover": { color: "#F8FAFC" }
-              }}>
-                Terms of Service
-              </MuiLink>
-            </Stack>
-          </Box>
+          </Stack>
         </Container>
       </Box>
     </Box>
