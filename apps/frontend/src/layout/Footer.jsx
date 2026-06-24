@@ -9,38 +9,32 @@ import LocationOnRoundedIcon from "@mui/icons-material/LocationOnRounded";
 export default function Footer() {
   return (
     <Box component="footer" sx={{ fontFamily: "'Inter', sans-serif" }}>
-      {/* Soft gradient bridge from dark to light */}
-      <Box
-        sx={{
-          width: "100%",
-          height: { xs: "60px", md: "80px" },
-          background: "linear-gradient(180deg, #020617 0%, #1E293B 40%, #F8FAFC 100%)",
-        }}
-      />
-
+      {/* Dark professional SaaS theme */}
       <Box
         sx={{
           position: "relative",
-          bgcolor: "#F8FAFC",
+          bgcolor: "#020617",
+          borderTop: "1px solid rgba(255,255,255,0.04)",
           overflow: "hidden",
           pb: { xs: 4, md: 5 },
+          pt: { xs: 4, md: 6 }
         }}
       >
-        {/* Subtle radial gradient glow */}
+        {/* Subtle premium gradient glow */}
         <Box sx={{
           position: "absolute",
           top: 0,
           left: "50%",
           transform: "translateX(-50%)",
           width: "100%",
-          maxWidth: "800px",
-          height: "300px",
-          background: "radial-gradient(circle at top center, rgba(99,102,241,0.08), transparent 60%)",
+          maxWidth: "1000px",
+          height: "400px",
+          background: "radial-gradient(ellipse at top center, rgba(79,70,229,0.06), transparent 70%)",
           pointerEvents: "none",
         }} />
 
-        <Container maxWidth="lg" sx={{ position: "relative", zIndex: 1, pt: { xs: 2, md: 4 } }}>
-          <Stack spacing={{ xs: 4, md: 5 }}>
+        <Container maxWidth="lg" sx={{ position: "relative", zIndex: 1 }}>
+          <Stack spacing={{ xs: 5, md: 6 }}>
 
             {/* Row 1: Brand & Socials */}
             <Stack
@@ -53,17 +47,18 @@ export default function Footer() {
                 <Typography sx={{
                   fontFamily: "'Inter', sans-serif",
                   fontWeight: 800,
-                  color: "#0F172A",
+                  color: "#FFFFFF",
                   lineHeight: 1,
-                  fontSize: { xs: "24px", md: "32px" },
-                  mb: 1.5
+                  fontSize: { xs: "24px", md: "28px" },
+                  mb: 1.5,
+                  letterSpacing: "-0.02em"
                 }}>
                   THAKSA.AI
                 </Typography>
                 <Typography sx={{
                   fontFamily: "'Inter', sans-serif",
                   fontSize: "14px",
-                  color: "#64748B",
+                  color: "#94A3B8",
                   whiteSpace: { xs: "normal", md: "nowrap" }
                 }}>
                   Industry-led workshops, CRT programs, and career readiness experiences.
@@ -83,17 +78,17 @@ export default function Footer() {
                     target={item.href.startsWith("mailto") ? "_self" : "_blank"}
                     rel={item.href.startsWith("mailto") ? undefined : "noopener noreferrer"}
                     sx={{
-                      width: 44,
-                      height: 44,
-                      bgcolor: "transparent",
-                      border: "1px solid #E2E8F0",
-                      color: "#64748B",
+                      width: 40,
+                      height: 40,
+                      bgcolor: "rgba(255,255,255,0.03)",
+                      border: "1px solid rgba(255,255,255,0.08)",
+                      color: "#94A3B8",
                       transition: "all 0.2s ease",
                       "&:hover": {
-                        color: "#0F172A",
-                        borderColor: "#CBD5E1",
-                        bgcolor: "rgba(99,102,241,0.04)",
-                        boxShadow: "0 4px 12px rgba(99,102,241,0.08)",
+                        color: "#FFFFFF",
+                        borderColor: "rgba(99,102,241,0.5)",
+                        bgcolor: "rgba(255,255,255,0.06)",
+                        boxShadow: "0 4px 12px rgba(99,102,241,0.15)",
                         transform: "translateY(-2px)"
                       }
                     }}
@@ -111,7 +106,7 @@ export default function Footer() {
               alignItems={{ xs: "flex-start", md: "center" }}
             >
               <Stack direction={{ xs: "column", sm: "row" }} alignItems={{ xs: "flex-start", sm: "center" }} spacing={{ xs: 1.5, sm: 3 }}>
-                <Typography sx={{ fontSize: "14px", fontWeight: 600, color: "#475569" }}>Platform:</Typography>
+                <Typography sx={{ fontSize: "13px", fontWeight: 600, color: "#F8FAFC", textTransform: "uppercase", letterSpacing: "0.05em" }}>Platform</Typography>
                 <Stack direction="row" spacing={3} flexWrap="wrap" useFlexGap sx={{ rowGap: 1 }}>
                   {[
                     { label: "Home", to: "/" },
@@ -125,11 +120,11 @@ export default function Footer() {
                       to={link.to}
                       underline="none"
                       sx={{
-                        color: "#64748B",
+                        color: "#94A3B8",
                         fontSize: "14px",
-                        fontWeight: 500,
+                        fontWeight: 400,
                         transition: "color 0.2s ease",
-                        "&:hover": { color: "#0F172A" }
+                        "&:hover": { color: "#FFFFFF" }
                       }}
                     >
                       {link.label}
@@ -139,7 +134,7 @@ export default function Footer() {
               </Stack>
 
               <Stack direction={{ xs: "column", sm: "row" }} alignItems={{ xs: "flex-start", sm: "center" }} spacing={{ xs: 1.5, sm: 3 }}>
-                <Typography sx={{ fontSize: "14px", fontWeight: 600, color: "#475569" }}>Programs:</Typography>
+                <Typography sx={{ fontSize: "13px", fontWeight: 600, color: "#F8FAFC", textTransform: "uppercase", letterSpacing: "0.05em" }}>Programs</Typography>
                 <Stack direction="row" spacing={3} flexWrap="wrap" useFlexGap sx={{ rowGap: 1 }}>
                   {[
                     { label: "Courses", to: "/courses" },
@@ -151,11 +146,11 @@ export default function Footer() {
                       to={link.to}
                       underline="none"
                       sx={{
-                        color: "#64748B",
+                        color: "#94A3B8",
                         fontSize: "14px",
-                        fontWeight: 500,
+                        fontWeight: 400,
                         transition: "color 0.2s ease",
-                        "&:hover": { color: "#0F172A" }
+                        "&:hover": { color: "#FFFFFF" }
                       }}
                     >
                       {link.label}
@@ -171,44 +166,47 @@ export default function Footer() {
               spacing={{ xs: 2.5, md: 4 }}
               alignItems={{ xs: "flex-start", md: "center" }}
             >
-              <Stack direction="row" spacing={1.5} alignItems="center" component="a" href="mailto:thaksaai@gmail.com" sx={{ textDecoration: "none", color: "#64748B", "&:hover": { color: "#0F172A" }, transition: "color 0.2s" }}>
-                <EmailRoundedIcon sx={{ fontSize: 20 }} />
-                <Typography sx={{ fontSize: "14px", fontWeight: 500 }}>thaksaai@gmail.com</Typography>
+              <Stack direction="row" spacing={1.5} alignItems="center" component="a" href="mailto:thaksaai@gmail.com" sx={{ textDecoration: "none", color: "#94A3B8", "&:hover": { color: "#FFFFFF" }, transition: "color 0.2s" }}>
+                <EmailRoundedIcon sx={{ fontSize: 18 }} />
+                <Typography sx={{ fontSize: "14px", fontWeight: 400 }}>thaksaai@gmail.com</Typography>
               </Stack>
 
-              <Stack direction="row" spacing={1.5} alignItems="center" component="a" href="tel:+919494808669" sx={{ textDecoration: "none", color: "#64748B", "&:hover": { color: "#0F172A" }, transition: "color 0.2s" }}>
-                <PhoneRoundedIcon sx={{ fontSize: 20 }} />
-                <Typography sx={{ fontSize: "14px", fontWeight: 500 }}>+91 94948 08669</Typography>
+              <Stack direction="row" spacing={1.5} alignItems="center" component="a" href="tel:+919494808669" sx={{ textDecoration: "none", color: "#94A3B8", "&:hover": { color: "#FFFFFF" }, transition: "color 0.2s" }}>
+                <PhoneRoundedIcon sx={{ fontSize: 18 }} />
+                <Typography sx={{ fontSize: "14px", fontWeight: 400 }}>+91 94948 08669</Typography>
               </Stack>
 
-              <Stack direction="row" spacing={1.5} alignItems="center" sx={{ color: "#64748B" }}>
-                <LocationOnRoundedIcon sx={{ fontSize: 20 }} />
-                <Typography sx={{ fontSize: "14px", fontWeight: 500 }}>Gachibowli, Hyderabad</Typography>
+              <Stack direction="row" spacing={1.5} alignItems="center" sx={{ color: "#94A3B8" }}>
+                <LocationOnRoundedIcon sx={{ fontSize: 18 }} />
+                <Typography sx={{ fontSize: "14px", fontWeight: 400 }}>Gachibowli, Hyderabad</Typography>
               </Stack>
             </Stack>
 
-            <Box sx={{ borderTop: "1px solid #E2E8F0", pt: 3 }} />
+            <Box sx={{ borderTop: "1px solid rgba(255,255,255,0.06)", pt: 4 }} />
 
-            {/* Row 4: Footer Bottom */}
+            {/* Row 4: Professional Footer Bottom */}
             <Stack
-              direction="column"
-              spacing={1.5}
+              direction={{ xs: "column", md: "row" }}
+              spacing={{ xs: 2, md: 0 }}
+              justifyContent="space-between"
               alignItems="center"
             >
-              <Typography sx={{ fontSize: "14px", fontWeight: 400, color: "#64748B", textAlign: "center" }}>
-                Industry Workshops • CRT Programs • Career Readiness
-              </Typography>
-
-              <Typography sx={{ fontSize: "13px", fontWeight: 400, color: "#94A3B8", textAlign: "center" }}>
+              {/* Left */}
+              <Typography sx={{ fontSize: "13px", fontWeight: 400, color: "#64748B", order: { xs: 2, md: 1 } }}>
                 © 2026 THAKSA.AI
               </Typography>
 
-              <Stack direction="row" spacing={1.5} alignItems="center">
-                <MuiLink href="#" underline="none" sx={{ color: "#94A3B8", fontSize: "13px", fontWeight: 400, transition: "color 0.2s", "&:hover": { color: "#475569" } }}>
+              {/* Center */}
+              <Typography sx={{ fontSize: "13px", fontWeight: 400, color: "#64748B", textAlign: "center", order: { xs: 1, md: 2 } }}>
+                Industry Workshops • CRT Programs • Career Readiness
+              </Typography>
+
+              {/* Right */}
+              <Stack direction="row" spacing={2} alignItems="center" sx={{ order: 3 }}>
+                <MuiLink href="#" underline="none" sx={{ color: "#64748B", fontSize: "13px", fontWeight: 400, transition: "color 0.2s", "&:hover": { color: "#94A3B8" } }}>
                   Privacy Policy
                 </MuiLink>
-                <Typography sx={{ fontSize: "13px", fontWeight: 400, color: "#94A3B8" }}>•</Typography>
-                <MuiLink href="#" underline="none" sx={{ color: "#94A3B8", fontSize: "13px", fontWeight: 400, transition: "color 0.2s", "&:hover": { color: "#475569" } }}>
+                <MuiLink href="#" underline="none" sx={{ color: "#64748B", fontSize: "13px", fontWeight: 400, transition: "color 0.2s", "&:hover": { color: "#94A3B8" } }}>
                   Terms of Service
                 </MuiLink>
               </Stack>
