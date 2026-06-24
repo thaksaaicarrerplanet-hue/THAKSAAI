@@ -669,19 +669,20 @@ function ContactSection() {
                         <FadeIn direction="right" fullWidth>
                             <Box
                                 sx={{
-                                    height: "100%",
-                                    minHeight: "400px",
+                                    height: { xs: "320px", sm: "400px", md: "100%" },
+                                    minHeight: { xs: "320px", sm: "400px", md: "400px" },
                                     borderRadius: "24px",
                                     overflow: "hidden",
                                     border: `1px solid ${COLORS.borderCard}`,
                                     position: "relative",
+                                    boxShadow: "0 10px 40px rgba(0,0,0,0.15)",
                                 }}
                             >
                                 <iframe
-                                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d121815.11902096894!2d78.29310860822606!3d17.447547012351232!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bcb9158f201b205%3A0x11bbe7beed790935!2sGachibowli%2C%20Hyderabad%2C%20Telangana!5e0!3m2!1sen!2sin!4v1718871034033!5m2!1sen!2sin"
+                                    src="https://maps.google.com/maps?q=Jyothi+Imperial,+Old+Mumbai+Highway,+Gachibowli,+Hyderabad,+Telangana+500032&t=&z=15&ie=UTF8&iwloc=&output=embed"
                                     width="100%"
                                     height="100%"
-                                    style={{ border: 0, filter: "invert(90%) hue-rotate(180deg) contrast(80%)" }}
+                                    style={{ border: 0, filter: "invert(90%) hue-rotate(180deg) contrast(80%)", display: "block" }}
                                     allowFullScreen=""
                                     loading="lazy"
                                     referrerPolicy="no-referrer-when-downgrade"
