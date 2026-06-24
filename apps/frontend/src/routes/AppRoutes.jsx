@@ -6,6 +6,7 @@ import RouteFallback from "./RouteFallback";
 
 import HomePage from "../pages/HomePage";
 import CoursesPage from "../pages/CoursesPage";
+import BatchesPage from "../pages/BatchesPage";
 import CourseDetail from "../pages/CourseDetail";
 import PricingPage from "../pages/PricingPage/index.js";
 import ContactPage from "../pages/ContactPage/index.js";
@@ -86,7 +87,7 @@ export default function AppRoutes() {
         path="/batches"
         element={
           <PublicLayout>
-            <CoursesPage />
+            <BatchesPage />
           </PublicLayout>
         }
       />
