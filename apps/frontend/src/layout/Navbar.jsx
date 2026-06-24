@@ -494,7 +494,6 @@ export default function Navbar() {
         </Box>
       </Drawer>
     </AppBar>
-      {isFixedNav && !isHomePage && <Toolbar sx={{ minHeight: { xs: 64, md: 72 } }} />}
     </>
   );
 }
