@@ -387,9 +387,11 @@ export default function HeroSection() {
                       strokeLinecap="round"
                       strokeLinejoin="round"
                       vectorEffect="non-scaling-stroke"
+                      pathLength="1"
                       sx={{
-                        strokeDasharray: "350",
-                        strokeDashoffset: "350",
+
+                        strokeDasharray: "1",
+                        strokeDashoffset: "1",
                         opacity: 0.8,
                         animation: "drawLine 1.2s ease-in-out 0.8s forwards",
                         "@keyframes drawLine": {
