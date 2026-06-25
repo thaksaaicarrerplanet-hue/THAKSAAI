@@ -1,781 +1,472 @@
-import React, { useState, useRef } from "react";
-import {
-    Box,
-    Container,
-    Typography,
-    Grid,
-    Stack,
-    Accordion,
-    AccordionSummary,
-    AccordionDetails,
-    Chip,
-    Button,
-    Card,
-    IconButton
-} from "@mui/material";
-import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
-import WhatsAppIcon from "@mui/icons-material/WhatsApp";
-import PhoneRoundedIcon from "@mui/icons-material/PhoneRounded";
+import React, { useState, useEffect } from "react";
+import { Box, Container, Typography, Grid, Button, Chip } from "@mui/material";
+import { motion, AnimatePresence } from "framer-motion";
+import SmartToyIcon from "@mui/icons-material/SmartToy";
+import MemoryIcon from "@mui/icons-material/Memory";
+import CodeIcon from "@mui/icons-material/Code";
+import CloudQueueIcon from "@mui/icons-material/CloudQueue";
+import RouterIcon from "@mui/icons-material/Router";
+import CheckCircleOutlineIcon from "@mui/icons-material/CheckCircleOutline";
 import EmailRoundedIcon from "@mui/icons-material/EmailRounded";
-import StarRoundedIcon from "@mui/icons-material/StarRounded";
-import { motion, useInView } from "framer-motion";
-import CountUp from "react-countup";
 
-// --- THEME CONSTANTS ---
 const COLORS = {
-    bgDark: "#020817",
-    bgDarker: "#000000",
-    bgCard: "rgba(255,255,255,0.03)",
+    bgDark: "#020617",
+    primaryText: "#F8FAFC",
+    secondaryText: "#94A3B8",
+    bgCard: "rgba(255,255,255,0.02)",
     borderCard: "rgba(255,255,255,0.08)",
-    primaryText: "#f8fafc",
-    secondaryText: "#94a3b8",
-    accent: "#6366F1",
-    accentHover: "#4f46e5"
+    primary: "#4F46E5",
+    primaryLight: "rgba(79, 70, 229, 0.15)",
+    primaryTextLight: "#A5B4FC"
 };
 
-// --- UTILITY COMPONENTS ---
-function FadeIn({ children, delay = 0, direction = "up", fullWidth = false }) {
-    const ref = useRef(null);
-    const isInView = useInView(ref, { once: true, amount: 0.1 });
+const domains = [
+  {
+    id: "ai",
+    title: "Artificial Intelligence & ML",
+    icon: SmartToyIcon,
+    duration: "2-3 Days",
+    prerequisites: "Basic Python knowledge",
+    activities: ["Building neural networks", "Training image classification models", "Deploying NLP pipelines"],
+    outcome: "Students gain practical experience building and training predictive models from scratch."
+  },
+  {
+    id: "prompt",
+    title: "AI Tools & Prompt Engineering",
+    icon: SmartToyIcon,
+    duration: "1-2 Days",
+    prerequisites: "None",
+    activities: ["Advanced LLM prompting techniques", "Automating workflows with AI", "Building custom AI agents"],
+    outcome: "Equips students with state-of-the-art AI productivity skills for academics and future careers."
+  },
+  {
+    id: "cloud",
+    title: "AWS Cloud & DevOps",
+    icon: CloudQueueIcon,
+    duration: "2-3 Days",
+    prerequisites: "Basic networking & OS concepts",
+    activities: ["Deploying EC2 instances", "Setting up CI/CD with Jenkins", "Docker containerization labs"],
+    outcome: "Provides hands-on exposure to deploying and managing highly available cloud architectures."
+  },
+  {
+    id: "fs",
+    title: "Full Stack Development",
+    icon: CodeIcon,
+    duration: "3-5 Days",
+    prerequisites: "Basic HTML/CSS/JS",
+    activities: ["Building responsive React UIs", "Developing Node.js REST APIs", "Connecting to MongoDB"],
+    outcome: "Students build a complete, deployable web application from frontend to backend."
+  },
+  {
+    id: "iot",
+    title: "IoT & Embedded Systems",
+    icon: RouterIcon,
+    duration: "2-3 Days",
+    prerequisites: "Basic C/C++ knowledge",
+    activities: ["Arduino programming", "Interfacing sensors & actuators", "Building cloud dashboards via MQTT"],
+    outcome: "Hands-on experience bridging physical hardware with digital networks and cloud platforms."
+  },
+  {
+    id: "vlsi",
+    title: "VLSI Design",
+    icon: MemoryIcon,
+    duration: "2-4 Days",
+    prerequisites: "Digital logic design basics",
+    activities: ["Verilog/VHDL coding", "FPGA implementation", "Logic synthesis and simulation"],
+    outcome: "Practical skills in modern chip design workflows and hardware description languages."
+  }
+];
 
-    const yOffset = direction === "up" ? 40 : direction === "down" ? -40 : 0;
-    const xOffset = direction === "left" ? 40 : direction === "right" ? -40 : 0;
+const benefits = [
+    { title: "Industry Mentors", desc: "Workshops led by experienced software engineers." },
+    { title: "Practical Learning", desc: "90% hands-on labs, 10% theory." },
+    { title: "Flexible Scheduling", desc: "Customized to fit your academic calendar." },
+    { title: "Campus Delivery", desc: "Conducted offline at your institution." },
+    { title: "Certificates", desc: "Verified participation certificates provided." },
+    { title: "Real Project Demos", desc: "Students build functional mini-projects." }
+];
 
-    return (
-        <Box
-            ref={ref}
-            component={motion.div}
-            initial={{ opacity: 0, x: xOffset, y: yOffset }}
-            animate={isInView ? { opacity: 1, x: 0, y: 0 } : { opacity: 0, x: xOffset, y: yOffset }}
-            transition={{ duration: 0.8, delay, ease: [0.21, 0.47, 0.32, 0.98] }}
-            sx={{ width: fullWidth ? "100%" : "auto" }}
-        >
-            {children}
-        </Box>
-    );
-}
+const workflow = [
+    { title: "Institution Discussion", step: "01" },
+    { title: "Curriculum Finalization", step: "02" },
+    { title: "Workshop Planning", step: "03" },
+    { title: "On-Campus Delivery", step: "04" },
+    { title: "Hands-On Labs", step: "05" },
+    { title: "Certificate Distribution", step: "06" }
+];
 
-// ───────────────────────────────────────────────
-// SECTION 1: IMMERSIVE WORKSHOP HERO
-// ───────────────────────────────────────────────
-function HeroSection() {
-    return (
-        <Box
-            sx={{
-                position: "relative",
-                height: { xs: "80vh", md: "70vh" },
-                minHeight: "600px",
-                maxHeight: "800px",
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-                overflow: "hidden",
-                bgcolor: COLORS.bgDarker,
-            }}
-        >
-            {/* Background Image & Overlay */}
-            <Box
-                sx={{
-                    position: "absolute",
-                    top: 0,
-                    left: 0,
-                    right: 0,
-                    bottom: 0,
-                    backgroundImage: "url(/IMG-20260619-WA0022.jpg)",
-                    backgroundSize: "cover",
-                    backgroundPosition: "center",
-                    opacity: 0.4,
-                }}
-            />
-            <Box
-                sx={{
-                    position: "absolute",
-                    top: 0,
-                    left: 0,
-                    right: 0,
-                    bottom: 0,
-                    background: "linear-gradient(to bottom, rgba(2,8,23,0.3) 0%, rgba(2,8,23,0.9) 100%)",
-                }}
-            />
+const partners = [
+    { name: "JNTU", logo: "/logos/jntu.png" }, // Mock data, fallback to text if image fails
+    { name: "Osmania University", logo: "/logos/ou.png" },
+    { name: "CVR College of Engineering", logo: "/logos/cvr.png" },
+    { name: "VNR VJIET", logo: "/logos/vnr.png" },
+    { name: "GRIET", logo: "/logos/griet.png" },
+    { name: "KMIT", logo: "/logos/kmit.png" }
+];
 
-            <Container maxWidth="lg" sx={{ position: "relative", zIndex: 10, textAlign: "center" }}>
-                <FadeIn delay={0.1}>
-                    <Chip
-                        label="OFFLINE • HANDS-ON • INDUSTRY LED"
-                        sx={{
-                            bgcolor: "rgba(255,255,255,0.1)",
-                            color: COLORS.primaryText,
-                            fontWeight: 700,
-                            letterSpacing: "1px",
-                            backdropFilter: "blur(10px)",
-                            border: `1px solid ${COLORS.borderCard}`,
-                            mb: 4,
-                        }}
-                    />
-                </FadeIn>
 
-                <FadeIn delay={0.2}>
-                    <Typography
-                        variant="h1"
-                        sx={{
-                            color: COLORS.primaryText,
-                            fontWeight: 800,
-                            fontSize: { xs: "2.5rem", md: "4rem", lg: "5rem" },
-                            lineHeight: 1.1,
-                            mb: 3,
-                            maxWidth: "1000px",
-                            mx: "auto",
-                        }}
-                    >
-                        Industry Workshops That Students Actually Remember
-                    </Typography>
-                </FadeIn>
-
-                <FadeIn delay={0.3}>
-                    <Typography
-                        sx={{
-                            color: COLORS.secondaryText,
-                            fontSize: { xs: "1.1rem", md: "1.3rem" },
-                            maxWidth: "700px",
-                            mx: "auto",
-                            mb: 5,
-                            lineHeight: 1.6,
-                        }}
-                    >
-                        Practical learning experiences delivered directly at colleges through real projects, live mentoring, and industry-led sessions.
-                    </Typography>
-                </FadeIn>
-
-                <FadeIn delay={0.4}>
-                    <Stack direction={{ xs: "column", sm: "row" }} spacing={2} justifyContent="center">
-                        <Button
-                            variant="contained"
-                            href="#gallery"
-                            sx={{
-                                bgcolor: COLORS.accent,
-                                color: "#fff",
-                                px: 4,
-                                py: 1.5,
-                                fontSize: "1rem",
-                                fontWeight: 600,
-                                borderRadius: "12px",
-                                textTransform: "none",
-                                "&:hover": { bgcolor: COLORS.accentHover },
-                            }}
-                        >
-                            View Workshop Gallery
-                        </Button>
-                        <Button
-                            variant="outlined"
-                            href="#contact"
-                            sx={{
-                                borderColor: COLORS.borderCard,
-                                color: COLORS.primaryText,
-                                px: 4,
-                                py: 1.5,
-                                fontSize: "1rem",
-                                fontWeight: 600,
-                                borderRadius: "12px",
-                                textTransform: "none",
-                                bgcolor: "rgba(255,255,255,0.05)",
-                                backdropFilter: "blur(10px)",
-                                "&:hover": { borderColor: "rgba(255,255,255,0.2)", bgcolor: "rgba(255,255,255,0.1)" },
-                            }}
-                        >
-                            Request Workshop
-                        </Button>
-                    </Stack>
-                </FadeIn>
-            </Container>
-        </Box>
-    );
-}
-
-// ───────────────────────────────────────────────
-// SECTION 2: WORKSHOP MEMORIES WALL
-// ───────────────────────────────────────────────
-function MemoriesWallSection() {
-    // Standard Masonry / Bento grid concept
-    const images = [
-        { src: "/IMG-20260619-WA0004.jpg", size: { xs: 12, md: 8 }, height: 400 },
-        { src: "/IMG-20260619-WA0005.jpg", size: { xs: 12, md: 4 }, height: 400 },
-        { src: "/IMG-20260619-WA0007.jpg", size: { xs: 12, md: 4 }, height: 300 },
-        { src: "/IMG-20260619-WA0009.jpg", size: { xs: 12, md: 4 }, height: 300 },
-        { src: "/IMG-20260619-WA0011.jpg", size: { xs: 12, md: 4 }, height: 300 },
-        { src: "/IMG-20260619-WA0038.jpg", size: { xs: 12, md: 12 }, height: 500 },
-    ];
-
-    return (
-        <Box id="gallery" sx={{ py: { xs: 10, md: 15 }, bgcolor: COLORS.bgDark }}>
-            <Container maxWidth="xl">
-                <FadeIn>
-                    <Box sx={{ textAlign: "center", mb: 8 }}>
-                        <Typography variant="h2" sx={{ color: COLORS.primaryText, fontWeight: 800, fontSize: { xs: "2rem", md: "3rem" }, mb: 2 }}>
-                            These workshops actually happened.
-                        </Typography>
-                        <Typography sx={{ color: COLORS.secondaryText, fontSize: "1.2rem" }}>
-                            Glimpses from our recent campus collaborations.
-                        </Typography>
-                    </Box>
-                </FadeIn>
-
-                <Grid container spacing={2}>
-                    {images.map((img, i) => (
-                        <Grid size={{ xs: img.size.xs, md: img.size.md }} key={i}>
-                            <FadeIn delay={0.1 * (i % 3)} fullWidth>
-                                <Box
-                                    sx={{
-                                        position: "relative",
-                                        height: img.height,
-                                        width: "100%",
-                                        borderRadius: "24px",
-                                        overflow: "hidden",
-                                        "&:hover .img-bg": { transform: "scale(1.05)" },
-                                        "&:hover .img-overlay": { opacity: 0.1 }
-                                    }}
-                                >
-                                    <Box
-                                        className="img-bg"
-                                        component="img"
-                                        src={img.src}
-                                        loading="lazy"
-                                        sx={{
-                                            width: "100%",
-                                            height: "100%",
-                                            objectFit: "cover",
-                                            transition: "transform 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94)",
-                                        }}
-                                    />
-                                    <Box
-                                        className="img-overlay"
-                                        sx={{
-                                            position: "absolute",
-                                            top: 0, left: 0, right: 0, bottom: 0,
-                                            bgcolor: "#000",
-                                            opacity: 0.3,
-                                            transition: "opacity 0.4s ease",
-                                        }}
-                                    />
-                                </Box>
-                            </FadeIn>
-                        </Grid>
-                    ))}
-                </Grid>
-            </Container>
-        </Box>
-    );
-}
-
-// ───────────────────────────────────────────────
-// SECTION 3: INSIDE A THAKSA.AI WORKSHOP
-// ───────────────────────────────────────────────
-function TimelineSection() {
-    const steps = [
-        { title: "Industry Introduction", desc: "Setting the context with real-world scenarios." },
-        { title: "Hands-On Activities", desc: "Guided exercises and interactive learning." },
-        { title: "Team Collaboration", desc: "Working in groups to solve problems." },
-        { title: "Mini Project Build", desc: "Applying skills to build a tangible project." },
-        { title: "Career Mentoring", desc: "Guidance on resumes, interviews, and paths." },
-    ];
-
-    return (
-        <Box sx={{ py: { xs: 10, md: 15 }, bgcolor: "#050B14" }}>
-            <Container maxWidth="lg">
-                <FadeIn>
-                    <Box sx={{ textAlign: "center", mb: 10 }}>
-                        <Typography variant="h2" sx={{ color: COLORS.primaryText, fontWeight: 800, fontSize: { xs: "2rem", md: "3rem" }, mb: 2 }}>
-                            Inside a THAKSA.AI Workshop
-                        </Typography>
-                    </Box>
-                </FadeIn>
-
-                <Box sx={{ position: "relative" }}>
-                    {/* Vertical Line for Desktop */}
-                    <Box
-                        sx={{
-                            display: { xs: "none", md: "block" },
-                            position: "absolute",
-                            top: 0,
-                            bottom: 0,
-                            left: "50%",
-                            width: "2px",
-                            bgcolor: COLORS.borderCard,
-                            transform: "translateX(-50%)",
-                        }}
-                    />
-
-                    {steps.map((step, i) => (
-                        <FadeIn key={i} delay={i * 0.1}>
-                            <Box
-                                sx={{
-                                    display: "flex",
-                                    flexDirection: { xs: "column", md: i % 2 === 0 ? "row" : "row-reverse" },
-                                    alignItems: "center",
-                                    mb: { xs: 4, md: 8 },
-                                    position: "relative",
-                                }}
-                            >
-                                {/* Center Node for Desktop */}
-                                <Box
-                                    sx={{
-                                        display: { xs: "none", md: "flex" },
-                                        position: "absolute",
-                                        left: "50%",
-                                        top: "50%",
-                                        transform: "translate(-50%, -50%)",
-                                        width: "40px",
-                                        height: "40px",
-                                        borderRadius: "50%",
-                                        bgcolor: COLORS.bgDark,
-                                        border: `2px solid ${COLORS.accent}`,
-                                        alignItems: "center",
-                                        justifyContent: "center",
-                                        color: COLORS.primaryText,
-                                        fontWeight: 700,
-                                        zIndex: 2,
-                                    }}
-                                >
-                                    {i + 1}
-                                </Box>
-
-                                {/* Content Card */}
-                                <Box sx={{ width: { xs: "100%", md: "45%" }, textAlign: { xs: "center", md: i % 2 === 0 ? "right" : "left" } }}>
-                                    <Box
-                                        sx={{
-                                            bgcolor: COLORS.bgCard,
-                                            border: `1px solid ${COLORS.borderCard}`,
-                                            borderRadius: "24px",
-                                            p: 4,
-                                            backdropFilter: "blur(20px)",
-                                            transition: "transform 0.3s ease",
-                                            "&:hover": { transform: "scale(1.02)" }
-                                        }}
-                                    >
-                                        <Typography sx={{ color: COLORS.accent, fontWeight: 700, mb: 1, fontSize: "0.9rem", textTransform: "uppercase", letterSpacing: "1px" }}>
-                                            Step {i + 1}
-                                        </Typography>
-                                        <Typography sx={{ color: COLORS.primaryText, fontWeight: 700, fontSize: "1.5rem", mb: 1 }}>
-                                            {step.title}
-                                        </Typography>
-                                        <Typography sx={{ color: COLORS.secondaryText }}>
-                                            {step.desc}
-                                        </Typography>
-                                    </Box>
-                                </Box>
-                            </Box>
-                        </FadeIn>
-                    ))}
-                </Box>
-            </Container>
-        </Box>
-    );
-}
-
-// ───────────────────────────────────────────────
-// SECTION 4: WORKSHOP TRACKS
-// ───────────────────────────────────────────────
-function TracksSection() {
-    const tracks = [
-        {
-            title: "AI & Emerging Tech",
-            tags: ["AI Tools", "Prompt Engineering", "Machine Learning", "GenAI"]
-        },
-        {
-            title: "Cloud & DevOps",
-            tags: ["AWS Cloud", "Docker", "CI/CD", "DevOps"]
-        },
-        {
-            title: "Software Development",
-            tags: ["Full Stack", "React", "APIs", "Databases"]
-        },
-        {
-            title: "ECE / EEE",
-            tags: ["IoT", "Embedded Systems", "VLSI", "Industry 4.0"]
-        }
-    ];
-
-    return (
-        <Box sx={{ py: { xs: 10, md: 15 }, bgcolor: COLORS.bgDark }}>
-            <Container maxWidth="lg">
-                <FadeIn>
-                    <Box sx={{ textAlign: "center", mb: 8 }}>
-                        <Typography variant="h2" sx={{ color: COLORS.primaryText, fontWeight: 800, fontSize: { xs: "2rem", md: "3rem" }, mb: 2 }}>
-                            Workshop Tracks
-                        </Typography>
-                        <Typography sx={{ color: COLORS.secondaryText, fontSize: "1.2rem" }}>
-                            Specialized domains tailored for modern industry needs.
-                        </Typography>
-                    </Box>
-                </FadeIn>
-
-                <Grid container spacing={4}>
-                    {tracks.map((track, i) => (
-                        <Grid size={{ xs: 12, md: 6 }}>
-                            <FadeIn delay={0.1 * i} fullWidth>
-                                <Box
-                                    sx={{
-                                        bgcolor: COLORS.bgCard,
-                                        border: `1px solid ${COLORS.borderCard}`,
-                                        borderRadius: "24px",
-                                        p: 5,
-                                        height: "100%",
-                                        backdropFilter: "blur(20px)",
-                                        boxShadow: "0 10px 40px rgba(0,0,0,0.2)",
-                                        transition: "all 0.3s ease",
-                                        "&:hover": { borderColor: "rgba(255,255,255,0.2)", transform: "translateY(-5px)" }
-                                    }}
-                                >
-                                    <Typography sx={{ color: COLORS.primaryText, fontWeight: 800, fontSize: "1.8rem", mb: 3 }}>
-                                        {track.title}
-                                    </Typography>
-                                    <Stack direction="row" flexWrap="wrap" gap={1.5}>
-                                        {track.tags.map((tag, j) => (
-                                            <Chip
-                                                key={j}
-                                                label={tag}
-                                                sx={{
-                                                    bgcolor: "rgba(255,255,255,0.05)",
-                                                    color: COLORS.secondaryText,
-                                                    border: `1px solid rgba(255,255,255,0.1)`,
-                                                    borderRadius: "8px",
-                                                    fontSize: "0.9rem",
-                                                    fontWeight: 600,
-                                                    px: 1,
-                                                    py: 2.5,
-                                                }}
-                                            />
-                                        ))}
-                                    </Stack>
-                                </Box>
-                            </FadeIn>
-                        </Grid>
-                    ))}
-                </Grid>
-            </Container>
-        </Box>
-    );
-}
-
-// ───────────────────────────────────────────────
-// SECTION 5: COLLEGES WE HAVE WORKED WITH
-// ───────────────────────────────────────────────
-function LogosSection() {
-    const colleges = ["JNTUH", "OU", "CMR", "KITS", "VCE", "SNIST", "SR University", "Malla Reddy", "CBIT", "MGIT"];
-
-    return (
-        <Box sx={{ py: 8, bgcolor: "#030A18", overflow: "hidden" }}>
-            <Container maxWidth="lg" sx={{ textAlign: "center", mb: 4 }}>
-                <FadeIn>
-                    <Typography sx={{ color: COLORS.secondaryText, fontWeight: 600, fontSize: "0.9rem", letterSpacing: "2px", textTransform: "uppercase" }}>
-                        Trusted by Top Institutions
-                    </Typography>
-                </FadeIn>
-            </Container>
-
-            <Box sx={{ position: "relative", display: "flex", width: "100%", overflow: "hidden" }}>
-                <Box
-                    component={motion.div}
-                    animate={{ x: ["0%", "-50%"] }}
-                    transition={{ ease: "linear", duration: 30, repeat: Infinity }}
-                    sx={{ display: "flex", whiteSpace: "nowrap", gap: { xs: 4, md: 8 }, px: 4 }}
-                >
-                    {[...colleges, ...colleges, ...colleges].map((college, i) => (
-                        <Typography
-                            key={i}
-                            sx={{
-                                color: "rgba(255,255,255,0.3)",
-                                fontWeight: 800,
-                                fontSize: { xs: "1.5rem", md: "2.5rem" },
-                                transition: "color 0.3s",
-                                "&:hover": { color: COLORS.primaryText }
-                            }}
-                        >
-                            {college}
-                        </Typography>
-                    ))}
-                </Box>
-            </Box>
-        </Box>
-    );
-}
-
-// ───────────────────────────────────────────────
-// SECTION 6: WORKSHOP HIGHLIGHTS
-// ───────────────────────────────────────────────
-function HighlightsSection() {
-    const stats = [
-        { value: 50, suffix: "+", label: "Workshops" },
-        { value: 1000, suffix: "+", label: "Students" },
-        { value: 20, suffix: "+", label: "Campuses" },
-        { value: 4.9, suffix: "/5", label: "Feedback Score", decimals: 1 },
-    ];
-
-    return (
-        <Box sx={{ py: { xs: 8, md: 10 }, bgcolor: COLORS.bgDark, borderTop: `1px solid ${COLORS.borderCard}`, borderBottom: `1px solid ${COLORS.borderCard}` }}>
-            <Container maxWidth="lg">
-                <Grid container spacing={4} justifyContent="center" alignItems="center">
-                    {stats.map((stat, i) => (
-                        <Grid size={{ xs: 6, md: 3 }}>
-                            <FadeIn delay={0.1 * i}>
-                                <Box sx={{ textAlign: "center" }}>
-                                    <Typography sx={{ color: COLORS.primaryText, fontWeight: 800, fontSize: { xs: "2.5rem", md: "3.5rem" }, lineHeight: 1 }}>
-                                        <CountUp end={stat.value} decimals={stat.decimals || 0} duration={2.5} enableScrollSpy scrollSpyOnce />
-                                        {stat.suffix}
-                                    </Typography>
-                                    <Typography sx={{ color: COLORS.secondaryText, fontWeight: 600, fontSize: "1rem", mt: 1 }}>
-                                        {stat.label}
-                                    </Typography>
-                                </Box>
-                            </FadeIn>
-                        </Grid>
-                    ))}
-                </Grid>
-            </Container>
-        </Box>
-    );
-}
-
-// ───────────────────────────────────────────────
-// SECTION 7: TESTIMONIAL MARQUEE
-// ───────────────────────────────────────────────
-function TestimonialsSection() {
-    const testimonials = [
-        { quote: "The hands-on AWS session was incredible. Built my first CI/CD pipeline right there.", role: "CSE Student", college: "VCE", rating: 5 },
-        { quote: "Finally a workshop that doesn't feel like a boring lecture. Loved the React project.", role: "IT Student", college: "SNIST", rating: 5 },
-        { quote: "The mentors were actual industry folks. Gave me so much clarity on my career path.", role: "ECE Student", college: "CMR", rating: 5 },
-        { quote: "Best 2 days. The GenAI track opened my eyes to what's possible.", role: "CS Student", college: "JNTUH", rating: 5 },
-        { quote: "Very practical. We didn't just write code, we deployed it.", role: "Student", college: "SR University", rating: 5 },
-    ];
-
-    return (
-        <Box sx={{ py: { xs: 10, md: 15 }, bgcolor: "#050B14", overflow: "hidden" }}>
-            <Container maxWidth="lg" sx={{ textAlign: "center", mb: 6 }}>
-                <FadeIn>
-                    <Typography variant="h2" sx={{ color: COLORS.primaryText, fontWeight: 800, fontSize: { xs: "2rem", md: "3rem" } }}>
-                        What Students Say
-                    </Typography>
-                </FadeIn>
-            </Container>
-
-            <Box sx={{ position: "relative", display: "flex", width: "100%", overflow: "hidden" }}>
-                <Box
-                    component={motion.div}
-                    animate={{ x: ["0%", "-50%"] }}
-                    transition={{ ease: "linear", duration: 40, repeat: Infinity }}
-                    sx={{ display: "flex", gap: 3, px: 2 }}
-                >
-                    {[...testimonials, ...testimonials, ...testimonials].map((t, i) => (
-                        <Box
-                            key={i}
-                            sx={{
-                                minWidth: { xs: "300px", md: "400px" },
-                                p: 4,
-                                bgcolor: COLORS.bgCard,
-                                border: `1px solid ${COLORS.borderCard}`,
-                                borderRadius: "24px",
-                                backdropFilter: "blur(10px)",
-                                whiteSpace: "normal"
-                            }}
-                        >
-                            <Stack direction="row" spacing={0.5} mb={2}>
-                                {[...Array(t.rating)].map((_, j) => <StarRoundedIcon key={j} sx={{ color: "#F59E0B", fontSize: 20 }} />)}
-                            </Stack>
-                            <Typography sx={{ color: COLORS.primaryText, fontSize: "1.1rem", fontStyle: "italic", mb: 3, lineHeight: 1.6 }}>
-                                "{t.quote}"
-                            </Typography>
-                            <Typography sx={{ color: COLORS.secondaryText, fontWeight: 700, fontSize: "0.9rem" }}>
-                                {t.role} • {t.college}
-                            </Typography>
-                        </Box>
-                    ))}
-                </Box>
-            </Box>
-        </Box>
-    );
-}
-
-// ───────────────────────────────────────────────
-// SECTION 8: FAQ
-// ───────────────────────────────────────────────
-function FaqSection() {
-    const faqs = [
-        { q: "How can my college organize a THAKSA.AI workshop?", a: "Reach out via WhatsApp or email with your college details. Our team will get back to you within 24 hours to discuss logistics." },
-        { q: "Are the workshops online or offline?", a: "All THAKSA.AI workshops are strictly offline (in-person) at your college campus for maximum hands-on engagement." },
-        { q: "What is the typical batch size?", a: "We conduct workshops for groups of 30–300+ students, customized based on department needs." },
-        { q: "Do students get certificates?", a: "Yes, every participant receives a verified Certificate of Participation co-branded with THAKSA.AI." },
-    ];
-
-    const [expanded, setExpanded] = useState(false);
-
-    const handleChange = (panel) => (event, isExpanded) => {
-        setExpanded(isExpanded ? panel : false);
-    };
-
-    return (
-        <Box sx={{ py: { xs: 10, md: 15 }, bgcolor: COLORS.bgDark }}>
-            <Container maxWidth="md">
-                <FadeIn>
-                    <Box sx={{ textAlign: "center", mb: 8 }}>
-                        <Typography variant="h2" sx={{ color: COLORS.primaryText, fontWeight: 800, fontSize: { xs: "2rem", md: "3rem" }, mb: 2 }}>
-                            Frequently Asked Questions
-                        </Typography>
-                    </Box>
-                </FadeIn>
-
-                <Box>
-                    {faqs.map((faq, i) => (
-                        <FadeIn key={i} delay={0.1 * i}>
-                            <Accordion
-                                expanded={expanded === `panel${i}`}
-                                onChange={handleChange(`panel${i}`)}
-                                sx={{
-                                    bgcolor: "transparent",
-                                    color: COLORS.primaryText,
-                                    borderBottom: `1px solid ${COLORS.borderCard}`,
-                                    "&:before": { display: "none" },
-                                    boxShadow: "none",
-                                }}
-                            >
-                                <AccordionSummary
-                                    expandIcon={<ExpandMoreIcon sx={{ color: COLORS.secondaryText }} />}
-                                    sx={{ py: 2, px: 0 }}
-                                >
-                                    <Typography sx={{ fontWeight: 600, fontSize: "1.1rem" }}>{faq.q}</Typography>
-                                </AccordionSummary>
-                                <AccordionDetails sx={{ px: 0, pb: 4 }}>
-                                    <Typography sx={{ color: COLORS.secondaryText, lineHeight: 1.7 }}>
-                                        {faq.a}
-                                    </Typography>
-                                </AccordionDetails>
-                            </Accordion>
-                        </FadeIn>
-                    ))}
-                </Box>
-            </Container>
-        </Box>
-    );
-}
-
-// ───────────────────────────────────────────────
-// SECTION 9: COLLABORATION CTA
-// ───────────────────────────────────────────────
-function ContactSection() {
-    return (
-        <Box id="contact" sx={{ py: { xs: 10, md: 15 }, bgcolor: "#030A18" }}>
-            <Container maxWidth="lg">
-                <Grid container spacing={6} alignItems="stretch">
-                    {/* Maps Column */}
-                    <Grid size={{ xs: 12, md: 6 }}>
-                        <FadeIn direction="right" fullWidth>
-                            <Box
-                                sx={{
-                                    height: { xs: "320px", sm: "400px", md: "100%" },
-                                    minHeight: { xs: "320px", sm: "400px", md: "400px" },
-                                    borderRadius: "24px",
-                                    overflow: "hidden",
-                                    border: `1px solid ${COLORS.borderCard}`,
-                                    position: "relative",
-                                    boxShadow: "0 10px 40px rgba(0,0,0,0.15)",
-                                }}
-                            >
-                                <iframe
-                                    src="https://maps.google.com/maps?q=Jyothi+Imperial,+Old+Mumbai+Highway,+Gachibowli,+Hyderabad,+Telangana+500032&t=&z=15&ie=UTF8&iwloc=&output=embed"
-                                    width="100%"
-                                    height="100%"
-                                    style={{ border: 0, filter: "invert(90%) hue-rotate(180deg) contrast(80%)", display: "block" }}
-                                    allowFullScreen=""
-                                    loading="lazy"
-                                    referrerPolicy="no-referrer-when-downgrade"
-                                />
-                            </Box>
-                        </FadeIn>
-                    </Grid>
-
-                    {/* Contact Card */}
-                    <Grid size={{ xs: 12, md: 6 }}>
-                        <FadeIn direction="left" fullWidth>
-                            <Box
-                                sx={{
-                                    bgcolor: COLORS.bgCard,
-                                    border: `1px solid ${COLORS.borderCard}`,
-                                    borderRadius: "24px",
-                                    p: { xs: 4, md: 6 },
-                                    height: "100%",
-                                    backdropFilter: "blur(20px)",
-                                }}
-                            >
-                                <Typography sx={{ color: COLORS.primaryText, fontWeight: 800, fontSize: "2rem", mb: 2 }}>
-                                    Ready to collaborate?
-                                </Typography>
-                                <Typography sx={{ color: COLORS.secondaryText, mb: 4, fontSize: "1.1rem" }}>
-                                    Bring THAKSA.AI to your campus. Reach out to our team to plan your next workshop.
-                                </Typography>
-
-                                <Stack spacing={3} mb={5}>
-                                    <Stack direction="row" alignItems="center" spacing={2}>
-                                        <Box sx={{ width: 48, height: 48, borderRadius: "12px", bgcolor: "rgba(255,255,255,0.05)", display: "flex", alignItems: "center", justifyContent: "center" }}>
-                                            <PhoneRoundedIcon sx={{ color: COLORS.primaryText }} />
-                                        </Box>
-                                        <Box>
-                                            <Typography sx={{ color: COLORS.secondaryText, fontSize: "0.9rem" }}>Call Us</Typography>
-                                            <Typography component="a" href="tel:+919494808669" sx={{ color: COLORS.primaryText, fontWeight: 600, textDecoration: "none" }}>+91 94948 08669</Typography>
-                                        </Box>
-                                    </Stack>
-
-                                    <Stack direction="row" alignItems="center" spacing={2}>
-                                        <Box sx={{ width: 48, height: 48, borderRadius: "12px", bgcolor: "rgba(255,255,255,0.05)", display: "flex", alignItems: "center", justifyContent: "center" }}>
-                                            <EmailRoundedIcon sx={{ color: COLORS.primaryText }} />
-                                        </Box>
-                                        <Box>
-                                            <Typography sx={{ color: COLORS.secondaryText, fontSize: "0.9rem" }}>Email</Typography>
-                                            <Typography component="a" href="mailto:thaksaai@gmail.com" sx={{ color: COLORS.primaryText, fontWeight: 600, textDecoration: "none" }}>thaksaai@gmail.com</Typography>
-                                        </Box>
-                                    </Stack>
-                                </Stack>
-
-                                <Button
-                                    variant="contained"
-                                    href="https://wa.me/919494808669"
-                                    target="_blank"
-                                    startIcon={<WhatsAppIcon />}
-                                    fullWidth
-                                    sx={{
-                                        bgcolor: "#25D366",
-                                        color: "#fff",
-                                        py: 2,
-                                        fontSize: "1.1rem",
-                                        fontWeight: 700,
-                                        borderRadius: "16px",
-                                        textTransform: "none",
-                                        "&:hover": { bgcolor: "#1ebe58" },
-                                    }}
-                                >
-                                    Chat on WhatsApp
-                                </Button>
-                            </Box>
-                        </FadeIn>
-                    </Grid>
-                </Grid>
-            </Container>
-        </Box>
-    );
-}
-
-// ───────────────────────────────────────────────
-// MAIN PAGE
-// ───────────────────────────────────────────────
 export default function WorkshopPage() {
-    return (
-        <Box sx={{ bgcolor: COLORS.bgDark, minHeight: "100vh", fontFamily: "'Inter', sans-serif" }}>
-            <HeroSection />
-            <MemoriesWallSection />
-            <TimelineSection />
-            <TracksSection />
-            <LogosSection />
-            <HighlightsSection />
-            <TestimonialsSection />
-            <FaqSection />
-            <ContactSection />
+  const [expandedId, setExpandedId] = useState(null);
+
+  useEffect(() => {
+    if (!window.location.hash) {
+      window.scrollTo(0, 0);
+    }
+  }, []);
+
+  return (
+    <Box
+      sx={{
+        minHeight: "100vh",
+        bgcolor: COLORS.bgDark,
+        pt: { xs: 12, md: 16 },
+        pb: { xs: 8, md: 12 },
+        color: COLORS.primaryText,
+      }}
+    >
+      <Container maxWidth="lg">
+        {/* 1. Compact Introduction */}
+        <Box sx={{ textAlign: "center", mb: { xs: 8, md: 12 }, maxWidth: "800px", mx: "auto" }}>
+          <Typography
+            variant="h1"
+            sx={{
+              fontSize: { xs: "2.5rem", md: "3.5rem" },
+              fontWeight: 800,
+              mb: 3,
+              letterSpacing: "-0.02em",
+              color: COLORS.primaryText,
+            }}
+          >
+            Industry Workshops for Engineering Institutions
+          </Typography>
+          <Typography
+            variant="h2"
+            sx={{
+              fontSize: { xs: "1.125rem", md: "1.25rem" },
+              color: COLORS.secondaryText,
+              fontWeight: 400,
+              lineHeight: 1.6,
+              maxWidth: "700px",
+              mx: "auto"
+            }}
+          >
+            Partner with THAKSA.AI to deliver practical, industry-led technical workshops at your campus. Bridge the gap between academic learning and real-world technology.
+          </Typography>
         </Box>
-    );
+
+        {/* 2. Workshop Domains */}
+        <Box sx={{ mb: { xs: 12, md: 16 } }}>
+             <Typography variant="h3" sx={{ fontSize: { xs: "1.75rem", md: "2.25rem" }, fontWeight: 700, mb: 6, textAlign: "center", color: COLORS.primaryText }}>
+                Available Workshop Domains
+            </Typography>
+            <Grid container spacing={3} justifyContent="center">
+            {domains.map((domain) => {
+                const isExpanded = expandedId === domain.id;
+                return (
+                <Grid item xs={12} md={isExpanded ? 12 : 6} lg={isExpanded ? 12 : 4} key={domain.id} sx={{ transition: "all 0.3s ease" }}>
+                    <Box
+                    component={motion.div}
+                    layout
+                    onClick={() => setExpandedId(isExpanded ? null : domain.id)}
+                    sx={{
+                        background: COLORS.bgCard,
+                        border: `1px solid ${COLORS.borderCard}`,
+                        borderRadius: "20px",
+                        backdropFilter: "blur(20px)",
+                        p: { xs: 3, md: 4 },
+                        cursor: "pointer",
+                        height: "100%",
+                        display: "flex",
+                        flexDirection: "column",
+                        position: "relative",
+                        overflow: "hidden",
+                        boxShadow: "none",
+                        "&:hover": {
+                            borderColor: "rgba(79, 70, 229, 0.4)",
+                            background: "rgba(255,255,255,0.04)",
+                            transform: isExpanded ? "none" : "translateY(-4px)",
+                            boxShadow: "0 20px 40px -20px rgba(79, 70, 229, 0.15)"
+                        },
+                        transition: "all 0.3s cubic-bezier(0.4, 0, 0.2, 1)"
+                    }}
+                    >
+                    <Box sx={{ display: "flex", alignItems: "flex-start", gap: 3, mb: isExpanded ? 4 : 0 }}>
+                        <Box
+                        sx={{
+                            p: 1.5,
+                            borderRadius: "16px",
+                            background: COLORS.primaryLight,
+                            color: COLORS.primaryTextLight,
+                            display: "flex"
+                        }}
+                        >
+                        <domain.icon fontSize="medium" />
+                        </Box>
+                        <Box sx={{ flex: 1 }}>
+                        <Typography
+                            variant="h4"
+                            sx={{
+                            fontSize: "1.25rem",
+                            fontWeight: 700,
+                            color: COLORS.primaryText,
+                            mb: 1,
+                            letterSpacing: "-0.01em"
+                            }}
+                        >
+                            {domain.title}
+                        </Typography>
+                         <Typography
+                            variant="body2"
+                            sx={{
+                                color: COLORS.primaryTextLight,
+                                fontSize: "0.85rem",
+                                fontWeight: 600,
+                                mb: 1
+                            }}
+                        >
+                           Duration: {domain.duration}
+                        </Typography>
+                        <Typography
+                            variant="body1"
+                            sx={{
+                            color: COLORS.secondaryText,
+                            fontSize: "0.95rem",
+                            lineHeight: 1.5,
+                            display: isExpanded ? "none" : "-webkit-box",
+                            WebkitLineClamp: 2,
+                            WebkitBoxOrient: "vertical",
+                            overflow: "hidden"
+                            }}
+                        >
+                            {domain.outcome}
+                        </Typography>
+                        </Box>
+                    </Box>
+
+                    <AnimatePresence>
+                        {isExpanded && (
+                        <Box
+                            component={motion.div}
+                            initial={{ opacity: 0, height: 0 }}
+                            animate={{ opacity: 1, height: "auto" }}
+                            exit={{ opacity: 0, height: 0 }}
+                            transition={{ duration: 0.3, ease: "easeInOut" }}
+                            sx={{ overflow: "hidden" }}
+                        >
+                            <Grid container spacing={4}>
+                            <Grid item xs={12} md={6}>
+                                <Box sx={{ mb: 4 }}>
+                                <Typography sx={{ color: COLORS.primaryText, fontSize: "0.875rem", fontWeight: 700, mb: 1.5, textTransform: "uppercase", letterSpacing: "0.05em" }}>Practical Activities</Typography>
+                                <Box component="ul" sx={{ pl: 2, m: 0, color: COLORS.secondaryText, fontSize: "0.95rem", lineHeight: 1.6 }}>
+                                    {domain.activities.map((activity, idx) => (
+                                        <li key={idx} style={{ marginBottom: "8px" }}>{activity}</li>
+                                    ))}
+                                </Box>
+                                </Box>
+                            </Grid>
+
+                            <Grid item xs={12} md={6}>
+                                <Box sx={{ mb: 4 }}>
+                                <Typography sx={{ color: COLORS.primaryText, fontSize: "0.875rem", fontWeight: 700, mb: 2, textTransform: "uppercase", letterSpacing: "0.05em" }}>Prerequisites</Typography>
+                                 <Box sx={{ display: "flex", flexWrap: "wrap", gap: 1 }}>
+                                    <Chip
+                                        label={domain.prerequisites}
+                                        size="small"
+                                        sx={{
+                                        bgcolor: "rgba(255,255,255,0.05)",
+                                        color: "#CBD5E1",
+                                        fontWeight: 500,
+                                        borderRadius: "6px",
+                                        fontFamily: "Inter"
+                                        }}
+                                    />
+                                </Box>
+                                </Box>
+
+                                <Box>
+                                <Typography sx={{ color: COLORS.primaryText, fontSize: "0.875rem", fontWeight: 700, mb: 1.5, textTransform: "uppercase", letterSpacing: "0.05em" }}>Learning Outcome</Typography>
+                                <Box sx={{ p: 2.5, borderRadius: "12px", bgcolor: COLORS.bgDark, border: `1px solid ${COLORS.borderCard}` }}>
+                                    <Typography sx={{ color: "#CBD5E1", fontSize: "0.95rem", lineHeight: 1.6 }}>{domain.outcome}</Typography>
+                                </Box>
+                                </Box>
+                            </Grid>
+                            </Grid>
+                        </Box>
+                        )}
+                    </AnimatePresence>
+                    </Box>
+                </Grid>
+                );
+            })}
+            </Grid>
+        </Box>
+
+        {/* 3. Workshop Delivery Model */}
+         <Box sx={{ mb: { xs: 12, md: 16 } }}>
+            <Typography variant="h3" sx={{ fontSize: { xs: "1.75rem", md: "2.25rem" }, fontWeight: 700, mb: 6, textAlign: "center", color: COLORS.primaryText }}>
+                Delivery Model
+            </Typography>
+            <Box sx={{
+                display: "flex",
+                flexWrap: "nowrap",
+                overflowX: "auto",
+                pb: 2,
+                gap: 2,
+                "&::-webkit-scrollbar": { height: "6px" },
+                "&::-webkit-scrollbar-thumb": { backgroundColor: "#CBD5E1", borderRadius: "10px" }
+            }}>
+                {workflow.map((step, index) => (
+                    <Box key={index} sx={{ minWidth: "180px", flexShrink: 0, position: "relative" }}>
+                        <Box sx={{ display: "flex", alignItems: "center", mb: 2 }}>
+                            <Box sx={{ width: "32px", height: "32px", borderRadius: "50%", bgcolor: COLORS.primaryLight, color: COLORS.primaryTextLight, display: "flex", alignItems: "center", justifyContent: "center", fontWeight: 700, fontSize: "0.875rem", zIndex: 1 }}>
+                                {step.step}
+                            </Box>
+                            {index < workflow.length - 1 && <Box sx={{ flexGrow: 1, height: "2px", bgcolor: "rgba(255,255,255,0.1)", ml: -1 }} />}
+                        </Box>
+                        <Typography sx={{ fontWeight: 600, color: "#E2E8F0", fontSize: "0.95rem" }}>{step.title}</Typography>
+                    </Box>
+                ))}
+            </Box>
+        </Box>
+
+        {/* 4. Workshop Gallery (Primary Showcase) */}
+        <Box sx={{ mb: { xs: 12, md: 16 } }}>
+             <Typography variant="h3" sx={{ fontSize: { xs: "1.75rem", md: "2.25rem" }, fontWeight: 700, mb: 6, textAlign: "center", color: COLORS.primaryText }}>
+                Real Workshops in Action
+            </Typography>
+            <Grid container spacing={2}>
+                {/* Fallback to colorful placeholder boxes if no real images exist in the system */}
+                {[
+                    { height: 300, bg: "linear-gradient(135deg, #1e3a8a 0%, #172554 100%)" },
+                    { height: 200, bg: "linear-gradient(135deg, #0f766e 0%, #134e4a 100%)" },
+                    { height: 250, bg: "linear-gradient(135deg, #b45309 0%, #78350f 100%)" },
+                    { height: 350, bg: "linear-gradient(135deg, #6d28d9 0%, #4c1d95 100%)" },
+                    { height: 200, bg: "linear-gradient(135deg, #be185d 0%, #831843 100%)" },
+                    { height: 300, bg: "linear-gradient(135deg, #0369a1 0%, #0c4a6e 100%)" },
+                ].map((item, index) => (
+                    <Grid item xs={12} sm={6} md={4} key={index}>
+                         <Box
+                            sx={{
+                                height: `${item.height}px`,
+                                borderRadius: "16px",
+                                background: item.bg,
+                                display: "flex",
+                                alignItems: "center",
+                                justifyContent: "center",
+                                overflow: "hidden",
+                                border: `1px solid ${COLORS.borderCard}`,
+                                transition: "transform 0.3s ease",
+                                "&:hover": {
+                                    transform: "scale(1.02)",
+                                    boxShadow: "0 10px 30px rgba(0,0,0,0.5)"
+                                }
+                            }}
+                         >
+                            <Typography sx={{ color: "rgba(255,255,255,0.5)", fontWeight: 600 }}>Workshop Photo {index + 1}</Typography>
+                         </Box>
+                    </Grid>
+                ))}
+            </Grid>
+        </Box>
+
+        {/* 5. Institutional Benefits */}
+        <Box sx={{ mb: { xs: 12, md: 16 } }}>
+             <Typography variant="h3" sx={{ fontSize: { xs: "1.75rem", md: "2.25rem" }, fontWeight: 700, mb: 6, textAlign: "center", color: COLORS.primaryText }}>
+                Institutional Benefits
+            </Typography>
+            <Grid container spacing={3}>
+                {benefits.map((benefit, index) => (
+                    <Grid item xs={12} sm={6} md={4} key={index}>
+                         <Box sx={{ p: 3, borderRadius: "16px", bgcolor: COLORS.bgCard, border: `1px solid ${COLORS.borderCard}`, height: "100%" }}>
+                            <Box sx={{ display: "flex", alignItems: "center", gap: 1.5, mb: 1.5 }}>
+                                <CheckCircleOutlineIcon sx={{ color: COLORS.primary }} />
+                                <Typography sx={{ color: COLORS.primaryText, fontWeight: 700, fontSize: "1.05rem" }}>{benefit.title}</Typography>
+                            </Box>
+                            <Typography sx={{ color: COLORS.secondaryText, fontSize: "0.95rem", lineHeight: 1.5 }}>{benefit.desc}</Typography>
+                         </Box>
+                    </Grid>
+                ))}
+            </Grid>
+        </Box>
+
+        {/* 6. Institutions We've Worked With */}
+        <Box sx={{ mb: { xs: 12, md: 16 }, textAlign: "center" }}>
+            <Typography variant="h3" sx={{ fontSize: { xs: "1.75rem", md: "2.25rem" }, fontWeight: 700, mb: 6, color: COLORS.primaryText }}>
+                Institutions We've Worked With
+            </Typography>
+            <Grid container spacing={4} justifyContent="center" alignItems="center">
+                 {partners.map((partner, index) => (
+                    <Grid item xs={6} sm={4} md={2} key={index}>
+                         <Box sx={{ p: 2, opacity: 0.6, transition: "opacity 0.3s", "&:hover": { opacity: 1 } }}>
+                             {/* Fallback to text if logos aren't in public dir */}
+                            <Typography sx={{ fontWeight: 800, color: COLORS.primaryText, fontSize: "1.1rem" }}>{partner.name}</Typography>
+                         </Box>
+                    </Grid>
+                ))}
+            </Grid>
+        </Box>
+
+        {/* 7. Workshop Request */}
+        <Box sx={{ maxWidth: "800px", mx: "auto" }}>
+            <Box sx={{
+                background: "linear-gradient(135deg, rgba(255,255,255,0.05) 0%, rgba(255,255,255,0.01) 100%)",
+                border: `1px solid ${COLORS.borderCard}`,
+                borderRadius: "24px",
+                p: { xs: 4, md: 6 },
+                textAlign: "center",
+                color: "#FFFFFF",
+                backdropFilter: "blur(20px)"
+            }}>
+                <Typography variant="h3" sx={{ fontSize: { xs: "1.75rem", md: "2.25rem" }, fontWeight: 700, mb: 2 }}>
+                    Bring a THAKSA.AI Workshop to Your Campus
+                </Typography>
+                 <Typography sx={{ color: COLORS.secondaryText, fontSize: "1.05rem", mb: 5, maxWidth: "600px", mx: "auto", lineHeight: 1.6 }}>
+                    Tell us about your institution, preferred domain, student strength, and schedule. Our team will prepare a customized workshop proposal.
+                </Typography>
+                <Box sx={{ display: "flex", flexDirection: { xs: "column", sm: "row" }, gap: 2, justifyContent: "center" }}>
+                     <Button
+                        component="a"
+                        href="/contact"
+                        variant="contained"
+                        startIcon={<EmailRoundedIcon />}
+                        sx={{
+                            bgcolor: COLORS.primary,
+                            color: "white",
+                            px: 4,
+                            py: 1.5,
+                            borderRadius: "12px",
+                            fontWeight: 600,
+                            textTransform: "none",
+                            fontSize: "1rem",
+                            "&:hover": { bgcolor: "#4338CA" }
+                        }}
+                    >
+                        Request Workshop Proposal
+                    </Button>
+                     <Button
+                        component="a"
+                        href="/contact"
+                        variant="outlined"
+                        sx={{
+                            bgcolor: "transparent",
+                            borderColor: "rgba(255,255,255,0.2)",
+                            color: "white",
+                            px: 4,
+                            py: 1.5,
+                            borderRadius: "12px",
+                            fontWeight: 600,
+                            textTransform: "none",
+                            fontSize: "1rem",
+                            "&:hover": { borderColor: "rgba(255,255,255,0.4)", bgcolor: "rgba(255,255,255,0.05)" }
+                        }}
+                    >
+                        Contact Our Team
+                    </Button>
+                </Box>
+            </Box>
+        </Box>
+
+      </Container>
+    </Box>
+  );
 }

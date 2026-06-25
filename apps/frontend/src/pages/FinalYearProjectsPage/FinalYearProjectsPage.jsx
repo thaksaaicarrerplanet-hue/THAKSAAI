@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Box, Container, Typography, Grid, Card, Button, Chip } from "@mui/material";
+import { Box, Container, Typography, Grid, Button, Chip } from "@mui/material";
 import { motion, AnimatePresence } from "framer-motion";
 import SmartToyIcon from "@mui/icons-material/SmartToy";
 import MemoryIcon from "@mui/icons-material/Memory";
@@ -111,10 +111,10 @@ export default function FinalYearProjectsPage() {
     <Box
       sx={{
         minHeight: "100vh",
-        bgcolor: "#F8FAFC",
+        bgcolor: "#020617",
         pt: { xs: 12, md: 16 },
         pb: { xs: 8, md: 12 },
-        color: "#0F172A",
+        color: "#F8FAFC",
       }}
     >
       <Container maxWidth="lg">
@@ -127,7 +127,7 @@ export default function FinalYearProjectsPage() {
               fontWeight: 800,
               mb: 3,
               letterSpacing: "-0.02em",
-              color: "#0F172A",
+              color: "#F8FAFC",
             }}
           >
             Build a Final Year Project <Box component="br" sx={{ display: { xs: "none", md: "block" } }}/> That Stands Out
@@ -136,7 +136,7 @@ export default function FinalYearProjectsPage() {
             variant="h2"
             sx={{
               fontSize: { xs: "1.125rem", md: "1.25rem" },
-              color: "#475569",
+              color: "#94A3B8",
               fontWeight: 400,
               lineHeight: 1.6,
               maxWidth: "700px",
@@ -149,7 +149,7 @@ export default function FinalYearProjectsPage() {
 
         {/* 2. Project Domains */}
         <Box sx={{ mb: { xs: 12, md: 16 } }}>
-             <Typography variant="h3" sx={{ fontSize: { xs: "1.75rem", md: "2.25rem" }, fontWeight: 700, mb: 6, textAlign: "center", color: "#0F172A" }}>
+             <Typography variant="h3" sx={{ fontSize: { xs: "1.75rem", md: "2.25rem" }, fontWeight: 700, mb: 6, textAlign: "center", color: "#F8FAFC" }}>
                 Explore Project Domains
             </Typography>
             <Grid container spacing={3} justifyContent="center">
@@ -162,8 +162,9 @@ export default function FinalYearProjectsPage() {
                     layout
                     onClick={() => setExpandedId(isExpanded ? null : domain.id)}
                     sx={{
-                        background: "#FFFFFF",
-                        border: "1px solid #E2E8F0",
+                        background: "rgba(255,255,255,0.02)",
+                        backdropFilter: "blur(20px)",
+                        border: "1px solid rgba(255,255,255,0.08)",
                         borderRadius: "20px",
                         p: { xs: 3, md: 4 },
                         cursor: "pointer",
@@ -172,11 +173,12 @@ export default function FinalYearProjectsPage() {
                         flexDirection: "column",
                         position: "relative",
                         overflow: "hidden",
-                        boxShadow: "0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03)",
+                        boxShadow: "none",
                         "&:hover": {
-                            borderColor: "#6366F1",
+                            borderColor: "rgba(99, 102, 241, 0.4)",
+                            background: "rgba(255,255,255,0.04)",
                             transform: isExpanded ? "none" : "translateY(-4px)",
-                            boxShadow: "0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04)"
+                            boxShadow: "0 20px 40px -20px rgba(99, 102, 241, 0.15)"
                         },
                         transition: "all 0.3s cubic-bezier(0.4, 0, 0.2, 1)"
                     }}
@@ -199,7 +201,7 @@ export default function FinalYearProjectsPage() {
                             sx={{
                             fontSize: "1.25rem",
                             fontWeight: 700,
-                            color: "#0F172A",
+                            color: "#F8FAFC",
                             mb: 1,
                             letterSpacing: "-0.01em"
                             }}
@@ -209,7 +211,7 @@ export default function FinalYearProjectsPage() {
                         <Typography
                             variant="body1"
                             sx={{
-                            color: "#475569",
+                            color: "#94A3B8",
                             fontSize: "0.95rem",
                             lineHeight: 1.5,
                             display: isExpanded ? "none" : "-webkit-box",
@@ -236,8 +238,8 @@ export default function FinalYearProjectsPage() {
                             <Grid container spacing={4}>
                             <Grid item xs={12} md={6}>
                                 <Box sx={{ mb: 4 }}>
-                                <Typography sx={{ color: "#0F172A", fontSize: "0.875rem", fontWeight: 700, mb: 1.5, textTransform: "uppercase", letterSpacing: "0.05em" }}>Example Ideas</Typography>
-                                <Box component="ul" sx={{ pl: 2, m: 0, color: "#475569", fontSize: "0.95rem", lineHeight: 1.6 }}>
+                                <Typography sx={{ color: "#F8FAFC", fontSize: "0.875rem", fontWeight: 700, mb: 1.5, textTransform: "uppercase", letterSpacing: "0.05em" }}>Example Ideas</Typography>
+                                <Box component="ul" sx={{ pl: 2, m: 0, color: "#94A3B8", fontSize: "0.95rem", lineHeight: 1.6 }}>
                                     {domain.ideas.map((idea, idx) => (
                                         <li key={idx} style={{ marginBottom: "8px" }}>{idea}</li>
                                     ))}
@@ -245,7 +247,7 @@ export default function FinalYearProjectsPage() {
                                 </Box>
 
                                 <Box>
-                                <Typography sx={{ color: "#0F172A", fontSize: "0.875rem", fontWeight: 700, mb: 2, textTransform: "uppercase", letterSpacing: "0.05em" }}>Technologies</Typography>
+                                <Typography sx={{ color: "#F8FAFC", fontSize: "0.875rem", fontWeight: 700, mb: 2, textTransform: "uppercase", letterSpacing: "0.05em" }}>Technologies</Typography>
                                 <Box sx={{ display: "flex", flexWrap: "wrap", gap: 1 }}>
                                     {domain.tech.map(tech => (
                                     <Chip
@@ -253,8 +255,8 @@ export default function FinalYearProjectsPage() {
                                         label={tech}
                                         size="small"
                                         sx={{
-                                        bgcolor: "#F1F5F9",
-                                        color: "#334155",
+                                        bgcolor: "rgba(255,255,255,0.05)",
+                                        color: "#CBD5E1",
                                         fontWeight: 500,
                                         borderRadius: "8px",
                                         fontFamily: "Inter"
@@ -267,7 +269,7 @@ export default function FinalYearProjectsPage() {
 
                             <Grid item xs={12} md={6}>
                                 <Box sx={{ mb: 4 }}>
-                                <Typography sx={{ color: "#0F172A", fontSize: "0.875rem", fontWeight: 700, mb: 2, textTransform: "uppercase", letterSpacing: "0.05em" }}>Suitable For</Typography>
+                                <Typography sx={{ color: "#F8FAFC", fontSize: "0.875rem", fontWeight: 700, mb: 2, textTransform: "uppercase", letterSpacing: "0.05em" }}>Suitable For</Typography>
                                  <Box sx={{ display: "flex", flexWrap: "wrap", gap: 1 }}>
                                     {domain.departments.map(dept => (
                                     <Chip
@@ -275,8 +277,8 @@ export default function FinalYearProjectsPage() {
                                         label={dept}
                                         size="small"
                                         sx={{
-                                        bgcolor: "rgba(99, 102, 241, 0.1)",
-                                        color: "#4F46E5",
+                                        bgcolor: "rgba(99, 102, 241, 0.15)",
+                                        color: "#A5B4FC",
                                         fontWeight: 600,
                                         borderRadius: "6px",
                                         fontFamily: "Inter"
@@ -287,9 +289,9 @@ export default function FinalYearProjectsPage() {
                                 </Box>
 
                                 <Box>
-                                <Typography sx={{ color: "#0F172A", fontSize: "0.875rem", fontWeight: 700, mb: 1.5, textTransform: "uppercase", letterSpacing: "0.05em" }}>Learning Outcome</Typography>
-                                <Box sx={{ p: 2.5, borderRadius: "12px", bgcolor: "#F8FAFC", border: "1px solid #E2E8F0" }}>
-                                    <Typography sx={{ color: "#334155", fontSize: "0.95rem", lineHeight: 1.6 }}>{domain.outcome}</Typography>
+                                <Typography sx={{ color: "#F8FAFC", fontSize: "0.875rem", fontWeight: 700, mb: 1.5, textTransform: "uppercase", letterSpacing: "0.05em" }}>Learning Outcome</Typography>
+                                <Box sx={{ p: 2.5, borderRadius: "12px", bgcolor: "#020617", border: "1px solid rgba(255,255,255,0.08)" }}>
+                                    <Typography sx={{ color: "#CBD5E1", fontSize: "0.95rem", lineHeight: 1.6 }}>{domain.outcome}</Typography>
                                 </Box>
                                 </Box>
                             </Grid>
@@ -306,15 +308,15 @@ export default function FinalYearProjectsPage() {
 
         {/* 3. What Students Receive */}
         <Box sx={{ mb: { xs: 12, md: 16 } }}>
-             <Typography variant="h3" sx={{ fontSize: { xs: "1.75rem", md: "2.25rem" }, fontWeight: 700, mb: 6, textAlign: "center", color: "#0F172A" }}>
+             <Typography variant="h3" sx={{ fontSize: { xs: "1.75rem", md: "2.25rem" }, fontWeight: 700, mb: 6, textAlign: "center", color: "#F8FAFC" }}>
                 What You Receive
             </Typography>
             <Grid container spacing={2}>
                 {deliverables.map((item, index) => (
                     <Grid item xs={12} sm={6} md={4} key={index}>
-                         <Box sx={{ display: "flex", alignItems: "center", gap: 2, p: 2, borderRadius: "12px", bgcolor: "#FFFFFF", border: "1px solid #E2E8F0" }}>
+                         <Box sx={{ display: "flex", alignItems: "center", gap: 2, p: 2, borderRadius: "12px", bgcolor: "rgba(255,255,255,0.02)", border: "1px solid rgba(255,255,255,0.08)" }}>
                             <CheckCircleOutlineIcon sx={{ color: "#10B981" }} />
-                            <Typography sx={{ color: "#334155", fontWeight: 500, fontSize: "0.95rem" }}>{item}</Typography>
+                            <Typography sx={{ color: "#CBD5E1", fontWeight: 500, fontSize: "0.95rem" }}>{item}</Typography>
                          </Box>
                     </Grid>
                 ))}
@@ -323,7 +325,7 @@ export default function FinalYearProjectsPage() {
 
         {/* 4. Project Workflow */}
         <Box sx={{ mb: { xs: 12, md: 16 } }}>
-            <Typography variant="h3" sx={{ fontSize: { xs: "1.75rem", md: "2.25rem" }, fontWeight: 700, mb: 6, textAlign: "center", color: "#0F172A" }}>
+            <Typography variant="h3" sx={{ fontSize: { xs: "1.75rem", md: "2.25rem" }, fontWeight: 700, mb: 6, textAlign: "center", color: "#F8FAFC" }}>
                 Project Workflow
             </Typography>
             <Box sx={{
@@ -338,12 +340,12 @@ export default function FinalYearProjectsPage() {
                 {workflow.map((step, index) => (
                     <Box key={index} sx={{ minWidth: "160px", flexShrink: 0, position: "relative" }}>
                         <Box sx={{ display: "flex", alignItems: "center", mb: 2 }}>
-                            <Box sx={{ width: "32px", height: "32px", borderRadius: "50%", bgcolor: "#E0E7FF", color: "#4F46E5", display: "flex", alignItems: "center", justifyContent: "center", fontWeight: 700, fontSize: "0.875rem", zIndex: 1 }}>
+                            <Box sx={{ width: "32px", height: "32px", borderRadius: "50%", bgcolor: "rgba(99, 102, 241, 0.15)", color: "#A5B4FC", display: "flex", alignItems: "center", justifyContent: "center", fontWeight: 700, fontSize: "0.875rem", zIndex: 1 }}>
                                 {step.step}
                             </Box>
-                            {index < workflow.length - 1 && <Box sx={{ flexGrow: 1, height: "2px", bgcolor: "#E2E8F0", ml: -1 }} />}
+                            {index < workflow.length - 1 && <Box sx={{ flexGrow: 1, height: "2px", bgcolor: "rgba(255,255,255,0.1)", ml: -1 }} />}
                         </Box>
-                        <Typography sx={{ fontWeight: 600, color: "#1E293B", fontSize: "0.95rem" }}>{step.title}</Typography>
+                        <Typography sx={{ fontWeight: 600, color: "#E2E8F0", fontSize: "0.95rem" }}>{step.title}</Typography>
                     </Box>
                 ))}
             </Box>
