@@ -45,3 +45,15 @@ h6 {
   min-height: 100vh;
   overflow-x: hidden;
 }
+
+::selection {
+  background: #BBF7D0;
+  color: #0F172A;
+  text-shadow: none;
+}
+
+::-moz-selection {
+  background: #BBF7D0;
+  color: #0F172A;
+  text-shadow: none;
+}
