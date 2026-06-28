@@ -47,13 +47,13 @@ h6 {
 }
 
 ::selection {
-  background: #BBF7D0;
-  color: #0F172A;
+  background: #6366F1;
+  color: #ffffff;
   text-shadow: none;
 }
 
 ::-moz-selection {
-  background: #BBF7D0;
-  color: #0F172A;
+  background: #6366F1;
+  color: #ffffff;
   text-shadow: none;
 }
