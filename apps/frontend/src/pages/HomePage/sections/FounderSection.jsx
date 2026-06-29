@@ -165,7 +165,7 @@ export default function FounderSection() {
 
         {/* LEFT COLUMN */}
         <Grid size={{ xs: 12, md: 7 }} sx={{ p: { xs: 4, md: 8, lg: 12 }, display: "flex", flexDirection: "column", justifyContent: "center", order: { xs: 1, md: 1 } }}>
-          <Box sx={{ maxWidth: 650, mx: "auto", width: "100%" }}>
+          <Box sx={{ maxWidth: "min(100%, 650px)", mx: "auto", width: "100%" }}>
 
             {/* On Mobile, show Heading, then Image, then the rest */}
             {isMobile && headingContent}

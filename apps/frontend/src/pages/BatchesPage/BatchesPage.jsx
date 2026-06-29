@@ -165,7 +165,7 @@ export default function BatchesPage() {
             sx={{
               color: "#94A3B8",
               fontSize: { xs: "16px", md: "18px" },
-              maxWidth: "600px",
+              maxWidth: "min(100%, 600px)",
               mx: "auto"
             }}
           >
@@ -317,7 +317,7 @@ export default function BatchesPage() {
           <Typography variant="h5" sx={{ color: "#F8FAFC", fontWeight: 700, mb: 1.5, fontSize: { xs: "1.25rem", md: "1.5rem" } }}>
             Not Sure Which Program Fits You?
           </Typography>
-          <Typography sx={{ color: "#94A3B8", mb: 4, maxWidth: "600px", lineHeight: 1.6 }}>
+          <Typography sx={{ color: "#94A3B8", mb: 4, maxWidth: "min(100%, 600px)", lineHeight: 1.6 }}>
             Speak with our team and receive guidance on selecting the most relevant learning pathway based on your academic background and career goals.
           </Typography>
           <Stack direction={{ xs: "column", sm: "row" }} spacing={2} sx={{ width: { xs: "100%", sm: "auto" } }}>
