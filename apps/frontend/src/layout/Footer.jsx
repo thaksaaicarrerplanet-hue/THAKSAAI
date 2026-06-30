@@ -67,14 +67,15 @@ export default function Footer() {
 
               <Stack direction="row" spacing={1.5}>
                 {[
-                  { Icon: LinkedInIcon, href: "#" },
-                  { Icon: InstagramIcon, href: "#" },
-                  { Icon: EmailRoundedIcon, href: "mailto:thaksaai@gmail.com" }
+                  { Icon: LinkedInIcon, href: "#", label: "LinkedIn" },
+                  { Icon: InstagramIcon, href: "#", label: "Instagram" },
+                  { Icon: EmailRoundedIcon, href: "mailto:thaksaai@gmail.com", label: "Email" }
                 ].map((item, idx) => (
                   <IconButton
                     key={idx}
                     component="a"
                     href={item.href}
+                    aria-label={item.label}
                     target={item.href.startsWith("mailto") ? "_self" : "_blank"}
                     rel={item.href.startsWith("mailto") ? undefined : "noopener noreferrer"}
                     sx={{

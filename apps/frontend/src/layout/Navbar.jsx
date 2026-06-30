@@ -281,6 +281,7 @@ export default function Navbar() {
 
           <IconButton
             edge="end"
+            aria-label="Open navigation menu"
             onClick={() => setMobileOpen(true)}
             sx={{
               ml: "auto",
@@ -355,6 +356,7 @@ export default function Navbar() {
               </Typography>
             </Box>
             <IconButton
+              aria-label="Close navigation menu"
               onClick={() => setMobileOpen(false)}
               sx={{
                 color: "rgba(255,255,255,0.75)",
