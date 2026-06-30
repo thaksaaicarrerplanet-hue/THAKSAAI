@@ -75,7 +75,7 @@ export default function FinalTrustSection() {
         >
           <Box
             sx={{
-              maxWidth: 800,
+              maxWidth: "min(100%, 800px)",
               mx: "auto",
               textAlign: "center",
               p: { xs: 4, md: 6 },
