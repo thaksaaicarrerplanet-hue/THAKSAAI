@@ -18,10 +18,10 @@ import TrendingUpRoundedIcon from "@mui/icons-material/TrendingUpRounded";
 import SchoolOutlinedIcon from "@mui/icons-material/SchoolOutlined";
 import MemoryRoundedIcon from "@mui/icons-material/MemoryRounded";
 
-import img1 from "./cofounder.jpeg";
-import img1 from "./1.jpeg";
-import img1 from "./2.jpeg";
-import img1 from "./3.jpeg";
+import img1 from "/cofounder.jpeg";
+import img1 from "/1.jpeg";
+import img1 from "/2.jpeg";
+import img1 from "/3.png";
 import img2 from "./IMG-20260619-WA0036.jpg";
 
 const ceoImages = [img1, img2];
