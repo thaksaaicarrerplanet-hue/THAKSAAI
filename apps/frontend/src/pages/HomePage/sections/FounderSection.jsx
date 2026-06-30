@@ -1,13 +1,11 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import {
   Box,
   Typography,
   Grid,
   Stack,
-  useTheme,
-  useMediaQuery,
 } from "@mui/material";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import CountUp from "react-countup";
 import { useInView } from "react-intersection-observer";
 
@@ -22,6 +20,8 @@ import imgMain from "./cofounder.jpg";
 import imgSecondary1 from "./1.png";
 import imgSecondary2 from "./2.jpg";
 import imgSecondary3 from "./3.png";
+
+const images = [imgMain, imgSecondary1, imgSecondary2, imgSecondary3];
 
 const PillarIcon = ({ icon, label }) => (
   <Box sx={{ display: "flex", flexDirection: "column", alignItems: "center", width: "80px" }}>
@@ -70,8 +70,14 @@ const AnimatedMetric = ({ end, suffix, label }) => {
 };
 
 export default function FounderSection() {
-  const theme = useTheme();
-  const isMobile = useMediaQuery(theme.breakpoints.down("md"));
+  const [currentIndex, setCurrentIndex] = useState(0);
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setCurrentIndex((prev) => (prev + 1) % images.length);
+    }, 3000);
+    return () => clearInterval(timer);
+  }, []);
 
   const headingContent = (
     <Box sx={{ mb: { xs: 4, md: 5 } }}>
@@ -114,150 +120,38 @@ export default function FounderSection() {
 
   const imageShowcase = (
     <Box sx={{
-      position: "relative",
+      position: "absolute",
+      top: 0,
+      left: 0,
       width: "100%",
       height: "100%",
-      minHeight: { xs: "400px", md: "100%" },
-      display: "flex",
-      alignItems: "center",
-      justifyContent: "center",
-      py: { xs: 2, md: 0 }
+      overflow: "hidden"
     }}>
-      {/* Background Glow */}
-      <Box sx={{
-        position: "absolute",
-        width: "70%",
-        height: "70%",
-        background: "radial-gradient(circle, rgba(99,102,241,0.15) 0%, rgba(11,17,32,0) 70%)",
-        top: "50%",
-        left: "50%",
-        transform: "translate(-50%, -50%)",
-        zIndex: 0,
-      }} />
-
-      {/* Main Image */}
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true }}
-        transition={{ duration: 0.8, ease: "easeOut" }}
-        style={{
-          position: "absolute",
-          width: isMobile ? "65%" : "70%",
-          height: isMobile ? "65%" : "65%",
-          top: "10%",
-          right: "5%",
-          zIndex: 2,
-        }}
-      >
-        <Box
-          component="img"
-          src={imgMain}
-          alt="CEO K. Tharunkrishna presenting during an industry-grade technology workshop"
-          loading="lazy"
-          sx={{
+      <AnimatePresence initial={false}>
+        <motion.img
+          key={currentIndex}
+          src={images[currentIndex]}
+          alt={`Founder K. Tharunkrishna ${currentIndex === 0 ? "speaking at an event" : currentIndex === 1 ? "mentoring students" : currentIndex === 2 ? "addressing an industry workshop" : "leading a training session"}`}
+          variants={{
+            enter: { x: "100%", opacity: 1 },
+            center: { x: 0, opacity: 1 },
+            exit: { x: "-100%", opacity: 1 }
+          }}
+          initial="enter"
+          animate="center"
+          exit="exit"
+          transition={{ duration: 0.8, ease: "easeInOut" }}
+          style={{
+            position: "absolute",
+            top: 0,
+            left: 0,
             width: "100%",
             height: "100%",
             objectFit: "cover",
-            borderRadius: "24px",
-            border: "8px solid #0B1120",
-            boxShadow: "0 20px 40px rgba(0,0,0,0.4)",
+            objectPosition: "center top"
           }}
         />
-      </motion.div>
-
-      {/* Secondary Image 1 - Bottom Left */}
-      <motion.div
-        initial={{ opacity: 0, x: -20 }}
-        whileInView={{ opacity: 1, x: 0 }}
-        viewport={{ once: true }}
-        transition={{ duration: 0.8, delay: 0.2, ease: "easeOut" }}
-        style={{
-          position: "absolute",
-          width: isMobile ? "50%" : "55%",
-          height: isMobile ? "45%" : "45%",
-          bottom: "5%",
-          left: "5%",
-          zIndex: 3,
-        }}
-      >
-        <Box
-          component="img"
-          src={imgSecondary1}
-          alt="Founder mentoring students on real-world engineering projects"
-          loading="lazy"
-          sx={{
-            width: "100%",
-            height: "100%",
-            objectFit: "cover",
-            borderRadius: "24px",
-            border: "8px solid #0B1120",
-            boxShadow: "0 20px 40px rgba(0,0,0,0.4)",
-          }}
-        />
-      </motion.div>
-
-      {/* Secondary Image 2 - Top Left */}
-      <motion.div
-        initial={{ opacity: 0, y: -20 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true }}
-        transition={{ duration: 0.8, delay: 0.4, ease: "easeOut" }}
-        style={{
-          position: "absolute",
-          width: isMobile ? "35%" : "40%",
-          height: isMobile ? "35%" : "35%",
-          top: "0%",
-          left: "0%",
-          zIndex: 1,
-        }}
-      >
-        <Box
-          component="img"
-          src={imgSecondary2}
-          alt="Students actively participating in a THAKSA.AI career transformation seminar"
-          loading="lazy"
-          sx={{
-            width: "100%",
-            height: "100%",
-            objectFit: "cover",
-            borderRadius: "24px",
-            border: "6px solid #0B1120",
-            opacity: 0.85,
-          }}
-        />
-      </motion.div>
-
-      {/* Secondary Image 3 - Bottom Right Floating Detail */}
-      <motion.div
-        initial={{ opacity: 0, scale: 0.8 }}
-        whileInView={{ opacity: 1, scale: 1 }}
-        viewport={{ once: true }}
-        transition={{ duration: 0.8, delay: 0.6, ease: "easeOut" }}
-        style={{
-          position: "absolute",
-          width: isMobile ? "30%" : "35%",
-          height: isMobile ? "30%" : "30%",
-          bottom: "0%",
-          right: "0%",
-          zIndex: 4,
-        }}
-      >
-        <Box
-          component="img"
-          src={imgSecondary3}
-          alt="Close-up of a collaborative learning session led by the founder"
-          loading="lazy"
-          sx={{
-            width: "100%",
-            height: "100%",
-            objectFit: "cover",
-            borderRadius: "24px",
-            border: "6px solid #0B1120",
-            boxShadow: "0 15px 30px rgba(0,0,0,0.3)",
-          }}
-        />
-      </motion.div>
+      </AnimatePresence>
     </Box>
   );
 
@@ -266,18 +160,10 @@ export default function FounderSection() {
       <Grid container sx={{ minHeight: { md: "85vh" } }}>
 
         {/* LEFT COLUMN */}
-        <Grid size={{ xs: 12, md: 7 }} sx={{ p: { xs: 4, md: 8, lg: 12 }, display: "flex", flexDirection: "column", justifyContent: "center", order: { xs: 1, md: 1 } }}>
+        <Grid size={{ xs: 12, md: 7 }} sx={{ p: { xs: 4, md: 8, lg: 12 }, display: "flex", flexDirection: "column", justifyContent: "center", order: { xs: 2, md: 1 } }}>
           <Box sx={{ maxWidth: 650, mx: "auto", width: "100%", zIndex: 5, position: 'relative' }}>
 
-            {isMobile && headingContent}
-
-            {isMobile && (
-              <Box sx={{ width: "100%", mb: 5 }}>
-                {imageShowcase}
-              </Box>
-            )}
-
-            {!isMobile && headingContent}
+            {headingContent}
 
             {/* Content Box with Premium SaaS Glassmorphism */}
             <motion.div
@@ -344,11 +230,9 @@ export default function FounderSection() {
         </Grid>
 
         {/* RIGHT COLUMN (IMAGE COMPOSITION) */}
-        {!isMobile && (
-          <Grid size={{ xs: 12, md: 5 }} sx={{ position: "relative", minHeight: "auto", order: { xs: 2, md: 2 } }}>
-            {imageShowcase}
-          </Grid>
-        )}
+        <Grid size={{ xs: 12, md: 5 }} sx={{ position: "relative", minHeight: { xs: "400px", md: "auto" }, order: { xs: 1, md: 2 } }}>
+          {imageShowcase}
+        </Grid>
 
       </Grid>
     </Box>
