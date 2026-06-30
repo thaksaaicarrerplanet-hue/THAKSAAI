@@ -1,0 +1,1 @@
+- Icon-only buttons (like Social links in the Footer and Menu/Close toggles in the Navbar) MUST always include explicit `aria-label` attributes to ensure screen readers can announce their purpose, as icons alone do not provide discernible names.
