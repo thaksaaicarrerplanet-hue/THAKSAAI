@@ -18,19 +18,10 @@ import TrendingUpRoundedIcon from "@mui/icons-material/TrendingUpRounded";
 import SchoolOutlinedIcon from "@mui/icons-material/SchoolOutlined";
 import MemoryRoundedIcon from "@mui/icons-material/MemoryRounded";
 
-import img1 from "/cofounder.jpeg";
-import img1 from "/1.jpeg";
-import img1 from "/2.jpeg";
-import img1 from "/3.png";
+import img1 from "./cofounder.jpeg";
 import img2 from "./IMG-20260619-WA0036.jpg";
 
-const ceoImages = [
-  ceoMain,
-  ceoPhoto1,
-  ceoPhoto2,
-  ceoPhoto3,
-  ceoOffice,
-];
+const ceoImages = [img1, img2];
 
 const PillarIcon = ({ icon, label }) => (
   <Box sx={{ display: "flex", flexDirection: "column", alignItems: "center", width: "80px" }}>
@@ -132,7 +123,7 @@ export default function FounderSection() {
   const imageShowcase = (
     <Box sx={{ position: "relative", width: "100%", height: "100%", minHeight: { xs: "500px", md: "100%" } }}>
       <AnimatePresence mode="wait">
-        <motion.img loading="lazy"
+        <img loading="lazy"
           key={currentIndex}
           src={ceoImages[currentIndex]}
           alt="Founder & CEO K. Tharunkrishna"
