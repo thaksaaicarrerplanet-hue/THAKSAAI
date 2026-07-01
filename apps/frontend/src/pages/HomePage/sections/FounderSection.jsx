@@ -7,7 +7,7 @@ import {
   useTheme,
   useMediaQuery,
 } from "@mui/material";
-import { AnimatePresence } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import CountUp from "react-countup";
 import { useInView } from "react-intersection-observer";
 
@@ -20,8 +20,11 @@ import MemoryRoundedIcon from "@mui/icons-material/MemoryRounded";
 
 import img1 from "./cofounder.jpeg";
 import img2 from "./IMG-20260619-WA0036.jpg";
+import img3 from "./1.jpeg";
+import img4 from "./2.jpeg";
+import img5 from "./3.jpeg";
 
-const ceoImages = [img1, img2];
+const ceoImages = [img1, img2, img3, img4,img5];
 
 const PillarIcon = ({ icon, label }) => (
   <Box sx={{ display: "flex", flexDirection: "column", alignItems: "center", width: "80px" }}>
@@ -123,7 +126,7 @@ export default function FounderSection() {
   const imageShowcase = (
     <Box sx={{ position: "relative", width: "100%", height: "100%", minHeight: { xs: "500px", md: "100%" } }}>
       <AnimatePresence mode="wait">
-        <img loading="lazy"
+        <motion.img loading="lazy"
           key={currentIndex}
           src={ceoImages[currentIndex]}
           alt="Founder & CEO K. Tharunkrishna"
