@@ -18,11 +18,11 @@ import TrendingUpRoundedIcon from "@mui/icons-material/TrendingUpRounded";
 import SchoolOutlinedIcon from "@mui/icons-material/SchoolOutlined";
 import MemoryRoundedIcon from "@mui/icons-material/MemoryRounded";
 
-import img1 from "./cofounder.jpeg";
+import img1 from "/workspaces/THAKSA_E-LEARNING/apps/frontend/src/pages/HomePage/sections/cofounder.jpg";
 import img2 from "./IMG-20260619-WA0036.jpg";
-import img3 from "./1.jpeg";
-import img4 from "./2.jpeg";
-import img5 from "./3.jpeg";
+import img3 from "/workspaces/THAKSA_E-LEARNING/apps/frontend/src/pages/HomePage/sections/1.png";
+import img4 from "/workspaces/THAKSA_E-LEARNING/apps/frontend/src/pages/HomePage/sections/2.jpg";
+import img5 from "/workspaces/THAKSA_E-LEARNING/apps/frontend/src/pages/HomePage/sections/3.png";
 
 const ceoImages = [img1, img2, img3, img4,img5];
 
