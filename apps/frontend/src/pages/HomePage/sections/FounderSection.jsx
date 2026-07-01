@@ -20,9 +20,9 @@ import MemoryRoundedIcon from "@mui/icons-material/MemoryRounded";
 
 import img1 from "./cofounder.jpg";
 import img2 from "./IMG-20260619-WA0036.jpg";
-import img3 from "./1.png";
-import img4 from "./2.png";
-import img5 from "./3.png";
+import img3 from "./1.jpg";
+import img4 from "./2.jpg";
+import img5 from "./3.jpg";
 
 const ceoImages = [img1, img2, img3, img4,img5];
 
