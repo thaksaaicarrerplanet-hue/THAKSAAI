@@ -126,7 +126,7 @@ export default function WorkshopPage() {
     >
       <Container maxWidth="lg">
         {/* 1. Compact Introduction */}
-        <Box sx={{ textAlign: "center", mb: { xs: 8, md: 12 }, maxWidth: "min(100%, 800px)", mx: "auto" }}>
+        <Box sx={{ textAlign: "center", mb: { xs: 8, md: 12 }, maxWidth: "800px", mx: "auto" }}>
           <Typography
             variant="h1"
             sx={{
@@ -146,7 +146,7 @@ export default function WorkshopPage() {
               color: COLORS.secondaryText,
               fontWeight: 400,
               lineHeight: 1.6,
-              maxWidth: "min(100%, 700px)",
+              maxWidth: "700px",
               mx: "auto"
             }}
           >
@@ -407,7 +407,7 @@ export default function WorkshopPage() {
         </Box>
 
         {/* 7. Workshop Request */}
-        <Box sx={{ maxWidth: "min(100%, 800px)", mx: "auto" }}>
+        <Box sx={{ maxWidth: "800px", mx: "auto" }}>
             <Box sx={{
                 background: "linear-gradient(135deg, rgba(255,255,255,0.05) 0%, rgba(255,255,255,0.01) 100%)",
                 border: `1px solid ${COLORS.borderCard}`,
@@ -420,7 +420,7 @@ export default function WorkshopPage() {
                 <Typography variant="h3" sx={{ fontSize: { xs: "1.75rem", md: "2.25rem" }, fontWeight: 700, mb: 2 }}>
                     Bring a THAKSA.AI Workshop to Your Campus
                 </Typography>
-                 <Typography sx={{ color: COLORS.secondaryText, fontSize: "1.05rem", mb: 5, maxWidth: "min(100%, 600px)", mx: "auto", lineHeight: 1.6 }}>
+                 <Typography sx={{ color: COLORS.secondaryText, fontSize: "1.05rem", mb: 5, maxWidth: "600px", mx: "auto", lineHeight: 1.6 }}>
                     Tell us about your institution, preferred domain, student strength, and schedule. Our team will prepare a customized workshop proposal.
                 </Typography>
                 <Box sx={{ display: "flex", flexDirection: { xs: "column", sm: "row" }, gap: 2, justifyContent: "center" }}>

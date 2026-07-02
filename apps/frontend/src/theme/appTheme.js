@@ -77,16 +77,6 @@ let appTheme = createTheme({
         },
       },
     },
-
-    MuiContainer: {
-      styleOverrides: {
-        root: {
-          maxWidth: 'min(100%, 1280px) !important',
-          marginInline: 'auto',
-          paddingInline: 'clamp(20px, 4vw, 64px) !important',
-        },
-      },
-    },
     MuiButton: {
       styleOverrides: {
         root: {

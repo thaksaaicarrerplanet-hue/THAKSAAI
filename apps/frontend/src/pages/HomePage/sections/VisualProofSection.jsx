@@ -134,7 +134,7 @@ export default function VisualProofSection() {
         top: "10%",
         left: "50%",
         transform: "translateX(-50%)",
-        width: "min(100%, 600px)",
+        width: "600px",
         height: "600px",
         background: "radial-gradient(circle, rgba(99,102,241,0.05) 0%, rgba(15,23,42,0) 70%)",
         pointerEvents: "none",
@@ -187,7 +187,7 @@ export default function VisualProofSection() {
         <Typography
           variant="h6"
           color="rgba(255,255,255,0.75)"
-          sx={{ maxWidth: "min(100%, 700px)", mx: "auto", fontWeight: 400 }}
+          sx={{ maxWidth: "700px", mx: "auto", fontWeight: 400 }}
         >
           Explore real workshops, CRT sessions, mentorship programs, and hands-on learning experiences that prepare students for industry careers.
         </Typography>
@@ -212,7 +212,7 @@ export default function VisualProofSection() {
             <Typography variant="h4" fontWeight={700} color="white" sx={{ mb: 2 }}>
               Building Industry-Ready Professionals Through Practical Learning
             </Typography>
-            <Typography variant="body1" color="rgba(255,255,255,0.75)" sx={{ mb: 5, maxWidth: "min(100%, 600px)", mx: "auto" }}>
+            <Typography variant="body1" color="rgba(255,255,255,0.75)" sx={{ mb: 5, maxWidth: "600px", mx: "auto" }}>
               Real workshops, real classrooms, real mentorship, and real career-focused learning experiences.
             </Typography>
 

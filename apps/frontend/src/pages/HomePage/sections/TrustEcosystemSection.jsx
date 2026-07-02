@@ -98,7 +98,7 @@ export default function TrustEcosystemSection() {
           <Typography
             sx={{
               color: "#94A3B8",
-              maxWidth: "min(100%, 700px)",
+              maxWidth: "700px",
               mx: "auto",
               fontSize: "18px",
               lineHeight: 1.6,

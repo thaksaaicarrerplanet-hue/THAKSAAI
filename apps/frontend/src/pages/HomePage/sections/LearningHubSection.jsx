@@ -65,7 +65,7 @@ export default function LearningHubSection() {
             fontSize: "1.1rem",
             lineHeight: 1.6,
             mb: 6,
-            maxWidth: "min(100%, 800px)",
+            maxWidth: "800px",
             mx: "auto"
           }}
         >

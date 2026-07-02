@@ -98,7 +98,7 @@ export default function LearnerOutcomesSection() {
         <Stack spacing={{ xs: 6, md: 8 }}>
           {/* Header Section */}
           <Box sx={{ display: 'flex', flexDirection: { xs: 'column', md: 'row' }, justifyContent: 'space-between', alignItems: { xs: 'flex-start', md: 'flex-end' }, gap: 4 }}>
-            <Box sx={{ maxWidth: "min(100%, 600px)" }}>
+            <Box sx={{ maxWidth: "600px" }}>
               <div
               >
                 <Typography

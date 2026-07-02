@@ -419,7 +419,7 @@ export default function HeroSection() {
             <Typography
               sx={{
                 color: "#94a3b8",
-                maxWidth: "min(100%, 650px)",
+                maxWidth: "650px",
                 mx: { xs: "auto", lg: 0 },
                 lineHeight: 1.7,
                 mb: { xs: 4, md: 6 },
