@@ -149,7 +149,7 @@ export default function LeadershipTeamSection() {
                 sx={{
                   color: "#64748b",
                   fontSize: { xs: "1rem", md: "1.25rem" },
-                  maxWidth: "min(100%, 800px)",
+                  maxWidth: "800px",
                   mx: "auto",
                   lineHeight: 1.6,
                 }}

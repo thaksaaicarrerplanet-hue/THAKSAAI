@@ -17,7 +17,7 @@ export default function CollegeCrtSection() {
   return (
     <Box sx={{ bgcolor: "#020B2D", py: { xs: 8, md: 12 }, position: "relative" }}>
       <Container maxWidth="lg">
-        <Box sx={{ textAlign: "center", mb: { xs: 6, md: 8 }, maxWidth: "min(100%, 800px)", mx: "auto" }}>
+        <Box sx={{ textAlign: "center", mb: { xs: 6, md: 8 }, maxWidth: 800, mx: "auto" }}>
           <Typography
             variant="h2"
             sx={{

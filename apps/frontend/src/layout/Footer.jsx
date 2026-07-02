@@ -27,7 +27,7 @@ export default function Footer() {
           left: "50%",
           transform: "translateX(-50%)",
           width: "100%",
-          maxWidth: "min(100%, 1000px)",
+          maxWidth: "1000px",
           height: "400px",
           background: "radial-gradient(ellipse at top center, rgba(79,70,229,0.06), transparent 70%)",
           pointerEvents: "none",

@@ -4,8 +4,6 @@ import {
   Typography,
   Grid,
   Stack,
-  useTheme,
-  useMediaQuery,
 } from "@mui/material";
 import { motion, AnimatePresence } from "framer-motion";
 import CountUp from "react-countup";
@@ -18,13 +16,12 @@ import TrendingUpRoundedIcon from "@mui/icons-material/TrendingUpRounded";
 import SchoolOutlinedIcon from "@mui/icons-material/SchoolOutlined";
 import MemoryRoundedIcon from "@mui/icons-material/MemoryRounded";
 
-import img1 from "./cofounder.jpg";
-import img2 from "./IMG-20260619-WA0036.jpg";
-import img3 from "./1.jpg";
-import img4 from "./2.jpg";
-import img5 from "./3.jpg";
+import imgMain from "./cofounder.jpg";
+import imgSecondary1 from "./1.png";
+import imgSecondary2 from "./2.jpg";
+import imgSecondary3 from "./3.png";
 
-const ceoImages = [img1, img2, img3, img4,img5];
+const images = [imgMain, imgSecondary1, imgSecondary2, imgSecondary3];
 
 const PillarIcon = ({ icon, label }) => (
   <Box sx={{ display: "flex", flexDirection: "column", alignItems: "center", width: "80px" }}>
@@ -32,21 +29,22 @@ const PillarIcon = ({ icon, label }) => (
       width: 48,
       height: 48,
       borderRadius: "50%",
-      border: "2px solid #1976d2",
+      border: "1px solid rgba(99, 102, 241, 0.3)",
+      background: "rgba(99, 102, 241, 0.05)",
       display: "flex",
       alignItems: "center",
       justifyContent: "center",
       mb: 1.5,
-      color: "#1976d2",
+      color: "#6366F1",
       transition: "all 0.3s ease",
       "&:hover": {
-        bgcolor: "#1976d2",
-        color: "#ffffff"
+        background: "rgba(99, 102, 241, 0.15)",
+        transform: "translateY(-2px)"
       }
     }}>
       {icon}
     </Box>
-    <Typography sx={{ color: "#475569", fontSize: "0.8rem", fontWeight: 600, textAlign: "center" }}>
+    <Typography sx={{ color: "#94A3B8", fontSize: "0.8rem", fontWeight: 600, textAlign: "center" }}>
       {label}
     </Typography>
   </Box>
@@ -60,11 +58,11 @@ const AnimatedMetric = ({ end, suffix, label }) => {
 
   return (
     <Box ref={ref}>
-      <Typography sx={{ color: "#ffffff", fontWeight: 800, fontSize: "1.75rem", mb: -0.5 }}>
+      <Typography sx={{ color: "#F8FAFC", fontWeight: 800, fontSize: "1.75rem", mb: -0.5 }}>
         {inView ? <CountUp end={end} duration={2.5} /> : "0"}
         {suffix}
       </Typography>
-      <Typography sx={{ color: "#1976d2", fontSize: "0.8rem", textTransform: "uppercase", fontWeight: 700, letterSpacing: 0.5 }}>
+      <Typography sx={{ color: "#6366F1", fontSize: "0.8rem", textTransform: "uppercase", fontWeight: 700, letterSpacing: 0.5 }}>
         {label}
       </Typography>
     </Box>
@@ -73,13 +71,11 @@ const AnimatedMetric = ({ end, suffix, label }) => {
 
 export default function FounderSection() {
   const [currentIndex, setCurrentIndex] = useState(0);
-  const theme = useTheme();
-  const isMobile = useMediaQuery(theme.breakpoints.down("md"));
 
   useEffect(() => {
     const timer = setInterval(() => {
-      setCurrentIndex((prevIndex) => (prevIndex + 1) % ceoImages.length);
-    }, 6000);
+      setCurrentIndex((prev) => (prev + 1) % images.length);
+    }, 3000);
     return () => clearInterval(timer);
   }, []);
 
@@ -89,7 +85,7 @@ export default function FounderSection() {
         variant="h6"
         sx={{
           fontWeight: 600,
-          color: "#1976d2",
+          color: "#6366F1",
           mb: 1,
           letterSpacing: 1.5,
           textTransform: "uppercase",
@@ -102,9 +98,8 @@ export default function FounderSection() {
         variant="h2"
         sx={{
           fontWeight: 800,
-          color: "#ffffff",
+          color: "#F8FAFC",
           mb: 1.5,
-
           lineHeight: 1.1,
           letterSpacing: "-0.02em"
         }}
@@ -113,7 +108,7 @@ export default function FounderSection() {
       </Typography>
       <Typography
         sx={{
-          color: "#64748b",
+          color: "#94A3B8",
           fontWeight: 500,
           fontSize: { xs: "1rem", md: "1.1rem", lg: "1.2rem" },
         }}
@@ -124,41 +119,39 @@ export default function FounderSection() {
   );
 
   const imageShowcase = (
-    <Box sx={{ position: "relative", width: "100%", height: "100%", minHeight: { xs: "500px", md: "100%" } }}>
-      <AnimatePresence mode="wait">
-        <motion.img loading="lazy"
+    <Box sx={{
+      position: "absolute",
+      top: 0,
+      left: 0,
+      width: "100%",
+      height: "100%",
+      overflow: "hidden"
+    }}>
+      <AnimatePresence initial={false}>
+        <motion.img
           key={currentIndex}
-          src={ceoImages[currentIndex]}
-          alt="Founder & CEO K. Tharunkrishna"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          exit={{ opacity: 0 }}
-          transition={{ duration: 1 }}
+          src={images[currentIndex]}
+          alt={`Founder K. Tharunkrishna ${currentIndex === 0 ? "speaking at an event" : currentIndex === 1 ? "mentoring students" : currentIndex === 2 ? "addressing an industry workshop" : "leading a training session"}`}
+          variants={{
+            enter: { x: "100%", opacity: 1 },
+            center: { x: 0, opacity: 1 },
+            exit: { x: "-100%", opacity: 1 }
+          }}
+          initial="enter"
+          animate="center"
+          exit="exit"
+          transition={{ duration: 0.8, ease: "easeInOut" }}
           style={{
             position: "absolute",
+            top: 0,
+            left: 0,
             width: "100%",
             height: "100%",
             objectFit: "cover",
-            objectPosition: "center top",
+            objectPosition: "center top"
           }}
         />
       </AnimatePresence>
-
-      {/* Elegant Corporate Banner */}
-      <Box sx={{
-        position: "absolute",
-        bottom: { xs: 20, md: 40 },
-        left: 0,
-        bgcolor: "#1976d2",
-        py: 2,
-        px: 4,
-        borderRight: "4px solid #ffffff",
-        boxShadow: "0 4px 20px rgba(0,0,0,0.15)"
-      }}>
-        <Typography sx={{ color: "#ffffff", fontWeight: 700, fontSize: "1.1rem", letterSpacing: 0.5 }}>
-          CEO <span style={{ fontWeight: 400, opacity: 0.9 }}>| K. Tharunkrishna</span>
-        </Typography>
-      </Box>
     </Box>
   );
 
@@ -167,67 +160,79 @@ export default function FounderSection() {
       <Grid container sx={{ minHeight: { md: "85vh" } }}>
 
         {/* LEFT COLUMN */}
-        <Grid size={{ xs: 12, md: 7 }} sx={{ p: { xs: 4, md: 8, lg: 12 }, display: "flex", flexDirection: "column", justifyContent: "center", order: { xs: 1, md: 1 } }}>
-          <Box sx={{ maxWidth: "min(100%, 650px)", mx: "auto", width: "100%" }}>
+        <Grid size={{ xs: 12, md: 7 }} sx={{ p: { xs: 4, md: 8, lg: 12 }, display: "flex", flexDirection: "column", justifyContent: "center", order: { xs: 2, md: 1 } }}>
+          <Box sx={{ maxWidth: 650, mx: "auto", width: "100%", zIndex: 5, position: 'relative' }}>
 
-            {/* On Mobile, show Heading, then Image, then the rest */}
-            {isMobile && headingContent}
+            {headingContent}
 
-            {isMobile && (
-              <Box sx={{ width: "100%", mb: 5, borderRadius: 2, overflow: "hidden" }}>
-                {imageShowcase}
+            {/* Content Box with Premium SaaS Glassmorphism */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6 }}
+            >
+              <Box sx={{
+                display: "flex",
+                alignItems: "flex-start",
+                background: "rgba(255,255,255,0.03)",
+                backdropFilter: "blur(20px)",
+                border: "1px solid rgba(255,255,255,0.08)",
+                borderLeft: "4px solid #6366F1",
+                p: 4,
+                mb: 6,
+                borderRadius: "16px"
+              }}>
+                <Box sx={{ mr: 3, color: "#6366F1", display: { xs: "none", sm: "block" }, mt: 0.5 }}>
+                  <MemoryRoundedIcon sx={{ fontSize: 40 }} />
+                </Box>
+                <Box>
+                  <Typography sx={{ color: "#E2E8F0", fontSize: "1.05rem", fontWeight: 600, fontStyle: "italic", lineHeight: 1.7, mb: 2 }}>
+                    "Building industry-ready professionals through practical learning, mentorship, and career-focused training."
+                  </Typography>
+                  <Typography sx={{ color: "#94A3B8", fontSize: "0.95rem", lineHeight: 1.8 }}>
+                    Driven by a vision to bridge the gap between academic education and industry demands, K. Tharunkrishna has dedicated his career to empowering students. Through rigorous Campus Recruitment Training (CRT) and real-world technology education, he transforms learners into industry-ready professionals.
+                  </Typography>
+                </Box>
               </Box>
-            )}
-
-            {!isMobile && headingContent}
-
-            {/* Content Box with Refined Blue Border */}
-            <Box sx={{
-              display: "flex",
-              alignItems: "flex-start",
-              bgcolor: "#f8fafc",
-              borderLeft: "4px solid #1976d2",
-              p: 4,
-              mb: 6,
-              borderRadius: "0 8px 8px 0"
-            }}>
-              <Box sx={{ mr: 3, color: "#1976d2", display: { xs: "none", sm: "block" }, mt: 0.5 }}>
-                <MemoryRoundedIcon sx={{ fontSize: 40 }} />
-              </Box>
-              <Box>
-                <Typography sx={{ color: "#334155", fontSize: "1.05rem", fontWeight: 600, fontStyle: "italic", lineHeight: 1.7, mb: 2 }}>
-                  "Building industry-ready professionals through practical learning, mentorship, and career-focused training."
-                </Typography>
-                <Typography sx={{ color: "#475569", fontSize: "0.95rem", lineHeight: 1.8 }}>
-                  Driven by a vision to bridge the gap between academic education and industry demands, K. Tharunkrishna has dedicated his career to empowering students. Through rigorous Campus Recruitment Training (CRT) and real-world technology education, he transforms learners into industry-ready professionals.
-                </Typography>
-              </Box>
-            </Box>
+            </motion.div>
 
             {/* Four Pillars */}
-            <Stack direction="row" spacing={{ xs: 1, sm: 3 }} justifyContent="space-between" sx={{ maxWidth: 500, mb: 2 }}>
-              <PillarIcon icon={<StarBorderRoundedIcon />} label="Leadership" />
-              <PillarIcon icon={<PeopleOutlineRoundedIcon />} label="Impact" />
-              <PillarIcon icon={<TrendingUpRoundedIcon />} label="Readiness" />
-              <PillarIcon icon={<SchoolOutlinedIcon />} label="Expertise" />
-            </Stack>
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6, delay: 0.2 }}
+            >
+              <Stack direction="row" spacing={{ xs: 1, sm: 3 }} justifyContent="space-between" sx={{ maxWidth: 500, mb: 2 }}>
+                <PillarIcon icon={<StarBorderRoundedIcon />} label="Leadership" />
+                <PillarIcon icon={<PeopleOutlineRoundedIcon />} label="Impact" />
+                <PillarIcon icon={<TrendingUpRoundedIcon />} label="Readiness" />
+                <PillarIcon icon={<SchoolOutlinedIcon />} label="Expertise" />
+              </Stack>
+            </motion.div>
 
             {/* Refined Metrics */}
-            <Stack direction="row" spacing={{ xs: 4, md: 6 }} sx={{ mt: 6, pt: 4, borderTop: "1px solid #e2e8f0" }}>
-              <AnimatedMetric end={1000} suffix="+" label="Trained" />
-              <AnimatedMetric end={50} suffix="+" label="Programs" />
-              <AnimatedMetric end={40} suffix="+" label="Workshops" />
-            </Stack>
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6, delay: 0.3 }}
+            >
+              <Stack direction="row" spacing={{ xs: 4, md: 6 }} sx={{ mt: 6, pt: 4, borderTop: "1px solid rgba(255,255,255,0.08)" }}>
+                <AnimatedMetric end={1000} suffix="+" label="Trained" />
+                <AnimatedMetric end={50} suffix="+" label="Programs" />
+                <AnimatedMetric end={40} suffix="+" label="Workshops" />
+              </Stack>
+            </motion.div>
 
           </Box>
         </Grid>
 
-        {/* RIGHT COLUMN (IMAGE) - Hidden on Mobile since it's injected above */}
-        {!isMobile && (
-          <Grid size={{ xs: 12, md: 5 }} sx={{ position: "relative", minHeight: "auto", order: { xs: 2, md: 2 } }}>
-            {imageShowcase}
-          </Grid>
-        )}
+        {/* RIGHT COLUMN (IMAGE COMPOSITION) */}
+        <Grid size={{ xs: 12, md: 5 }} sx={{ position: "relative", minHeight: { xs: "400px", md: "auto" }, order: { xs: 1, md: 2 } }}>
+          {imageShowcase}
+        </Grid>
 
       </Grid>
     </Box>

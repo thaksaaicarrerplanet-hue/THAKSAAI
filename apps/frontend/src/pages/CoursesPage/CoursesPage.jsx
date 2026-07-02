@@ -98,7 +98,7 @@ export default function CoursesPage() {
       />
 
       <Container maxWidth="lg" sx={{ position: "relative", zIndex: 1 }}>
-        <Box sx={{ textAlign: "center", mb: { xs: 6, md: 10 }, maxWidth: "min(100%, 800px)", mx: "auto" }}>
+        <Box sx={{ textAlign: "center", mb: { xs: 6, md: 10 }, maxWidth: "800px", mx: "auto" }}>
           <Typography
             variant="h1"
             sx={{
@@ -120,7 +120,7 @@ export default function CoursesPage() {
               color: "#94A3B8",
               fontWeight: 400,
               lineHeight: 1.6,
-              maxWidth: "min(100%, 700px)",
+              maxWidth: "700px",
               mx: "auto"
             }}
           >
