@@ -119,7 +119,7 @@ export default function FinalYearProjectsPage() {
     >
       <Container maxWidth="lg">
         {/* 1. Clean Introduction */}
-        <Box sx={{ textAlign: "center", mb: { xs: 8, md: 12 }, maxWidth: "800px", mx: "auto" }}>
+        <Box sx={{ textAlign: "center", mb: { xs: 8, md: 12 }, maxWidth: "min(100%, 800px)", mx: "auto" }}>
           <Typography
             variant="h1"
             sx={{
@@ -139,7 +139,7 @@ export default function FinalYearProjectsPage() {
               color: "#94A3B8",
               fontWeight: 400,
               lineHeight: 1.6,
-              maxWidth: "700px",
+              maxWidth: "min(100%, 700px)",
               mx: "auto"
             }}
           >
@@ -352,7 +352,7 @@ export default function FinalYearProjectsPage() {
         </Box>
 
         {/* 5. Final CTA */}
-        <Box sx={{ maxWidth: "700px", mx: "auto" }}>
+        <Box sx={{ maxWidth: "min(100%, 700px)", mx: "auto" }}>
             <Box sx={{
                 background: "linear-gradient(135deg, #0F172A 0%, #1E293B 100%)",
                 borderRadius: "24px",

@@ -67,7 +67,7 @@ export default function PricingPage() {
           <Typography variant="h4" sx={{ fontWeight: 700 }}>
             Pricing Plans
           </Typography>
-          <Typography color="text.secondary" sx={{ maxWidth: 760, mx: "auto" }}>
+          <Typography color="text.secondary" sx={{ maxWidth: "min(100%, 760px)", mx: "auto" }}>
             Transparent pricing designed for structured learning and consistent progress.
           </Typography>
         </Stack>

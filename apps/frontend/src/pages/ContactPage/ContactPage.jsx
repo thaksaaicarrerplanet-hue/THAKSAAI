@@ -153,7 +153,7 @@ ${formData.additionalNotes || "N/A"}`;
             sx={{
               color: "#94A3B8",
               fontSize: { xs: "1rem", md: "1.125rem" },
-              maxWidth: "800px",
+              maxWidth: "min(100%, 800px)",
               mx: "auto",
               lineHeight: 1.6,
             }}

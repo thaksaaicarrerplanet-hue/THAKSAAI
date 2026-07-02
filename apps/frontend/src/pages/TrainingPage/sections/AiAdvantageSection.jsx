@@ -16,7 +16,7 @@ export default function AiAdvantageSection() {
   return (
     <Box sx={{ bgcolor: "#0B1228", py: { xs: 8, md: 12 }, position: "relative" }}>
       <Container maxWidth="lg">
-        <Box sx={{ textAlign: "center", mb: { xs: 6, md: 8 }, maxWidth: 800, mx: "auto" }}>
+        <Box sx={{ textAlign: "center", mb: { xs: 6, md: 8 }, maxWidth: "min(100%, 800px)", mx: "auto" }}>
           <Typography
             sx={{
               color: "#8B5CF6",
