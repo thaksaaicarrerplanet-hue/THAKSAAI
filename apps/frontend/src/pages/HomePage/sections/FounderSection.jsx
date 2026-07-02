@@ -17,9 +17,9 @@ import SchoolOutlinedIcon from "@mui/icons-material/SchoolOutlined";
 import MemoryRoundedIcon from "@mui/icons-material/MemoryRounded";
 
 import imgMain from "./cofounder.jpg";
-import imgSecondary1 from "./1.jpg";
+import imgSecondary1 from "./1.png";
 import imgSecondary2 from "./2.jpg";
-import imgSecondary3 from "./3.jpg";
+import imgSecondary3 from "./3.png";
 
 const images = [imgMain, imgSecondary1, imgSecondary2, imgSecondary3];
 
@@ -128,7 +128,7 @@ export default function FounderSection() {
       overflow: "hidden"
     }}>
       <AnimatePresence initial={false}>
-        <motion.img loading="lazy" decoding="async"
+        <motion.img
           key={currentIndex}
           src={images[currentIndex]}
           alt={`Founder K. Tharunkrishna ${currentIndex === 0 ? "speaking at an event" : currentIndex === 1 ? "mentoring students" : currentIndex === 2 ? "addressing an industry workshop" : "leading a training session"}`}
