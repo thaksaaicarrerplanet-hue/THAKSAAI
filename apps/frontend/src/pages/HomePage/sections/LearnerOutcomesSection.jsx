@@ -142,6 +142,7 @@ export default function LearnerOutcomesSection() {
             <Stack direction="row" spacing={2} sx={{ display: { xs: 'none', md: 'flex' } }}>
               <IconButton
                 onClick={() => scroll("left")}
+                aria-label="Previous Testimonial"
                 sx={{
                   color: 'white',
                   border: '1px solid rgba(255,255,255,0.2)',
@@ -152,6 +153,7 @@ export default function LearnerOutcomesSection() {
               </IconButton>
               <IconButton
                 onClick={() => scroll("right")}
+                aria-label="Next Testimonial"
                 sx={{
                   color: 'white',
                   border: '1px solid rgba(255,255,255,0.2)',
@@ -276,6 +278,7 @@ export default function LearnerOutcomesSection() {
             <Box sx={{ display: "flex", justifyContent: "center", gap: 2, mt: 4 }}>
               <IconButton
                 onClick={handlePrev}
+                aria-label="Previous Testimonial"
                 sx={{
                   color: "rgba(255, 255, 255, 0.7)",
                   border: "1px solid rgba(255, 255, 255, 0.2)",
@@ -290,6 +293,7 @@ export default function LearnerOutcomesSection() {
               </IconButton>
               <IconButton
                 onClick={handleNext}
+                aria-label="Next Testimonial"
                 sx={{
                   color: "rgba(255, 255, 255, 0.7)",
                   border: "1px solid rgba(255, 255, 255, 0.2)",
