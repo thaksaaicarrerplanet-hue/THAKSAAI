@@ -17,9 +17,9 @@ import SchoolOutlinedIcon from "@mui/icons-material/SchoolOutlined";
 import MemoryRoundedIcon from "@mui/icons-material/MemoryRounded";
 
 import imgMain from "./cofounder.jpg";
-import imgSecondary1 from "./1.png";
+import imgSecondary1 from "./1.jpg";
 import imgSecondary2 from "./2.jpg";
-import imgSecondary3 from "./3.png";
+import imgSecondary3 from "./3.jpg";
 
 const images = [imgMain, imgSecondary1, imgSecondary2, imgSecondary3];
 
