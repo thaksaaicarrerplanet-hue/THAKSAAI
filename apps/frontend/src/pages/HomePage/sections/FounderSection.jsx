@@ -128,7 +128,7 @@ export default function FounderSection() {
       overflow: "hidden"
     }}>
       <AnimatePresence initial={false}>
-        <motion.img
+        <motion.img loading="lazy" decoding="async"
           key={currentIndex}
           src={images[currentIndex]}
           alt={`Founder K. Tharunkrishna ${currentIndex === 0 ? "speaking at an event" : currentIndex === 1 ? "mentoring students" : currentIndex === 2 ? "addressing an industry workshop" : "leading a training session"}`}
