@@ -9,6 +9,12 @@ import RouterIcon from "@mui/icons-material/Router";
 import CheckCircleOutlineIcon from "@mui/icons-material/CheckCircleOutline";
 import EmailRoundedIcon from "@mui/icons-material/EmailRounded";
 
+import { IconButton, Modal, Backdrop, Fade } from "@mui/material";
+import CloseIcon from "@mui/icons-material/Close";
+import ArrowBackIosNewIcon from "@mui/icons-material/ArrowBackIosNew";
+import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
+
+
 const COLORS = {
     bgDark: "#020617",
     primaryText: "#F8FAFC",
@@ -19,6 +25,19 @@ const COLORS = {
     primaryLight: "rgba(79, 70, 229, 0.15)",
     primaryTextLight: "#A5B4FC"
 };
+
+
+const workshopImages = [
+    { src: "/IMG-20260619-WA0004.jpg", alt: "Trainer introduction and workshop kickoff", height: 320 },
+    { src: "/IMG-20260619-WA0011.jpg", alt: "Student engagement during interactive sessions", height: 240 },
+    { src: "/IMG-20260619-WA0009.jpg", alt: "Hands-on practical session with laptops", height: 400 },
+    { src: "/IMG-20260619-WA0023.jpg", alt: "Team collaboration and group problem solving", height: 280 },
+    { src: "/IMG-20260619-WA0006.jpg", alt: "Classroom interaction and Q&A", height: 350 },
+    { src: "/IMG-20260619-WA0007.jpg", alt: "Faculty interaction and discussion", height: 260 },
+    { src: "/IMG-20260619-WA0012.jpg", alt: "Certificate distribution ceremony", height: 300 },
+    { src: "/IMG-20260619-WA0038.jpg", alt: "Group photograph of students and trainers", height: 380 },
+    { src: "/IMG-20260619-WA0022.jpg", alt: "Workshop outcomes and successful completion", height: 250 }
+];
 
 const domains = [
   {
@@ -106,6 +125,45 @@ const partners = [
 
 
 export default function WorkshopPage() {
+
+  // Lightbox state
+  const [lightboxOpen, setLightboxOpen] = useState(false);
+  const [currentImageIndex, setCurrentImageIndex] = useState(0);
+
+  const openLightbox = (index) => {
+    setCurrentImageIndex(index);
+    setLightboxOpen(true);
+  };
+
+  const closeLightbox = () => {
+    setLightboxOpen(false);
+  };
+
+  const nextImage = (e) => {
+    if (e) e.stopPropagation();
+    setCurrentImageIndex((prev) => (prev + 1) % workshopImages.length);
+  };
+
+  const prevImage = (e) => {
+    if (e) e.stopPropagation();
+    setCurrentImageIndex((prev) => (prev === 0 ? workshopImages.length - 1 : prev - 1));
+  };
+
+  useEffect(() => {
+    const handleKeyDown = (e) => {
+      if (!lightboxOpen) return;
+      if (e.key === 'ArrowRight') {
+        nextImage();
+      } else if (e.key === 'ArrowLeft') {
+        prevImage();
+      } else if (e.key === 'Escape') {
+        closeLightbox();
+      }
+    };
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [lightboxOpen]);
+
   const [expandedId, setExpandedId] = useState(null);
 
   useEffect(() => {
@@ -329,44 +387,169 @@ export default function WorkshopPage() {
             </Box>
         </Box>
 
+
         {/* 4. Workshop Gallery (Primary Showcase) */}
         <Box sx={{ mb: { xs: 12, md: 16 } }}>
-             <Typography variant="h3" sx={{ fontSize: { xs: "1.75rem", md: "2.25rem" }, fontWeight: 700, mb: 6, textAlign: "center", color: COLORS.primaryText }}>
+             <Typography variant="h3" sx={{ fontSize: { xs: "1.75rem", md: "2.25rem" }, fontWeight: 700, mb: 2, textAlign: "center", color: COLORS.primaryText }}>
                 Real Workshops in Action
             </Typography>
-            <Grid container spacing={2}>
-                {/* Fallback to colorful placeholder boxes if no real images exist in the system */}
-                {[
-                    { height: 300, bg: "linear-gradient(135deg, #1e3a8a 0%, #172554 100%)" },
-                    { height: 200, bg: "linear-gradient(135deg, #0f766e 0%, #134e4a 100%)" },
-                    { height: 250, bg: "linear-gradient(135deg, #b45309 0%, #78350f 100%)" },
-                    { height: 350, bg: "linear-gradient(135deg, #6d28d9 0%, #4c1d95 100%)" },
-                    { height: 200, bg: "linear-gradient(135deg, #be185d 0%, #831843 100%)" },
-                    { height: 300, bg: "linear-gradient(135deg, #0369a1 0%, #0c4a6e 100%)" },
-                ].map((item, index) => (
-                    <Grid item xs={12} sm={6} md={4} key={index}>
-                         <Box
+            <Typography sx={{ color: COLORS.secondaryText, fontSize: "1.1rem", textAlign: "center", mb: 6, maxWidth: "800px", mx: "auto", fontStyle: "italic" }}>
+                Explore real classroom sessions, industry workshops, mentorship programs, and hands-on learning experiences delivered across engineering colleges.
+            </Typography>
+            <Box
+                sx={{
+                    columnCount: { xs: 1, sm: 2, md: 3, lg: 4 },
+                    columnGap: "16px",
+                    "& > div": {
+                        breakInside: "avoid",
+                        mb: "16px",
+                    }
+                }}
+            >
+                {workshopImages.map((item, index) => (
+                    <Box key={index}>
+                        <Box
+                            onClick={() => openLightbox(index)}
                             sx={{
+                                position: "relative",
+                                width: "100%",
                                 height: `${item.height}px`,
-                                borderRadius: "16px",
-                                background: item.bg,
-                                display: "flex",
-                                alignItems: "center",
-                                justifyContent: "center",
+                                borderRadius: "20px",
                                 overflow: "hidden",
-                                border: `1px solid ${COLORS.borderCard}`,
-                                transition: "transform 0.3s ease",
+                                border: `1px solid rgba(255,255,255,0.1)`,
+                                cursor: "pointer",
+                                transition: "all 0.4s cubic-bezier(0.4, 0, 0.2, 1)",
+                                transform: "translateZ(0)",
                                 "&:hover": {
-                                    transform: "scale(1.02)",
-                                    boxShadow: "0 10px 30px rgba(0,0,0,0.5)"
+                                    transform: "scale(1.03)",
+                                    boxShadow: "0 20px 40px rgba(0,0,0,0.5)",
+                                    "& img": {
+                                        filter: "brightness(1.1)",
+                                    }
                                 }
                             }}
-                         >
-                            <Typography sx={{ color: "rgba(255,255,255,0.5)", fontWeight: 600 }}>Workshop Photo {index + 1}</Typography>
-                         </Box>
-                    </Grid>
+                        >
+                            <img
+                                src={item.src}
+                                alt={item.alt}
+                                loading="lazy"
+                                style={{
+                                    width: "100%",
+                                    height: "100%",
+                                    objectFit: "cover",
+                                    transition: "filter 0.4s ease",
+                                }}
+                            />
+                        </Box>
+                    </Box>
                 ))}
-            </Grid>
+            </Box>
+
+            {/* Interactive Lightbox */}
+            <Modal
+                open={lightboxOpen}
+                onClose={closeLightbox}
+                closeAfterTransition
+                slots={{ backdrop: Backdrop }}
+                slotProps={{
+                    backdrop: {
+                        timeout: 500,
+                        sx: {
+                            backgroundColor: "rgba(0, 0, 0, 0.9)",
+                            backdropFilter: "blur(10px)",
+                        }
+                    }
+                }}
+                sx={{
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    zIndex: 9999
+                }}
+                aria-labelledby="lightbox-modal"
+                aria-describedby="full-screen-image-gallery"
+            >
+                <Fade in={lightboxOpen}>
+                    <Box sx={{
+                        position: "relative",
+                        width: "100vw",
+                        height: "100vh",
+                        display: "flex",
+                        alignItems: "center",
+                        justifyContent: "center",
+                        outline: "none"
+                    }}>
+                        <IconButton
+                            onClick={closeLightbox}
+                            aria-label="Close gallery"
+                            sx={{
+                                position: "absolute",
+                                top: { xs: 16, md: 32 },
+                                right: { xs: 16, md: 32 },
+                                color: "white",
+                                bgcolor: "rgba(255,255,255,0.1)",
+                                backdropFilter: "blur(4px)",
+                                "&:hover": { bgcolor: "rgba(255,255,255,0.2)" },
+                                zIndex: 10
+                            }}
+                        >
+                            <CloseIcon />
+                        </IconButton>
+
+                        <IconButton
+                            onClick={prevImage}
+                            aria-label="Previous image"
+                            sx={{
+                                position: "absolute",
+                                left: { xs: 8, md: 32 },
+                                top: "50%",
+                                transform: "translateY(-50%)",
+                                color: "white",
+                                bgcolor: "rgba(255,255,255,0.1)",
+                                backdropFilter: "blur(4px)",
+                                "&:hover": { bgcolor: "rgba(255,255,255,0.2)" },
+                                zIndex: 10
+                            }}
+                        >
+                            <ArrowBackIosNewIcon />
+                        </IconButton>
+
+                        <IconButton
+                            onClick={nextImage}
+                            aria-label="Next image"
+                            sx={{
+                                position: "absolute",
+                                right: { xs: 8, md: 32 },
+                                top: "50%",
+                                transform: "translateY(-50%)",
+                                color: "white",
+                                bgcolor: "rgba(255,255,255,0.1)",
+                                backdropFilter: "blur(4px)",
+                                "&:hover": { bgcolor: "rgba(255,255,255,0.2)" },
+                                zIndex: 10
+                            }}
+                        >
+                            <ArrowForwardIosIcon />
+                        </IconButton>
+
+                        <Box sx={{ maxWidth: "90vw", maxHeight: "90vh", display: "flex", justifyContent: "center", alignItems: "center" }}>
+                            {workshopImages[currentImageIndex] && (
+                                <img
+                                    src={workshopImages[currentImageIndex].src}
+                                    alt={workshopImages[currentImageIndex].alt}
+                                    style={{
+                                        maxWidth: "100%",
+                                        maxHeight: "90vh",
+                                        objectFit: "contain",
+                                        borderRadius: "8px",
+                                        boxShadow: "0 25px 50px -12px rgba(0, 0, 0, 0.5)"
+                                    }}
+                                />
+                            )}
+                        </Box>
+                    </Box>
+                </Fade>
+            </Modal>
         </Box>
 
         {/* 5. Institutional Benefits */}
