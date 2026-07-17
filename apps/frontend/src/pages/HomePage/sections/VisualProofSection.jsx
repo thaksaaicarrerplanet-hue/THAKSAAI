@@ -12,6 +12,12 @@ const workshopImages = [
   "/screenshots/IMG-20260301-WA0021.jpg",
   "/screenshots/IMG-20260301-WA0018.jpg",
   "/screenshots/IMG-20260301-WA0008.jpg",
+  "/IMG-20260717-WA0028.jpg",
+  "/IMG-20260717-WA0027.jpg",
+  "/IMG-20260717-WA0026.jpg",
+  "/IMG-20260717-WA0025.jpg",
+  "/IMG-20260717-WA0024.jpg",
+  "/IMG-20260717-WA0023.jpg",
 ];
 
 const crtImages = [
