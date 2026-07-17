@@ -221,22 +221,60 @@ export default function LeadershipTeamSection() {
                         fontWeight: 700,
                       }}
                     >
-                      MR
+                      RS
                     </Avatar>
                    </Box>
                 </Box>
 
                 <Box sx={{ flexGrow: 1, textAlign: "left" }}>
                   <Typography variant="h6" sx={{ color: "#ffffff", fontWeight: 600, mb: 0.5 }}>
-                    Dr. Madhukar Reddy
+                    R. Sudheer
                   </Typography>
 
                   <Typography variant="body2" sx={{ color: "#94A3B8", fontWeight: 600, textTransform: "uppercase", letterSpacing: "0.05em", mb: 1 }}>
-                    Head of Business Operations
+                    Business Operations
+                  </Typography>
+                </Box>
+              </GlassCard>
+            </motion.div>
+          </Grid>
+
+          {/* Executive Card 02 */}
+          <Grid size={{ xs: 12, md: 6 }}>
+            <motion.div
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true, margin: "-50px" }}
+              variants={{
+                hidden: { opacity: 0, y: 30 },
+                visible: { opacity: 1, y: 0, transition: { duration: 0.5, delay: 0.2 } },
+              }}
+              style={{ height: "100%" }}
+            >
+              <GlassCard sx={{ height: "100%", display: "flex", flexDirection: "row", alignItems: "center", p: { xs: 3, md: 4 }, gap: 3 }}>
+                <Box sx={{ position: "relative", flexShrink: 0 }}>
+                   <Box sx={{ width: 80, height: 80, borderRadius: "50%", border: "2px solid #fdba74", display: "flex", justifyContent: "center", alignItems: "center", p: 0.5 }}>
+                     <Avatar
+                      sx={{
+                        width: "100%",
+                        height: "100%",
+                        background: "linear-gradient(135deg, #0ea5e9 0%, #0284c7 100%)",
+                        fontSize: "1.5rem",
+                        fontWeight: 700,
+                      }}
+                    >
+                      DM
+                    </Avatar>
+                   </Box>
+                </Box>
+
+                <Box sx={{ flexGrow: 1, textAlign: "left" }}>
+                  <Typography variant="h6" sx={{ color: "#ffffff", fontWeight: 600, mb: 0.5 }}>
+                    Dr. Murthy
                   </Typography>
 
-                  <Typography variant="body1" sx={{ color: "#0ea5e9", fontWeight: 500, fontSize: "0.95rem" }}>
-                    Cybersecurity & Global Technology Leadership
+                  <Typography variant="body2" sx={{ color: "#94A3B8", fontWeight: 600, textTransform: "uppercase", letterSpacing: "0.05em", mb: 1 }}>
+                    Senior Business Lead
                   </Typography>
                 </Box>
               </GlassCard>
