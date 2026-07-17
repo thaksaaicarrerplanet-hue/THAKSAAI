@@ -36,7 +36,13 @@ const workshopImages = [
     { src: "/IMG-20260619-WA0007.jpg", alt: "Faculty interaction and discussion", height: 260 },
     { src: "/IMG-20260619-WA0012.jpg", alt: "Certificate distribution ceremony", height: 300 },
     { src: "/IMG-20260619-WA0038.jpg", alt: "Group photograph of students and trainers", height: 380 },
-    { src: "/IMG-20260619-WA0022.jpg", alt: "Workshop outcomes and successful completion", height: 250 }
+    { src: "/IMG-20260619-WA0022.jpg", alt: "Workshop outcomes and successful completion", height: 250 },
+    { src: "/IMG-20260717-WA0028.jpg", alt: "Students collaborating during an industry workshop", height: 300 },
+    { src: "/IMG-20260717-WA0027.jpg", alt: "Industry workshop hands-on practical session", height: 350 },
+    { src: "/IMG-20260717-WA0026.jpg", alt: "Interactive learning during industry workshop", height: 260 },
+    { src: "/IMG-20260717-WA0025.jpg", alt: "Real workshop in action with student participation", height: 320 },
+    { src: "/IMG-20260717-WA0024.jpg", alt: "Students engaging with trainers in workshop", height: 280 },
+    { src: "/IMG-20260717-WA0023.jpg", alt: "Practical problem solving in an industry workshop", height: 240 }
 ];
 
 const domains = [
