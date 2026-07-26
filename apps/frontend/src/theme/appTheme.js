@@ -1,7 +1,7 @@
 import { createTheme } from "@mui/material/styles";
 
-const bodyFont = "'Inter', system-ui, sans-serif";
-const headingFont = "'Inter', system-ui, sans-serif";
+const bodyFont = "\"AvertaStd\", -apple-system, BlinkMacSystemFont, sans-serif";
+const headingFont = "\"AvertaStd\", -apple-system, BlinkMacSystemFont, sans-serif";
 
 let appTheme = createTheme({
   palette: {
@@ -12,7 +12,7 @@ let appTheme = createTheme({
       main: "#A855F7", // Brand Accent
     },
     text: {
-      primary: "#0F172A", // Primary Text
+      primary: "#3C4852", // Primary Text
       secondary: "#475569", // Secondary Text
     },
     success: {
@@ -33,7 +33,7 @@ let appTheme = createTheme({
       fontWeight: 800,
       lineHeight: 1.05,
       letterSpacing: "-0.04em",
-      fontSize: "clamp(2.25rem, 5vw, 4rem)"
+      fontSize: "clamp(2.5rem, 5vw, 3rem)"
     },
     h2: {
       fontFamily: headingFont,
@@ -54,12 +54,12 @@ let appTheme = createTheme({
       fontSize: "clamp(1.125rem, 2.5vw, 1.25rem)" // 18px to 20px
     },
     body1: {
-      fontSize: "clamp(1rem, 2vw, 1.125rem)", // 16px to 18px
+      fontSize: "1rem", // 16px to 18px
       fontWeight: 400,
       lineHeight: 1.7
     },
     subtitle2: {
-      fontSize: "clamp(0.8125rem, 1.5vw, 0.875rem)", // 13px to 14px
+      fontSize: "0.875rem", // 13px to 14px
       fontWeight: 600,
       textTransform: "uppercase",
       letterSpacing: "0.12em",
@@ -72,7 +72,7 @@ let appTheme = createTheme({
       styleOverrides: {
         body: {
           fontFamily: bodyFont,
-          color: "#0F172A",
+          color: "#3C4852",
           backgroundColor: "#ffffff",
         },
       },
@@ -86,7 +86,7 @@ let appTheme = createTheme({
           transition: "all 0.3s ease",
         },
         containedPrimary: {
-          backgroundColor: "#0F172A", // Dark navy
+          backgroundColor: "#3c4852", // Dark navy
           color: "#ffffff",
           "&:hover": {
             backgroundColor: "#1e293b",
@@ -96,7 +96,7 @@ let appTheme = createTheme({
         outlinedPrimary: {
           backgroundColor: "#ffffff",
           borderColor: "#E2E8F0",
-          color: "#0F172A",
+          color: "#3C4852",
           "&:hover": {
             backgroundColor: "#F8FAFC",
             borderColor: "#cbd5e1",
