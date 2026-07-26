@@ -359,61 +359,13 @@ export default function HeroSection() {
               }}
             >
               <Box component="span" sx={{ position: "relative", display: "inline-block" }}>
-                <Box
-                  sx={{
-                    position: "absolute",
-                    top: "50%",
-                    left: "50%",
-                    transform: "translate(-50%, -50%)",
-                    width: "108%",
-                    height: "120%",
-                    pointerEvents: "none",
-                    zIndex: 1,
-                    userSelect: "none",
-                  }}
-                >
-                  <svg
-                    width="100%"
-                    height="100%"
-                    viewBox="0 0 100 100"
-                    preserveAspectRatio="none"
-                    style={{ overflow: "visible" }}
-                  >
-                    <Box
-                      component="path"
-                      d="M 10 50 C 10 10, 90 10, 90 50 C 90 90, 10 90, 10 50"
-                      fill="none"
-                      stroke="#EF4444"
-                      strokeWidth="3"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      vectorEffect="non-scaling-stroke"
-                      pathLength="1"
-                      sx={{
 
-                        strokeDasharray: "1",
-                        strokeDashoffset: "1",
-                        opacity: 0.8,
-                        animation: mounted ? "drawLine 1.2s ease-in-out 0.8s forwards" : "none",
-                        "@keyframes drawLine": {
-                          to: {
-                            strokeDashoffset: 0,
-                          },
-                        },
-                        "@media (prefers-reduced-motion: reduce)": {
-                          animation: "none",
-                          strokeDashoffset: 0,
-                        },
-                      }}
-                    />
-                  </svg>
-                </Box>
-                Master the Future.
+                Your Future Deserves
               </Box>{" "}
               <Box component="span" sx={{ color: "#a5b4fc" }}>
-                Build with Purpose.
+                More Than Just Another
               </Box>{" "}
-              Shape Your Legacy.
+              Online Course.
             </Typography>
 
             {/* Sub-headline / Description */}
@@ -430,7 +382,7 @@ export default function HeroSection() {
 
               }}
             >
-              Industry-led workshops, Campus Recruitment Training (CRT), mentorship, and project-based learning designed to help students become job-ready with confidence.
+              Discover immersive learning, industry projects, career guidance, and an AI-powered ecosystem built to prepare you for real opportunities.
             </Typography>
 
             {/* CTAs */}
