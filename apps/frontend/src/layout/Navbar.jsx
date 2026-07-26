@@ -12,7 +12,7 @@ import {
   Toolbar,
   Typography,
 } from "@mui/material";
-import brandLogo from "/new-brand-logo.jpg";
+import brandLogo from "/transparent-brand-logo.png";
 import MenuRoundedIcon from "@mui/icons-material/MenuRounded";
 import CloseRoundedIcon from "@mui/icons-material/CloseRounded";
 import SearchRoundedIcon from "@mui/icons-material/SearchRounded";
@@ -176,6 +176,18 @@ export default function Navbar() {
                   transition: "transform 0.3s ease",
                 }}
               />
+
+              <Typography
+                sx={{
+                  fontWeight: 700,
+                  fontSize: { xs: "1.1rem", sm: "1.3rem", md: "1.45rem" },
+                  letterSpacing: "-0.04em",
+                  fontFamily: "'Roboto', sans-serif",
+                  color: "#FFFFFF",
+                }}
+              >
+                THAKSA.AI
+              </Typography>
             </Box>
 
             {/* Right: Icons */}
@@ -256,6 +268,18 @@ export default function Navbar() {
                   boxShadow: "0 2px 8px rgba(0,0,0,0.08)"
                 }}
               />
+
+              <Typography
+                sx={{
+                  fontWeight: 700,
+                  fontSize: { xs: "1.1rem", sm: "1.3rem" },
+                  color: "#FFFFFF",
+                  fontFamily: "'Roboto', sans-serif",
+                  letterSpacing: "-0.04em",
+                }}
+              >
+                THAKSA.AI
+              </Typography>
             </Box>
             <IconButton
               aria-label="Close navigation menu"
