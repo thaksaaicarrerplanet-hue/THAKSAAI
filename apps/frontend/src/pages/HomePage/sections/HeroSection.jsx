@@ -129,7 +129,7 @@ function AnimatedCard({ module, index }) {
           opacity: visible ? 1 : 0,
           transition: `all 0.55s cubic-bezier(0.34,1.56,0.64,1) ${index * 120}ms`,
           position: "relative",
-          overflow: "hidden",
+
           p: { xs: 3, md: 4 },
         }}
       >
@@ -262,7 +262,7 @@ export default function HeroSection() {
     <Box
       sx={{
         position: "relative",
-        overflow: "hidden",
+
         minHeight: "100vh",
         display: "flex",
         flexDirection: "column",
@@ -352,67 +352,20 @@ export default function HeroSection() {
                 transition: "all 0.6s ease 0.1s",
                 fontWeight: 800,
                 lineHeight: 1.05,
-                display: "-webkit-box",
-                WebkitLineClamp: 3,
-                WebkitBoxOrient: "vertical",
-                overflow: "hidden",
+
+
+
+
               }}
             >
               <Box component="span" sx={{ position: "relative", display: "inline-block" }}>
-                <Box
-                  sx={{
-                    position: "absolute",
-                    top: "50%",
-                    left: "50%",
-                    transform: "translate(-50%, -50%)",
-                    width: "108%",
-                    height: "120%",
-                    pointerEvents: "none",
-                    zIndex: 1,
-                  }}
-                >
-                  <svg
-                    width="100%"
-                    height="100%"
-                    viewBox="0 0 100 100"
-                    preserveAspectRatio="none"
-                    style={{ overflow: "visible" }}
-                  >
-                    <Box
-                      component="path"
-                      d="M 6 18 C 4 4, 18 2, 25 3 C 45 4, 65 2, 85 3 C 96 4, 98 18, 97 25 C 96 45, 98 65, 97 80 C 98 96, 85 97, 75 96 C 55 95, 35 97, 20 96 C 5 95, 2 85, 3 70 C 4 50, 2 30, 6 18"
-                      fill="none"
-                      stroke="#EF4444"
-                      strokeWidth="3"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      vectorEffect="non-scaling-stroke"
-                      pathLength="1"
-                      sx={{
 
-                        strokeDasharray: "1",
-                        strokeDashoffset: "1",
-                        opacity: 0.8,
-                        animation: "drawLine 1.2s ease-in-out 0.8s forwards",
-                        "@keyframes drawLine": {
-                          to: {
-                            strokeDashoffset: 0,
-                          },
-                        },
-                        "@media (prefers-reduced-motion: reduce)": {
-                          animation: "none",
-                          strokeDashoffset: 0,
-                        },
-                      }}
-                    />
-                  </svg>
-                </Box>
-                Learn Industry Skills.
+                Your Future Deserves
               </Box>{" "}
               <Box component="span" sx={{ color: "#a5b4fc" }}>
-                Build Real Projects.
+                More Than Just Another
               </Box>{" "}
-              Launch Your Career.
+              Online Course.
             </Typography>
 
             {/* Sub-headline / Description */}
@@ -429,7 +382,7 @@ export default function HeroSection() {
 
               }}
             >
-              Industry-led workshops, Campus Recruitment Training (CRT), mentorship, and project-based learning designed to help students become job-ready with confidence.
+              Discover immersive learning, industry projects, career guidance, and an AI-powered ecosystem built to prepare you for real opportunities.
             </Typography>
 
             {/* CTAs */}
