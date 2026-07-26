@@ -12,7 +12,7 @@ import {
   Toolbar,
   Typography,
 } from "@mui/material";
-import brandLogo from "/new-logo.png";
+import brandLogo from "/new-brand-logo.jpg";
 import MenuRoundedIcon from "@mui/icons-material/MenuRounded";
 import CloseRoundedIcon from "@mui/icons-material/CloseRounded";
 
@@ -111,9 +111,10 @@ export default function Navbar() {
   return (
     <>
       <AppBar
-        position={isFixedNav ? "fixed" : "static"}
+        position="sticky"
         elevation={0}
         sx={{
+          top: 0,
           bgcolor: scrolled ? "rgba(5, 10, 25, 0.85)" : "transparent",
           backdropFilter: scrolled ? "blur(20px)" : "blur(10px)",
           borderBottom: scrolled ? "1px solid rgba(255,255,255,0.08)" : "none",
@@ -122,7 +123,8 @@ export default function Navbar() {
         }}
       >
       <Container maxWidth="lg">
-        <Toolbar disableGutters sx={{ minHeight: { xs: 64, md: 72 }, transition: "min-height 0.3s ease" }}>
+        <Toolbar disableGutters sx={{ minHeight: { xs: 60, md: 64 }, transition: "min-height 0.3s ease" }}>
+          <Stack direction="row" justifyContent="space-between" alignItems="center" width="100%">
           <Box
             component={RouterLink}
             to="/"
@@ -142,10 +144,10 @@ export default function Navbar() {
               src={brandLogo}
               alt="THAKSA.AI Logo"
               sx={{
-                width: { xs: 36, md: 42 },
-                height: { xs: 36, md: 42 },
+                width: 'auto',
+                height: { xs: 40, md: 48 },
                 borderRadius: "12px",
-                objectFit: "cover",
+                objectFit: "contain",
                 boxShadow: "0 2px 8px rgba(0,0,0,0.08)",
                 transition: "transform 0.3s ease",
               }}
@@ -301,6 +303,8 @@ export default function Navbar() {
           >
             <MenuRoundedIcon />
           </IconButton>
+
+          </Stack>
         </Toolbar>
       </Container>
 
@@ -336,10 +340,10 @@ export default function Navbar() {
                 src={brandLogo}
                 alt="THAKSA.AI Logo"
                 sx={{
-                  width: 36,
-                  height: 36,
+                  width: 'auto',
+                  height: 40,
                   borderRadius: "10px",
-                  objectFit: "cover",
+                  objectFit: "contain",
                   boxShadow: "0 2px 8px rgba(0,0,0,0.08)"
                 }}
               />
