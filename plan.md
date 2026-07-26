@@ -1,10 +1,7 @@
-1. The user wants the logo to be bigger and clearer, acting more like a brand identity. They explicitly want the "THAKSA.AI" text back (implied by "wheres my website business name get it back").
-2. The user wants the logo to have a transparent background so it seamlessly matches the navbar background color. I've created `transparent-brand-logo.png` by removing the black background from the user-provided image.
-3. Plan:
-   - Change `Navbar.jsx` to use `transparent-brand-logo.png`.
-   - Restore the "THAKSA.AI" `Typography` element in the center of the navbar next to the logo.
-   - Adjust the sizing: Keep the logo height large (e.g. 48px) but ensure it fits elegantly alongside the text without breaking the layout.
-   - Update `index.html` to use `transparent-brand-logo.png` for the favicon.
-4. Pre-commit check:
-   - Run `npm run lint` and `npm run build`.
-   - Submit the changes.
+1. **Address specific request details:**
+   - I have fixed the `ContactPage.jsx` logo reference.
+   - Let's search the frontend for `thaksa-icon.svg` or other variations to make sure they are removed or replaced.
+   - Wait, `Footer.jsx` might have a logo too. I'll check it.
+2. **Review Footer:**
+   - See if `Footer.jsx` uses the old logo.
+3. **Execute Pre-commit Steps:** Run build and lint.
