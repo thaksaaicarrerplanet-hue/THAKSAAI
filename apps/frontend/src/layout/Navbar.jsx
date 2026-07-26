@@ -169,24 +169,13 @@ export default function Navbar() {
                 alt="THAKSA.AI Logo"
                 sx={{
                   width: 'auto',
-                  height: { xs: 40, md: 48 },
+                  height: { xs: 48, md: 56 },
                   borderRadius: "12px",
                   objectFit: "contain",
                   boxShadow: "0 2px 8px rgba(0,0,0,0.08)",
                   transition: "transform 0.3s ease",
                 }}
               />
-              <Typography
-                sx={{
-                  fontWeight: 700,
-                  fontSize: { xs: "1.1rem", sm: "1.3rem", md: "1.45rem" },
-                  letterSpacing: "-0.04em",
-                  fontFamily: "'Roboto', sans-serif",
-                  color: "#FFFFFF",
-                }}
-              >
-                THAKSA.AI
-              </Typography>
             </Box>
 
             {/* Right: Icons */}
@@ -261,23 +250,12 @@ export default function Navbar() {
                 alt="THAKSA.AI Logo"
                 sx={{
                   width: 'auto',
-                  height: 40,
+                  height: 48,
                   borderRadius: "10px",
                   objectFit: "contain",
                   boxShadow: "0 2px 8px rgba(0,0,0,0.08)"
                 }}
               />
-              <Typography
-                sx={{
-                  fontWeight: 700,
-                  fontSize: { xs: "1.1rem", sm: "1.3rem" },
-                  color: "#FFFFFF",
-                  fontFamily: "'Sora', 'Plus Jakarta Sans', sans-serif",
-                  letterSpacing: "-0.04em",
-                }}
-              >
-                THAKSA.AI
-              </Typography>
             </Box>
             <IconButton
               aria-label="Close navigation menu"
