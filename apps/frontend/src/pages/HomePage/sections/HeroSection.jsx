@@ -129,7 +129,7 @@ function AnimatedCard({ module, index }) {
           opacity: visible ? 1 : 0,
           transition: `all 0.55s cubic-bezier(0.34,1.56,0.64,1) ${index * 120}ms`,
           position: "relative",
-          overflow: "hidden",
+
           p: { xs: 3, md: 4 },
         }}
       >
@@ -262,7 +262,7 @@ export default function HeroSection() {
     <Box
       sx={{
         position: "relative",
-        overflow: "hidden",
+
         minHeight: "100vh",
         display: "flex",
         flexDirection: "column",
@@ -352,10 +352,10 @@ export default function HeroSection() {
                 transition: "all 0.6s ease 0.1s",
                 fontWeight: 800,
                 lineHeight: 1.05,
-                display: "-webkit-box",
-                WebkitLineClamp: 3,
-                WebkitBoxOrient: "vertical",
-                overflow: "hidden",
+
+
+
+
               }}
             >
               <Box component="span" sx={{ position: "relative", display: "inline-block" }}>
