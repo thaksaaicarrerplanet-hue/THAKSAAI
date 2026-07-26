@@ -381,7 +381,7 @@ export default function HeroSection() {
                   >
                     <Box
                       component="path"
-                      d="M 6 18 C 4 4, 18 2, 25 3 C 45 4, 65 2, 85 3 C 96 4, 98 18, 97 25 C 96 45, 98 65, 97 80 C 98 96, 85 97, 75 96 C 55 95, 35 97, 20 96 C 5 95, 2 85, 3 70 C 4 50, 2 30, 6 18"
+                      d="M 10 50 C 10 10, 90 10, 90 50 C 90 90, 10 90, 10 50"
                       fill="none"
                       stroke="#EF4444"
                       strokeWidth="3"
@@ -394,7 +394,7 @@ export default function HeroSection() {
                         strokeDasharray: "1",
                         strokeDashoffset: "1",
                         opacity: 0.8,
-                        animation: "drawLine 1.2s ease-in-out 0.8s forwards",
+                        animation: mounted ? "drawLine 1.2s ease-in-out 0.8s forwards" : "none",
                         "@keyframes drawLine": {
                           to: {
                             strokeDashoffset: 0,
