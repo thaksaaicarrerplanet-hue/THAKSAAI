@@ -369,6 +369,7 @@ export default function HeroSection() {
                     height: "120%",
                     pointerEvents: "none",
                     zIndex: 1,
+                    userSelect: "none",
                   }}
                 >
                   <svg
@@ -407,12 +408,12 @@ export default function HeroSection() {
                     />
                   </svg>
                 </Box>
-                Learn Industry Skills.
+                Master the Future.
               </Box>{" "}
               <Box component="span" sx={{ color: "#a5b4fc" }}>
-                Build Real Projects.
+                Build with Purpose.
               </Box>{" "}
-              Launch Your Career.
+              Shape Your Legacy.
             </Typography>
 
             {/* Sub-headline / Description */}
