@@ -177,18 +177,7 @@ export default function Navbar() {
                 }}
               />
 
-              <Typography
-                sx={{
-                  fontWeight: 700,
-                  fontSize: { xs: "1.1rem", sm: "1.3rem", md: "1.45rem" },
-                  letterSpacing: "-0.04em",
-                  fontFamily: "'Roboto', sans-serif",
-                  color: "#FFFFFF",
-                }}
-              >
-                THAKSA.AI
-              </Typography>
-            </Box>
+              </Box>
 
             {/* Right: Icons */}
             <Stack direction="row" spacing={1}>
@@ -269,18 +258,7 @@ export default function Navbar() {
                 }}
               />
 
-              <Typography
-                sx={{
-                  fontWeight: 700,
-                  fontSize: { xs: "1.1rem", sm: "1.3rem" },
-                  color: "#FFFFFF",
-                  fontFamily: "'Roboto', sans-serif",
-                  letterSpacing: "-0.04em",
-                }}
-              >
-                THAKSA.AI
-              </Typography>
-            </Box>
+              </Box>
             <IconButton
               aria-label="Close navigation menu"
               onClick={() => setMobileOpen(false)}
