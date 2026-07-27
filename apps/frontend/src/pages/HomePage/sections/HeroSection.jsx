@@ -358,14 +358,12 @@ export default function HeroSection() {
 
               }}
             >
-              <Box component="span" sx={{ position: "relative", display: "inline-block" }}>
-
-                Your Future Deserves
-              </Box>{" "}
-              <Box component="span" sx={{ color: "#a5b4fc" }}>
-                More Than Just Another
-              </Box>{" "}
-              Online Course.
+              <Box component="span" sx={{ position: "relative", display: "block" }}>
+                Learn. Build. Get Placed
+              </Box>
+              <Box component="span" sx={{ color: "#a5b4fc", display: "block", mt: 1 }}>
+                Your Career Starts Here
+              </Box>
             </Typography>
 
             {/* Sub-headline / Description */}
