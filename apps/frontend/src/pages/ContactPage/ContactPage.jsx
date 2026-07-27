@@ -393,7 +393,7 @@ ${formData.additionalNotes || "N/A"}`;
 
           <Box
             component="img"
-            src="/logo.png"
+            src="/transparent-brand-logo.png"
             alt="THAKSA.AI Logo"
             sx={{ height: 40, mb: 3 }}
           />

@@ -12,9 +12,11 @@ import {
   Toolbar,
   Typography,
 } from "@mui/material";
-import brandLogo from "/new-logo.png";
+import brandLogo from "/transparent-brand-logo.png";
 import MenuRoundedIcon from "@mui/icons-material/MenuRounded";
 import CloseRoundedIcon from "@mui/icons-material/CloseRounded";
+import SearchRoundedIcon from "@mui/icons-material/SearchRounded";
+import PersonOutlineRoundedIcon from "@mui/icons-material/PersonOutlineRounded";
 
 const baseNavItems = [
   { label: "Home", to: "/" },
@@ -123,185 +125,108 @@ export default function Navbar() {
       >
       <Container maxWidth="lg">
         <Toolbar disableGutters sx={{ minHeight: { xs: 64, md: 72 }, transition: "min-height 0.3s ease" }}>
-          <Box
-            component={RouterLink}
-            to="/"
-            sx={{
-              display: "inline-flex",
-              alignItems: "center",
-              gap: 1.5,
-              textDecoration: "none",
-              color: "#FFFFFF",
-              "&:hover img": {
-                transform: "scale(1.05)",
-              }
-            }}
-          >
-            <Box
-              component="img"
-              src={brandLogo}
-              alt="THAKSA.AI Logo"
+          <Stack direction="row" justifyContent="space-between" alignItems="center" width="100%">
+            {/* Left: Menu Icon */}
+            <IconButton
+              edge="start"
+              aria-label="Open navigation menu"
+              onClick={() => setMobileOpen(true)}
               sx={{
-                width: { xs: 36, md: 42 },
-                height: { xs: 36, md: 42 },
+                color: "#ffffff",
+                width: "42px",
+                height: "42px",
                 borderRadius: "12px",
-                objectFit: "cover",
-                boxShadow: "0 2px 8px rgba(0,0,0,0.08)",
-                transition: "transform 0.3s ease",
-              }}
-            />
-            <Typography
-              sx={{
-                fontWeight: 700,
-                fontSize: { xs: "1.1rem", sm: "1.3rem", md: "1.45rem" },
-                letterSpacing: "-0.04em",
-                fontFamily: "'Sora', 'Plus Jakarta Sans', sans-serif",
-                color: "#FFFFFF",
+                background: "rgba(255,255,255,0.05)",
+                border: "1px solid rgba(255,255,255,0.08)",
+                transition: "all 0.2s ease",
+                "&:hover": {
+                  background: "rgba(255,255,255,0.1)",
+                  boxShadow: "0 0 10px rgba(255,255,255,0.1)",
+                }
               }}
             >
-              THAKSA.AI
-            </Typography>
-          </Box>
+              <MenuRoundedIcon />
+            </IconButton>
 
-          <Stack
-            direction="row"
-            spacing={1}
-            sx={{ ml: 6, display: { xs: "none", md: "flex" }, flexGrow: 1 }}
-          >
-            {navItems.map((item) => (
-              <Button
-                key={item.to}
-                component={RouterLink}
-                to={item.to}
-                color="inherit"
-                disableRipple
+            {/* Center: Logo */}
+            <Box
+              component={RouterLink}
+              to="/"
+              sx={{
+                display: "inline-flex",
+                alignItems: "center",
+                gap: 1.5,
+                textDecoration: "none",
+                color: "#FFFFFF",
+                "&:hover img": {
+                  transform: "scale(1.05)",
+                }
+              }}
+            >
+              <Box
+                component="img"
+                src={brandLogo}
+                alt="THAKSA.AI Logo"
                 sx={{
-                  color: isActive(item.to) ? "#FFFFFF" : "rgba(255, 255, 255, 0.75)",
-                  fontWeight: 500,
-                  fontSize: "15px",
-                  textTransform: "none",
-                  px: 2,
-                  py: 1,
-                  borderRadius: "8px",
-                  transition: "all 0.2s ease",
-                  "&:hover": {
-                    color: "#A78BFA",
-                    bgcolor: "rgba(255, 255, 255, 0.05)",
-                  },
+                  width: 'auto',
+                  height: { xs: 48, md: 56 },
+                  borderRadius: "12px",
+                  objectFit: "contain",
+                  boxShadow: "0 2px 8px rgba(0,0,0,0.08)",
+                  transition: "transform 0.3s ease",
+                }}
+              />
+
+              <Typography
+                sx={{
+                  fontWeight: 700,
+                  fontSize: { xs: "1.1rem", sm: "1.3rem", md: "1.45rem" },
+                  letterSpacing: "-0.04em",
+                  fontFamily: "'Roboto', sans-serif",
+                  color: "#FFFFFF",
                 }}
               >
-                {item.label}
-              </Button>
-            ))}
-          </Stack>
+                THAKSA.AI
+              </Typography>
+            </Box>
 
-          <Stack
-            direction="row"
-            spacing={1.5}
-            sx={{ ml: "auto", display: { xs: "none", md: isAuth || isTrainingContext ? "flex" : "none" } }}
-          >
-            {!isAuth ? (
-              <>
-                <Button
-                  component={RouterLink}
-                  to="/login"
-                  disableRipple
-                  sx={{
-                    color: "rgba(255, 255, 255, 0.75)",
-                    fontWeight: 500,
-                    fontSize: "15px",
-                    textTransform: "none",
-                    px: 2.5,
-                    borderRadius: "8px",
-                    transition: "all 0.2s ease",
-                    "&:hover": { color: "#FFFFFF", bgcolor: "rgba(255, 255, 255, 0.05)" }
-                  }}
-                >
-                  Login
-                </Button>
-                <Button
-                  component={RouterLink}
-                  to="/signup"
-                  variant="contained"
-                  disableElevation
-                  sx={{
-                    bgcolor: "#FFFFFF",
-                    color: "#0F172A",
-                    fontWeight: 600,
-                    fontSize: "15px",
-                    textTransform: "none",
-                    borderRadius: "8px",
-                    px: 3,
-                    py: 1,
-                    transition: "all 0.2s ease",
-                    "&:hover": {
-                      bgcolor: "rgba(255, 255, 255, 0.9)",
-                      transform: "translateY(-1px)",
-                    }
-                  }}
-                >
-                  Start Learning
-                </Button>
-              </>
-            ) : (
-              <>
-                <Button
-                  component={RouterLink}
-                  to={dashboardPath}
-                  sx={{
-                    color: "rgba(255, 255, 255, 0.75)",
-                    fontWeight: 500,
-                    fontSize: "15px",
-                    textTransform: "none",
-                    borderRadius: "8px",
-                    transition: "all 0.2s ease",
-                    "&:hover": { color: "#FFFFFF", bgcolor: "rgba(255,255,255,0.05)" }
-                  }}
-                >
-                  Dashboard
-                </Button>
-                <Button
-                  onClick={handleLogout}
-                  color="error"
-                  variant="text"
-                  sx={{
-                    fontSize: "15px",
-                    fontWeight: 500,
-                    textTransform: "none",
-                    borderRadius: "8px",
-                    transition: "all 0.2s ease",
-                    "&:hover": { bgcolor: "rgba(239,68,68,0.15)" }
-                  }}
-                >
-                  Logout
-                </Button>
-              </>
-            )}
+            {/* Right: Icons */}
+            <Stack direction="row" spacing={1}>
+              <IconButton
+                aria-label="Search"
+                sx={{
+                  color: "#ffffff",
+                  width: "42px",
+                  height: "42px",
+                  borderRadius: "12px",
+                  transition: "all 0.2s ease",
+                  "&:hover": {
+                    background: "rgba(255,255,255,0.1)",
+                  }
+                }}
+              >
+                <SearchRoundedIcon />
+              </IconButton>
+              <IconButton
+                component={RouterLink}
+                to={isAuth ? dashboardPath : "/login"}
+                aria-label="User Profile"
+                sx={{
+                  color: "#ffffff",
+                  width: "42px",
+                  height: "42px",
+                  borderRadius: "12px",
+                  transition: "all 0.2s ease",
+                  "&:hover": {
+                    background: "rgba(255,255,255,0.1)",
+                  }
+                }}
+              >
+                <PersonOutlineRoundedIcon />
+              </IconButton>
+            </Stack>
           </Stack>
-
-          <IconButton
-            edge="end"
-            aria-label="Open navigation menu"
-            onClick={() => setMobileOpen(true)}
-            sx={{
-              ml: "auto",
-              display: { xs: "inline-flex", md: "none" },
-              color: "#ffffff",
-              width: "42px",
-              height: "42px",
-              borderRadius: "12px",
-              background: "rgba(255,255,255,0.05)",
-              border: "1px solid rgba(255,255,255,0.08)",
-              transition: "all 0.2s ease",
-              "&:hover": {
-                background: "rgba(255,255,255,0.1)",
-                boxShadow: "0 0 10px rgba(255,255,255,0.1)",
-              }
-            }}
-          >
-            <MenuRoundedIcon />
-          </IconButton>
-        </Toolbar>
+    </Toolbar>
       </Container>
 
       <Drawer
@@ -336,19 +261,20 @@ export default function Navbar() {
                 src={brandLogo}
                 alt="THAKSA.AI Logo"
                 sx={{
-                  width: 36,
-                  height: 36,
+                  width: 'auto',
+                  height: 48,
                   borderRadius: "10px",
-                  objectFit: "cover",
+                  objectFit: "contain",
                   boxShadow: "0 2px 8px rgba(0,0,0,0.08)"
                 }}
               />
+
               <Typography
                 sx={{
                   fontWeight: 700,
                   fontSize: { xs: "1.1rem", sm: "1.3rem" },
                   color: "#FFFFFF",
-                  fontFamily: "'Sora', 'Plus Jakarta Sans', sans-serif",
+                  fontFamily: "'Roboto', sans-serif",
                   letterSpacing: "-0.04em",
                 }}
               >

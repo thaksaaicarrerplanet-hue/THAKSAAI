@@ -1,7 +1,7 @@
 import { createTheme } from "@mui/material/styles";
 
-const bodyFont = "\"AvertaStd\", -apple-system, BlinkMacSystemFont, sans-serif";
-const headingFont = "\"AvertaStd\", -apple-system, BlinkMacSystemFont, sans-serif";
+const bodyFont = "\"Roboto\", sans-serif";
+const headingFont = "\"Roboto\", sans-serif";
 
 let appTheme = createTheme({
   palette: {
