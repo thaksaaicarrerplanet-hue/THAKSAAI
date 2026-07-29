@@ -1,3 +1,4 @@
+import SEO from "../../components/SEO";
 import { Box, Container, Typography, Grid, Chip } from "@mui/material";
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
@@ -61,6 +62,18 @@ const courses = [
 ];
 
 export default function CoursesPage() {
+  const courseSchema = {
+    "@context": "https://schema.org",
+    "@type": "Course",
+    "name": "Advanced Full Stack Development",
+    "description": "Comprehensive course on modern web development including React, Node.js, and PostgreSQL.",
+    "provider": {
+      "@type": "Organization",
+      "name": "THAKSA.AI",
+      "sameAs": "https://www.thaksa.ai"
+    }
+  };
+
   const [expandedId, setExpandedId] = useState(null);
 
   useEffect(() => {
@@ -70,6 +83,14 @@ export default function CoursesPage() {
   }, []);
 
   return (
+    <>
+
+      <SEO
+        title="Premium Tech Courses & Certifications"
+        description="Explore our specialized engineering courses covering Full-Stack Development, Cloud Computing, and AI/ML. Designed to make students placement-ready."
+        url="/courses"
+        schema={courseSchema}
+      />
     <Box
       sx={{
         minHeight: "100vh",
@@ -100,7 +121,7 @@ export default function CoursesPage() {
       <Container maxWidth="lg" sx={{ position: "relative", zIndex: 1 }}>
         <Box sx={{ textAlign: "center", mb: { xs: 6, md: 10 }, maxWidth: "800px", mx: "auto" }}>
           <Typography
-            variant="h1"
+            variant="h1" component="h1"
             sx={{
               fontSize: { xs: "2.5rem", md: "4rem" },
               fontWeight: 800,
@@ -262,5 +283,6 @@ export default function CoursesPage() {
         </Grid>
       </Container>
     </Box>
+    </>
   );
 }

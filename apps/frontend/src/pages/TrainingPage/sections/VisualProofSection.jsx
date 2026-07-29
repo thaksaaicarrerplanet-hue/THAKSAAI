@@ -61,7 +61,7 @@ export default function VisualProofSection() {
             }}
           >
             <Box
-              component="img"
+              component="img" alt="Students participating in a THAKSA.AI hands-on coding workshop"
               src={src}
               loading="lazy"
               sx={{

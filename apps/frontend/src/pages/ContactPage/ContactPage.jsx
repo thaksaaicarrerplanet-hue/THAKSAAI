@@ -1,3 +1,4 @@
+import SEO from "../../components/SEO";
 import React, { useState, useEffect } from "react";
 import {
   Box,
@@ -30,6 +31,32 @@ const initialFormData = {
 };
 
 export default function ContactPage() {
+  const localBusinessSchema = {
+    "@context": "https://schema.org",
+    "@type": "LocalBusiness",
+    "name": "THAKSA.AI",
+    "image": "https://www.thaksa.ai/transparent-brand-logo.png",
+    "url": "https://www.thaksa.ai",
+    "telephone": "+91-94948-08669",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "India",
+      "addressCountry": "IN"
+    },
+    "openingHoursSpecification": {
+      "@type": "OpeningHoursSpecification",
+      "dayOfWeek": [
+        "Monday",
+        "Tuesday",
+        "Wednesday",
+        "Thursday",
+        "Friday"
+      ],
+      "opens": "09:00",
+      "closes": "18:00"
+    }
+  };
+
   const [formData, setFormData] = useState(initialFormData);
   const [errors, setErrors] = useState({});
   const [successModalOpen, setSuccessModalOpen] = useState(false);
@@ -125,6 +152,14 @@ ${formData.additionalNotes || "N/A"}`;
   };
 
   return (
+    <>
+
+      <SEO
+        title="Partner With Us | Contact THAKSA.AI"
+        description="Get in touch to partner with THAKSA.AI. Inquire about Campus Recruitment Training (CRT), workshops, and placement ecosystem integrations."
+        url="/contact"
+        schema={localBusinessSchema}
+      />
     <Box
       sx={{
         bgcolor: "#020B2D",
@@ -137,7 +172,7 @@ ${formData.additionalNotes || "N/A"}`;
       <Container maxWidth="md">
         <Box textAlign="center" mb={6}>
           <Typography
-            variant="h1"
+            variant="h1" component="h1"
             sx={{
               color: "#FFFFFF",
               fontSize: { xs: "2rem", md: "3rem" },
@@ -392,9 +427,9 @@ ${formData.additionalNotes || "N/A"}`;
           </IconButton>
 
           <Box
-            component="img"
+            component="img" alt="THAKSA.AI workspace overview for contact inquiries"
             src="/transparent-brand-logo.png"
-            alt="THAKSA.AI Logo"
+
             sx={{ height: 40, mb: 3 }}
           />
 
@@ -472,6 +507,7 @@ ${formData.additionalNotes || "N/A"}`;
         </Box>
       </Modal>
     </Box>
+    </>
   );
 }
 
