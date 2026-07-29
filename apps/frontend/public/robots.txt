@@ -17,4 +17,4 @@ Disallow: /admin/
 Disallow: /dashboard/
 Disallow: /instructor/
 
-Sitemap: https://www.thaksa.ai/sitemap.xml
+Sitemap: https://thaksa.ai/sitemap.xml

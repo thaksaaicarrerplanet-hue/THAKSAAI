@@ -427,9 +427,9 @@ ${formData.additionalNotes || "N/A"}`;
           </IconButton>
 
           <Box
-            component="img" alt="THAKSA.AI workspace overview for contact inquiries"
-            src="/transparent-brand-logo.png"
-
+            component="img"
+            src="/logo.png?v=2"
+            alt="THAKSA.AI Logo"
             sx={{ height: 40, mb: 3 }}
           />
 
