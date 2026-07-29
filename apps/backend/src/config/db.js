@@ -9,13 +9,23 @@ const { Pool, types } = pkg;
 types.setTypeParser(1082, (val) => val);
 
 const db = new Pool({
-  user: process.env.DB_USER,
-  host: process.env.DB_HOST,
-  database: process.env.DB_DATABASE,
-  password: process.env.DB_PASSWORD,
-  port: process.env.DB_PORT,
+  connectionString: process.env.DATABASE_URL,
+  ssl: {
+    rejectUnauthorized: false
+  }
 });
 
-db.connect();
+if (!process.env.DATABASE_URL) {
+  console.log("No DATABASE_URL provided, falling back to individual config params.");
+  // optional fallback here if needed, but for render we just use DATABASE_URL
+}
+
+db.connect((err) => {
+  if (err) {
+    console.error("Database connection error", err.stack);
+  } else {
+    console.log("Connected to database");
+  }
+});
 
 export default db;
