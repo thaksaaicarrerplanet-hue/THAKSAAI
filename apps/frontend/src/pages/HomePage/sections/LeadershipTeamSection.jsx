@@ -136,7 +136,7 @@ export default function LeadershipTeamSection() {
                   fontWeight: 600,
           color: "#ffffff",
                   mb: 3,
-                  fontFamily: "'Sora', sans-serif",
+
                   fontSize: { xs: "2.5rem", md: "3.5rem" },
                   lineHeight: 1.2,
                 }}

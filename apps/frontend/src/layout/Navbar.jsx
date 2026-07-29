@@ -182,7 +182,7 @@ export default function Navbar() {
                   fontWeight: 700,
                   fontSize: { xs: "1.1rem", sm: "1.3rem", md: "1.45rem" },
                   letterSpacing: "-0.04em",
-                  fontFamily: "'Roboto', sans-serif",
+
                   color: "#FFFFFF",
                 }}
               >
@@ -274,7 +274,7 @@ export default function Navbar() {
                   fontWeight: 700,
                   fontSize: { xs: "1.1rem", sm: "1.3rem" },
                   color: "#FFFFFF",
-                  fontFamily: "'Roboto', sans-serif",
+
                   letterSpacing: "-0.04em",
                 }}
               >

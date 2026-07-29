@@ -10,8 +10,7 @@ export default function HomePage() {
   return (
     <Box
       sx={{
-        background:
-          "linear-gradient(180deg, #eef6ff 0%, #f8fbff 32%, #ffffff 58%, #f6fffb 100%)",
+        background: "#ffffff",
       }}
     >
       <HeroSection />
