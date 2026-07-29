@@ -168,14 +168,7 @@ export default function SignupPage() {
           size="large"
           variant="contained"
           disabled={loading}
-          sx={{
-            py: 1.4,
-            background: "linear-gradient(to right, #2563eb, #0f766e)",
-            boxShadow: "0 14px 30px rgba(37, 99, 235, 0.35)",
-            "&:hover": {
-              background: "linear-gradient(to right, #1d4ed8, #0f766e)",
-            },
-          }}
+          sx={{ py: 1.4, fontWeight: 700 }}
         >
           {loading ? <CircularProgress size={24} color="inherit" /> : "Get Started"}
         </Button>

@@ -110,11 +110,7 @@ export default function ForgotPasswordPage() {
           variant="contained"
           size="large"
           disabled={loading}
-          sx={{
-            py: 1.35,
-            background: "linear-gradient(to right, #2563eb, #0f766e)",
-            boxShadow: "0 14px 30px rgba(37, 99, 235, 0.35)",
-          }}
+          sx={{ py: 1.35, fontWeight: 700 }}
         >
           {loading ? <CircularProgress size={22} color="inherit" /> : "Send OTP"}
         </Button>
@@ -136,11 +132,7 @@ export default function ForgotPasswordPage() {
             variant="contained"
             size="large"
             disabled={otpLoading || otpVerified}
-            sx={{
-              py: 1.35,
-              background: "linear-gradient(to right, #0f766e, #2563eb)",
-              boxShadow: "0 14px 30px rgba(15, 118, 110, 0.35)",
-            }}
+            sx={{ py: 1.35, fontWeight: 700 }}
           >
             {otpLoading ? <CircularProgress size={22} color="inherit" /> : "Verify OTP"}
           </Button>

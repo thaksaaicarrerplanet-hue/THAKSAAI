@@ -118,12 +118,7 @@ export default function LoginPage() {
                     </InputAdornment>
                   ),
                 }}
-                sx={{
-                  "& .MuiOutlinedInput-root": {
-                    borderRadius: 3,
-                    backgroundColor: "rgba(255, 255, 255, 0.5)",
-                  },
-                }}
+
               />
 
               <TextField
@@ -153,31 +148,14 @@ export default function LoginPage() {
                     </InputAdornment>
                   ),
                 }}
-                sx={{
-                  "& .MuiOutlinedInput-root": {
-                    borderRadius: 3,
-                    backgroundColor: "rgba(255, 255, 255, 0.5)",
-                  },
-                }}
+
               />
               <Button
                 type="submit"
                 variant="contained"
                 size="large"
                 disabled={loading}
-                sx={{
-                  mt: 2,
-                  py: 1.5,
-                  borderRadius: 3,
-                  fontWeight: 700,
-                  textTransform: "none",
-                  background: "linear-gradient(to right, #2563eb, #4f46e5)",
-                  boxShadow: "0 10px 25px rgba(37, 99, 235, 0.3)",
-                  "&:hover": {
-                    background: "linear-gradient(to right, #1d4ed8, #4338ca)",
-                    boxShadow: "0 15px 35px rgba(37, 99, 235, 0.4)",
-                  },
-                }}
+                sx={{ mt: 2, py: 1.5, fontWeight: 700 }}
               >
                 {loading ? "Logging in..." : "Login"}
               </Button>
