@@ -62,7 +62,7 @@ export default function AuthLayout({ children, onBackHome, maxWidth = "sm" }) {
               boxShadow: "0px 4px 20px rgba(15, 23, 42, 0.05)",
 
               background: "#ffffff",
-              p: { xs: 3, sm: 5 },
+              p: { xs: 2.5, sm: 4, md: 5 },
             }}
           >
             {children}
