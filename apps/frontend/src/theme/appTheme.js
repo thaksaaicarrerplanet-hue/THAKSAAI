@@ -1,88 +1,78 @@
 import { createTheme } from "@mui/material/styles";
 
-const bodyFont = '"SF Pro Text", -apple-system, BlinkMacSystemFont, Roboto, "Segoe UI", Helvetica, Arial, sans-serif';
-const headingFont = '"SF Pro Display", -apple-system, BlinkMacSystemFont, Roboto, "Segoe UI", Helvetica, Arial, sans-serif';
+const bodyFont = "\"AvertaStd\", -apple-system, BlinkMacSystemFont, sans-serif";
+const headingFont = "\"AvertaStd\", -apple-system, BlinkMacSystemFont, sans-serif";
 
 let appTheme = createTheme({
   palette: {
     primary: {
-      main: "#1c1d1f", // Udemy Black/Charcoal for primary buttons
+      main: "#6366F1", // Primary Brand
     },
     secondary: {
-      main: "#a435f0", // Udemy Purple Accent
+      main: "#A855F7", // Brand Accent
     },
     text: {
-      primary: "#1c1d1f",
-      secondary: "#6a6f73",
+      primary: "#3C4852", // Primary Text
+      secondary: "#475569", // Secondary Text
     },
     success: {
-      main: "#10B981",
+      main: "#10B981", // Success
     },
     warning: {
-      main: "#F59E0B",
+      main: "#F59E0B", // Warning
     },
     background: {
-      default: "#ffffff",
-      paper: "#ffffff",
+      default: "#FFFFFF",
+      paper: "#FFFFFF",
     },
-  },
-  shape: {
-    borderRadius: 0, // Very sharp or slightly rounded, Udemy is mostly 0px or 4px
   },
   typography: {
     fontFamily: bodyFont,
     h1: {
       fontFamily: headingFont,
-      fontWeight: 700,
-      lineHeight: 1.2,
-      letterSpacing: "-0.02em",
-      fontSize: "clamp(2rem, 4vw, 2.5rem)"
+      fontWeight: 800,
+      lineHeight: 1.05,
+      letterSpacing: "-0.04em",
+      fontSize: "clamp(2.5rem, 5vw, 3rem)"
     },
     h2: {
       fontFamily: headingFont,
       fontWeight: 700,
       lineHeight: 1.2,
-      fontSize: "clamp(1.5rem, 3vw, 2rem)"
+      fontSize: "clamp(1.75rem, 4vw, 2.625rem)" // 28px to 42px
     },
     h3: {
       fontFamily: headingFont,
-      fontWeight: 700,
-      lineHeight: 1.2,
-      fontSize: "clamp(1.25rem, 2vw, 1.5rem)"
+      fontWeight: 600,
+      lineHeight: 1.3,
+      fontSize: "clamp(1.25rem, 3vw, 1.5rem)" // 20px to 24px
     },
     h4: {
       fontFamily: headingFont,
-      fontWeight: 700,
-      color: "#1c1d1f",
-      fontSize: "1.125rem"
+      fontWeight: 500,
+      color: "#475569",
+      fontSize: "clamp(1.125rem, 2.5vw, 1.25rem)" // 18px to 20px
     },
     body1: {
-      fontSize: "1rem",
+      fontSize: "1rem", // 16px to 18px
       fontWeight: 400,
-      lineHeight: 1.4
-    },
-    body2: {
-      fontSize: "0.875rem",
-      fontWeight: 400,
-      lineHeight: 1.4
+      lineHeight: 1.7
     },
     subtitle2: {
-      fontSize: "0.75rem",
-      fontWeight: 700,
+      fontSize: "0.875rem", // 13px to 14px
+      fontWeight: 600,
       textTransform: "uppercase",
-      color: "#6a6f73"
+      letterSpacing: "0.12em",
+      color: "#64748b" // Muted Text
     },
-    button: {
-      fontWeight: 700,
-      fontSize: "1rem",
-    },
+    button: { fontWeight: 600 },
   },
   components: {
     MuiCssBaseline: {
       styleOverrides: {
         body: {
           fontFamily: bodyFont,
-          color: "#1c1d1f",
+          color: "#3C4852",
           backgroundColor: "#ffffff",
         },
       },
@@ -91,66 +81,47 @@ let appTheme = createTheme({
       styleOverrides: {
         root: {
           textTransform: "none",
-          borderRadius: 0, // Sharp buttons
-          padding: "0 1.2rem",
-          height: "48px",
-          transition: "background-color 0.2s ease",
-          boxShadow: "none",
-          "&:hover": {
-            boxShadow: "none",
-          }
+          borderRadius: 16,
+          padding: "12px 32px",
+          transition: "all 0.3s ease",
         },
         containedPrimary: {
-          backgroundColor: "#1c1d1f",
+          backgroundColor: "#3c4852", // Dark navy
           color: "#ffffff",
           "&:hover": {
-            backgroundColor: "#000000",
-          }
-        },
-        containedSecondary: {
-          backgroundColor: "#a435f0",
-          color: "#ffffff",
-          "&:hover": {
-            backgroundColor: "#8710d8",
+            backgroundColor: "#1e293b",
+            transform: "translateY(-2px)",
           }
         },
         outlinedPrimary: {
-          backgroundColor: "transparent",
-          borderColor: "#1c1d1f",
-          color: "#1c1d1f",
-          borderWidth: "1px",
+          backgroundColor: "#ffffff",
+          borderColor: "#E2E8F0",
+          color: "#3C4852",
           "&:hover": {
-            backgroundColor: "rgba(28,29,31,0.04)",
-            borderColor: "#1c1d1f",
-            borderWidth: "1px",
+            backgroundColor: "#F8FAFC",
+            borderColor: "#cbd5e1",
+            transform: "translateY(-2px)",
           }
         }
       }
     },
+
     MuiOutlinedInput: {
       styleOverrides: {
         root: {
-          borderRadius: 0,
-          "&.Mui-focused .MuiOutlinedInput-notchedOutline": {
-            borderColor: "#1c1d1f",
-            borderWidth: "1px",
-          }
-        },
-        notchedOutline: {
-          borderColor: "#1c1d1f",
+          borderRadius: 16,
         }
       }
     },
     MuiCard: {
       styleOverrides: {
         root: {
-          borderRadius: 0,
-          border: "1px solid #d1d7dc",
-          boxShadow: "none",
-          transition: "all 0.2s ease",
+          borderRadius: 24,
+          boxShadow: "0px 4px 20px rgba(15, 23, 42, 0.05)",
+          transition: "transform 0.3s ease, box-shadow 0.3s ease",
           "&:hover": {
-            boxShadow: "0 2px 4px rgba(0,0,0,0.08), 0 4px 12px rgba(0,0,0,0.08)",
-            transform: "none",
+            transform: "translateY(-6px)",
+            boxShadow: "0px 12px 30px rgba(15, 23, 42, 0.1)",
           }
         }
       }

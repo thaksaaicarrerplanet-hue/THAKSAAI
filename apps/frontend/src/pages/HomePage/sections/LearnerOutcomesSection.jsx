@@ -89,7 +89,7 @@ export default function LearnerOutcomesSection() {
     <Box
       sx={{
         py: { xs: 8, md: 12 },
-        backgroundColor: "#1c1d1f",
+        background: "linear-gradient(180deg, #071224 0%, #0B1120 50%, #111827 100%)",
         color: "white",
         overflow: "hidden", // Prevent full page horizontal scroll
       }}
@@ -209,10 +209,10 @@ export default function LearnerOutcomesSection() {
                         height: "100%",
                         display: "flex",
                         flexDirection: "column",
-                        backgroundColor: "transparent",
-
-                        border: "1px solid #d1d7dc",
-                        borderRadius: 0,
+                        background: "rgba(255, 255, 255, 0.04)",
+                        backdropFilter: "blur(20px)",
+                        border: "1px solid rgba(255, 255, 255, 0.08)",
+                        borderRadius: "24px",
                         transition: "transform 0.3s ease",
                         "&:hover": {
                           transform: "scale(1.03)",
@@ -281,11 +281,11 @@ export default function LearnerOutcomesSection() {
                 aria-label="Previous Testimonial"
                 sx={{
                   color: "rgba(255, 255, 255, 0.7)",
-                  border: "1px solid #d1d7dc",
+                  border: "1px solid rgba(255, 255, 255, 0.2)",
                   "&:hover": {
-                    backgroundColor: "transparent",
+                    background: "rgba(255, 255, 255, 0.1)",
                     color: "white",
-                    border: "1px solid #d1d7dc",
+                    border: "1px solid rgba(255, 255, 255, 0.4)",
                   },
                 }}
               >
@@ -296,11 +296,11 @@ export default function LearnerOutcomesSection() {
                 aria-label="Next Testimonial"
                 sx={{
                   color: "rgba(255, 255, 255, 0.7)",
-                  border: "1px solid #d1d7dc",
+                  border: "1px solid rgba(255, 255, 255, 0.2)",
                   "&:hover": {
-                    backgroundColor: "transparent",
+                    background: "rgba(255, 255, 255, 0.1)",
                     color: "white",
-                    border: "1px solid #d1d7dc",
+                    border: "1px solid rgba(255, 255, 255, 0.4)",
                   },
                 }}
               >

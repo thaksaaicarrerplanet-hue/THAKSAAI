@@ -24,10 +24,10 @@ const staggerContainer = {
 const GlassCard = ({ children, sx }) => (
   <Box
     sx={{
-        backgroundColor: "transparent",
-
-      borderRadius: 0,
-        border: "1px solid #d1d7dc",
+        background: "rgba(255,255,255,0.04)",
+        backdropFilter: "blur(20px)",
+      borderRadius: "16px",
+        border: "1px solid rgba(255,255,255,0.08)",
       boxShadow: "0 10px 30px -10px rgba(15, 23, 42, 0.08)",
       transition: "transform 0.4s ease, box-shadow 0.4s ease",
       "&:hover": {
@@ -88,7 +88,7 @@ export default function LeadershipTeamSection() {
           left: "-10%",
           width: "50%",
           height: "60%",
-          backgroundColor: "#1c1d1f",
+          background: "radial-gradient(circle, rgba(99,102,241,0.04) 0%, transparent 60%)",
           zIndex: 0,
           pointerEvents: "none",
         }}
@@ -100,7 +100,7 @@ export default function LeadershipTeamSection() {
           right: "-10%",
           width: "50%",
           height: "60%",
-          backgroundColor: "#1c1d1f",
+          background: "radial-gradient(circle, rgba(6,182,212,0.04) 0%, transparent 60%)",
           zIndex: 0,
           pointerEvents: "none",
         }}
@@ -113,7 +113,7 @@ export default function LeadershipTeamSection() {
             <motion.div variants={fadeInUp}>
               <Typography
                 sx={{
-                  color: "#a435f0",
+                  color: "#6366f1",
                   fontWeight: 700,
                   fontSize: "0.875rem",
                   letterSpacing: "0.1em",
@@ -122,7 +122,7 @@ export default function LeadershipTeamSection() {
                   display: "inline-block",
                   px: 2,
                   py: 0.5,
-                  borderRadius: 0,
+                  borderRadius: "12px",
                   bgcolor: "rgba(99, 102, 241, 0.1)",
                 }}
               >
@@ -168,9 +168,9 @@ export default function LeadershipTeamSection() {
                 display: "inline-flex",
                 flexWrap: "wrap",
                 gap: { xs: 3, md: 6 },
-                backgroundColor: "transparent",
-
-                border: "1px solid #d1d7dc",
+                background: "rgba(255,255,255,0.03)",
+                backdropFilter: "blur(10px)",
+                border: "1px solid rgba(255,255,255,0.08)",
                 borderRadius: "100px",
                 py: 2,
                 px: { xs: 4, md: 6 },
@@ -216,7 +216,7 @@ export default function LeadershipTeamSection() {
                       sx={{
                         width: "100%",
                         height: "100%",
-                        backgroundColor: "#1c1d1f",
+                        background: "linear-gradient(135deg, #0ea5e9 0%, #0284c7 100%)",
                         fontSize: "1.5rem",
                         fontWeight: 700,
                       }}
@@ -258,7 +258,7 @@ export default function LeadershipTeamSection() {
                       sx={{
                         width: "100%",
                         height: "100%",
-                        backgroundColor: "#1c1d1f",
+                        background: "linear-gradient(135deg, #0ea5e9 0%, #0284c7 100%)",
                         fontSize: "1.5rem",
                         fontWeight: 700,
                       }}

@@ -27,7 +27,7 @@ export default function LearningHubSection() {
           transform: "translate(-50%, -50%)",
           width: "100%",
           height: "100%",
-          backgroundColor: "#1c1d1f",
+          background: "radial-gradient(circle, rgba(30, 58, 138, 0.08) 0%, rgba(2, 6, 23, 0) 70%)",
           pointerEvents: "none",
           zIndex: 0,
         }}
@@ -75,10 +75,10 @@ export default function LearningHubSection() {
         <Box
           sx={{
             p: { xs: 2, md: 3 },
-            borderRadius: 0,
+            borderRadius: "24px",
             bgcolor: "rgba(255, 255, 255, 0.02)",
-            border: "1px solid #d1d7dc",
-
+            border: "1px solid rgba(255, 255, 255, 0.05)",
+            backdropFilter: "blur(20px)",
             position: "relative",
             overflow: "hidden",
             boxShadow: "0 0 40px rgba(0, 0, 0, 0.2)",
@@ -92,7 +92,7 @@ export default function LearningHubSection() {
               left: "-10%",
               width: "120%",
               height: "120%",
-              backgroundColor: "#1c1d1f",
+              background: "radial-gradient(circle, rgba(255, 255, 255, 0.03) 0%, transparent 60%)",
               pointerEvents: "none",
             }}
           />
@@ -101,9 +101,9 @@ export default function LearningHubSection() {
               position: "relative",
               width: "100%",
               paddingTop: { xs: "100%", sm: "56.25%" }, // Aspect ratio
-              borderRadius: 0,
+              borderRadius: "16px",
               overflow: "hidden",
-              border: "1px solid #d1d7dc",
+              border: "1px solid rgba(255, 255, 255, 0.05)",
             }}
           >
             <Box
@@ -141,12 +141,12 @@ export default function LearningHubSection() {
               sx={{
                 bgcolor: "rgba(255, 255, 255, 0.03)",
                 color: "#e2e8f0",
-                border: "1px solid #d1d7dc",
-
+                border: "1px solid rgba(255, 255, 255, 0.08)",
+                backdropFilter: "blur(10px)",
                 fontSize: "0.9rem",
                 px: 1,
                 py: 2.5,
-                borderRadius: 0,
+                borderRadius: "12px",
                 "&:hover": {
                   bgcolor: "rgba(255, 255, 255, 0.06)",
                 }
