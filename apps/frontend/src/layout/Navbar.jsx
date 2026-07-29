@@ -194,6 +194,7 @@ export default function Navbar() {
             <Stack direction="row" spacing={1}>
               <IconButton
                 aria-label="Search"
+                onClick={() => navigate("/courses")}
                 sx={{
                   color: "#ffffff",
                   width: "42px",

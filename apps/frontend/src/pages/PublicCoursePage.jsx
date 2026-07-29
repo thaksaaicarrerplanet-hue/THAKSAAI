@@ -1,3 +1,4 @@
+import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import {
   Button,
@@ -14,6 +15,7 @@ import {
 import { getPublicCourses } from "../services/userServices";
 
 export const PublicCoursePage = () => {
+  const navigate = useNavigate();
   const [courses, setCourses] = useState([]);
   const [search, setSearch] = useState("");
   const [level, setLevel] = useState("");
@@ -101,7 +103,7 @@ export const PublicCoursePage = () => {
                 <Typography sx={{ mt: 1 }} fontWeight="bold">
                   INR {course.price}
                 </Typography>
-                <Button sx={{ mt: 2 }} variant="outlined" fullWidth>
+                <Button sx={{ mt: 2 }} variant="outlined" fullWidth onClick={() => navigate(`/courses/${course.id}`)}>
                   View Details
                 </Button>
               </CardContent>

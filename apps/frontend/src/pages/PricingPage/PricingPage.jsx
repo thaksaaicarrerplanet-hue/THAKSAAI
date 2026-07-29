@@ -1,3 +1,4 @@
+import { useNavigate } from "react-router-dom";
 import {
   Box,
   Button,
@@ -54,6 +55,7 @@ const plans = [
 ];
 
 export default function PricingPage() {
+  const navigate = useNavigate();
   return (
     <Box
       sx={{
@@ -106,7 +108,7 @@ export default function PricingPage() {
                     ))}
                   </Stack>
 
-                  <Button variant="contained" sx={{ mt: "auto", py: 1.1 }}>
+                  <Button variant="contained" sx={{ mt: "auto", py: 1.1 }} onClick={() => navigate("/contact")}>
                     {plan.cta}
                   </Button>
                 </CardContent>

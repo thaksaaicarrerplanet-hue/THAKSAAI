@@ -1,4 +1,3 @@
-1. Address pre-commit instructions: I have run `npm run build` and `npm run lint` on the frontend, and `npm run start` on the backend. No tests are available in `apps/frontend/package.json` for playwright or jest so we skip that for now.
-2. We made visual adjustments indirectly by replacing `2.jpg` to fix the build, but this isn't a new visual UI modification.
-3. Call `request_code_review`.
-4. Submit.
+1. Make sure all CTA buttons have appropriate `onClick` navigations (e.g., using `navigate()` with correct paths) in React components, and check for `href="#"` replacements. I have performed these updates.
+2. Verify that `navigate()` calls are covered by importing `useNavigate` and calling `const navigate = useNavigate();` inside components. I have fixed `PublicCoursePage.jsx` and `PricingPage.jsx`.
+3. Complete pre-commit steps to ensure proper testing, verification, review, and reflection are done.
