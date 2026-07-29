@@ -1,7 +1,7 @@
 import { createTheme } from "@mui/material/styles";
 
-const bodyFont = "\"Roboto\", sans-serif";
-const headingFont = "\"Roboto\", sans-serif";
+const bodyFont = "\"AvertaStd\", -apple-system, BlinkMacSystemFont, sans-serif";
+const headingFont = "\"AvertaStd\", -apple-system, BlinkMacSystemFont, sans-serif";
 
 let appTheme = createTheme({
   palette: {
@@ -81,7 +81,7 @@ let appTheme = createTheme({
       styleOverrides: {
         root: {
           textTransform: "none",
-          borderRadius: 8,
+          borderRadius: 16,
           padding: "12px 32px",
           transition: "all 0.3s ease",
         },
@@ -102,6 +102,14 @@ let appTheme = createTheme({
             borderColor: "#cbd5e1",
             transform: "translateY(-2px)",
           }
+        }
+      }
+    },
+
+    MuiOutlinedInput: {
+      styleOverrides: {
+        root: {
+          borderRadius: 16,
         }
       }
     },

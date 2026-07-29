@@ -8,7 +8,7 @@ import LocationOnRoundedIcon from "@mui/icons-material/LocationOnRounded";
 
 export default function Footer() {
   return (
-    <Box component="footer" sx={{ fontFamily: "'Inter', sans-serif" }}>
+    <Box component="footer" >
       {/* Dark professional SaaS theme */}
       <Box
         sx={{
@@ -45,7 +45,7 @@ export default function Footer() {
             >
               <Box>
                 <Typography sx={{
-                  fontFamily: "'Inter', sans-serif",
+
                   fontWeight: 800,
                   color: "#FFFFFF",
                   lineHeight: 1,
@@ -56,7 +56,7 @@ export default function Footer() {
                   THAKSA.AI
                 </Typography>
                 <Typography sx={{
-                  fontFamily: "'Inter', sans-serif",
+
                   fontSize: "14px",
                   color: "#94A3B8",
                   whiteSpace: { xs: "normal", md: "nowrap" }

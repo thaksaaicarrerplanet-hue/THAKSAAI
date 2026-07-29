@@ -140,7 +140,7 @@ export default function VisualProofSection() {
         top: "10%",
         left: "50%",
         transform: "translateX(-50%)",
-        width: "600px",
+        width: { xs: "100%", md: "600px" },
         height: "600px",
         background: "radial-gradient(circle, rgba(99,102,241,0.05) 0%, rgba(15,23,42,0) 70%)",
         pointerEvents: "none",

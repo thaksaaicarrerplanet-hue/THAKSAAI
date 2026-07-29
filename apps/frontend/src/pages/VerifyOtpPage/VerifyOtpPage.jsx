@@ -66,11 +66,7 @@ export default function VerifyOtpPage() {
           type="submit"
           variant="contained"
           size="large"
-          sx={{
-            py: 1.35,
-            background: "linear-gradient(to right, #2563eb, #0f766e)",
-            boxShadow: "0 14px 30px rgba(37, 99, 235, 0.35)",
-          }}
+          sx={{ py: 1.35, fontWeight: 700 }}
         >
           Verify
         </Button>
