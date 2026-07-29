@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://www.thaksa.ai/sitemap.xml
+Sitemap: https://thaksa.ai/sitemap.xml
