@@ -103,7 +103,7 @@ export default function PlacementsPage() {
               }}
             />
             <Typography
-              variant="h1"
+              variant="h1" component="h1"
               sx={{
                 fontWeight: 900,
                 fontSize: { xs: "2.1rem", md: "3.4rem" },

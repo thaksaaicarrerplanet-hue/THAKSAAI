@@ -1,3 +1,4 @@
+import SEO from "../../components/SEO";
 import React, { useState, useEffect } from "react";
 import { Box, Container, Typography, Grid, Button, Chip } from "@mui/material";
 import { motion, AnimatePresence } from "framer-motion";
@@ -99,6 +100,18 @@ const workflow = [
 ];
 
 export default function FinalYearProjectsPage() {
+  const projectSchema = {
+    "@context": "https://schema.org",
+    "@type": "Course",
+    "name": "Final Year B.Tech Projects",
+    "description": "IEEE-standard guided project execution in CSE, IT, and ECE domains.",
+    "provider": {
+      "@type": "Organization",
+      "name": "THAKSA.AI",
+      "sameAs": "https://www.thaksa.ai"
+    }
+  };
+
   const [expandedId, setExpandedId] = useState(null);
 
   useEffect(() => {
@@ -108,6 +121,14 @@ export default function FinalYearProjectsPage() {
   }, []);
 
   return (
+    <>
+
+      <SEO
+        title="Final Year B.Tech Projects & IEEE Execution"
+        description="Transform final year projects into industry-grade solutions. Support for CSE, IT, and ECE domains with expert mentorship."
+        url="/final-year-projects"
+        schema={projectSchema}
+      />
     <Box
       sx={{
         minHeight: "100vh",
@@ -121,7 +142,7 @@ export default function FinalYearProjectsPage() {
         {/* 1. Clean Introduction */}
         <Box sx={{ textAlign: "center", mb: { xs: 8, md: 12 }, maxWidth: "800px", mx: "auto" }}>
           <Typography
-            variant="h1"
+            variant="h1" component="h1"
             sx={{
               fontSize: { xs: "2.5rem", md: "3.5rem" },
               fontWeight: 800,
@@ -414,5 +435,6 @@ export default function FinalYearProjectsPage() {
 
       </Container>
     </Box>
+    </>
   );
 }

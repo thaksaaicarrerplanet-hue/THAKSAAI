@@ -150,7 +150,7 @@ export default function BatchesPage() {
         {/* Header */}
         <Box sx={{ mb: { xs: 6, md: 8 }, textAlign: "center" }}>
           <Typography
-            variant="h1"
+            variant="h1" component="h1"
             sx={{
               color: "#FFFFFF",
               fontSize: { xs: "28px", md: "36px" },

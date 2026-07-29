@@ -1,3 +1,4 @@
+import SEO from "../../components/SEO";
 import React, { useState, useEffect } from "react";
 import { Box, Container, Typography, Grid, Button, Chip } from "@mui/material";
 import { motion, AnimatePresence } from "framer-motion";
@@ -131,6 +132,19 @@ const partners = [
 
 
 export default function WorkshopPage() {
+  const eventSchema = {
+    "@context": "https://schema.org",
+    "@type": "EducationEvent",
+    "name": "Hands-On Engineering Workshops",
+    "description": "Practical, on-campus technical workshops for engineering students. Led by industry experts.",
+    "organizer": {
+      "@type": "Organization",
+      "name": "THAKSA.AI",
+      "url": "https://www.thaksa.ai"
+    },
+    "eventAttendanceMode": "https://schema.org/OfflineEventAttendanceMode"
+  };
+
 
   // Lightbox state
   const [lightboxOpen, setLightboxOpen] = useState(false);
@@ -179,6 +193,14 @@ export default function WorkshopPage() {
   }, []);
 
   return (
+    <>
+
+      <SEO
+        title="Hands-On Engineering Workshops"
+        description="Book our industry-expert led offline workshops for your engineering college. Real-world skills in AI, Cloud, and Web Development."
+        url="/workshops"
+        schema={eventSchema}
+      />
     <Box
       sx={{
         minHeight: "100vh",
@@ -192,7 +214,7 @@ export default function WorkshopPage() {
         {/* 1. Compact Introduction */}
         <Box sx={{ textAlign: "center", mb: { xs: 8, md: 12 }, maxWidth: "800px", mx: "auto" }}>
           <Typography
-            variant="h1"
+            variant="h1" component="h1"
             sx={{
               fontSize: { xs: "2.5rem", md: "3.5rem" },
               fontWeight: 800,
@@ -657,5 +679,6 @@ export default function WorkshopPage() {
 
       </Container>
     </Box>
+    </>
   );
 }

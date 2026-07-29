@@ -102,9 +102,9 @@ const MarqueeRow = ({ images, direction, duration, title }) => {
             }}
           >
             <Box
-              component="img"
+              component="img" alt="Students participating in a THAKSA.AI hands-on coding workshop"
               src={imgSrc}
-              alt="Learning in Action"
+
               loading="lazy"
               sx={{
                 width: "100%",

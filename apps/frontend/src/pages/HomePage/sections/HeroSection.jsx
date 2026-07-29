@@ -343,7 +343,7 @@ export default function HeroSection() {
 
             {/* Main Headline */}
             <Typography
-              variant="h1"
+              variant="h1" component="h1"
               sx={{
                 color: "#ffffff",
                 mb: 3,
