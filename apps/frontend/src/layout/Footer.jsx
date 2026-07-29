@@ -204,10 +204,10 @@ export default function Footer() {
 
               {/* Right */}
               <Stack direction="row" spacing={2} alignItems="center" sx={{ order: 3 }}>
-                <MuiLink href="#" underline="none" sx={{ color: "#64748B", fontSize: "13px", fontWeight: 400, transition: "color 0.2s", "&:hover": { color: "#94A3B8" } }}>
+                <MuiLink href="/" underline="none" sx={{ color: "#64748B", fontSize: "13px", fontWeight: 400, transition: "color 0.2s", "&:hover": { color: "#94A3B8" } }}>
                   Privacy Policy
                 </MuiLink>
-                <MuiLink href="#" underline="none" sx={{ color: "#64748B", fontSize: "13px", fontWeight: 400, transition: "color 0.2s", "&:hover": { color: "#94A3B8" } }}>
+                <MuiLink href="/" underline="none" sx={{ color: "#64748B", fontSize: "13px", fontWeight: 400, transition: "color 0.2s", "&:hover": { color: "#94A3B8" } }}>
                   Terms of Service
                 </MuiLink>
               </Stack>
