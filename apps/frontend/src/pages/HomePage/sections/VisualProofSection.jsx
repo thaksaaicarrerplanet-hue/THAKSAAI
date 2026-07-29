@@ -83,15 +83,15 @@ const MarqueeRow = ({ images, direction, duration, title }) => {
               width: { xs: 240, md: 360 },
               height: { xs: 160, md: 240 },
               mx: { xs: 1, md: 2 },
-              borderRadius: "24px",
+              borderRadius: 0,
               overflow: "hidden",
               position: "relative",
               boxShadow: "0 10px 40px rgba(0,0,0,0.2)",
               transition: "all 0.3s ease",
               cursor: "pointer",
-              background: "rgba(255,255,255,0.04)",
-              backdropFilter: "blur(20px)",
-              border: "1px solid rgba(255,255,255,0.08)",
+              backgroundColor: "transparent",
+
+              border: "1px solid #d1d7dc",
               p: 1,
               "&:hover": {
                 transform: "scale(1.03)",
@@ -110,7 +110,7 @@ const MarqueeRow = ({ images, direction, duration, title }) => {
                 width: "100%",
                 height: "100%",
                 objectFit: "cover",
-                borderRadius: "24px",
+                borderRadius: 0,
               }}
             />
           </Box>
@@ -131,7 +131,7 @@ export default function VisualProofSection() {
       py: { xs: 8, md: 12 },
       overflow: "hidden",
       position: "relative",
-      background: "linear-gradient(180deg, #071224 0%, #0B1120 50%, #111827 100%)",
+      backgroundColor: "#1c1d1f",
       color: "white"
     }}>
       {/* Visual Depth Lights/Gradients */}
@@ -142,7 +142,7 @@ export default function VisualProofSection() {
         transform: "translateX(-50%)",
         width: { xs: "100%", md: "600px" },
         height: "600px",
-        background: "radial-gradient(circle, rgba(99,102,241,0.05) 0%, rgba(15,23,42,0) 70%)",
+        backgroundColor: "#1c1d1f",
         pointerEvents: "none",
         zIndex: 0
       }} />
@@ -155,7 +155,7 @@ export default function VisualProofSection() {
           left: 0,
           width: { xs: "50px", md: "150px" },
           height: "100%",
-          background: "linear-gradient(to right, #071224 0%, transparent 100%)",
+          backgroundColor: "#1c1d1f",
           zIndex: 5,
           pointerEvents: "none",
         }}
@@ -167,7 +167,7 @@ export default function VisualProofSection() {
           right: 0,
           width: { xs: "50px", md: "150px" },
           height: "100%",
-          background: "linear-gradient(to left, #071224 0%, transparent 100%)",
+          backgroundColor: "#1c1d1f",
           zIndex: 5,
           pointerEvents: "none",
         }}
@@ -206,10 +206,10 @@ export default function VisualProofSection() {
         <Container maxWidth="lg" sx={{ my: { xs: 6, md: 8 }, position: "relative", zIndex: 10 }} ref={ref}>
           <Box
             sx={{
-              background: "rgba(255, 255, 255, 0.04)",
-              backdropFilter: "blur(20px)",
-              border: "1px solid rgba(255, 255, 255, 0.08)",
-              borderRadius: "24px",
+              backgroundColor: "transparent",
+
+              border: "1px solid #d1d7dc",
+              borderRadius: 0,
               p: { xs: 4, md: 6 },
               boxShadow: "0 20px 40px rgba(0,0,0,0.3)",
               textAlign: "center"
@@ -230,7 +230,7 @@ export default function VisualProofSection() {
                       variant="h3"
                       fontWeight={800}
                       sx={{
-                        background: "linear-gradient(135deg, #6366F1 0%, #A855F7 100%)",
+                        backgroundColor: "#1c1d1f",
                         WebkitBackgroundClip: "text",
                         WebkitTextFillColor: "transparent",
                       }}

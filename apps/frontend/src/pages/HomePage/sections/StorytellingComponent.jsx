@@ -24,11 +24,11 @@ export default function StorytellingComponent() {
       elevation={0}
       sx={{
         position: "relative",
-        borderRadius: "24px",
-        background: "rgba(255, 255, 255, 0.05)",
-        backdropFilter: "blur(20px)",
-        WebkitBackdropFilter: "blur(20px)",
-        border: "1px solid rgba(255, 255, 255, 0.15)",
+        borderRadius: 0,
+        backgroundColor: "transparent",
+
+
+        border: "1px solid #d1d7dc",
         boxShadow: "0 24px 48px -12px rgba(15, 23, 42, 0.5)",
         overflow: "hidden",
         opacity: mounted ? 1 : 0,
@@ -45,7 +45,7 @@ export default function StorytellingComponent() {
           px: 2.5,
           py: 1.5,
           borderBottom: "1px solid rgba(255, 255, 255, 0.1)",
-          background: "rgba(255, 255, 255, 0.03)",
+          backgroundColor: "transparent",
           display: "flex",
           alignItems: "center",
           gap: 2,
@@ -76,7 +76,7 @@ export default function StorytellingComponent() {
           left: "50%",
           width: "100%",
           height: "100%",
-          background: "radial-gradient(circle, rgba(129, 140, 248, 0.15) 0%, rgba(255,255,255,0) 70%)",
+          backgroundColor: "#1c1d1f",
           transform: "translate(-50%, -50%)",
           pointerEvents: "none",
         }}

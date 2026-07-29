@@ -29,16 +29,16 @@ const PillarIcon = ({ icon, label }) => (
       width: 48,
       height: 48,
       borderRadius: "50%",
-      border: "1px solid rgba(99, 102, 241, 0.3)",
-      background: "rgba(99, 102, 241, 0.05)",
+      border: "1px solid #d1d7dc",
+      backgroundColor: "transparent",
       display: "flex",
       alignItems: "center",
       justifyContent: "center",
       mb: 1.5,
-      color: "#6366F1",
+      color: "#a435f0",
       transition: "all 0.3s ease",
       "&:hover": {
-        background: "rgba(99, 102, 241, 0.15)",
+        backgroundColor: "transparent",
         transform: "translateY(-2px)"
       }
     }}>
@@ -62,7 +62,7 @@ const AnimatedMetric = ({ end, suffix, label }) => {
         {inView ? <CountUp end={end} duration={2.5} /> : "0"}
         {suffix}
       </Typography>
-      <Typography sx={{ color: "#6366F1", fontSize: "0.8rem", textTransform: "uppercase", fontWeight: 700, letterSpacing: 0.5 }}>
+      <Typography sx={{ color: "#a435f0", fontSize: "0.8rem", textTransform: "uppercase", fontWeight: 700, letterSpacing: 0.5 }}>
         {label}
       </Typography>
     </Box>
@@ -85,7 +85,7 @@ export default function FounderSection() {
         variant="h6"
         sx={{
           fontWeight: 600,
-          color: "#6366F1",
+          color: "#a435f0",
           mb: 1,
           letterSpacing: 1.5,
           textTransform: "uppercase",
@@ -175,15 +175,15 @@ export default function FounderSection() {
               <Box sx={{
                 display: "flex",
                 alignItems: "flex-start",
-                background: "rgba(255,255,255,0.03)",
-                backdropFilter: "blur(20px)",
-                border: "1px solid rgba(255,255,255,0.08)",
-                borderLeft: "4px solid #6366F1",
+                backgroundColor: "transparent",
+
+                border: "1px solid #d1d7dc",
+                borderLeft: "4px solid #a435f0",
                 p: 4,
                 mb: 6,
-                borderRadius: "16px"
+                borderRadius: 0
               }}>
-                <Box sx={{ mr: 3, color: "#6366F1", display: { xs: "none", sm: "block" }, mt: 0.5 }}>
+                <Box sx={{ mr: 3, color: "#a435f0", display: { xs: "none", sm: "block" }, mt: 0.5 }}>
                   <MemoryRoundedIcon sx={{ fontSize: 40 }} />
                 </Box>
                 <Box>

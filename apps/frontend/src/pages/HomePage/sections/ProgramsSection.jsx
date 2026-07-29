@@ -19,13 +19,13 @@ const modules = [
       "Real-world Exposure",
       "Collaborative Learning"
     ],
-    color: "#6366f1",
-    gradient: "linear-gradient(135deg, #4f46e5 0%, #7c3aed 100%)",
+    color: "#a435f0",
+    gradient: "linear-gradient(135deg, #8710d8 0%, #7c3aed 100%)",
     bgGlow: "rgba(99,102,241,0.12)",
     borderColor: "rgba(99,102,241,0.25)",
     route: "/workshops",
     tag: "Offline Mode",
-    tagColor: "#6366f1",
+    tagColor: "#a435f0",
     tagBg: "rgba(99,102,241,0.1)",
   },
   {
@@ -110,10 +110,10 @@ function AnimatedCard({ module, index }) {
           height: "100%",
           display: "flex",
           flexDirection: "column",
-          borderRadius: "24px",
+          borderRadius: 0,
           p: { xs: 3, sm: 3.5 },
-          background: "rgba(255, 255, 255, 0.03)",
-          backdropFilter: "blur(16px)",
+          backgroundColor: "transparent",
+
           border: `1px solid ${hovered ? module.color : 'rgba(255,255,255,0.1)'}`,
           boxShadow: hovered
             ? `0 20px 40px ${module.bgGlow}`
@@ -148,7 +148,7 @@ function AnimatedCard({ module, index }) {
             sx={{
               width: 56,
               height: 56,
-              borderRadius: "16px",
+              borderRadius: 0,
               background: module.bgGlow,
               display: "flex",
               alignItems: "center",

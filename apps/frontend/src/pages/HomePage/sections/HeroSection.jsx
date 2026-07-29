@@ -24,13 +24,13 @@ const modules = [
       "Real-world Exposure",
       "Collaborative Learning"
     ],
-    color: "#6366f1",
-    gradient: "linear-gradient(135deg, #4f46e5 0%, #7c3aed 100%)",
+    color: "#a435f0",
+    gradient: "linear-gradient(135deg, #8710d8 0%, #7c3aed 100%)",
     bgGlow: "rgba(99,102,241,0.12)",
     borderColor: "rgba(99,102,241,0.25)",
     route: "/workshops",
     tag: "Offline Mode",
-    tagColor: "#6366f1",
+    tagColor: "#a435f0",
     tagBg: "rgba(99,102,241,0.1)",
   },
   {
@@ -115,11 +115,11 @@ function AnimatedCard({ module, index }) {
           height: "100%",
           display: "flex",
           flexDirection: "column",
-          borderRadius: "24px",
+          borderRadius: 0,
           border: `1px solid rgba(255, 255, 255, 0.15)`,
-          background: "linear-gradient(145deg, rgba(255, 255, 255, 0.08) 0%, rgba(255, 255, 255, 0.03) 100%)",
-          backdropFilter: "blur(16px)",
-          WebkitBackdropFilter: "blur(16px)",
+          backgroundColor: "#1c1d1f",
+
+
           boxShadow: hovered
             ? `0 24px 48px rgba(0, 0, 0, 0.2), 0 0 0 1px ${module.color}`
             : "0 4px 16px rgba(0, 0, 0, 0.1)",
@@ -157,7 +157,7 @@ function AnimatedCard({ module, index }) {
             sx={{
               width: 64,
               height: 64,
-              borderRadius: "24px",
+              borderRadius: 0,
               background: module.gradient,
               display: "flex",
               alignItems: "center",
@@ -295,7 +295,7 @@ export default function HeroSection() {
         sx={{
           position: "absolute",
           inset: 0,
-          background: "rgba(15, 23, 42, 0.85)",
+          backgroundColor: "transparent",
           zIndex: 1,
           pointerEvents: "none",
         }}
@@ -305,7 +305,7 @@ export default function HeroSection() {
         sx={{
           position: "absolute",
           inset: 0,
-          background: "radial-gradient(circle at center, transparent 0%, rgba(15, 23, 42, 0.8) 100%)",
+          backgroundColor: "#1c1d1f",
           zIndex: 1,
           pointerEvents: "none",
         }}
@@ -324,15 +324,15 @@ export default function HeroSection() {
                 alignItems: "center",
                 gap: 1,
                 bgcolor: "rgba(255,255,255,0.05)",
-                border: "1px solid rgba(255,255,255,0.1)",
-                borderRadius: "24px",
+                border: "1px solid #d1d7dc",
+                borderRadius: 0,
                 px: 2,
                 py: 0.75,
                 mb: 3,
                 opacity: mounted ? 1 : 0,
                 transform: mounted ? "translateY(0)" : "translateY(-12px)",
                 transition: "all 0.5s ease",
-                backdropFilter: "blur(12px)",
+
               }}
             >
               <AutoAwesomeRoundedIcon sx={{ fontSize: 14, color: "#a5b4fc" }} />
@@ -401,8 +401,8 @@ export default function HeroSection() {
                 aria-label="Explore Workshops"
                 sx={{
                   height: "52px",
-                  borderRadius: "14px",
-                  bgcolor: "#6366F1",
+                  borderRadius: 0,
+                  bgcolor: "#a435f0",
                   color: "#fff",
                   fontWeight: 600,
                   px: 4,
@@ -410,7 +410,7 @@ export default function HeroSection() {
                   textTransform: "none",
                   fontSize: "16px",
                   "&:hover": {
-                    bgcolor: "#4f46e5",
+                    bgcolor: "#8710d8",
                     transform: "translateY(-2px)",
                     boxShadow: "0 8px 20px rgba(99, 102, 241, 0.4)",
                   },
@@ -425,7 +425,7 @@ export default function HeroSection() {
                 aria-label="Contact Us"
                 sx={{
                   height: "52px",
-                  borderRadius: "14px",
+                  borderRadius: 0,
                   borderColor: "rgba(255, 255, 255, 0.3)",
                   color: "#fff",
                   fontWeight: 600,
@@ -433,11 +433,11 @@ export default function HeroSection() {
                   width: { xs: "100%", sm: "220px" },
                   textTransform: "none",
                   fontSize: "16px",
-                  background: "rgba(255, 255, 255, 0.05)",
-                  backdropFilter: "blur(10px)",
+                  backgroundColor: "transparent",
+
                   "&:hover": {
                     borderColor: "#fff",
-                    background: "rgba(255, 255, 255, 0.1)",
+                    backgroundColor: "transparent",
                     transform: "translateY(-2px)",
                   },
                   transition: "all 0.2s ease-in-out",
