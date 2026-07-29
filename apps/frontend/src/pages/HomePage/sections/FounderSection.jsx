@@ -17,11 +17,9 @@ import SchoolOutlinedIcon from "@mui/icons-material/SchoolOutlined";
 import MemoryRoundedIcon from "@mui/icons-material/MemoryRounded";
 
 import imgMain from "./cofounder.jpg";
-import imgSecondary1 from "./3.png";
-import imgSecondary2 from "./IMG-20260619-WA0036.jpg";
-import imgSecondary3 from "./3.png";
+import imgSecondary from "./IMG-20260619-WA0036.jpg";
 
-const images = [imgMain, imgSecondary1, imgSecondary2, imgSecondary3];
+const images = [imgMain, imgSecondary];
 
 const PillarIcon = ({ icon, label }) => (
   <Box sx={{ display: "flex", flexDirection: "column", alignItems: "center", width: "80px" }}>
@@ -131,7 +129,7 @@ export default function FounderSection() {
         <motion.img
           key={currentIndex}
           src={images[currentIndex]}
-          alt={`Founder K. Tharunkrishna ${currentIndex === 0 ? "speaking at an event" : currentIndex === 1 ? "mentoring students" : currentIndex === 2 ? "addressing an industry workshop" : "leading a training session"}`}
+          alt={`Founder K. Tharunkrishna ${currentIndex === 0 ? "speaking at an event" : "addressing an industry workshop"}`}
           variants={{
             enter: { x: "100%", opacity: 1 },
             center: { x: 0, opacity: 1 },
