@@ -359,10 +359,10 @@ export default function HeroSection() {
               }}
             >
               <Box component="span" sx={{ position: "relative", display: "block" }}>
-                Learn. Build. Get Placed
+                Campus Recruitment Training & Industry
               </Box>
               <Box component="span" sx={{ color: "#a5b4fc", display: "block", mt: 1 }}>
-                Your Career Starts Here
+                Collaboration Platform
               </Box>
             </Typography>
 
@@ -380,7 +380,7 @@ export default function HeroSection() {
 
               }}
             >
-              Discover immersive learning, industry projects, career guidance, and an AI-powered ecosystem built to prepare you for real opportunities.
+              Transform your engineering students into industry-ready professionals with our comprehensive Campus Recruitment Training (CRT) and hands-on technical workshops.
             </Typography>
 
             {/* CTAs */}
