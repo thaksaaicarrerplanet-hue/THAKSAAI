@@ -18,13 +18,13 @@ export default function SEO({ title, description, url, type, image, schema }) {
       <meta property="og:description" content={description || defaultDescription} />
       <meta property="og:url" content={`https://www.thaksa.ai${url || '/'}`} />
       <meta property="og:site_name" content={siteName} />
-      <meta property="og:image" content={image || 'https://www.thaksa.ai/transparent-brand-logo.png'} />
+      <meta property="og:image" content={image || 'https://www.thaksa.ai/og-image.png?v=3'} />
 
       {/* Twitter Cards */}
       <meta name="twitter:card" content="summary_large_image" />
       <meta name="twitter:title" content={title ? `${title} | ${siteName}` : siteName} />
       <meta name="twitter:description" content={description || defaultDescription} />
-      <meta name="twitter:image" content={image || 'https://www.thaksa.ai/transparent-brand-logo.png'} />
+      <meta name="twitter:image" content={image || 'https://www.thaksa.ai/og-image.png?v=3'} />
 
       {/* LLM & AI SEO */}
       <meta name="googlebot" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1" />
