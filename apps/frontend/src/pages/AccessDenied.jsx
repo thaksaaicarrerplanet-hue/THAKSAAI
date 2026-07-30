@@ -25,7 +25,7 @@ export default function AccessDenied() {
                         sx={{ fontSize: 120, color: "#f59e0b", mb: 2 }}
                     />
 
-                    <Typography variant="h1" sx={{ fontWeight: 800, mb: 1, fontSize: { xs: 64, md: 96 } }}>
+                    <Typography variant="h1" component="h1" sx={{ fontWeight: 800, mb: 1, fontSize: { xs: 64, md: 96 } }}>
                         403
                     </Typography>
 

@@ -23,7 +23,7 @@ export default function NotFound() {
                         sx={{ fontSize: 120, color: "#ef4444", mb: 2 }}
                     />
 
-                    <Typography variant="h1" sx={{ fontWeight: 800, mb: 1, fontSize: { xs: 64, md: 96 } }}>
+                    <Typography variant="h1" component="h1" sx={{ fontWeight: 800, mb: 1, fontSize: { xs: 64, md: 96 } }}>
                         404
                     </Typography>
 
