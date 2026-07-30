@@ -10,6 +10,7 @@ import HandshakeRoundedIcon from "@mui/icons-material/HandshakeRounded";
 import CheckCircleRoundedIcon from "@mui/icons-material/CheckCircleRounded";
 
 import { useNavigate } from "react-router-dom";
+import { motion } from "framer-motion";
 import { useEffect, useRef, useState } from "react";
 import StorytellingComponent from "./StorytellingComponent";
 
@@ -104,11 +105,18 @@ function AnimatedCard({ module, index }) {
       sx={{
         scrollSnapAlign: "start",
       }}
+      component={motion.div}
+      initial={{ opacity: 0, y: 40, scale: 0.97 }}
+      animate={visible ? { opacity: 1, y: 0, scale: 1 } : {}}
+      transition={{ duration: 0.55, delay: index * 0.12, type: "spring", stiffness: 100, damping: 20 }}
     >
       <Card
+        component={motion.div}
         onClick={() => navigate(module.route)}
-        onMouseEnter={() => setHovered(true)}
-        onMouseLeave={() => setHovered(false)}
+        onHoverStart={() => setHovered(true)}
+        onHoverEnd={() => setHovered(false)}
+        whileHover={{ y: -8, scale: 1.02 }}
+        whileTap={{ scale: 0.98 }}
         elevation={0}
         sx={{
           cursor: "pointer",
@@ -123,122 +131,116 @@ function AnimatedCard({ module, index }) {
           boxShadow: hovered
             ? `0 24px 48px rgba(0, 0, 0, 0.2), 0 0 0 1px ${module.color}`
             : "0 4px 16px rgba(0, 0, 0, 0.1)",
-          transform: visible
-            ? hovered ? "translateY(-8px) scale(1.02)" : "translateY(0) scale(1)"
-            : "translateY(40px) scale(0.97)",
-          opacity: visible ? 1 : 0,
-          transition: `all 0.55s cubic-bezier(0.34,1.56,0.64,1) ${index * 120}ms`,
           position: "relative",
 
           p: { xs: 3, md: 4 },
+          "&::before": {
+            content: '""',
+            position: "absolute",
+            top: 0,
+            left: 0,
+            right: 0,
+            height: "1px",
+            background: "linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent)",
+            opacity: hovered ? 1 : 0,
+            transition: "opacity 0.4s ease",
+          },
+          "&::after": {
+            content: '""',
+            position: "absolute",
+            inset: 0,
+            borderRadius: "inherit",
+            background: `radial-gradient(800px circle at center, ${module.bgGlow}, transparent)`,
+            opacity: hovered ? 1 : 0,
+            transition: "opacity 0.4s ease",
+            pointerEvents: "none",
+          }
         }}
       >
-        {/* Glow blob */}
+        {/* Glow behind icon */}
         <Box
           sx={{
             position: "absolute",
-            top: -40,
-            right: -40,
-            width: 140,
-            height: 140,
-            borderRadius: "50%",
-            background: module.gradient,
-            opacity: hovered ? 0.3 : 0.1,
+            top: 24,
+            left: 24,
+            width: 80,
+            height: 80,
+            background: module.color,
             filter: "blur(40px)",
-            transition: "opacity 0.4s ease",
-            pointerEvents: "none",
+            opacity: hovered ? 0.3 : 0.1,
+            transition: "opacity 0.3s ease",
+            borderRadius: "50%",
           }}
         />
 
-        {/* Header Section */}
-        <Box sx={{ mb: 3 }}>
-          {/* Icon */}
+        <Stack direction="row" alignItems="center" justifyContent="space-between" mb={2}>
           <Box
             sx={{
-              width: 64,
-              height: 64,
-              borderRadius: "24px",
-              background: module.gradient,
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-              mb: 3,
-              boxShadow: `0 8px 24px ${module.bgGlow}`,
-              transform: hovered ? "scale(1.05) translateY(-4px)" : "scale(1) translateY(0)",
-              transition: "transform 0.4s ease",
+              display: "inline-flex",
+              p: 1.5,
+              borderRadius: "16px",
+              background: "rgba(255, 255, 255, 0.05)",
+              border: "1px solid rgba(255, 255, 255, 0.1)",
+              backdropFilter: "blur(8px)",
+              color: "#fff",
+              position: "relative",
+              zIndex: 1,
             }}
           >
-            <Icon sx={{ color: "#fff", fontSize: 34 }} />
+            <Icon sx={{ fontSize: 28 }} />
           </Box>
-
           <Chip
             label={module.tag}
             size="small"
             sx={{
-              mb: 3,
-
+              background: module.tagBg,
+              color: module.tagColor,
+              fontWeight: 600,
               fontSize: "0.75rem",
-              bgcolor: "rgba(255, 255, 255, 0.1)",
-              color: "#fff",
-              border: `1px solid rgba(255, 255, 255, 0.2)`,
+              borderRadius: "12px",
+              border: `1px solid ${module.borderColor}`,
+              backdropFilter: "blur(4px)",
             }}
           />
+        </Stack>
 
-          <Typography
-            variant="h5"
-            sx={{
+        <Typography variant="h5" sx={{ color: "#fff", fontWeight: 700, mb: 1, position: "relative", zIndex: 1 }}>
+          {module.title}
+        </Typography>
+        <Typography sx={{ color: "#94a3b8", mb: 3, lineHeight: 1.6, position: "relative", zIndex: 1, flexGrow: 1 }}>
+          {module.subtitle}
+        </Typography>
 
-              color: "#ffffff",
-              mb: 1,
-              lineHeight: 1.2,
-            }}
-          >
-            {module.title}
-          </Typography>
-          <Typography
-            sx={{
-              fontSize: "0.9rem",
+        <Stack spacing={1.5} sx={{ position: "relative", zIndex: 1, mb: 4 }}>
+          {module.benefits.map((benefit, idx) => (
+            <Stack key={idx} direction="row" spacing={1.5} alignItems="flex-start">
+              <CheckCircleRoundedIcon sx={{ fontSize: 18, color: module.color, mt: 0.25 }} />
+              <Typography sx={{ color: "#cbd5e1", fontSize: "0.95rem" }}>
+                {benefit}
+              </Typography>
+            </Stack>
+          ))}
+        </Stack>
 
-              color: "#cbd5e1",
-              mb: 0,
-            }}
-          >
-            {module.subtitle}
-          </Typography>
-        </Box>
-
-        {/* Benefits Section */}
-        <Box sx={{ flexGrow: 1, mb: 4 }}>
-          <Stack spacing={1.5}>
-            {module.benefits.map((benefit, i) => (
-              <Stack key={i} direction="row" alignItems="center" spacing={1.5}>
-                <CheckCircleRoundedIcon sx={{ fontSize: 18, color: module.color, opacity: 0.9 }} />
-                <Typography sx={{ color: "#e2e8f0", fontSize: "0.95rem",  }}>
-                  {benefit}
-                </Typography>
-              </Stack>
-            ))}
-          </Stack>
-        </Box>
-
-        {/* CTA */}
-        <Box sx={{ mt: "auto" }}>
-          <Stack
-            direction="row"
-            alignItems="center"
-            spacing={1}
-            sx={{
-              color: "#ffffff",
-              opacity: hovered ? 1 : 0.8,
-              transition: "opacity 0.3s ease",
-            }}
-          >
-            <Typography sx={{  fontSize: "0.95rem" }}>Learn More</Typography>
+        <Box sx={{ mt: "auto", pt: 2, borderTop: "1px solid rgba(255, 255, 255, 0.05)" }}>
+          <Stack direction="row" alignItems="center" spacing={1}>
+            <Typography
+              sx={{
+                color: "#fff",
+                fontWeight: 600,
+                fontSize: "0.95rem",
+                transition: "color 0.3s ease",
+                ...(hovered && { color: module.color })
+              }}
+            >
+              Explore Module
+            </Typography>
             <ArrowForwardRoundedIcon
+              component={motion.svg}
+              animate={{ x: hovered ? 6 : 0 }}
+              transition={{ type: "spring", stiffness: 300, damping: 20 }}
               sx={{
                 fontSize: 20,
-                transform: hovered ? "translateX(6px)" : "translateX(0)",
-                transition: "transform 0.3s ease",
                 color: module.color
               }}
             />
@@ -250,19 +252,32 @@ function AnimatedCard({ module, index }) {
 }
 
 export default function HeroSection() {
-  const [mounted, setMounted] = useState(false);
   const navigate = useNavigate();
 
-  useEffect(() => {
-    const t = setTimeout(() => setMounted(true), 80);
-    return () => clearTimeout(t);
-  }, []);
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.1,
+        delayChildren: 0.2
+      }
+    }
+  };
+
+  const itemVariants = {
+    hidden: { opacity: 0, y: 20 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: { type: "spring", stiffness: 100, damping: 20 }
+    }
+  };
 
   return (
     <Box
       sx={{
         position: "relative",
-
         minHeight: "100vh",
         display: "flex",
         flexDirection: "column",
@@ -290,7 +305,7 @@ export default function HeroSection() {
         <source src="/VID-20260619-WA0002.mp4" type="video/mp4" />
       </video>
 
-      {/* Dark overlay for readability (target ~15-20% video visibility) */}
+      {/* Dark overlay for readability */}
       <Box
         sx={{
           position: "absolute",
@@ -311,7 +326,14 @@ export default function HeroSection() {
         }}
       />
 
-      <Container maxWidth="lg" sx={{ position: "relative", zIndex: 2, flexGrow: 1, display: "flex", flexDirection: "column", justifyContent: "center" }}>
+      <Container
+        maxWidth="lg"
+        component={motion.div}
+        variants={containerVariants}
+        initial="hidden"
+        animate="visible"
+        sx={{ position: "relative", zIndex: 2, flexGrow: 1, display: "flex", flexDirection: "column", justifyContent: "center" }}
+      >
 
         {/* ── Top row: text content + logo ── */}
         <Grid container spacing={{ xs: 4, md: 6 }} alignItems="center" sx={{ mb: { xs: 8, md: 10 } }}>
@@ -319,6 +341,8 @@ export default function HeroSection() {
           <Grid size={{ xs: 12, lg: 7 }} sx={{ position: "relative", zIndex: 2, textAlign: { xs: "center", lg: "left" } }}>
             {/* Badge */}
             <Box
+              component={motion.div}
+              variants={itemVariants}
               sx={{
                 display: "inline-flex",
                 alignItems: "center",
@@ -329,9 +353,6 @@ export default function HeroSection() {
                 px: 2,
                 py: 0.75,
                 mb: 3,
-                opacity: mounted ? 1 : 0,
-                transform: mounted ? "translateY(0)" : "translateY(-12px)",
-                transition: "all 0.5s ease",
                 backdropFilter: "blur(12px)",
               }}
             >
@@ -343,19 +364,13 @@ export default function HeroSection() {
 
             {/* Main Headline */}
             <Typography
-              variant="h1" component="h1"
+              variant="h1" component={motion.h1}
+              variants={itemVariants}
               sx={{
                 color: "#ffffff",
                 mb: 3,
-                opacity: mounted ? 1 : 0,
-                transform: mounted ? "translateY(0)" : "translateY(20px)",
-                transition: "all 0.6s ease 0.1s",
                 fontWeight: 800,
                 lineHeight: 1.05,
-
-
-
-
               }}
             >
               <Box component="span" sx={{ position: "relative", display: "block" }}>
@@ -368,16 +383,14 @@ export default function HeroSection() {
 
             {/* Sub-headline / Description */}
             <Typography
+              component={motion.p}
+              variants={itemVariants}
               sx={{
                 color: "#94a3b8",
                 maxWidth: "650px",
                 mx: { xs: "auto", lg: 0 },
                 lineHeight: 1.7,
                 mb: { xs: 4, md: 6 },
-                opacity: mounted ? 1 : 0,
-                transform: mounted ? "translateY(0)" : "translateY(20px)",
-                transition: "all 0.6s ease 0.2s",
-
               }}
             >
               Transform your engineering students into industry-ready professionals with our comprehensive Campus Recruitment Training (CRT) and hands-on technical workshops.
@@ -385,20 +398,22 @@ export default function HeroSection() {
 
             {/* CTAs */}
             <Stack
+              component={motion.div}
+              variants={itemVariants}
               direction={{ xs: "column", sm: "row" }}
               spacing={2}
               justifyContent={{ xs: "center", lg: "flex-start" }}
               sx={{
                 mb: { xs: 6, md: 8 },
-                opacity: mounted ? 1 : 0,
-                transform: mounted ? "translateY(0)" : "translateY(20px)",
-                transition: "all 0.6s ease 0.3s",
               }}
             >
               <Button
                 variant="contained"
                 onClick={() => navigate("/workshops")}
                 aria-label="Explore Workshops"
+                component={motion.button}
+                whileHover={{ y: -4, boxShadow: "0 12px 24px rgba(99, 102, 241, 0.4)" }}
+                whileTap={{ scale: 0.96 }}
                 sx={{
                   height: "52px",
                   borderRadius: "14px",
@@ -411,10 +426,7 @@ export default function HeroSection() {
                   fontSize: "16px",
                   "&:hover": {
                     bgcolor: "#4f46e5",
-                    transform: "translateY(-2px)",
-                    boxShadow: "0 8px 20px rgba(99, 102, 241, 0.4)",
                   },
-                  transition: "all 0.2s ease-in-out",
                 }}
               >
                 Explore Workshops
@@ -423,6 +435,9 @@ export default function HeroSection() {
                 variant="outlined"
                 onClick={() => navigate("/contact")}
                 aria-label="Contact Us"
+                component={motion.button}
+                whileHover={{ y: -4, backgroundColor: "rgba(255, 255, 255, 0.1)" }}
+                whileTap={{ scale: 0.96 }}
                 sx={{
                   height: "52px",
                   borderRadius: "14px",
@@ -437,10 +452,7 @@ export default function HeroSection() {
                   backdropFilter: "blur(10px)",
                   "&:hover": {
                     borderColor: "#fff",
-                    background: "rgba(255, 255, 255, 0.1)",
-                    transform: "translateY(-2px)",
                   },
-                  transition: "all 0.2s ease-in-out",
                 }}
               >
                 Contact Us
@@ -449,10 +461,9 @@ export default function HeroSection() {
 
             {/* Trust Indicators (Metrics) */}
             <Box
+              component={motion.div}
+              variants={itemVariants}
               sx={{
-                opacity: mounted ? 1 : 0,
-                transform: mounted ? "translateY(0)" : "translateY(20px)",
-                transition: "all 0.6s ease 0.4s",
                 mb: { xs: 6, lg: 0 },
               }}
             >
@@ -475,7 +486,7 @@ export default function HeroSection() {
               </Grid>
             </Box>
 
-            {/* Mobile Storytelling Placement (Moved below metrics) */}
+            {/* Mobile Storytelling Placement */}
             <Box sx={{ display: { xs: 'block', lg: 'none' }, mt: 2, textAlign: 'left', width: "100%", maxWidth: "400px", mx: "auto" }}>
               <StorytellingComponent />
             </Box>
@@ -483,7 +494,7 @@ export default function HeroSection() {
 
           {/* VISUAL COLUMN / STORYTELLING */}
           <Grid size={{ xs: 12, lg: 5 }} sx={{ display: { xs: 'none', lg: 'block' }, position: "relative", zIndex: 2 }}>
-            <Box sx={{ display: 'flex', justifyContent: 'center', width: '100%', ml: { lg: 4 } }}>
+            <Box component={motion.div} variants={itemVariants} sx={{ display: 'flex', justifyContent: 'center', width: '100%', ml: { lg: 4 } }}>
               <Box sx={{ width: '100%', maxWidth: 380 }}>
                 <StorytellingComponent />
               </Box>
@@ -493,15 +504,9 @@ export default function HeroSection() {
         </Grid>
 
         {/* Module Cards */}
-        <Box
-          sx={{
-            opacity: mounted ? 1 : 0,
-            transition: "opacity 0.5s ease 0.4s",
-          }}
-        >
+        <Box component={motion.div} variants={itemVariants}>
           <Typography
             sx={{
-
               fontSize: "0.78rem",
               color: "#64748b",
               textTransform: "uppercase",
