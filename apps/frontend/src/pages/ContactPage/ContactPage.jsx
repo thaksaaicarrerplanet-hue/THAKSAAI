@@ -35,7 +35,7 @@ export default function ContactPage() {
     "@context": "https://schema.org",
     "@type": "LocalBusiness",
     "name": "THAKSA.AI",
-    "image": "https://www.thaksa.ai/transparent-brand-logo.png",
+    "image": "https://www.thaksa.ai/logo.png?v=3",
     "url": "https://www.thaksa.ai",
     "telephone": "+91-94948-08669",
     "address": {
@@ -428,7 +428,7 @@ ${formData.additionalNotes || "N/A"}`;
 
           <Box
             component="img"
-            src="/logo.png?v=2"
+            src="/logo.png?v=3"
             alt="THAKSA.AI Logo"
             sx={{ height: 40, mb: 3 }}
           />
