@@ -69,7 +69,7 @@ export default function Footer() {
                 {[
                   { Icon: LinkedInIcon, href: "#", label: "LinkedIn" },
                   { Icon: InstagramIcon, href: "#", label: "Instagram" },
-                  { Icon: EmailRoundedIcon, href: "mailto:thaksaai@gmail.com", label: "Email" }
+                  { Icon: EmailRoundedIcon, href: "mailto:contact@thaksaai.in", label: "Email" }
                 ].map((item, idx) => (
                   <IconButton
                     key={idx}
@@ -167,9 +167,9 @@ export default function Footer() {
               spacing={{ xs: 2.5, md: 4 }}
               alignItems={{ xs: "flex-start", md: "center" }}
             >
-              <Stack direction="row" spacing={1.5} alignItems="center" component="a" href="mailto:thaksaai@gmail.com" sx={{ textDecoration: "none", color: "#94A3B8", "&:hover": { color: "#FFFFFF" }, transition: "color 0.2s" }}>
+              <Stack direction="row" spacing={1.5} alignItems="center" component="a" href="mailto:contact@thaksaai.in" sx={{ textDecoration: "none", color: "#94A3B8", "&:hover": { color: "#FFFFFF" }, transition: "color 0.2s" }}>
                 <EmailRoundedIcon sx={{ fontSize: 18 }} />
-                <Typography sx={{ fontSize: "14px", fontWeight: 400 }}>thaksaai@gmail.com</Typography>
+                <Typography sx={{ fontSize: "14px", fontWeight: 400 }}>contact@thaksaai.in</Typography>
               </Stack>
 
               <Stack direction="row" spacing={1.5} alignItems="center" component="a" href="tel:+919494808669" sx={{ textDecoration: "none", color: "#94A3B8", "&:hover": { color: "#FFFFFF" }, transition: "color 0.2s" }}>
