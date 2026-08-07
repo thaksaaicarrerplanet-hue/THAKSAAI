@@ -56,7 +56,7 @@ export default function PaperMethodology() {
               key={idx} 
               className="neo-glass p-8 sm:p-10 rounded-3xl border border-black/[0.08] flex flex-col justify-start shadow-sm hover:shadow-md transition-shadow"
             >
-              <span className="text-4xl font-display font-bold text-[#9fff00] mb-4 opacity-80">
+              <span className="text-4xl font-display font-bold text-[#1a1a1a] mb-4 opacity-80">
                 {principle.number}
               </span>
               <h3 className="text-xl font-display font-bold text-[#1a1a1a] tracking-tight mb-3">
