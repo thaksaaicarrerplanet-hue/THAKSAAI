@@ -1,4 +1,4 @@
-import { Navigate } from "react-router-dom";
+import { Navigate, Outlet } from "react-router-dom";
 
 export default function PublicOnlyRoute({ children }) {
   const token = localStorage.getItem("token");
@@ -28,5 +28,5 @@ export default function PublicOnlyRoute({ children }) {
     return <Navigate to={dashboardPath} replace />;
   }
 
-  return children;
+  return children ? children : <Outlet />;
 }

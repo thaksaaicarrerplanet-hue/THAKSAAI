@@ -13,45 +13,9 @@ const safeSendAccountMail = async (mailAction, email, name, label) => {
 };
 
 const register = async (req, res) => {
-  try {
-    const { username, email, password, role } = req.body;
-
-    const existingUser = await db.query(
-      "SELECT * FROM users WHERE email = $1;",
-      [email],
-    );
-
-    if (existingUser.rows.length > 0) {
-      return res.status(400).json({ message: "Email already exists" });
-    }
-
-    const otp = Math.floor(100000 + Math.random() * 1000000);
-    const hashedPassword = await bcrypt.hash(password, 10);
-    const expiresAt = new Date(Date.now() + 10 * 60 * 1000); // 10 minutes from now
-
-    await db.query(
-      `INSERT INTO otp_verifications (email, username, otp, password, role, expires_at)
-       VALUES ($1,$2,$3,$4,$5,$6)
-       ON CONFLICT (email)
-       DO UPDATE SET otp=$3, expires_at=$6`,
-      [email, username, otp, hashedPassword, role || "student", expiresAt],
-    );
-
-    await sendMail(email, `Thaksa E-Learning - Verify your email`, { name: username, otp });
-    res
-      .status(200)
-      .json({ message: "OTP sent to email for verification" });
-
-    // await db.query(
-    //     'INSERT INTO users (name, email, password, role) VALUES ($1, $2, $3, $4);',[username, email, hashedPassword, role || 'student']
-    // );
-
-    // res.status(201).json({message: 'User registered successfully'});
-  } catch (error) {
-    res
-      .status(500)
-      .json({ message: "Error registering user: " + error.message });
-  }
+  return res.status(403).json({
+    message: "Public self-registration is disabled. LMS student and instructor accounts are provisioned exclusively by Administrators upon verified program enrollment."
+  });
 };
 
 const login = async (req, res) => {

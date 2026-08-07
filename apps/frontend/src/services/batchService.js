@@ -1,13 +1,14 @@
 import api from "../api/axios.js";
 
-export const enrollBatch = async (batchId) => {
-  const response = await api.post(`/student/batches/${batchId}/enroll`);
-  return response.data;
-};
-
+// Student assigned enrollments (admin provisioned)
 export const getMyBatches = async () => {
-  const response = await api.get("/student/enrollments");
-  return response.data;
+  try {
+    const response = await api.get("/student/enrollments");
+    return response.data;
+  } catch (error) {
+    console.error("Error fetching student enrollments:", error);
+    return [];
+  }
 };
 
 export const getMyBatch = async () => {
@@ -15,12 +16,15 @@ export const getMyBatch = async () => {
   return Array.isArray(data) ? data : [];
 };
 
-export const getAllBatches = async () => {
-  const response = await api.get("/batches");
-  return response.data?.batches || [];
+// Safe fallbacks for deprecated public/self-enroll calls (handled exclusively by Admin)
+export const enrollBatch = async () => {
+  return { message: "Program enrollments are provisioned by Administrators upon program registration." };
 };
 
-export const getPublicBatches = async (params = {}) => {
-  const response = await api.get("/batches", { params });
-  return response.data;
+export const getAllBatches = async () => {
+  return [];
+};
+
+export const getPublicBatches = async () => {
+  return [];
 };

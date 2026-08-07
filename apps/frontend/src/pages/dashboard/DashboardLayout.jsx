@@ -1,5 +1,6 @@
 import { useMemo, useState } from "react";
 import { NavLink, Outlet, useLocation, useNavigate } from "react-router-dom";
+import BrandLogo from "../../components/common/BrandLogo";
 import {
   AppBar,
   Box,
@@ -23,17 +24,19 @@ import SettingsRoundedIcon from "@mui/icons-material/SettingsRounded";
 import LogoutRoundedIcon from "@mui/icons-material/LogoutRounded";
 import EventAvailableRoundedIcon from "@mui/icons-material/EventAvailableRounded";
 import AssignmentRoundedIcon from "@mui/icons-material/AssignmentRounded";
+import ArrowBackRoundedIcon from "@mui/icons-material/ArrowBackRounded";
+import { MASTER_PALETTE } from "../../theme/masterThemeConfig";
 
 const drawerWidth = 260;
 
 const navItems = [
-  { to: "/dashboard", label: "Dashboard", icon: <DashboardRoundedIcon fontSize="small" /> },
+  { to: "/dashboard", label: "Dashboard Overview", icon: <DashboardRoundedIcon fontSize="small" /> },
   { to: "/dashboard/courses", label: "My Courses", icon: <SchoolRoundedIcon fontSize="small" /> },
-  { to: "/dashboard/batch", label: "My Batch", icon: <GroupsRoundedIcon fontSize="small" /> },
-  { to: "/dashboard/attendance", label: "Attendance", icon: <EventAvailableRoundedIcon fontSize="small" /> },
-  { to: "/dashboard/assessments", label: "Assessments", icon: <AssignmentRoundedIcon fontSize="small" /> },
-  { to: "/dashboard/profile", label: "Profile", icon: <PersonRoundedIcon fontSize="small" /> },
-  { to: "/dashboard/settings", label: "Settings", icon: <SettingsRoundedIcon fontSize="small" /> },
+  { to: "/dashboard/batch", label: "My Batch & Peers", icon: <GroupsRoundedIcon fontSize="small" /> },
+  { to: "/dashboard/attendance", label: "Attendance Record", icon: <EventAvailableRoundedIcon fontSize="small" /> },
+  { to: "/dashboard/assessments", label: "Assessments & Quizzes", icon: <AssignmentRoundedIcon fontSize="small" /> },
+  { to: "/dashboard/profile", label: "My Profile", icon: <PersonRoundedIcon fontSize="small" /> },
+  { to: "/dashboard/settings", label: "Account Settings", icon: <SettingsRoundedIcon fontSize="small" /> },
 ];
 
 export default function DashboardLayout() {
@@ -56,22 +59,24 @@ export default function DashboardLayout() {
   };
 
   const drawerContent = (
-    <Box sx={{ p: 2 }}>
-      <Typography
-        sx={{
-          mb: 2.5,
-          fontSize: "1.35rem",
-          fontWeight: 900,
-          color: "#0f172a",
+    <Box sx={{ p: 2.5, display: "flex", flexDirection: "column", height: "100%", bgcolor: "#1a1a1a", color: "#ffffff" }}>
+      <Box sx={{ mb: 4, pt: 1 }}>
+        <BrandLogo variant="dashboard" customSub="Student" disableLink />
+        <Box sx={{ mt: 2.5, p: 1.5, bgcolor: "rgba(255,255,255,0.05)", borderRadius: "8px", border: "1px solid rgba(255,255,255,0.1)" }}>
+          <Typography sx={{ fontSize: "0.72rem", fontWeight: 700, color: "#9fff00", textTransform: "uppercase", letterSpacing: "0.05em" }}>
+            Student Portal
+          </Typography>
+          <Typography sx={{ fontSize: "0.78rem", color: "#a1a1aa", mt: 0.2 }}>
+            THAKSA.AI Learning Suite
+          </Typography>
+        </Box>
+      </Box>
 
-        }}
-      >
-        THAKSA.AI
-      </Typography>
-
-      <List sx={{ p: 0 }}>
+      <List sx={{ p: 0, flexGrow: 1 }}>
         {navItems.map((item) => {
-          const selected = location.pathname === item.to || location.pathname.startsWith(`${item.to}/`);
+          const selected = item.to === "/dashboard" 
+            ? location.pathname === "/dashboard" 
+            : location.pathname === item.to || location.pathname.startsWith(`${item.to}/`);
           return (
             <ListItemButton
               key={item.to}
@@ -81,18 +86,37 @@ export default function DashboardLayout() {
               selected={selected}
               sx={{
                 mb: 0.6,
-                borderRadius: 2,
+                py: 1.1,
+                px: 2,
+                borderRadius: "8px",
+                color: selected ? "#1a1a1a" : "#d4d4d8",
+                bgcolor: selected ? "#9fff00" : "transparent",
+                transition: "all 0.15s ease",
+                "&:hover": {
+                  bgcolor: selected ? "#9fff00" : "rgba(255,255,255,0.08)",
+                  color: selected ? "#1a1a1a" : "#ffffff",
+                },
                 "&.Mui-selected": {
-                  bgcolor: "rgba(37,99,235,0.12)",
-                  color: "#1d4ed8",
+                  bgcolor: "#9fff00",
+                  color: "#1a1a1a",
+                  fontWeight: 700,
+                  "&:hover": {
+                    bgcolor: "#8be600",
+                  },
                 },
               }}
             >
-              <Stack direction="row" spacing={1.2} alignItems="center">
-                {item.icon}
+              <Stack direction="row" spacing={1.5} alignItems="center">
+                <Box sx={{ color: selected ? "#1a1a1a" : "#9fff00", display: "flex" }}>
+                  {item.icon}
+                </Box>
                 <ListItemText
                   primary={item.label}
-                  primaryTypographyProps={{ fontWeight: 700, fontSize: "0.98rem" }}
+                  primaryTypographyProps={{ 
+                    fontWeight: selected ? 700 : 500, 
+                    fontSize: "0.88rem",
+                    fontFamily: "'Work Sans', sans-serif"
+                  }}
                 />
               </Stack>
             </ListItemButton>
@@ -100,21 +124,33 @@ export default function DashboardLayout() {
         })}
       </List>
 
-      <Button
-        fullWidth
-        startIcon={<LogoutRoundedIcon />}
-        color="error"
-        variant="outlined"
-        onClick={handleLogout}
-        sx={{ mt: 2, borderRadius: 2 }}
-      >
-        Logout
-      </Button>
+      <Box sx={{ pt: 2, borderTop: "1px solid rgba(255,255,255,0.1)" }}>
+        <Button
+          fullWidth
+          startIcon={<LogoutRoundedIcon />}
+          onClick={handleLogout}
+          sx={{
+            py: 1.2,
+            color: "#ffffff",
+            bgcolor: "rgba(255,255,255,0.08)",
+            borderRadius: "8px",
+            textTransform: "none",
+            fontWeight: 600,
+            fontSize: "0.85rem",
+            "&:hover": {
+              bgcolor: "rgba(255,107,107,0.2)",
+              color: "#ff6b6b",
+            },
+          }}
+        >
+          Sign Out of Portal
+        </Button>
+      </Box>
     </Box>
   );
 
   return (
-    <Box sx={{ display: "flex", minHeight: "100vh", bgcolor: "#f4f8ff" }}>
+    <Box sx={{ display: "flex", minHeight: "100vh", bgcolor: "#f8f9fa", color: "#1a1a1a", selection: { bgcolor: "#9fff00", color: "#000000" } }}>
       <AppBar
         position="fixed"
         color="inherit"
@@ -122,20 +158,50 @@ export default function DashboardLayout() {
         sx={{
           width: { md: `calc(100% - ${drawerWidth}px)` },
           ml: { md: `${drawerWidth}px` },
-          borderBottom: "1px solid rgba(15,23,42,0.08)",
-          bgcolor: "rgba(255,255,255,0.9)",
-          backdropFilter: "blur(8px)",
+          borderBottom: "1px solid rgba(0,0,0,0.08)",
+          bgcolor: "rgba(255, 255, 255, 0.95)",
         }}
       >
-        <Toolbar sx={{ minHeight: 68 }}>
-          <IconButton onClick={() => setMobileOpen(true)} sx={{ display: { md: "none" }, mr: 1 }}>
+        <Toolbar sx={{ minHeight: 70, px: { xs: 2, sm: 4 } }}>
+          <IconButton onClick={() => setMobileOpen(true)} sx={{ display: { md: "none" }, mr: 2, color: "#1a1a1a" }}>
             <MenuRoundedIcon />
           </IconButton>
-          <Box>
-            <Typography sx={{ fontWeight: 800, color: "#0f172a" }}>Student Dashboard</Typography>
-            <Typography variant="body2" color="text.secondary">
-              {user?.name ? `Welcome, ${user.name}` : "Welcome back"}
-            </Typography>
+          <Box sx={{ display: "flex", justifyContent: "space-between", alignItems: "center", width: "100%" }}>
+            <Box>
+              <Typography sx={{ fontWeight: 700, color: "#1a1a1a", fontSize: "1.15rem", fontFamily: "'Instrument Serif', serif" }}>
+                Student Learning Portal
+              </Typography>
+              <Typography sx={{ fontSize: "0.8rem", color: "#64748b", fontWeight: 500 }}>
+                {user?.name ? `Signed in as: ${user.name}` : "Student Account"}
+              </Typography>
+            </Box>
+            <Stack direction="row" spacing={1.5} alignItems="center">
+              <Button
+                size="small"
+                variant="outlined"
+                startIcon={<ArrowBackRoundedIcon sx={{ fontSize: "1rem !important" }} />}
+                onClick={() => navigate("/")}
+                sx={{
+                  textTransform: "none",
+                  fontWeight: 600,
+                  fontSize: "0.78rem",
+                  borderColor: "rgba(0,0,0,0.15)",
+                  color: "#475569",
+                  borderRadius: "50px",
+                  px: 2,
+                  py: 0.5,
+                  "&:hover": { borderColor: "#1a1a1a", color: "#1a1a1a", bgcolor: "rgba(0,0,0,0.02)" }
+                }}
+              >
+                Public Website
+              </Button>
+              <Box sx={{ display: { xs: "none", sm: "flex" }, alignItems: "center", gap: 1, bgcolor: "#EDEEF5", px: 2, py: 0.6, borderRadius: "50px", border: "1px solid rgba(0,0,0,0.05)" }}>
+                <Box sx={{ width: 8, height: 8, borderRadius: "50%", bgcolor: "#16a34a" }} />
+                <Typography sx={{ fontSize: "0.75rem", fontWeight: 700, color: "#1a1a1a" }}>
+                  Online
+                </Typography>
+              </Box>
+            </Stack>
           </Box>
         </Toolbar>
       </AppBar>
@@ -148,7 +214,7 @@ export default function DashboardLayout() {
           ModalProps={{ keepMounted: true }}
           sx={{
             display: { xs: "block", md: "none" },
-            "& .MuiDrawer-paper": { width: drawerWidth, boxSizing: "border-box" },
+            "& .MuiDrawer-paper": { width: drawerWidth, boxSizing: "border-box", bgcolor: "#1a1a1a" },
           }}
         >
           {drawerContent}
@@ -160,7 +226,8 @@ export default function DashboardLayout() {
             "& .MuiDrawer-paper": {
               width: drawerWidth,
               boxSizing: "border-box",
-              borderRight: "1px solid rgba(15,23,42,0.08)",
+              borderRight: "1px solid rgba(0,0,0,0.08)",
+              bgcolor: "#1a1a1a",
             },
           }}
           open
@@ -170,8 +237,8 @@ export default function DashboardLayout() {
       </Box>
 
       <Box component="main" sx={{ flexGrow: 1, width: { md: `calc(100% - ${drawerWidth}px)` }, overflowX: "hidden" }}>
-        <Toolbar sx={{ minHeight: 68 }} />
-        <Container maxWidth="xl" sx={{ py: { xs: 2, md: 4 }, px: { xs: 2, sm: 3 } }}>
+        <Toolbar sx={{ minHeight: 70 }} />
+        <Container maxWidth="xl" sx={{ py: { xs: 3, md: 5 }, px: { xs: 2.5, sm: 4 } }}>
           <Outlet />
         </Container>
       </Box>

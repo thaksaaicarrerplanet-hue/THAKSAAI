@@ -1,428 +1,142 @@
-import { useMemo, useState, useEffect } from "react";
-import { Link as RouterLink, useNavigate, useLocation } from "react-router-dom";
-import {
-  AppBar,
-  Box,
-  Button,
-  Container,
-  Divider,
-  Drawer,
-  IconButton,
-  Stack,
-  Toolbar,
-  Typography,
-} from "@mui/material";
-import brandLogo from "/logo.png?v=3";
-import MenuRoundedIcon from "@mui/icons-material/MenuRounded";
-import CloseRoundedIcon from "@mui/icons-material/CloseRounded";
-import SearchRoundedIcon from "@mui/icons-material/SearchRounded";
-import PersonOutlineRoundedIcon from "@mui/icons-material/PersonOutlineRounded";
-
-const baseNavItems = [
-  { label: "Home", to: "/" },
-  { label: "Workshops", to: "/workshops" },
-  { label: "CRT Training", to: "/training" },
-];
-
-const homeStickyNavItems = [
-  { label: "Home", to: "/" },
-  { label: "Workshops", to: "/workshops" },
-  { label: "CRT Training", to: "/training" },
-];
-
-const workshopStickyNavItems = [
-  { label: "Home", to: "/" },
-  { label: "Workshops", to: "/workshops" },
-];
-
-const projectsStickyNavItems = [
-  { label: "Home", to: "/" },
-  { label: "Projects", to: "/final-year-projects" },
-];
-
-const placementsStickyNavItems = [
-  { label: "Home", to: "/" },
-  { label: "Placement", to: "/placements" },
-];
-
-const trainingPageNavItems = [
-  { label: "Home", to: "/" },
-  { label: "CRT Training", to: "/training" },
-  { label: "Courses & Batches", to: "/courses" },
-  { label: "Contact", to: "/contact" },
-];
+import React, { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import { motion, AnimatePresence } from "framer-motion";
+import BrandLogo from "../components/common/BrandLogo";
 
 export default function Navbar() {
-  const navigate = useNavigate();
-  const location = useLocation();
   const [mobileOpen, setMobileOpen] = useState(false);
-  const [scrolled, setScrolled] = useState(false);
+  const navigate = useNavigate();
 
-  useEffect(() => {
-    const handleScroll = () => {
-      setScrolled(window.scrollY > 50);
-    };
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
-
-  const user = useMemo(() => {
-    try {
-      return JSON.parse(localStorage.getItem("user") || "null");
-    } catch {
-      return null;
-    }
-  }, []);
-  const token = localStorage.getItem("token");
-  const isAuth = Boolean(token);
-  const dashboardPath = user?.role === "admin" ? "/admin" : user?.role === "instructor" ? "/instructor" : "/dashboard";
-  const isHomePage = location.pathname === "/";
-  const isWorkshopPage = location.pathname === "/workshops" || location.pathname.startsWith("/workshops/");
-  const isProjectsPage = location.pathname === "/final-year-projects" || location.pathname.startsWith("/final-year-projects/");
-  const isPlacementsPage = location.pathname === "/placements" || location.pathname.startsWith("/placements/");
-  const isTrainingContext =
-    location.pathname === "/training" ||
-    location.pathname.startsWith("/training/") ||
-    location.pathname === "/courses" ||
-    location.pathname.startsWith("/courses/") ||
-    location.pathname === "/batches" ||
-    location.pathname.startsWith("/batches/") ||
-    location.pathname === "/contact" ||
-    location.pathname.startsWith("/contact/");
-  const isFixedNav = isHomePage || isWorkshopPage || isProjectsPage || isPlacementsPage || isTrainingContext;
-  const navItems = isHomePage
-    ? homeStickyNavItems
-    : isWorkshopPage
-      ? workshopStickyNavItems
-      : isProjectsPage
-        ? projectsStickyNavItems
-        : isPlacementsPage
-          ? placementsStickyNavItems
-    : isTrainingContext
-      ? trainingPageNavItems
-      : baseNavItems;
-
-  const handleLogout = () => {
-    localStorage.removeItem("token");
-    localStorage.removeItem("user");
-    navigate("/login");
-  };
-
-  const isActive = (path) => location.pathname === path || location.pathname.startsWith(`${path}/`);
+  const navLinks = [
+    { label: "WORKSHOPS", path: "/workshops" },
+    { label: "INTERNSHIPS", path: "/internships" },
+    { label: "CRT", path: "/crt" },
+    { label: "PROJECTS", path: "/final-year-projects" },
+    { label: "ABOUT US", path: "/about" },
+  ];
 
   return (
-    <>
-      <AppBar
-        position={isFixedNav ? "fixed" : "static"}
-        elevation={0}
-        sx={{
-          bgcolor: scrolled ? "rgba(5, 10, 25, 0.85)" : "transparent",
-          backdropFilter: scrolled ? "blur(20px)" : "blur(10px)",
-          borderBottom: scrolled ? "1px solid rgba(255,255,255,0.08)" : "none",
-          transition: "all 300ms ease",
-          zIndex: 1100,
-        }}
-      >
-      <Container maxWidth="lg">
-        <Toolbar disableGutters sx={{ minHeight: { xs: 64, md: 72 }, transition: "min-height 0.3s ease" }}>
-          <Stack direction="row" justifyContent="space-between" alignItems="center" width="100%">
-            {/* Left: Menu Icon */}
-            <IconButton
-              edge="start"
-              aria-label="Open navigation menu"
-              onClick={() => setMobileOpen(true)}
-              sx={{
-                color: "#ffffff",
-                width: "42px",
-                height: "42px",
-                borderRadius: "12px",
-                background: "rgba(255,255,255,0.05)",
-                border: "1px solid rgba(255,255,255,0.08)",
-                transition: "all 0.2s ease",
-                "&:hover": {
-                  background: "rgba(255,255,255,0.1)",
-                  boxShadow: "0 0 10px rgba(255,255,255,0.1)",
-                }
-              }}
+    <header className="fixed top-0 left-0 w-full z-50 py-3 sm:py-4 md:py-5 bg-[#EDEEF5]/96 border-b border-black/[0.06] shadow-[0_2px_15px_rgba(0,0,0,0.03)] transition-colors duration-200">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 md:px-10 flex items-center justify-between">
+        
+        {/* Left: Brand Logo */}
+        <BrandLogo variant="navbar" />
+
+        {/* Center: Core Programs Navigation */}
+        <nav className="hidden lg:flex items-center justify-center gap-7 xl:gap-9" aria-label="Main navigation">
+          {navLinks.map((item) => (
+            <Link
+              key={item.label}
+              to={item.path}
+              className="text-sm lg:text-base font-bold uppercase tracking-wide text-[#1a1a1a]/80 hover:text-[#1a1a1a] transition-colors focus:outline-none focus:ring-2 focus:ring-[#9fff00] px-1 rounded-sm whitespace-nowrap"
             >
-              <MenuRoundedIcon />
-            </IconButton>
+              {item.label}
+            </Link>
+          ))}
+        </nav>
 
-            {/* Center: Logo */}
-            <Box
-              component={RouterLink}
-              to="/"
-              sx={{
-                display: "inline-flex",
-                alignItems: "center",
-                gap: 1.5,
-                textDecoration: "none",
-                color: "#FFFFFF",
-                "&:hover img": {
-                  transform: "scale(1.05)",
-                }
-              }}
-            >
-              <Box
-                component="img"
-                src={brandLogo}
-                alt="THAKSA.AI Logo"
-                sx={{
-                  width: 'auto',
-                  height: { xs: 48, md: 56 },
-                  borderRadius: "12px",
-                  objectFit: "contain",
-                  boxShadow: "0 2px 8px rgba(0,0,0,0.08)",
-                  transition: "transform 0.3s ease",
-                }}
-              />
+        {/* Right: LMS Portal Login & Action Button */}
+        <div className="flex items-center justify-end gap-2 sm:gap-3 shrink-0">
+          
+          {/* Prominent Login Button */}
+          <button
+            type="button"
+            onClick={() => navigate("/login")}
+            aria-label="Access Login"
+            className="inline-flex items-center justify-center gap-2 bg-white/95 text-[#1a1a1a] border border-black/15 hover:border-black px-4 sm:px-5 py-2 sm:py-2.5 rounded-full text-xs md:text-sm font-bold tracking-wide transition-all shadow-2xs hover:shadow-xs focus:outline-none focus:ring-2 focus:ring-[#9fff00] shrink-0"
+          >
+            <span className="w-2 h-2 rounded-full bg-[#2563eb] block"></span>
+            <span>Login</span>
+          </button>
 
-              <Typography
-                sx={{
-                  fontWeight: 700,
-                  fontSize: { xs: "1.1rem", sm: "1.3rem", md: "1.45rem" },
-                  letterSpacing: "-0.04em",
+          {/* Primary Advisory CTA */}
+          <button
+            type="button"
+            onClick={() => navigate("/contact")}
+            className="hidden sm:inline-flex items-center justify-center gap-2 bg-[#1a1a1a] text-white px-5 sm:px-6 py-2.5 rounded-full text-xs md:text-sm font-bold tracking-wide hover:bg-black hover:scale-102 active:scale-98 transition-all shadow-xs shrink-0 focus:outline-none focus:ring-2 focus:ring-[#9fff00]"
+          >
+            <span className="w-2 h-2 rounded-full bg-[#9fff00] block animate-pulse"></span>
+            <span>contact us →</span>
+          </button>
 
-                  color: "#FFFFFF",
-                }}
-              >
-                THAKSA.AI
-              </Typography>
-            </Box>
+          {/* Mobile Menu Button */}
+          <button
+            type="button"
+            onClick={() => setMobileOpen((prev) => !prev)}
+            aria-label="Toggle navigation menu"
+            aria-expanded={mobileOpen}
+            className="lg:hidden inline-flex flex-col items-center justify-center w-10 h-10 rounded-full border border-black/10 bg-white/95 text-[#1a1a1a] focus:outline-none focus:ring-2 focus:ring-[#9fff00] shadow-2xs ml-1"
+          >
+            <span
+              className={`block w-5 h-[1.5px] bg-[#1a1a1a] transform transition duration-300 ${
+                mobileOpen ? "rotate-45 translate-y-[3.5px]" : "-translate-y-1"
+              }`}
+            />
+            <span
+              className={`block w-5 h-[1.5px] bg-[#1a1a1a] transform transition duration-300 ${
+                mobileOpen ? "-rotate-45 -translate-y-[2px]" : "translate-y-1"
+              }`}
+            />
+          </button>
+        </div>
+      </div>
 
-            {/* Right: Icons */}
-            <Stack direction="row" spacing={1}>
-              <IconButton
-                aria-label="Search"
-                onClick={() => navigate("/courses")}
-                sx={{
-                  color: "#ffffff",
-                  width: "42px",
-                  height: "42px",
-                  borderRadius: "12px",
-                  transition: "all 0.2s ease",
-                  "&:hover": {
-                    background: "rgba(255,255,255,0.1)",
-                  }
-                }}
-              >
-                <SearchRoundedIcon />
-              </IconButton>
-              <IconButton
-                component={RouterLink}
-                to={isAuth ? dashboardPath : "/login"}
-                aria-label="User Profile"
-                sx={{
-                  color: "#ffffff",
-                  width: "42px",
-                  height: "42px",
-                  borderRadius: "12px",
-                  transition: "all 0.2s ease",
-                  "&:hover": {
-                    background: "rgba(255,255,255,0.1)",
-                  }
-                }}
-              >
-                <PersonOutlineRoundedIcon />
-              </IconButton>
-            </Stack>
-          </Stack>
-    </Toolbar>
-      </Container>
-
-      <Drawer
-        anchor="right"
-        open={mobileOpen}
-        onClose={() => setMobileOpen(false)}
-        SlideProps={{ direction: "left", timeout: 300 }}
-        PaperProps={{
-          sx: {
-            width: { xs: "100%", sm: 380 },
-            borderLeft: "1px solid rgba(255,255,255,0.08)",
-            bgcolor: "rgba(5,10,25,0.98)",
-            backdropFilter: "blur(30px)",
-          }
-        }}
-      >
-        <Box sx={{ p: { xs: 2, sm: 3 }, height: "100%", display: "flex", flexDirection: "column" }}>
-          <Stack direction="row" justifyContent="space-between" alignItems="center" sx={{ mb: 4 }}>
-            <Box
-              component={RouterLink}
-              to="/"
-              onClick={() => setMobileOpen(false)}
-              sx={{
-                display: "flex",
-                alignItems: "center",
-                gap: 1.5,
-                textDecoration: "none",
-              }}
-            >
-              <Box
-                component="img"
-                src={brandLogo}
-                alt="THAKSA.AI Logo"
-                sx={{
-                  width: 'auto',
-                  height: 48,
-                  borderRadius: "10px",
-                  objectFit: "contain",
-                  boxShadow: "0 2px 8px rgba(0,0,0,0.08)"
-                }}
-              />
-
-              <Typography
-                sx={{
-                  fontWeight: 700,
-                  fontSize: { xs: "1.1rem", sm: "1.3rem" },
-                  color: "#FFFFFF",
-
-                  letterSpacing: "-0.04em",
-                }}
-              >
-                THAKSA.AI
-              </Typography>
-            </Box>
-            <IconButton
-              aria-label="Close navigation menu"
-              onClick={() => setMobileOpen(false)}
-              sx={{
-                color: "rgba(255,255,255,0.75)",
-                bgcolor: "rgba(255,255,255,0.05)",
-                "&:hover": { bgcolor: "rgba(255,255,255,0.1)", color: "#FFFFFF" }
-              }}
-            >
-              <CloseRoundedIcon />
-            </IconButton>
-          </Stack>
-
-          <Stack spacing={1} sx={{ flexGrow: 1 }}>
-            {navItems.map((item) => {
-              const active = isActive(item.to);
-              return (
-                <Button
-                  key={item.to}
-                  component={RouterLink}
-                  to={item.to}
+      {/* Mobile Drawer */}
+      <AnimatePresence>
+        {mobileOpen && (
+          <motion.nav
+            initial={{ opacity: 0, height: 0 }}
+            animate={{ opacity: 1, height: "auto" }}
+            exit={{ opacity: 0, height: 0 }}
+            className="lg:hidden overflow-hidden bg-[#EDEEF5] border-b border-black/10 shadow-lg mt-2"
+          >
+            <div className="flex flex-col px-6 py-6 gap-5">
+              <span className="text-xs font-bold uppercase tracking-wider text-zinc-500 font-sans">
+                Core Programs
+              </span>
+              {navLinks.map((item) => (
+                <Link
+                  key={item.label}
+                  to={item.path}
                   onClick={() => setMobileOpen(false)}
-                  sx={{
-                    justifyContent: "flex-start",
-                    color: active ? "#FFFFFF" : "rgba(255,255,255,0.75)",
-                    bgcolor: active ? "rgba(255,255,255,0.05)" : "transparent",
-                    fontWeight: active ? 600 : 500,
-                    fontSize: "1.1rem",
-                    textTransform: "none",
-                    py: 1.5,
-                    px: 2.5,
-                    borderRadius: "12px",
-                    transition: "all 0.2s ease",
-                    "&:hover": {
-                      bgcolor: "rgba(255,255,255,0.05)",
-                      color: "#FFFFFF",
-                      transform: "translateX(4px)"
-                    },
-                  }}
+                  className="text-xl font-display font-bold text-[#1a1a1a] tracking-tight hover:text-zinc-600 transition-colors uppercase flex items-center justify-between"
                 >
-                  {item.label}
-                </Button>
-              );
-            })}
-          </Stack>
+                  <span>{item.label}</span>
+                  <span className="text-zinc-400 text-sm">→</span>
+                </Link>
+              ))}
+              
+              <div className="w-full h-px bg-black/[0.08] my-1"></div>
+              
+              <div className="flex flex-col gap-3">
+                <button
+                  type="button"
+                  onClick={() => {
+                    setMobileOpen(false);
+                    navigate("/login");
+                  }}
+                  className="w-full py-3.5 bg-white border border-black/15 text-[#1a1a1a] font-bold rounded-xl text-base flex items-center justify-center gap-2.5 shadow-xs"
+                >
+                  <span className="w-2.5 h-2.5 rounded-full bg-[#2563eb] block"></span>
+                  <span>Login</span>
+                </button>
 
-          <Box sx={{ mt: 'auto', pt: 4 }}>
-            <Stack spacing={2} sx={{ display: isAuth || isTrainingContext ? "flex" : "none" }}>
-              {!isAuth ? (
-                <>
-                  <Button
-                    component={RouterLink}
-                    to="/login"
-                    onClick={() => setMobileOpen(false)}
-                    fullWidth
-                    sx={{
-                      color: "rgba(255,255,255,0.9)",
-                      bgcolor: "rgba(255,255,255,0.05)",
-                      fontSize: "1.05rem",
-                      textTransform: "none",
-                      py: 1.5,
-                      borderRadius: "12px",
-                      fontWeight: 600,
-                      transition: "all 0.2s ease",
-                      "&:hover": { bgcolor: "rgba(255,255,255,0.1)" },
-                    }}
-                  >
-                    Login
-                  </Button>
-                  <Button
-                    component={RouterLink}
-                    to="/signup"
-                    variant="contained"
-                    fullWidth
-                    disableElevation
-                    onClick={() => setMobileOpen(false)}
-                    sx={{
-                      bgcolor: "#FFFFFF",
-                      color: "#0F172A",
-                      fontSize: "1.05rem",
-                      textTransform: "none",
-                      py: 1.5,
-                      borderRadius: "12px",
-                      fontWeight: 600,
-                      transition: "all 0.2s ease",
-                      "&:hover": { bgcolor: "rgba(255,255,255,0.9)" },
-                    }}
-                  >
-                    Start Learning
-                  </Button>
-                </>
-              ) : (
-                <>
-                  <Button
-                    component={RouterLink}
-                    to={dashboardPath}
-                    onClick={() => setMobileOpen(false)}
-                    variant="contained"
-                    fullWidth
-                    disableElevation
-                    sx={{
-                      bgcolor: "rgba(255,255,255,0.05)",
-                      color: "#FFFFFF",
-                      fontSize: "1.05rem",
-                      textTransform: "none",
-                      py: 1.5,
-                      borderRadius: "12px",
-                      fontWeight: 600,
-                      transition: "all 0.2s ease",
-                      "&:hover": { bgcolor: "rgba(255,255,255,0.1)" },
-                    }}
-                  >
-                    Dashboard
-                  </Button>
-                  <Button
-                    color="error"
-                    fullWidth
-                    onClick={() => {
-                      setMobileOpen(false);
-                      handleLogout();
-                    }}
-                    sx={{
-                      bgcolor: "rgba(239,68,68,0.1)",
-                      fontSize: "1.05rem",
-                      textTransform: "none",
-                      py: 1.5,
-                      borderRadius: "12px",
-                      fontWeight: 600,
-                      transition: "all 0.2s ease",
-                      "&:hover": { bgcolor: "rgba(239,68,68,0.2)" }
-                    }}
-                  >
-                    Logout
-                  </Button>
-                </>
-              )}
-            </Stack>
-          </Box>
-        </Box>
-      </Drawer>
-    </AppBar>
-    </>
+                <button
+                  type="button"
+                  onClick={() => {
+                    setMobileOpen(false);
+                    navigate("/contact");
+                  }}
+                  className="w-full py-3.5 bg-[#1a1a1a] text-white font-bold rounded-xl text-base flex items-center justify-center gap-2.5 shadow-sm"
+                >
+                  <span className="w-2.5 h-2.5 rounded-full bg-[#9fff00] block animate-pulse"></span>
+                  <span>Connect with Advisory</span>
+                </button>
+              </div>
+            </div>
+          </motion.nav>
+        )}
+      </AnimatePresence>
+    </header>
   );
 }

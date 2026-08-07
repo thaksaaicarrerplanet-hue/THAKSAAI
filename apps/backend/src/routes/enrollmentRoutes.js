@@ -1,11 +1,12 @@
 import express from 'express';
-import { enrollBatch, getMyEnrollments } from '../controller/enrollmentController.js';
+import { getMyEnrollments } from '../controller/enrollmentController.js';
 import authUser from '../middlewares/authMiddleware.js';
 import allowRoles from '../middlewares/roleMiddleware.js';
 
-const enrollmentRouter = express.Router()
+const enrollmentRouter = express.Router();
 
-enrollmentRouter.post('/student/batches/:batchId/enroll', authUser, allowRoles('student'), enrollBatch)
-enrollmentRouter.get('/student/enrollments', authUser, allowRoles('student'), getMyEnrollments)
+// Students can view their admin-assigned enrollments (read-only)
+// Enrollment creation is handled exclusively by Admin via POST /api/admin/users/create
+enrollmentRouter.get('/student/enrollments', authUser, allowRoles('student'), getMyEnrollments);
 
 export default enrollmentRouter;

@@ -1,288 +1,127 @@
-import SEO from "../../components/SEO";
-import { Box, Container, Typography, Grid, Chip } from "@mui/material";
-import { useState, useEffect } from "react";
-import { motion, AnimatePresence } from "framer-motion";
-import CloudQueueIcon from '@mui/icons-material/CloudQueue';
-import EngineeringIcon from '@mui/icons-material/Engineering';
-import MemoryIcon from '@mui/icons-material/Memory';
-import SmartToyIcon from '@mui/icons-material/SmartToy';
-import DeveloperBoardIcon from '@mui/icons-material/DeveloperBoard';
+﻿import React, { useState } from "react";
+import { Helmet } from "react-helmet-async";
+import { useNavigate, Link } from "react-router-dom";
+import { motion } from "framer-motion";
+import SupabaseImageCard from "../../components/common/SupabaseImageCard";
 
-const courses = [
-  {
-    id: "aws",
-    title: "AWS CLOUD",
-    icon: CloudQueueIcon,
-    summary: "Learn modern cloud infrastructure using AWS.",
-    overview: "Learn modern cloud infrastructure using AWS.",
-    skills: ["EC2", "S3", "IAM", "VPC", "Cloud Security", "Deployment"],
-    projects: "Cloud-hosted applications, Infrastructure setup",
-    outcome: "Understand real cloud deployment workflows."
-  },
-  {
-    id: "devops",
-    title: "DEVOPS ENGINEERING",
-    icon: EngineeringIcon,
-    summary: "Learn how modern software teams automate development and deployment.",
-    overview: "Learn how modern software teams automate development and deployment.",
-    skills: ["Linux", "Git", "Docker", "CI/CD", "Monitoring"],
-    projects: "Automated deployment pipelines",
-    outcome: "Understand complete software delivery workflows."
-  },
-  {
-    id: "ml",
-    title: "MACHINE LEARNING",
-    icon: MemoryIcon,
-    summary: "Learn how to build intelligent systems using data.",
-    overview: "Learn how to build intelligent systems using data.",
-    skills: ["Python", "Pandas", "NumPy", "Scikit-Learn", "Model Training"],
-    projects: "Prediction systems, Classification models",
-    outcome: "Build and deploy practical machine learning solutions."
-  },
-  {
-    id: "ai",
-    title: "AI TOOLS & PROMPT ENGINEERING",
-    icon: SmartToyIcon,
-    summary: "Designed especially for first-year engineering students.",
-    overview: "Designed especially for first-year engineering students.",
-    skills: ["ChatGPT", "Claude", "Gemini", "Prompt Design", "AI Productivity"],
-    projects: "AI workflows, Research assistants, Content automation",
-    outcome: "Learn how to use modern AI tools effectively for academics and productivity."
-  },
-  {
-    id: "iot",
-    title: "IoT • EMBEDDED • VLSI",
-    icon: DeveloperBoardIcon,
-    summary: "Core electronics and hardware innovation track.",
-    overview: "Core electronics and hardware innovation track.",
-    skills: ["Arduino", "Embedded C", "Sensors", "Microcontrollers", "VLSI Fundamentals"],
-    projects: "Smart automation systems, Embedded device prototypes",
-    outcome: "Gain practical exposure to modern electronics engineering domains."
-  }
+const courseCatalogue = [
+  { id: "crt-group-a", title: "Group A: Advanced Algorithms", category: "TRAINING", imageKey: "crt-tier-a", duration: "15 Weeks (Semester Course)", level: "For Top Coders", desc: "Intensive algorithmic practice in trees, graph theory, and advanced problem-solving for students targeting top technology salaries." },
+  { id: "crt-group-b", title: "Group B: Software Development & DBMS", category: "TRAINING", imageKey: "crt-tier-b", duration: "15 Weeks (Semester Course)", level: "Intermediate", desc: "Hands-on software building, database SQL modeling, and practical coding routines engineered for product developer job roles." },
+  { id: "crt-group-c", title: "Group C: Coding Fundamentals", category: "TRAINING", imageKey: "crt-tier-c", duration: "15 Weeks (Semester Course)", level: "Beginner Friendly", desc: "Step-by-step guidance covering loops, arrays, function debugging, and core logic to build strong programming foundations for good IT jobs." },
+  { id: "workshop-genai", title: "AI & ChatGPT Applications", category: "WORKSHOPS", imageKey: "workshop-genai", duration: "4 Days (32 Total Hours)", level: "All Coding Levels", desc: "Learn how to build intelligent AI chatbots and smart search tools using OpenAI developer APIs and modern vector databases." },
+  { id: "workshop-cloud", title: "Cloud Computing & Docker Containers", category: "WORKSHOPS", imageKey: "workshop-devops", duration: "5 Days (40 Total Hours)", level: "All Branches", desc: "Package and deploy modern web applications inside cloud servers using Docker containers and Kubernetes just like industry software teams." },
+  { id: "workshop-backend", title: "High-Speed Backend Systems", category: "WORKSHOPS", imageKey: "workshop-microservices", duration: "3 Days (24 Total Hours)", level: "Advanced", desc: "Build fast online server apps capable of handling thousands of actions at once using reliable messaging tools like Apache Kafka." },
+  { id: "capstone-cloud-saas", title: "Final-Year Project: Cloud Web App", category: "PROJECTS", imageKey: "capstone-git", duration: "8 Weeks Guided Project", level: "Final-Year Students", desc: "Build a working cloud software application with automated testing and professional Git teamwork tools for your college project submission." },
+  { id: "capstone-ai-rag", title: "Final-Year Project: AI Document Assistant", category: "PROJECTS", imageKey: "capstone-cicd", duration: "8 Weeks Guided Project", level: "Final-Year Students", desc: "Build a custom artificial intelligence web tool that reads company documents and answers questions accurately in real time." },
 ];
 
 export default function CoursesPage() {
-  const courseSchema = {
-    "@context": "https://schema.org",
-    "@type": "Course",
-    "name": "Advanced Full Stack Development",
-    "description": "Comprehensive course on modern web development including React, Node.js, and PostgreSQL.",
-    "provider": {
-      "@type": "Organization",
-      "name": "THAKSA.AI",
-      "sameAs": "https://www.thaksa.ai"
-    }
-  };
+  const [selectedFilter, setSelectedFilter] = useState("ALL");
+  const navigate = useNavigate();
 
-  const [expandedId, setExpandedId] = useState(null);
-
-  useEffect(() => {
-    if (!window.location.hash) {
-      window.scrollTo(0, 0);
-    }
-  }, []);
+  const filteredCourses = selectedFilter === "ALL" 
+    ? courseCatalogue 
+    : courseCatalogue.filter(c => c.category === selectedFilter);
 
   return (
     <>
+      <Helmet>
+        <title>Explore Our Practical Courses & Workshops | THAKSAAI</title>
+        <meta
+          name="description"
+          content="Browse our complete directory of practical campus recruitment training courses, short coding workshops, and final-year software projects."
+        />
+      </Helmet>
 
-      <SEO
-        title="Premium Tech Courses & Certifications"
-        description="Explore our specialized engineering courses covering Full-Stack Development, Cloud Computing, and AI/ML. Designed to make students placement-ready."
-        url="/courses"
-        schema={courseSchema}
-      />
-    <Box
-      sx={{
-        minHeight: "100vh",
-        bgcolor: "#020617",
-        pt: { xs: 12, md: 16 },
-        pb: { xs: 8, md: 12 },
-        color: "#F8FAFC",
-        position: "relative",
-        overflow: "hidden"
-      }}
-    >
-      {/* Background Glow */}
-      <Box
-        sx={{
-          position: "absolute",
-          top: "10%",
-          left: "50%",
-          transform: "translate(-50%, -50%)",
-          width: "60vw",
-          height: "60vw",
-          background: "radial-gradient(circle, rgba(79, 70, 229, 0.08) 0%, rgba(2, 6, 23, 0) 70%)",
-          borderRadius: "50%",
-          pointerEvents: "none",
-          zIndex: 0
-        }}
-      />
+      <main className="w-full min-h-screen bg-[#EDEEF5] pt-28 sm:pt-36 pb-24 px-6 md:px-10 text-[#1a1a1a] selection:bg-[#9fff00] selection:text-black">
+        <div className="max-w-7xl mx-auto">
+          
+          {/* Header */}
+          <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-12 pb-8 border-b border-black/[0.08]">
+            <div className="max-w-3xl">
+              <div className="inline-flex items-center gap-2 bg-white/80 backdrop-blur-md px-3.5 py-1 rounded-full text-xs font-bold uppercase tracking-widest text-zinc-600 mb-4 shadow-xs">
+                <span className="w-2 h-2 rounded-full bg-[#9fff00] block animate-pulse"></span>
+                Practical Course Directory
+              </div>
+              <h1 className="text-4xl sm:text-5xl md:text-6xl font-display font-bold text-[#1a1a1a] tracking-tight leading-tight">
+                Practical courses designed to get students hired.
+              </h1>
+              <p className="text-base sm:text-lg font-sans text-zinc-600 mt-3 leading-relaxed">
+                We design our courses around actual corporate technical interview exams and daily industry software engineering tools. Browse our practical training modules, short bootcamps, and student projects below.
+              </p>
+            </div>
 
-      <Container maxWidth="lg" sx={{ position: "relative", zIndex: 1 }}>
-        <Box sx={{ textAlign: "center", mb: { xs: 6, md: 10 }, maxWidth: "800px", mx: "auto" }}>
-          <Typography
-            variant="h1" component="h1"
-            sx={{
-              fontSize: { xs: "2.5rem", md: "4rem" },
-              fontWeight: 800,
-              mb: 3,
-              letterSpacing: "-0.02em",
-              background: "linear-gradient(to right, #F8FAFC, #94A3B8)",
-              WebkitBackgroundClip: "text",
-              WebkitTextFillColor: "transparent"
-            }}
-          >
-            Career-Focused Learning Tracks
-          </Typography>
-          <Typography
-            variant="h2"
-            sx={{
-              fontSize: { xs: "1.125rem", md: "1.25rem" },
-              color: "#94A3B8",
-              fontWeight: 400,
-              lineHeight: 1.6,
-              maxWidth: "700px",
-              mx: "auto"
-            }}
-          >
-            Industry-relevant programs designed to help engineering students build practical skills through guided learning and real-world implementation.
-          </Typography>
-        </Box>
-
-        <Grid container spacing={3} justifyContent="center">
-          {courses.map((course) => {
-            const isExpanded = expandedId === course.id;
-            return (
-              <Grid item xs={12} md={isExpanded ? 12 : 6} lg={isExpanded ? 12 : 4} key={course.id} sx={{ transition: "all 0.3s ease" }}>
-                <Box
-                  component={motion.div}
-                  layout
-                  onClick={() => setExpandedId(isExpanded ? null : course.id)}
-                  sx={{
-                    background: "rgba(255,255,255,0.02)",
-                    backdropFilter: "blur(20px)",
-                    border: "1px solid rgba(255,255,255,0.08)",
-                    borderRadius: "24px",
-                    p: { xs: 3, md: 4 },
-                    cursor: "pointer",
-                    height: "100%",
-                    display: "flex",
-                    flexDirection: "column",
-                    position: "relative",
-                    overflow: "hidden",
-                    "&:hover": {
-                      background: "rgba(255,255,255,0.04)",
-                      borderColor: "rgba(79, 70, 229, 0.3)",
-                      transform: isExpanded ? "none" : "translateY(-4px)",
-                      boxShadow: "0 20px 40px -20px rgba(79, 70, 229, 0.15)"
-                    },
-                    transition: "all 0.3s cubic-bezier(0.4, 0, 0.2, 1)"
-                  }}
+            <div className="flex flex-wrap items-center gap-2 shrink-0 text-xs font-sans font-bold">
+              {[
+                { key: "ALL", label: "● All Programs" },
+                { key: "TRAINING", label: "Campus Training" },
+                { key: "WORKSHOPS", label: "3-5 Day Workshops" },
+                { key: "PROJECTS", label: "Final-Year Projects" },
+              ].map((tab) => (
+                <button
+                  key={tab.key}
+                  onClick={() => setSelectedFilter(tab.key)}
+                  className={`px-4 py-2 rounded-full border transition-all focus:outline-none focus:ring-2 focus:ring-[#9fff00] ${
+                    selectedFilter === tab.key ? "bg-[#1a1a1a] text-[#9fff00] border-[#1a1a1a]" : "bg-white/80 text-zinc-700 border-black/10 hover:bg-white"
+                  }`}
                 >
-                  <Box sx={{ display: "flex", alignItems: "flex-start", gap: 3, mb: isExpanded ? 4 : 0 }}>
-                    <Box
-                      sx={{
-                        p: 1.5,
-                        borderRadius: "16px",
-                        background: "rgba(79, 70, 229, 0.1)",
-                        color: "#818CF8",
-                        display: "flex"
-                      }}
-                    >
-                      <course.icon fontSize="medium" />
-                    </Box>
-                    <Box sx={{ flex: 1 }}>
-                      <Typography
-                        variant="h3"
-                        sx={{
-                          fontSize: "1.25rem",
-                          fontWeight: 700,
-                          color: "#F8FAFC",
-                          mb: 1,
-                          letterSpacing: "-0.01em"
-                        }}
-                      >
-                        {course.title}
-                      </Typography>
-                      <Typography
-                        variant="body1"
-                        sx={{
-                          color: "#94A3B8",
-                          fontSize: "0.95rem",
-                          lineHeight: 1.5,
-                          display: isExpanded ? "none" : "-webkit-box",
-                          WebkitLineClamp: 2,
-                          WebkitBoxOrient: "vertical",
-                          overflow: "hidden"
-                        }}
-                      >
-                        {course.summary}
-                      </Typography>
-                    </Box>
-                  </Box>
+                  {tab.label}
+                </button>
+              ))}
+            </div>
+          </div>
 
-                  <AnimatePresence>
-                    {isExpanded && (
-                      <Box
-                        component={motion.div}
-                        initial={{ opacity: 0, height: 0 }}
-                        animate={{ opacity: 1, height: "auto" }}
-                        exit={{ opacity: 0, height: 0 }}
-                        transition={{ duration: 0.3, ease: "easeInOut" }}
-                        sx={{ overflow: "hidden" }}
-                      >
-                        <Grid container spacing={4}>
-                          <Grid item xs={12} md={6}>
-                            <Box sx={{ mb: 4 }}>
-                              <Typography sx={{ color: "#F8FAFC", fontSize: "0.875rem", fontWeight: 600, mb: 1, textTransform: "uppercase", letterSpacing: "0.05em" }}>Overview</Typography>
-                              <Typography sx={{ color: "#94A3B8", fontSize: "0.95rem", lineHeight: 1.6 }}>{course.overview}</Typography>
-                            </Box>
+          {/* Courses Grid */}
+          <section aria-label="Course Listings" className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-16">
+            {filteredCourses.map((c) => (
+              <div key={c.id} className="flex flex-col gap-4">
+                <SupabaseImageCard
+                  imageKey={c.imageKey}
+                  badgeText={c.category === "TRAINING" ? "Semester Training" : c.category === "WORKSHOPS" ? "Practical Workshop" : "Student Project"}
+                  subtitle={c.level}
+                  title={c.title}
+                  description={c.desc}
+                  actionText="View Course Details →"
+                  onActionClick={() => navigate(`/courses/${c.id}`)}
+                  aspectRatio="aspect-[16/10]"
+                />
+                <div className="flex items-center justify-between px-4 py-3 bg-white/60 backdrop-blur-sm rounded-xl border border-black/[0.05] text-xs font-sans font-semibold text-zinc-700">
+                  <span className="flex items-center gap-2">
+                    <span className="w-2 h-2 rounded-full bg-[#1a1a1a]"></span>
+                    {c.duration}
+                  </span>
+                  <span className="text-[#1a1a1a] font-bold bg-black/5 px-3 py-1 rounded-full uppercase">
+                    {c.level}
+                  </span>
+                </div>
+              </div>
+            ))}
+          </section>
 
-                            <Box>
-                              <Typography sx={{ color: "#F8FAFC", fontSize: "0.875rem", fontWeight: 600, mb: 2, textTransform: "uppercase", letterSpacing: "0.05em" }}>Skills Covered</Typography>
-                              <Box sx={{ display: "flex", flexWrap: "wrap", gap: 1 }}>
-                                {course.skills.map(skill => (
-                                  <Chip
-                                    key={skill}
-                                    label={skill}
-                                    size="small"
-                                    sx={{
-                                      bgcolor: "rgba(255,255,255,0.05)",
-                                      color: "#CBD5E1",
-                                      border: "1px solid rgba(255,255,255,0.1)",
-                                      borderRadius: "8px",
-                                      fontFamily: "Inter"
-                                    }}
-                                  />
-                                ))}
-                              </Box>
-                            </Box>
-                          </Grid>
+          {/* Institutional Note Callout */}
+          <div className="neo-glass p-8 sm:p-12 rounded-3xl border border-black/[0.08] flex flex-col md:flex-row items-center justify-between gap-8 shadow-sm">
+            <div className="max-w-2xl">
+              <span className="text-xs font-bold uppercase tracking-widest text-zinc-500 font-sans block mb-2">
+                How Enrollment Works
+              </span>
+              <h3 className="text-2xl sm:text-3xl font-display font-bold text-[#1a1a1a] tracking-tight mb-3">
+                All courses are organized directly with college leadership.
+              </h3>
+              <p className="text-sm sm:text-base font-sans text-zinc-600 leading-relaxed">
+                To keep learning quality high and ensure proper supervision in computer labs, we do not sell individual ticket registrations online. We partner directly with college placement officers and Deans to train entire student batches on campus.
+              </p>
+            </div>
+            <button
+              type="button"
+              onClick={() => navigate("/contact")}
+              className="bg-[#1a1a1a] text-white px-8 py-4 rounded-full text-sm font-bold tracking-wide hover:bg-black hover:scale-105 active:scale-95 transition-all shadow-md shrink-0 focus:outline-none focus:ring-2 focus:ring-[#9fff00]"
+            >
+              Contact Our Team →
+            </button>
+          </div>
 
-                          <Grid item xs={12} md={6}>
-                            <Box sx={{ mb: 4 }}>
-                              <Typography sx={{ color: "#F8FAFC", fontSize: "0.875rem", fontWeight: 600, mb: 1, textTransform: "uppercase", letterSpacing: "0.05em" }}>Project Examples</Typography>
-                              <Typography sx={{ color: "#94A3B8", fontSize: "0.95rem", lineHeight: 1.6 }}>{course.projects}</Typography>
-                            </Box>
-
-                            <Box>
-                              <Typography sx={{ color: "#F8FAFC", fontSize: "0.875rem", fontWeight: 600, mb: 1, textTransform: "uppercase", letterSpacing: "0.05em" }}>Learning Outcome</Typography>
-                              <Box sx={{ p: 2, borderRadius: "12px", bgcolor: "rgba(79, 70, 229, 0.05)", border: "1px solid rgba(79, 70, 229, 0.1)" }}>
-                                <Typography sx={{ color: "#A5B4FC", fontSize: "0.95rem", lineHeight: 1.6 }}>{course.outcome}</Typography>
-                              </Box>
-                            </Box>
-                          </Grid>
-                        </Grid>
-                      </Box>
-                    )}
-                  </AnimatePresence>
-                </Box>
-              </Grid>
-            );
-          })}
-        </Grid>
-      </Container>
-    </Box>
+        </div>
+      </main>
     </>
   );
 }

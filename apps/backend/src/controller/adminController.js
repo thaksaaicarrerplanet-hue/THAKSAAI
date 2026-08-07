@@ -1,4 +1,64 @@
+import bcrypt from "bcrypt";
 import db from "../config/db.js";
+import { sendAdminProvisionedMail } from "../utils/sendAccountMail.js";
+
+const createUserByAdmin = async (req, res) => {
+    try {
+        const { name, email, role = "student", defaultPassword = "Welcome@Thaksa" } = req.body;
+
+        if (!email || !name) {
+            return res.status(400).json({ message: "Name and email are required fields." });
+        }
+
+        const allowedRoles = ["student", "instructor", "admin"];
+        if (!allowedRoles.includes(role)) {
+            return res.status(400).json({ message: "Invalid role specified." });
+        }
+
+        const existingUser = await db.query(
+            "SELECT id FROM users WHERE email = $1", [email.toLowerCase().trim()]
+        );
+
+        if (existingUser.rows.length > 0) {
+            return res.status(400).json({ message: "A user with this email address already exists in the database." });
+        }
+
+        const hashedPassword = await bcrypt.hash(defaultPassword, 10);
+
+        const client = await db.connect();
+        try {
+            await client.query("BEGIN");
+            const result = await client.query(
+                "INSERT INTO users (name, email, password, role) VALUES ($1, $2, $3, $4) RETURNING id, name, email, role, created_at",
+                [name.trim(), email.toLowerCase().trim(), hashedPassword, role]
+            );
+            const newUser = result.rows[0];
+
+            // Initialize default empty profile record
+            await client.query(
+                "INSERT INTO user_profiles (user_id, bio, phone, date_of_birth, profile_image) VALUES ($1, '', '', NULL, '') ON CONFLICT (user_id) DO NOTHING",
+                [newUser.id]
+            );
+            await client.query("COMMIT");
+
+            // Attempt to deliver onboarding email notification asynchronously
+            try {
+                await sendAdminProvisionedMail(newUser.email, newUser.name, defaultPassword, newUser.role);
+            } catch (mailError) {
+                console.error("Failed to deliver onboarding email:", mailError.message);
+            }
+
+            res.status(201).json({ message: "User account provisioned successfully by Admin.", user: newUser });
+        } catch (txnErr) {
+            await client.query("ROLLBACK");
+            throw txnErr;
+        } finally {
+            client.release();
+        }
+    } catch (err) {
+        res.status(500).json({ message: "Error provisioning user account: " + err.message });
+    }
+};
 
 const getAllUsers = async (req, res) => {
     try {
@@ -81,4 +141,4 @@ const getAllBatchesAdmin = async (req, res) => {
     }
 };
 
-export { getAllUsers, getUserById, updateUserRole, deleteUser, getAllBatchesAdmin };
+export { createUserByAdmin, getAllUsers, getUserById, updateUserRole, deleteUser, getAllBatchesAdmin };

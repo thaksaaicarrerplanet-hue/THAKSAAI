@@ -1,4 +1,4 @@
-// eslint-disable-next-line no-unused-vars
+﻿// eslint-disable-next-line no-unused-vars
 import { motion } from "framer-motion";
 import { Box, Container, Typography, Card } from "@mui/material";
 import { Grid } from "@mui/material";
@@ -31,7 +31,7 @@ export default function CollegeCrtSection() {
             Available for Campus-Wide CRT Programs
           </Typography>
           <Typography sx={{ color: "#94A3B8", fontSize: "1.125rem", lineHeight: 1.6 }}>
-            THAKSA.AI collaborates with colleges to conduct structured CRT programs designed to improve student employability and placement readiness.
+            THAKSAAI collaborates with colleges to conduct structured CRT programs designed to improve student employability and placement readiness.
           </Typography>
         </Box>
 

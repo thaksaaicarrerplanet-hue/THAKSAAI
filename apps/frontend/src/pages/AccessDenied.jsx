@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import LockRoundedIcon from "@mui/icons-material/LockRounded";
 import HomeRoundedIcon from "@mui/icons-material/HomeRounded";
 import LoginRoundedIcon from "@mui/icons-material/LoginRounded";
+import BrandLogo from "../components/common/BrandLogo";
 
 export default function AccessDenied() {
     const navigate = useNavigate();
@@ -21,8 +22,12 @@ export default function AccessDenied() {
         >
             <Container maxWidth="sm">
                 <Box sx={{ textAlign: "center" }}>
+                    <Box sx={{ display: "flex", justifyContent: "center", mb: 3 }}>
+                        <BrandLogo variant="dashboard" disableLink />
+                    </Box>
+
                     <LockRoundedIcon
-                        sx={{ fontSize: 120, color: "#f59e0b", mb: 2 }}
+                        sx={{ fontSize: 100, color: "#f59e0b", mb: 2 }}
                     />
 
                     <Typography variant="h1" component="h1" sx={{ fontWeight: 800, mb: 1, fontSize: { xs: 64, md: 96 } }}>

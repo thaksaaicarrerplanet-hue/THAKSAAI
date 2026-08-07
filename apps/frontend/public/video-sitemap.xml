@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:video="http://www.google.com/schemas/sitemap-video/1.1">
+  <url>
+    <loc>https://www.thaksaai.in/</loc>
+    <video:video>
+      <video:thumbnail_loc>https://www.thaksaai.in/og-image.png?v=4.0.0-PROD</video:thumbnail_loc>
+      <video:title>THAKSA.AI Practical Engineering &amp; Robotics Bootcamps</video:title>
+      <video:description>An overview of THAKSA.AI hands-on on-campus engineering bootcamps and algorithmic training.</video:description>
+      <video:content_loc>https://www.thaksaai.in/VID-20260619-WA0002.mp4</video:content_loc>
+      <video:live>no</video:live>
+    </video:video>
+  </url>
+</urlset>

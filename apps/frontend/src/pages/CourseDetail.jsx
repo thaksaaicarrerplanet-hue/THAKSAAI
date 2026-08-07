@@ -1,214 +1,186 @@
-import { useEffect, useState } from "react";
-import { useParams, useNavigate } from "react-router-dom";
-import {
-    Alert,
-    Box,
-    Button,
-    Card,
-    CardContent,
-    CircularProgress,
-    Container,
-    Divider,
-    Grid,
-    Stack,
-    Tab,
-    Tabs,
-    Typography,
-} from "@mui/material";
-import ArrowBackRoundedIcon from "@mui/icons-material/ArrowBackRounded";
-import { getCourseReviews, getCourseRatingSummary } from "../services/reviewService";
-import { getPublicBatches } from "../services/batchService";
-import RatingStars from "../components/RatingStars";
-import ReviewCard from "../components/ReviewCard";
-import ReviewForm from "../components/ReviewForm";
-import EmptyState from "../components/EmptyState";
+﻿import React from "react";
+import { Helmet } from "react-helmet-async";
+import { useParams, useNavigate, Link } from "react-router-dom";
+import { motion } from "framer-motion";
+
+const courseDetailsDatabase = {
+  "crt-group-a": {
+    title: "Group A: Advanced Algorithms & Data Structures",
+    badge: "15-Week Semester Campus Training",
+    forWho: "Top student coders targeting high-salary software jobs ($30k+ / ₹25 LPA+).",
+    desc: "A thorough practical training program designed for students who have mastered basic syntax and want to conquer advanced coding examinations conducted by tier-1 global software employers.",
+    topics: [
+      "Advanced Array Transformations & Sliding Window Patterns",
+      "Tree Traversals, Binary Search Trees, and Heaps",
+      "Graph Algorithms: Shortest Path, Spanning Trees, and Network Flows",
+      "Dynamic Programming: Memoization and Tabulation Optimization",
+      "Time & Memory Complexity Reduction under Strict Exam Limits",
+      "Weekly Timed Online Practice Tests with Industry Expert Review"
+    ],
+    schedule: "15 Weeks (Every Friday Timed Practice + 4 Hours Lab Workshop)",
+    prereq: "Strong foundation in basic programming loops and conditionals in Python, Java, or C++."
+  },
+  "crt-group-b": {
+    title: "Group B: Core Software Development & DBMS",
+    badge: "15-Week Semester Campus Training",
+    forWho: "Students preparing for core enterprise product engineering roles (₹10-20 LPA).",
+    desc: "Focuses on clean software logic, structured programming, database indexing, and system building to ensure students pass standard technical interview rounds with complete confidence.",
+    topics: [
+      "Object-Oriented Programming (OOP) Best Practices & Clean Code",
+      "Relational Database Design, SQL Query Optimization, and Indexing",
+      "Handling Concurrent Data and Transaction Safety in Web Apps",
+      "Building Modern REST API Backend Services",
+      "Debugging Code Quickly Under Timed Interview Conditions",
+      "Weekly Mock Interview Coding Drills and Personalized Feedback"
+    ],
+    schedule: "15 Weeks (Every Friday Timed Practice + 4 Hours Lab Workshop)",
+    prereq: "Familiarity with basic coding syntax and introductory database concepts."
+  },
+  "workshop-genai": {
+    title: "AI & ChatGPT Applications Workshop",
+    badge: "4-Day Intensive College Lab",
+    forWho: "All engineering students interested in artificial intelligence and modern application development.",
+    desc: "Move past conversational chat prompting and learn how to write real software applications that use OpenAI developer tools, embeddings, and vector search engines to analyze corporate documents.",
+    topics: [
+      "How Modern AI Large Language Models Work Under the Hood",
+      "Connecting Python Software to OpenAI & Gemini Cloud APIs",
+      "Building Document Smart Search Using Vector Databases (ChromaDB)",
+      "Creating Automated Assistants capable of Answering Technical Questions",
+      "Testing AI Accuracy and Managing Cloud Token Budgets",
+      "Live Student Team Hackathon & Project Presentations on Day 4"
+    ],
+    schedule: "4 Intensive Days (8 Hours per day inside campus computer labs)",
+    prereq: "Basic knowledge of Python scripting and internet fundamentals."
+  }
+};
+
+const defaultCourse = {
+  title: "Practical Campus Training Program",
+  badge: "Guided Campus Course",
+  forWho: "Engineering students preparing for software interviews and real developer work.",
+  desc: "A hands-on coding course taught by experienced industry engineers directly inside your college computer labs. We focus on writing real, working code without repetitive theory lectures.",
+  topics: [
+    "Practical Problem Solving with Real Industry Examples",
+    "Writing Clean, Understandable Programming Logic",
+    "Working Collaboratively Using Modern Git Team Tools",
+    "Automated Code Verification and Error Debugging",
+    "Weekly Practice Exercises to Build Coding Confidence",
+    "Live Technical Presentation & Mentoring Sessions"
+  ],
+  schedule: "Flexible campus timetable coordinated directly with college Deans and TPOs.",
+  prereq: "Enrolled in a partner computer science or engineering college degree."
+};
 
 export default function CourseDetail() {
-    const { courseId } = useParams();
-    const navigate = useNavigate();
+  const { courseId } = useParams();
+  const navigate = useNavigate();
 
-    const [tab, setTab] = useState(0);
-    const [loading, setLoading] = useState(true);
-    const [reviews, setReviews] = useState([]);
-    const [ratingSummary, setRatingSummary] = useState({ average_rating: 0, total_reviews: 0 });
-    const [batches, setBatches] = useState([]);
-    const [course, setCourse] = useState(null);
-    const [error, setError] = useState("");
+  const data = courseDetailsDatabase[courseId] || defaultCourse;
 
-    const userRole = JSON.parse(localStorage.getItem("user") || "{}")?.role;
-    const isStudent = userRole === "student";
+  return (
+    <>
+      <Helmet>
+        <title>{data.title} | THAKSAAI Course Details</title>
+        <meta name="description" content={data.desc} />
+      </Helmet>
 
-    useEffect(() => {
-        loadCourseData();
-    }, [courseId]);
+      <main className="w-full min-h-screen bg-[#EDEEF5] pt-28 sm:pt-36 pb-24 px-6 md:px-10 text-[#1a1a1a] selection:bg-[#9fff00] selection:text-black">
+        <div className="max-w-5xl mx-auto">
+          
+          {/* Back Button */}
+          <Link
+            to="/courses"
+            className="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-zinc-600 hover:text-[#1a1a1a] transition-colors mb-8"
+          >
+            ← Back to All Courses
+          </Link>
 
-    const loadCourseData = async () => {
-        try {
-            setLoading(true);
-            setError("");
+          {/* Main Content Box */}
+          <article className="neo-glass p-8 sm:p-12 md:p-14 rounded-3xl border border-black/[0.08] shadow-lg">
+            
+            <div className="inline-flex items-center gap-2 bg-[#1a1a1a] text-[#9fff00] px-3.5 py-1 rounded-full text-xs font-bold uppercase tracking-widest mb-4 shadow-xs">
+              ● {data.badge}
+            </div>
 
-            const [reviewsData, ratingsData, batchesData] = await Promise.all([
-                getCourseReviews(courseId),
-                getCourseRatingSummary(courseId),
-                getPublicBatches({ courseId, limit: 50 }),
-            ]);
+            <h1 className="text-3xl sm:text-4xl md:text-5xl font-display font-bold text-[#1a1a1a] tracking-tight leading-tight mb-4">
+              {data.title}
+            </h1>
 
-            setReviews(Array.isArray(reviewsData) ? reviewsData : []);
-            setRatingSummary({
-                average_rating: parseFloat(ratingsData?.average_rating || 0),
-                total_reviews: parseInt(ratingsData?.total_reviews || 0),
-            });
+            <p className="text-base sm:text-lg font-sans text-zinc-600 leading-relaxed mb-8 border-b border-black/[0.06] pb-8">
+              {data.desc}
+            </p>
 
-            const batchList = Array.isArray(batchesData?.batches) ? batchesData.batches : [];
-            setBatches(batchList);
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-10 text-sm font-sans">
+              <div className="p-5 bg-white/70 rounded-2xl border border-black/[0.05]">
+                <span className="text-xs font-bold uppercase tracking-widest text-zinc-400 block mb-1">
+                  Who This Is For
+                </span>
+                <p className="text-base font-medium text-[#1a1a1a]">
+                  {data.forWho}
+                </p>
+              </div>
 
-            // Get course info from first batch
-            if (batchList.length > 0) {
-                setCourse({
-                    title: batchList[0].course_title,
-                    instructor_name: batchList[0].instructor_name,
-                });
-            }
-        } catch (requestError) {
-            setError(requestError?.response?.data?.message || "Failed to load course details");
-        } finally {
-            setLoading(false);
-        }
-    };
+              <div className="p-5 bg-white/70 rounded-2xl border border-black/[0.05]">
+                <span className="text-xs font-bold uppercase tracking-widest text-zinc-400 block mb-1">
+                  Schedule & Duration
+                </span>
+                <p className="text-base font-medium text-[#1a1a1a]">
+                  {data.schedule}
+                </p>
+              </div>
+            </div>
 
-    const handleReviewSubmitted = () => {
-        loadCourseData();
-    };
+            {/* What Students Will Learn */}
+            <h3 className="text-2xl font-display font-bold text-[#1a1a1a] tracking-tight mb-5">
+              What Students Will Learn & Practice
+            </h3>
 
-    if (loading) {
-        return (
-            <Box sx={{ py: 8, backgroundColor: "#f8fafc", minHeight: "100vh", display: "flex", justifyContent: "center", alignItems: "center" }}>
-                <CircularProgress />
-            </Box>
-        );
-    }
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-12 font-sans">
+              {data.topics.map((topic, i) => (
+                <div key={i} className="flex items-start gap-3 p-4 bg-white/50 rounded-xl border border-black/[0.04]">
+                  <span className="text-[#0D9488] font-bold text-lg mt-0.5 shrink-0">✓</span>
+                  <span className="text-sm sm:text-base font-medium text-zinc-700 leading-snug">
+                    {topic}
+                  </span>
+                </div>
+              ))}
+            </div>
 
-    if (error || !course) {
-        return (
-            <Box sx={{ py: 8, backgroundColor: "#f8fafc", minHeight: "100vh" }}>
-                <Container maxWidth="lg">
-                    <Alert severity="error">{error || "Course not found"}</Alert>
-                </Container>
-            </Box>
-        );
-    }
+            <div className="p-5 bg-black/[0.03] rounded-2xl border border-black/[0.06] flex flex-col sm:flex-row items-center justify-between gap-6 text-xs sm:text-sm font-sans text-zinc-600">
+              <div>
+                <strong className="text-[#1a1a1a] block mb-0.5">Recommended Experience:</strong>
+                <span>{data.prereq}</span>
+              </div>
+              <span className="px-3 py-1 bg-[#1a1a1a] text-white rounded-full text-xs font-bold uppercase whitespace-nowrap">
+                Taught In College Labs
+              </span>
+            </div>
+          </article>
 
-    return (
-        <Box sx={{ py: { xs: 4, md: 6 }, backgroundColor: "#f8fafc", minHeight: "calc(100vh - 80px)" }}>
-            <Container maxWidth="lg">
-                <Button
-                    startIcon={<ArrowBackRoundedIcon />}
-                    onClick={() => navigate(-1)}
-                    sx={{ mb: 3, textTransform: "none" }}
-                >
-                    Back
-                </Button>
+          {/* Bottom Action Card */}
+          <div className="mt-12 bg-[#1a1a1a] text-white p-8 sm:p-12 rounded-3xl flex flex-col sm:flex-row items-center justify-between gap-6 shadow-xl border border-white/10">
+            <div>
+              <span className="text-xs font-mono text-[#9fff00] font-bold uppercase tracking-widest block mb-1">
+                ● For College Leadership & Faculty
+              </span>
+              <h3 className="text-2xl sm:text-3xl font-display font-bold text-white tracking-tight">
+                Want to bring this course to your campus?
+              </h3>
+              <p className="text-sm font-sans text-zinc-400 mt-1">
+                Contact our team to plan suitable dates and organize a simple discussion with your faculty.
+              </p>
+            </div>
+            <button
+              type="button"
+              onClick={() => navigate(`/contact?track=${encodeURIComponent(data.title)}`)}
+              className="bg-[#9fff00] text-[#1a1a1a] px-8 py-4 rounded-full text-sm font-bold tracking-wide hover:bg-white hover:scale-105 active:scale-95 transition-all shadow-lg shrink-0 focus:outline-none focus:ring-2 focus:ring-white"
+            >
+              Contact Our Team →
+            </button>
+          </div>
 
-                <Card elevation={0} sx={{ borderRadius: 3, border: "1px solid #e2e8f0", mb: 3 }}>
-                    <CardContent sx={{ p: { xs: 2.5, md: 4 } }}>
-                        <Typography variant="h4" sx={{ fontWeight: 800, mb: 1 }}>
-                            {course.title}
-                        </Typography>
-                        <Typography color="text.secondary" sx={{ mb: 2 }}>
-                            By {course.instructor_name}
-                        </Typography>
-
-                        <Box sx={{ display: "flex", alignItems: "center", gap: 2, mb: 3 }}>
-                            <RatingStars
-                                rating={ratingSummary.average_rating}
-                                size="medium"
-                                showNumber
-                                reviewCount={ratingSummary.total_reviews}
-                            />
-                        </Box>
-
-                        <Tabs
-                            value={tab}
-                            onChange={(e, newValue) => setTab(newValue)}
-                            variant="scrollable"
-                            scrollButtons="auto"
-                            allowScrollButtonsMobile
-                        >
-                            <Tab label="Overview" />
-                            <Tab label={`Reviews (${ratingSummary.total_reviews})`} />
-                        </Tabs>
-                    </CardContent>
-                </Card>
-
-                {tab === 0 && (
-                    <Box>
-                        <Typography variant="h6" sx={{ fontWeight: 700, mb: 2 }}>
-                            Available Batches
-                        </Typography>
-
-                        {batches.length === 0 ? (
-                            <EmptyState
-                                icon="folder"
-                                title="No Batches Available"
-                                description="There are currently no batches available for this course. Check back later for new batch announcements."
-                            />
-                        ) : (
-                            <Grid container spacing={2.2}>
-                                {batches.map((batch) => (
-                                    <Grid key={batch.id} size={{ xs: 12, sm: 6 }}>
-                                        <Card elevation={0} sx={{ borderRadius: 2.5, border: "1px solid #e2e8f0" }}>
-                                            <CardContent sx={{ p: 2.5 }}>
-                                                <Typography variant="h6" sx={{ fontWeight: 700, mb: 1 }}>
-                                                    {batch.batch_name}
-                                                </Typography>
-                                                <Typography variant="body2" sx={{ mb: 0.5 }}>
-                                                    <strong>Status:</strong> {batch.status || "Upcoming"}
-                                                </Typography>
-                                                <Typography variant="body2" sx={{ mb: 0.5 }}>
-                                                    <strong>Start Date:</strong>{" "}
-                                                    {batch.start_date ? new Date(batch.start_date).toLocaleDateString() : "TBA"}
-                                                </Typography>
-                                                <Typography variant="body2" sx={{ mb: 1.5 }}>
-                                                    <strong>Seats:</strong>{" "}
-                                                    {batch.available_seats === null ? "Open" : `${batch.available_seats} left`}
-                                                </Typography>
-                                                <Button
-                                                    variant="contained"
-                                                    fullWidth
-                                                    onClick={() => navigate(`/batches?courseId=${courseId}`)}
-                                                    sx={{ borderRadius: 2, textTransform: "none" }}
-                                                >
-                                                    View Details & Enroll
-                                                </Button>
-                                            </CardContent>
-                                        </Card>
-                                    </Grid>
-                                ))}
-                            </Grid>
-                        )}
-                    </Box>
-                )}
-
-                {tab === 1 && (
-                    <Box>
-                        {isStudent && <ReviewForm courseId={courseId} onReviewSubmitted={handleReviewSubmitted} />}
-
-                        {reviews.length === 0 ? (
-                            <EmptyState
-                                icon="review"
-                                title="No Reviews Yet"
-                                description="Be the first to share your experience! Submit a review to help other students decide."
-                            />
-                        ) : (
-                            <Stack spacing={2}>
-                                {reviews.map((review) => (
-                                    <ReviewCard key={review.id} review={review} />
-                                ))}
-                            </Stack>
-                        )}
-                    </Box>
-                )}
-            </Container>
-        </Box>
-    );
+        </div>
+      </main>
+    </>
+  );
 }

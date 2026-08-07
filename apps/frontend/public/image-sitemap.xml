@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
+  <url>
+    <loc>https://www.thaksaai.in/</loc>
+    <image:image>
+      <image:loc>https://www.thaksaai.in/brand-logo.png?v=4.0.0-PROD</image:loc>
+      <image:title>THAKSA.AI Official Neural &amp; Robotics Brand Logo</image:title>
+      <image:caption>Transparent high-resolution emblem for THAKSA.AI career accelerator.</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://www.thaksaai.in/og-image.png?v=4.0.0-PROD</image:loc>
+      <image:title>THAKSA.AI Social Preview Banner</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://www.thaksaai.in/organization-logo.png?v=4.0.0-PROD</image:loc>
+      <image:title>THAKSA.AI Organization Structured Data Emblem</image:title>
+    </image:image>
+  </url>
+</urlset>

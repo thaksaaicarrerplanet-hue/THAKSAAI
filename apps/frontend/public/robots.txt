@@ -1,7 +1,15 @@
 User-agent: *
 Allow: /
-Disallow: /admin
-Disallow: /test
-Disallow: /*?*
+Allow: /*.png$
+Allow: /*.svg$
+Allow: /*.ico$
+Allow: /*.webp$
+Allow: /*.jpg$
+Disallow: /dashboard/
+Disallow: /admin/
+Disallow: /instructor/
+Disallow: /api/
 
-Sitemap: https://www.thaksa.ai/sitemap-index.xml
+Sitemap: https://www.thaksaai.in/sitemap.xml
+Sitemap: https://www.thaksaai.in/sitemap-index.xml
+Sitemap: https://www.thaksaai.in/image-sitemap.xml

@@ -1,4 +1,4 @@
-import { Box, Container, Typography } from "@mui/material";
+﻿import { Box, Container, Typography } from "@mui/material";
 
 const IMAGES = [
   "/IMG-20260619-WA0004.jpg",
@@ -61,7 +61,7 @@ export default function VisualProofSection() {
             }}
           >
             <Box
-              component="img" alt="Students participating in a THAKSA.AI hands-on coding workshop"
+              component="img" alt="Students participating in a THAKSAAI hands-on coding workshop"
               src={src}
               loading="lazy"
               sx={{

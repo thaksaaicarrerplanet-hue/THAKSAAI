@@ -5,14 +5,16 @@ export const login = async (data) => {
     return response.data;
 };
 
-export const verifyOtp = async (data) => {
-    const response = await api.post("/users/verify-otp", data);
-    return response.data;
+export const verifyOtp = async () => {
+    return { message: "Account verification is handled by Administrator." };
 };
 
-export const register = async (data) => {
-    const response = await api.post("/users/register", data);
-    return response.data;
+export const register = async () => {
+    return { message: "Public self-registration is disabled. Accounts are provisioned by Administrator." };
+};
+
+export const getPublicCourses = async () => {
+    return [];
 };
 
 export const getProfile = async () => {
@@ -45,10 +47,6 @@ export const resetPasswordWithOtp = async (data) => {
     return response.data;
 };
 
-export const getPublicCourses = async (params = {}) => {
-    const response = await api.get("/courses/public", { params });
-    return response.data;
-};
 
 export const getUserDashboard = async () => {
     const response = await api.get("/users/dashboard");

@@ -1,4 +1,4 @@
-// eslint-disable-next-line no-unused-vars
+﻿// eslint-disable-next-line no-unused-vars
 import { motion } from "framer-motion";
 import { Box, Container, Typography, Card } from "@mui/material";
 import { Grid } from "@mui/material";
@@ -27,7 +27,7 @@ export default function FinalTrustSection() {
               mb: 2,
             }}
           >
-            Why Colleges & Students Trust THAKSA.AI
+            Why Colleges & Students Trust THAKSAAI
           </Typography>
         </Box>
 

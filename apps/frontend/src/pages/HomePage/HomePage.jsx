@@ -1,50 +1,47 @@
-import SEO from "../../components/SEO";
-import { Box, Container } from "@mui/material";
-import HeroSection from "./sections/HeroSection";
-import VisualProofSection from "./sections/VisualProofSection";
-import FounderSection from "./sections/FounderSection";
-import LeadershipTeamSection from "./sections/LeadershipTeamSection";
-import LearnerOutcomesSection from "./sections/LearnerOutcomesSection";
-import LearningHubSection from "./sections/LearningHubSection";
+﻿import React from "react";
+import { Helmet } from "react-helmet-async";
+import PaperHero from "./sections/PaperHero";
+import PaperProofStrip from "./sections/PaperProofStrip";
+import PaperAudienceRouting from "./sections/PaperAudienceRouting";
+import PaperMethodology from "./sections/PaperMethodology";
+import PaperEvidenceTable from "./sections/PaperEvidenceTable";
+import PaperClosingCTA from "./sections/PaperClosingCTA";
+
+// ============================================================================
+// MASTER INSTITUTIONAL HOME PAGE: "NEO-GLASS INSTITUTIONAL SYSTEM"
+// Mentality-Inspired Architectural Design System for THAKSAAI
+// ============================================================================
 
 export default function HomePage() {
-  const organizationSchema = {
-    "@context": "https://schema.org",
-    "@type": "EducationalOrganization",
-    "name": "THAKSA.AI",
-    "url": "https://www.thaksa.ai",
-    "logo": "https://www.thaksa.ai/transparent-brand-logo.png",
-    "description": "THAKSA.AI collaborates with engineering colleges and placement cells to conduct structured CRT programs, workshops, and final year projects to improve student employability.",
-    "contactPoint": {
-      "@type": "ContactPoint",
-      "telephone": "+91-94948-08669",
-      "contactType": "Customer Service",
-      "areaServed": "IN",
-      "availableLanguage": ["en", "telugu"]
-    }
-  };
-
   return (
     <>
+      <Helmet>
+        <title>THAKSAAI | Institutional Campus Recruitment Training & Capstone Engineering</title>
+        <meta
+          name="description"
+          content="Admin-provisioned B2B engineering bootcamp and campus recruitment training platform. Producing verifiable placement milestones across partner universities."
+        />
+      </Helmet>
+      
+      <main className="w-full min-h-screen bg-[#EDEEF5] text-[#1a1a1a] selection:bg-[#9fff00] selection:text-black">
+        {/* 1. Neo-Glass Atmospheric Video Hero */}
+        <PaperHero />
 
-      <SEO
-        title="Campus Recruitment Training & Industry Collaboration Platform"
-        description="Transform your engineering students into industry-ready professionals with our comprehensive Campus Recruitment Training (CRT) and hands-on technical workshops."
-        url="/"
-        schema={organizationSchema}
-      />
-      <Box
-      sx={{
-        background: "#ffffff",
-      }}
-    >
-      <HeroSection />
-      <VisualProofSection />
-      <FounderSection />
-      <LeadershipTeamSection />
-      <LearnerOutcomesSection />
-      <LearningHubSection />
-    </Box>
+        {/* 2. Auditable Institutional Proof Strip */}
+        <PaperProofStrip />
+
+        {/* 3. Strategic B2B & B2C Audience Routing */}
+        <PaperAudienceRouting />
+
+        {/* 4. 4-Step Methodology & Featured Lab Immersions */}
+        <PaperMethodology />
+
+        {/* 5. Comparative Evidence Ledger Table */}
+        <PaperEvidenceTable />
+
+        {/* 6. High-Contrast TPO Advisory Conversion CTA */}
+        <PaperClosingCTA />
+      </main>
     </>
   );
 }

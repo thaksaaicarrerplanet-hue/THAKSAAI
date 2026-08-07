@@ -14,13 +14,15 @@ import WorkshopPage from "../pages/WorkshopPage";
 import TrainingPage from "../pages/TrainingPage";
 import FinalYearProjectsPage from "../pages/FinalYearProjectsPage";
 import PlacementsPage from "../pages/PlacementsPage";
+import InternshipsPage from "../pages/InternshipsPage/InternshipsPage";
+import InstitutionalCollaborationPage from "../pages/InstitutionalCollaborationPage";
+import ComplianceAndSecurityPage from "../pages/ComplianceAndSecurityPage";
 import NotFound from "../pages/NotFound";
 import AccessDenied from "../pages/AccessDenied";
+import AboutPage from "../pages/AboutPage";
 
 import LoginPage from "../pages/LoginPage";
-import SignupPage from "../pages/SignupPage";
 import ForgotPasswordPage from "../pages/ForgotPasswordPage";
-import VerifyOtpPage from "../pages/VerifyOtpPage";
 import UpdatePasswordPage from "../pages/UpdatePasswordPage";
 
 import DashboardLayout from "../pages/dashboard/DashboardLayout";
@@ -40,9 +42,6 @@ import AdminBatches from "../pages/admin/AdminBatches";
 import AdminCourses from "../pages/admin/AdminCourses";
 import AdminStudents from "../pages/admin/AdminStudents";
 import AdminSettings from "../pages/admin/AdminSettings";
-import { UserDetailsModal } from "../pages/admin/components/UserDetailsModal";
-import { RoleUpdateDialog } from "../pages/admin/components/RoleUpdateDialog";
-import { DeleteUserDialog } from "../pages/admin/components/DeleteUserDialog";
 
 import InstructorLayout from "../pages/instructor/InstructorLayout";
 import InstructorDashboard from "../pages/instructor/InstructorDashboard";
@@ -50,199 +49,101 @@ import ManageBatch from "../pages/instructor/ManageBatch";
 import ManageCourses from "../pages/instructor/ManageCourses";
 import ManageCourseContent from "../pages/instructor/ManageCourseContent";
 import StudentAttendance from "../pages/instructor/StudentAttendance";
-import MyStudents from "../pages/instructor/MyStudents";
-import InstructorProfile from "../pages/instructor/InstructorProfile";
-import InstructorSettings from "../pages/instructor/InstructorSettings";
 
 export default function AppRoutes() {
   return (
     <Routes>
-      <Route
-        path="/"
-        element={
-          <PublicOnlyRoute>
-            <PublicLayout>
-              <HomePage />
-            </PublicLayout>
-          </PublicOnlyRoute>
-        }
-      />
-      <Route
-        path="/courses"
-        element={
-          <PublicLayout>
-            <CoursesPage />
-          </PublicLayout>
-        }
-      />
-      <Route
-        path="/courses/:courseId"
-        element={
-          <PublicLayout>
-            <CourseDetail />
-          </PublicLayout>
-        }
-      />
-      <Route
-        path="/batches"
-        element={
-          <PublicLayout>
-            <BatchesPage />
-          </PublicLayout>
-        }
-      />
-      <Route
-        path="/pricing"
-        element={
-          <PublicOnlyRoute>
-            <PublicLayout>
-              <PricingPage />
-            </PublicLayout>
-          </PublicOnlyRoute>
-        }
-      />
-      <Route
-        path="/contact"
-        element={
-          <PublicOnlyRoute>
-            <PublicLayout>
-              <ContactPage />
-            </PublicLayout>
-          </PublicOnlyRoute>
-        }
-      />
-      <Route
-        path="/workshops"
-        element={
-          <PublicLayout>
-            <WorkshopPage />
-          </PublicLayout>
-        }
-      />
-      <Route
-        path="/training"
-        element={
-          <PublicLayout>
-            <TrainingPage />
-          </PublicLayout>
-        }
-      />
-      <Route
-        path="/final-year-projects"
-        element={
-          <PublicLayout>
-            <FinalYearProjectsPage />
-          </PublicLayout>
-        }
-      />
-      <Route
-        path="/placements"
-        element={
-          <PublicLayout>
-            <PlacementsPage />
-          </PublicLayout>
-        }
-      />
+      {/* -----------------------------
+          PUBLIC ROUTES
+      ------------------------------ */}
+      <Route element={<PublicLayout />}>
+        <Route path="/" element={<HomePage />} />
+        <Route path="/about" element={<AboutPage />} />
+        
+        {/* Core Career Accelerator Programs */}
+        <Route path="/workshops" element={<WorkshopPage />} />
+        <Route path="/internships" element={<InternshipsPage />} />
+        <Route path="/crt" element={<TrainingPage />} />
+        <Route path="/training" element={<TrainingPage />} />
+        <Route path="/final-year-projects" element={<FinalYearProjectsPage />} />
 
-      <Route
-        path="/login"
-        element={
-          <PublicOnlyRoute>
-            <LoginPage />
-          </PublicOnlyRoute>
-        }
-      />
-      <Route
-        path="/signup"
-        element={
-          <PublicOnlyRoute>
-            <SignupPage />
-          </PublicOnlyRoute>
-        }
-      />
-      <Route
-        path="/forgot-password"
-        element={
-          <PublicOnlyRoute>
-            <ForgotPasswordPage />
-          </PublicOnlyRoute>
-        }
-      />
-      <Route
-        path="/verify-otp"
-        element={
-          <PublicOnlyRoute>
-            <VerifyOtpPage />
-          </PublicOnlyRoute>
-        }
-      />
-      <Route
-        path="/update-password"
-        element={
-          <PublicOnlyRoute>
-            <UpdatePasswordPage />
-          </PublicOnlyRoute>
-        }
-      />
+        {/* Institutional & Catalogue Pages */}
+        <Route path="/courses" element={<CoursesPage />} />
+        <Route path="/courses/:courseId" element={<CourseDetail />} />
+        <Route path="/placements" element={<PlacementsPage />} />
+        <Route path="/batches" element={<BatchesPage />} />
+        <Route path="/pricing" element={<PricingPage />} />
+        <Route path="/contact" element={<ContactPage />} />
 
-      <Route
-        path="/dashboard"
-        element={
-          <ProtectedRoute role="student">
-            <DashboardLayout />
-          </ProtectedRoute>
-        }
-      >
-        <Route index element={<UserDashboard />} />
-        <Route path="courses" element={<MyCourses />} />
-        <Route path="courses/:courseId" element={<CourseLearning />} />
-        <Route path="batch" element={<MyBatch />} />
-        <Route path="batch/:batchId" element={<BatchDetail />} />
-        <Route path="attendance" element={<ViewAttendance />} />
-        <Route path="assessments" element={<Assessment />} />
-        <Route path="profile" element={<Profile />} />
-        <Route path="settings" element={<Settings />} />
+        {/* Institutional Collaboration (TPO & Faculty) */}
+        <Route path="/faculty-collaboration" element={<InstitutionalCollaborationPage />} />
+        <Route path="/tpo-advisory-line" element={<InstitutionalCollaborationPage />} />
+        <Route path="/college-partnerships" element={<InstitutionalCollaborationPage />} />
+
+        {/* Legal Governance & Campus Security */}
+        <Route path="/terms-of-service" element={<ComplianceAndSecurityPage />} />
+        <Route path="/privacy-policy" element={<ComplianceAndSecurityPage />} />
+        <Route path="/campus-security-guidelines" element={<ComplianceAndSecurityPage />} />
+
+        {/* Fallback Pages */}
+        <Route path="/access-denied" element={<AccessDenied />} />
+        <Route path="*" element={<NotFound />} />
       </Route>
 
-      <Route
-        path="/admin"
-        element={
-          <ProtectedRoute role="admin">
-            <AdminLayout />
-          </ProtectedRoute>
-        }
-      >
-        <Route index element={<AdminDashboard />} />
-        <Route path="batches" element={<AdminBatches />} />
-        <Route path="courses" element={<AdminCourses />} />
-        <Route path="students" element={<AdminStudents />} />
-        <Route path="students/:id" element={<UserDetailsModal />} />
-        <Route path="students/:id/role" element={<RoleUpdateDialog />} />
-        <Route path="students/:id/delete" element={<DeleteUserDialog />} />
-        <Route path="settings" element={<AdminSettings />} />
+      {/* -----------------------------
+          AUTHENTICATION ROUTES
+      ------------------------------ */}
+      <Route element={<PublicOnlyRoute />}>
+        <Route path="/login" element={<LoginPage />} />
+        <Route path="/forgot-password" element={<ForgotPasswordPage />} />
+        <Route path="/update-password" element={<UpdatePasswordPage />} />
       </Route>
 
-      <Route
-        path="/instructor"
-        element={
-          <ProtectedRoute role="instructor">
-            <InstructorLayout />
-          </ProtectedRoute>
-        }
-      >
-        <Route index element={<InstructorDashboard />} />
-        <Route path="batches" element={<ManageBatch />} />
-        <Route path="courses" element={<ManageCourses />} />
-        <Route path="course-content" element={<ManageCourseContent />} />
-        <Route path="attendance" element={<StudentAttendance />} />
-        <Route path="students" element={<MyStudents />} />
-        <Route path="profile" element={<InstructorProfile />} />
-        <Route path="settings" element={<InstructorSettings />} />
+      {/* -----------------------------
+          STUDENT DASHBOARD
+      ------------------------------ */}
+      <Route element={<ProtectedRoute allowedRoles={["student", "user"]} />}>
+        <Route path="/dashboard" element={<DashboardLayout />}>
+          <Route index element={<UserDashboard />} />
+          <Route path="my-courses" element={<MyCourses />} />
+          <Route path="my-courses/:courseId" element={<CourseLearning />} />
+          <Route path="my-batch" element={<MyBatch />} />
+          <Route path="my-batch/:batchId" element={<BatchDetail />} />
+          <Route path="profile" element={<Profile />} />
+          <Route path="settings" element={<Settings />} />
+          <Route path="attendance" element={<ViewAttendance />} />
+          <Route path="assessment" element={<Assessment />} />
+        </Route>
       </Route>
 
-      {/* Error Pages */}
-      <Route path="/access-denied" element={<AccessDenied />} />
-      <Route path="*" element={<NotFound />} />
+      {/* -----------------------------
+          INSTRUCTOR DASHBOARD
+      ------------------------------ */}
+      <Route element={<ProtectedRoute allowedRoles={["instructor"]} />}>
+        <Route path="/instructor" element={<InstructorLayout />}>
+          <Route index element={<InstructorDashboard />} />
+          <Route path="manage-batch" element={<ManageBatch />} />
+          <Route path="manage-courses" element={<ManageCourses />} />
+          <Route path="manage-courses/:courseId" element={<ManageCourseContent />} />
+          <Route path="student-attendance" element={<StudentAttendance />} />
+        </Route>
+      </Route>
+
+      {/* -----------------------------
+          ADMIN DASHBOARD
+      ------------------------------ */}
+      <Route element={<ProtectedRoute allowedRoles={["admin"]} />}>
+        <Route path="/admin" element={<AdminLayout />}>
+          <Route index element={<AdminDashboard />} />
+          <Route path="batches" element={<AdminBatches />} />
+          <Route path="courses" element={<AdminCourses />} />
+          <Route path="students" element={<AdminStudents />} />
+          <Route path="settings" element={<AdminSettings />} />
+        </Route>
+      </Route>
+
+      {/* Global Fallback Wrapper */}
+      <Route path="*" element={<RouteFallback />} />
     </Routes>
   );
 }

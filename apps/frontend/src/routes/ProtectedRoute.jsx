@@ -1,6 +1,6 @@
-import { Navigate } from "react-router-dom";
+import { Navigate, Outlet } from "react-router-dom";
 
-export default function ProtectedRoute({ children, role }) {
+export default function ProtectedRoute({ children, role, allowedRoles }) {
   const token = localStorage.getItem("token");
   let user = null;
 
@@ -31,5 +31,9 @@ export default function ProtectedRoute({ children, role }) {
     return <Navigate to={dashboardPath} replace />;
   }
 
-  return children;
+  if (allowedRoles && Array.isArray(allowedRoles) && !allowedRoles.includes(user?.role)) {
+    return <Navigate to={dashboardPath} replace />;
+  }
+
+  return children ? children : <Outlet />;
 }

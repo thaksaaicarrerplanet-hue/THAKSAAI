@@ -1,131 +1,88 @@
 import { createTheme } from "@mui/material/styles";
+import { MASTER_PALETTE, MASTER_FONTS } from "./masterThemeConfig";
 
-const bodyFont = "\"AvertaStd\", -apple-system, BlinkMacSystemFont, sans-serif";
-const headingFont = "\"AvertaStd\", -apple-system, BlinkMacSystemFont, sans-serif";
-
-let appTheme = createTheme({
+export const appTheme = createTheme({
   palette: {
+    mode: "light",
     primary: {
-      main: "#6366F1", // Primary Brand
+      main: MASTER_PALETTE.ink,
+      contrastText: "#FFFFFF",
     },
     secondary: {
-      main: "#A855F7", // Brand Accent
-    },
-    text: {
-      primary: "#3C4852", // Primary Text
-      secondary: "#475569", // Secondary Text
-    },
-    success: {
-      main: "#10B981", // Success
-    },
-    warning: {
-      main: "#F59E0B", // Warning
+      main: MASTER_PALETTE.brandGreen,
+      contrastText: MASTER_PALETTE.ink,
     },
     background: {
-      default: "#FFFFFF",
-      paper: "#FFFFFF",
+      default: MASTER_PALETTE.paper,
+      paper: "rgba(255, 255, 255, 0.72)",
     },
+    text: {
+      primary: MASTER_PALETTE.ink,
+      secondary: MASTER_PALETTE.inkMuted,
+    },
+    divider: MASTER_PALETTE.hairline,
   },
   typography: {
-    fontFamily: bodyFont,
-    h1: {
-      fontFamily: headingFont,
-      fontWeight: 800,
-      lineHeight: 1.05,
-      letterSpacing: "-0.04em",
-      fontSize: "clamp(2.5rem, 5vw, 3rem)"
-    },
-    h2: {
-      fontFamily: headingFont,
-      fontWeight: 700,
-      lineHeight: 1.2,
-      fontSize: "clamp(1.75rem, 4vw, 2.625rem)" // 28px to 42px
-    },
-    h3: {
-      fontFamily: headingFont,
-      fontWeight: 600,
-      lineHeight: 1.3,
-      fontSize: "clamp(1.25rem, 3vw, 1.5rem)" // 20px to 24px
-    },
-    h4: {
-      fontFamily: headingFont,
-      fontWeight: 500,
-      color: "#475569",
-      fontSize: "clamp(1.125rem, 2.5vw, 1.25rem)" // 18px to 20px
-    },
-    body1: {
-      fontSize: "1rem", // 16px to 18px
-      fontWeight: 400,
-      lineHeight: 1.7
-    },
-    subtitle2: {
-      fontSize: "0.875rem", // 13px to 14px
-      fontWeight: 600,
-      textTransform: "uppercase",
-      letterSpacing: "0.12em",
-      color: "#64748b" // Muted Text
-    },
-    button: { fontWeight: 600 },
+    fontFamily: MASTER_FONTS.sans,
+    h1: { fontFamily: MASTER_FONTS.display, fontWeight: 700, color: MASTER_PALETTE.ink, letterSpacing: "-0.03em" },
+    h2: { fontFamily: MASTER_FONTS.display, fontWeight: 600, color: MASTER_PALETTE.ink, letterSpacing: "-0.02em" },
+    h3: { fontFamily: MASTER_FONTS.display, fontWeight: 600, color: MASTER_PALETTE.ink },
+    h4: { fontFamily: MASTER_FONTS.display, fontWeight: 600, color: MASTER_PALETTE.ink },
+    h5: { fontFamily: MASTER_FONTS.sans, fontWeight: 600, color: MASTER_PALETTE.ink },
+    h6: { fontFamily: MASTER_FONTS.sans, fontWeight: 600, color: MASTER_PALETTE.ink },
+    body1: { fontFamily: MASTER_FONTS.sans, lineHeight: 1.6 },
+    body2: { fontFamily: MASTER_FONTS.sans, lineHeight: 1.6 },
+    button: { fontFamily: MASTER_FONTS.sans, fontWeight: 600, textTransform: "none" },
+  },
+  shape: {
+    borderRadius: 12,
   },
   components: {
     MuiCssBaseline: {
       styleOverrides: {
         body: {
-          fontFamily: bodyFont,
-          color: "#3C4852",
-          backgroundColor: "#ffffff",
+          backgroundColor: `${MASTER_PALETTE.paper} !important`,
+          color: MASTER_PALETTE.ink,
+          selection: {
+            backgroundColor: MASTER_PALETTE.brandGreen,
+            color: "#000000",
+          },
         },
       },
     },
     MuiButton: {
       styleOverrides: {
         root: {
-          textTransform: "none",
-          borderRadius: 16,
-          padding: "12px 32px",
-          transition: "all 0.3s ease",
+          borderRadius: "9999px",
+          padding: "10px 24px",
+          fontWeight: 600,
+          boxShadow: "none",
+          transition: "all 0.2s ease",
+          "&:hover": {
+            transform: "translateY(-1px)",
+            boxShadow: "0 4px 12px rgba(26, 26, 26, 0.15)",
+          },
         },
         containedPrimary: {
-          backgroundColor: "#3c4852", // Dark navy
-          color: "#ffffff",
+          backgroundColor: MASTER_PALETTE.ink,
+          color: "#FFFFFF",
           "&:hover": {
-            backgroundColor: "#1e293b",
-            transform: "translateY(-2px)",
-          }
+            backgroundColor: "#000000",
+          },
         },
-        outlinedPrimary: {
-          backgroundColor: "#ffffff",
-          borderColor: "#E2E8F0",
-          color: "#3C4852",
-          "&:hover": {
-            backgroundColor: "#F8FAFC",
-            borderColor: "#cbd5e1",
-            transform: "translateY(-2px)",
-          }
-        }
-      }
-    },
-
-    MuiOutlinedInput: {
-      styleOverrides: {
-        root: {
-          borderRadius: 16,
-        }
-      }
+      },
     },
     MuiCard: {
       styleOverrides: {
         root: {
-          borderRadius: 24,
-          boxShadow: "0px 4px 20px rgba(15, 23, 42, 0.05)",
-          transition: "transform 0.3s ease, box-shadow 0.3s ease",
-          "&:hover": {
-            transform: "translateY(-6px)",
-            boxShadow: "0px 12px 30px rgba(15, 23, 42, 0.1)",
-          }
-        }
-      }
-    }
+          backgroundColor: "rgba(255, 255, 255, 0.72)",
+          backdropFilter: "blur(16px)",
+          border: `1px solid ${MASTER_PALETTE.hairline}`,
+          borderRadius: "16px",
+          boxShadow: "0 4px 24px rgba(0, 0, 0, 0.04)",
+        },
+      },
+    },
   },
 });
 

@@ -55,4 +55,28 @@ const sendLoginAlertMail = async (email, name) => {
   });
 };
 
-export { sendWelcomeMail, sendLoginAlertMail };
+const sendAdminProvisionedMail = async (email, name, defaultPassword, role) => {
+  const transport = createMailer();
+  const htmlContent = `
+    <div style="font-family: Arial, Helvetica, sans-serif; line-height: 1.6; color: #0f172a; max-width: 600px;">
+      <h2 style="color: #4f46e5; margin-bottom: 8px;">Welcome to Thaksa LMS Portal</h2>
+      <p>Hello ${name || "Student"},</p>
+      <p>Your institutional account has been provisioned by an Administrator for the <strong>${role || "student"}</strong> LMS portal.</p>
+      <div style="background: #f8fafc; border: 1px solid #e2e8f0; padding: 16px; border-radius: 8px; margin: 16px 0;">
+        <p style="margin: 4px 0;"><strong>Login Username:</strong> ${email}</p>
+        <p style="margin: 4px 0;"><strong>Default Password:</strong> ${defaultPassword}</p>
+      </div>
+      <p>Please sign in at our portal gateway and change your password under your Profile Settings.</p>
+      <p style="margin-top: 24px; color: #64748b;">- Team Thaksa.AI</p>
+    </div>
+  `;
+
+  await transport.sendMail({
+    from: process.env.GMAIL,
+    to: email,
+    subject: "Welcome to Thaksa LMS - Account Credentials",
+    html: htmlContent,
+  });
+};
+
+export { sendWelcomeMail, sendLoginAlertMail, sendAdminProvisionedMail };

@@ -1,74 +1,34 @@
-import { Box, Button, Container, Paper } from "@mui/material";
-import ArrowBackRoundedIcon from "@mui/icons-material/ArrowBackRounded";
-import { ThemeProvider } from "@mui/material/styles";
-import appTheme from "../../theme/appTheme";
+import React from "react";
+import { Helmet } from "react-helmet-async";
 
-export default function AuthLayout({ children, onBackHome, maxWidth = "sm" }) {
+export default function AuthLayout({ children, onBackHome }) {
   return (
-    <ThemeProvider theme={appTheme}>
-      <Box
-        sx={{
-          minHeight: "100vh",
-          display: "flex",
-          alignItems: "center",
-          py: { xs: 4, md: 8 },
-          background: "linear-gradient(180deg, #eef6ff 0%, #f8fbff 32%, #ffffff 58%, #f6fffb 100%)",
-          position: "relative",
-          overflow: "hidden",
-        }}
-      >
-        <Box
-          sx={{
-            position: "absolute",
-            top: -120,
-            left: -120,
-            width: 360,
-            height: 360,
-            borderRadius: "50%", display: "none",
-            background: "rgba(37, 99, 235, 0.14)",
-            filter: "blur(90px)",
-          }}
-        />
-        <Box
-          sx={{
-            position: "absolute",
-            bottom: -90,
-            right: -90,
-            width: 320,
-            height: 320,
-            borderRadius: "50%", display: "none",
-            background: "rgba(15, 118, 110, 0.1)",
-            filter: "blur(90px)",
-          }}
-        />
+    <div className="w-full min-h-screen bg-[#EDEEF5] text-[#1a1a1a] flex flex-col items-center justify-center p-4 sm:p-6 md:p-10 selection:bg-[#9fff00] selection:text-black relative overflow-hidden">
+      
+      {/* Background ambient accents */}
+      <div className="absolute -top-32 -left-32 w-96 h-96 rounded-full bg-white/40 blur-3xl pointer-events-none"></div>
+      <div className="absolute -bottom-32 -right-32 w-96 h-96 rounded-full bg-[#9fff00]/15 blur-3xl pointer-events-none"></div>
 
-        <Container maxWidth={maxWidth} sx={{ position: "relative", zIndex: 1 }}>
-          <Button
-            startIcon={<ArrowBackRoundedIcon />}
-            onClick={onBackHome}
-            sx={{
-              mb: 2,
-              color: "text.secondary",
-              "&:hover": { backgroundColor: "transparent", color: "primary.main" },
-            }}
-          >
-            Back to Home
-          </Button>
+      <div className="w-full max-w-xl mx-auto relative z-10">
+        
+        {/* Back to Home Navigation Pill */}
+        <button
+          type="button"
+          onClick={onBackHome}
+          className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/70 hover:bg-white text-xs font-bold text-zinc-700 uppercase tracking-wider mb-6 shadow-xs border border-black/[0.06] transition-all focus:outline-none focus:ring-2 focus:ring-[#9fff00]"
+        >
+          ← Return to Home Page
+        </button>
 
-          <Paper
-            elevation={0}
-            sx={{
-              border: "1px solid #F1F5F9",
-              boxShadow: "0px 4px 20px rgba(15, 23, 42, 0.05)",
+        {/* Neo-Glass Container */}
+        <main className="neo-glass p-7 sm:p-10 md:p-12 rounded-3xl border border-black/[0.1] shadow-2xl bg-white/80 backdrop-blur-md">
+          {children}
+        </main>
 
-              background: "#ffffff",
-              p: { xs: 2.5, sm: 4, md: 5 },
-            }}
-          >
-            {children}
-          </Paper>
-        </Container>
-      </Box>
-    </ThemeProvider>
+        <p className="text-center text-xs font-sans text-zinc-500 mt-6">
+          ● Secure Institutional Login Gateway for Partner Engineering Colleges.
+        </p>
+      </div>
+    </div>
   );
 }

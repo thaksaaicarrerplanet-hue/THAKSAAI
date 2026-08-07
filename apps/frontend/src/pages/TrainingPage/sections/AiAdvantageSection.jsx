@@ -1,4 +1,4 @@
-// eslint-disable-next-line no-unused-vars
+﻿// eslint-disable-next-line no-unused-vars
 import { motion } from "framer-motion";
 import { Box, Container, Typography, Card } from "@mui/material";
 import { Grid } from "@mui/material";
@@ -28,7 +28,7 @@ export default function AiAdvantageSection() {
               mb: 2,
             }}
           >
-            Unique THAKSA.AI Positioning
+            Unique THAKSAAI Positioning
           </Typography>
           <Typography
             variant="h2"

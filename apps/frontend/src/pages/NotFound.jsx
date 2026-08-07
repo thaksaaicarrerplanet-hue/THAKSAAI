@@ -2,6 +2,7 @@ import { Box, Button, Container, Typography } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import ErrorOutlineRoundedIcon from "@mui/icons-material/ErrorOutlineRounded";
 import HomeRoundedIcon from "@mui/icons-material/HomeRounded";
+import BrandLogo from "../components/common/BrandLogo";
 
 export default function NotFound() {
     const navigate = useNavigate();
@@ -19,8 +20,12 @@ export default function NotFound() {
         >
             <Container maxWidth="sm">
                 <Box sx={{ textAlign: "center" }}>
+                    <Box sx={{ display: "flex", justifyContent: "center", mb: 3 }}>
+                        <BrandLogo variant="dashboard" disableLink />
+                    </Box>
+
                     <ErrorOutlineRoundedIcon
-                        sx={{ fontSize: 120, color: "#ef4444", mb: 2 }}
+                        sx={{ fontSize: 100, color: "#ef4444", mb: 2 }}
                     />
 
                     <Typography variant="h1" component="h1" sx={{ fontWeight: 800, mb: 1, fontSize: { xs: 64, md: 96 } }}>

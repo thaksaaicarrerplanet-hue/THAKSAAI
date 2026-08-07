@@ -1,551 +1,364 @@
-import SEO from "../../components/SEO";
-import React, { useState, useEffect } from "react";
-import {
-  Box,
-  Button,
-  Card,
-  Container,
-  MenuItem,
-  Stack,
-  TextField,
-  Typography,
-  Modal,
-  IconButton,
-} from "@mui/material";
-import CheckCircleOutlineIcon from "@mui/icons-material/CheckCircleOutline";
-import CloseIcon from "@mui/icons-material/Close";
-import Grid from "@mui/material/Grid";
-import { Link } from "react-router-dom";
-
-const initialFormData = {
-  institutionName: "",
-  contactPerson: "",
-  designation: "",
-  mobile: "",
-  email: "",
-  location: "",
-  program: "",
-  workshopRequirement: "",
-  studentCount: "",
-  additionalNotes: "",
-};
+﻿import React, { useState, useEffect } from "react";
+import { Helmet } from "react-helmet-async";
+import { useSearchParams, useNavigate } from "react-router-dom";
+import { motion } from "framer-motion";
+import { SITE_BRANDING } from "../../theme/masterThemeConfig";
 
 export default function ContactPage() {
-  const localBusinessSchema = {
-    "@context": "https://schema.org",
-    "@type": "LocalBusiness",
-    "name": "THAKSA.AI",
-    "image": "https://www.thaksa.ai/logo.png?v=3",
-    "url": "https://www.thaksa.ai",
-    "telephone": "+91-94948-08669",
-    "address": {
-      "@type": "PostalAddress",
-      "addressLocality": "India",
-      "addressCountry": "IN"
-    },
-    "openingHoursSpecification": {
-      "@type": "OpeningHoursSpecification",
-      "dayOfWeek": [
-        "Monday",
-        "Tuesday",
-        "Wednesday",
-        "Thursday",
-        "Friday"
-      ],
-      "opens": "09:00",
-      "closes": "18:00"
-    }
-  };
+  const [searchParams] = useSearchParams();
+  const navigate = useNavigate();
 
-  const [formData, setFormData] = useState(initialFormData);
-  const [errors, setErrors] = useState({});
-  const [successModalOpen, setSuccessModalOpen] = useState(false);
+  // Mode tab: "college" vs "student"
+  const [applicantType, setApplicantType] = useState("college");
 
-  // Scroll to top when page loads
+  const [formData, setFormData] = useState({
+    name: "",
+    email: "",
+    phone: "",
+    collegeOrOrganization: "",
+    roleOrBranch: "College Director / TPO / Professor",
+    programOfInterest: "Campus Recruitment Training (CRT)",
+    studentCohortSize: "100 - 250 Students",
+    message: ""
+  });
+
+  const [submitted, setSubmitted] = useState(false);
+
   useEffect(() => {
-    window.scrollTo(0, 0);
-  }, []);
+    const collegeParam = searchParams.get("college");
+    const internshipParam = searchParams.get("internship");
+    const trackParam = searchParams.get("track") || searchParams.get("workshop") || searchParams.get("query");
+    
+    if (internshipParam) {
+      setApplicantType("student");
+      setFormData((p) => ({ 
+        ...p, 
+        programOfInterest: `Office Practical Internship (${internshipParam})`,
+        roleOrBranch: "B.Tech / Engineering Student" 
+      }));
+    } else if (trackParam) {
+      setFormData((p) => ({ ...p, programOfInterest: trackParam }));
+    }
+    if (collegeParam) setFormData((p) => ({ ...p, collegeOrOrganization: collegeParam }));
+  }, [searchParams]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
-    // Clear error when user types
-    if (errors[name]) {
-      setErrors((prev) => ({ ...prev, [name]: "" }));
-    }
   };
 
-  const validate = () => {
-    const newErrors = {};
-    if (!formData.institutionName.trim()) newErrors.institutionName = "Institution Name is required";
-    if (!formData.contactPerson.trim()) newErrors.contactPerson = "Contact Person Name is required";
-    if (!formData.designation.trim()) newErrors.designation = "Designation is required";
-    if (!formData.mobile.trim()) {
-      newErrors.mobile = "Mobile Number is required";
-    } else if (!/^\d{10}$/.test(formData.mobile.trim())) {
-      newErrors.mobile = "Please enter a valid 10-digit mobile number";
+  const handleModeSwitch = (type) => {
+    setApplicantType(type);
+    if (type === "student") {
+      setFormData((prev) => ({
+        ...prev,
+        roleOrBranch: "B.Tech / Engineering Student",
+        programOfInterest: "Office Practical Internship"
+      }));
+    } else {
+      setFormData((prev) => ({
+        ...prev,
+        roleOrBranch: "College Director / TPO / Professor",
+        programOfInterest: "Campus Recruitment Training (CRT)"
+      }));
     }
-    if (!formData.email.trim()) {
-      newErrors.email = "Official Email is required";
-    } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email.trim())) {
-      newErrors.email = "Please enter a valid email address";
-    }
-    if (!formData.location.trim()) newErrors.location = "Location is required";
-    if (!formData.program) newErrors.program = "Please select a program";
-    if (!formData.workshopRequirement) newErrors.workshopRequirement = "Please select a requirement";
-    if (!formData.studentCount.trim()) newErrors.studentCount = "Expected Student Count is required";
-
-    setErrors(newErrors);
-    return Object.keys(newErrors).length === 0;
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (!validate()) return;
-
-    // Format WhatsApp Message
-    const message = `Institution Name:
-${formData.institutionName}
-
-Contact Person:
-${formData.contactPerson}
-
-Designation:
-${formData.designation}
-
-Mobile:
-${formData.mobile}
-
-Email:
-${formData.email}
-
-Location:
-${formData.location}
-
-Interested Program:
-${formData.program}
-
-Requirement:
-${formData.workshopRequirement}
-
-Student Count:
-${formData.studentCount}
-
-Additional Notes:
-${formData.additionalNotes || "N/A"}`;
-
-    const encodedMessage = encodeURIComponent(message);
-    const whatsappUrl = `https://wa.me/919494808669?text=${encodedMessage}`;
-
-    // Open WhatsApp
-    window.open(whatsappUrl, "_blank");
-
-    // Show Success Modal
-    setSuccessModalOpen(true);
-
-    // Reset Form
-    setFormData(initialFormData);
-  };
-
-  const handleCloseModal = () => {
-    setSuccessModalOpen(false);
+    setSubmitted(true);
   };
 
   return (
     <>
+      <Helmet>
+        <title>Connect With THAKSAAI | College Programs & Solo Internships</title>
+        <meta
+          name="description"
+          content="Contact THAKSAAI to discuss academic recruitment training bootcamps or enroll as a student in our face-to-face professional engineering internships."
+        />
+      </Helmet>
 
-      <SEO
-        title="Partner With Us | Contact THAKSA.AI"
-        description="Get in touch to partner with THAKSA.AI. Inquire about Campus Recruitment Training (CRT), workshops, and placement ecosystem integrations."
-        url="/contact"
-        schema={localBusinessSchema}
-      />
-    <Box
-      sx={{
-        bgcolor: "#020B2D",
-        minHeight: "100vh",
-        pt: { xs: 12, md: 16 },
-        pb: { xs: 8, md: 12 },
-        background: "linear-gradient(180deg, #020B2D 0%, #061138 50%, #020B2D 100%)",
-      }}
-    >
-      <Container maxWidth="md">
-        <Box textAlign="center" mb={6}>
-          <Typography
-            variant="h1" component="h1"
-            sx={{
-              color: "#FFFFFF",
-              fontSize: { xs: "2rem", md: "3rem" },
-              fontWeight: 800,
-              mb: 2,
-              lineHeight: 1.2,
-            }}
-          >
-            Workshop & Training Partnership Inquiry
-          </Typography>
-          <Typography
-            variant="body1"
-            sx={{
-              color: "#94A3B8",
-              fontSize: { xs: "1rem", md: "1.125rem" },
-              maxWidth: "800px",
-              mx: "auto",
-              lineHeight: 1.6,
-            }}
-          >
-            Connect with THAKSA.AI to discuss industry workshops, CRT programs, faculty development initiatives, and career readiness training for your institution.
-          </Typography>
-        </Box>
+      <main className="w-full min-h-screen bg-[#EDEEF5] pt-24 sm:pt-32 pb-20 sm:pb-28 px-4 sm:px-6 md:px-10 text-[#1a1a1a] selection:bg-[#9fff00] selection:text-black">
+        <div className="max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-start">
+          
+          {/* Left Info Column */}
+          <div className="lg:col-span-5 flex flex-col gap-6">
+            <div className="inline-flex items-center gap-2 bg-white/85 backdrop-blur-md px-4 py-1.5 rounded-full text-xs font-bold uppercase tracking-widest text-[#1a1a1a] w-max shadow-2xs border border-black/5">
+              <span className="w-2.5 h-2.5 rounded-full bg-[#9fff00] block animate-pulse border border-black/20"></span>
+              Connect With Our Team
+            </div>
+            
+            <h1 className="text-3xl sm:text-4xl md:text-5xl font-display font-bold text-[#1a1a1a] tracking-tight leading-[1.12]">
+              Let's build your career or campus ecosystem.
+            </h1>
 
-        <Card
-          component="form"
-          onSubmit={handleSubmit}
-          noValidate
-          sx={{
-            p: { xs: 3, md: 5 },
-            background: "rgba(255, 255, 255, 0.02)",
-            backdropFilter: "blur(20px)",
-            border: "1px solid rgba(255, 255, 255, 0.08)",
-            borderRadius: "24px",
-            boxShadow: "0 20px 40px rgba(0, 0, 0, 0.3)",
-          }}
-        >
-          <Grid container spacing={3}>
-            <Grid size={{ xs: 12, md: 6 }}>
-              <TextField
-                fullWidth
-                label="Institution Name *"
-                name="institutionName"
-                value={formData.institutionName}
-                onChange={handleChange}
-                error={!!errors.institutionName}
-                helperText={errors.institutionName}
-                variant="outlined"
-                sx={textFieldSx}
-              />
-            </Grid>
-            <Grid size={{ xs: 12, md: 6 }}>
-              <TextField
-                fullWidth
-                label="Contact Person Name *"
-                name="contactPerson"
-                value={formData.contactPerson}
-                onChange={handleChange}
-                error={!!errors.contactPerson}
-                helperText={errors.contactPerson}
-                variant="outlined"
-                sx={textFieldSx}
-              />
-            </Grid>
-            <Grid size={{ xs: 12, md: 6 }}>
-              <TextField
-                fullWidth
-                label="Designation *"
-                name="designation"
-                value={formData.designation}
-                onChange={handleChange}
-                error={!!errors.designation}
-                helperText={errors.designation}
-                variant="outlined"
-                sx={textFieldSx}
-              />
-            </Grid>
-            <Grid size={{ xs: 12, md: 6 }}>
-              <TextField
-                fullWidth
-                label="Mobile Number *"
-                name="mobile"
-                value={formData.mobile}
-                onChange={handleChange}
-                error={!!errors.mobile}
-                helperText={errors.mobile}
-                variant="outlined"
-                sx={textFieldSx}
-              />
-            </Grid>
-            <Grid size={{ xs: 12, md: 6 }}>
-              <TextField
-                fullWidth
-                label="Official Email *"
-                name="email"
-                type="email"
-                value={formData.email}
-                onChange={handleChange}
-                error={!!errors.email}
-                helperText={errors.email}
-                variant="outlined"
-                sx={textFieldSx}
-              />
-            </Grid>
-            <Grid size={{ xs: 12, md: 6 }}>
-              <TextField
-                fullWidth
-                label="College / Organization Location *"
-                name="location"
-                value={formData.location}
-                onChange={handleChange}
-                error={!!errors.location}
-                helperText={errors.location}
-                variant="outlined"
-                sx={textFieldSx}
-              />
-            </Grid>
-            <Grid size={{ xs: 12, md: 6 }}>
-              <TextField
-                select
-                fullWidth
-                label="Interested Program *"
-                name="program"
-                value={formData.program}
-                onChange={handleChange}
-                error={!!errors.program}
-                helperText={errors.program}
-                variant="outlined"
-                sx={textFieldSx}
-              >
-                <MenuItem value="AWS Cloud">AWS Cloud</MenuItem>
-                <MenuItem value="DevOps Engineering">DevOps Engineering</MenuItem>
-                <MenuItem value="Machine Learning">Machine Learning</MenuItem>
-                <MenuItem value="AI Tools & Prompt Engineering">AI Tools & Prompt Engineering</MenuItem>
-                <MenuItem value="IoT / Embedded Systems / VLSI">IoT / Embedded Systems / VLSI</MenuItem>
-              </TextField>
-            </Grid>
-            <Grid size={{ xs: 12, md: 6 }}>
-              <TextField
-                select
-                fullWidth
-                label="Workshop Requirement *"
-                name="workshopRequirement"
-                value={formData.workshopRequirement}
-                onChange={handleChange}
-                error={!!errors.workshopRequirement}
-                helperText={errors.workshopRequirement}
-                variant="outlined"
-                sx={textFieldSx}
-              >
-                <MenuItem value="1-Day Workshop">1-Day Workshop</MenuItem>
-                <MenuItem value="2-Day Workshop">2-Day Workshop</MenuItem>
-                <MenuItem value="3-Day Workshop">3-Day Workshop</MenuItem>
-                <MenuItem value="CRT Training Program">CRT Training Program</MenuItem>
-                <MenuItem value="Custom Requirement">Custom Requirement</MenuItem>
-              </TextField>
-            </Grid>
-            <Grid size={{ xs: 12 }}>
-              <TextField
-                fullWidth
-                label="Expected Student Count *"
-                name="studentCount"
-                value={formData.studentCount}
-                onChange={handleChange}
-                error={!!errors.studentCount}
-                helperText={errors.studentCount}
-                variant="outlined"
-                sx={textFieldSx}
-              />
-            </Grid>
-            <Grid size={{ xs: 12 }}>
-              <TextField
-                fullWidth
-                label="Additional Requirements"
-                name="additionalNotes"
-                multiline
-                rows={4}
-                value={formData.additionalNotes}
-                onChange={handleChange}
-                variant="outlined"
-                sx={textFieldSx}
-              />
-            </Grid>
-            <Grid size={{ xs: 12 }} sx={{ mt: 2 }}>
-              <Button
-                type="submit"
-                fullWidth
-                variant="contained"
-                sx={{
-                  py: 2,
-                  px: 4,
-                  fontSize: "1.1rem",
-                  fontWeight: 600,
-                  borderRadius: "14px",
-                  background: "linear-gradient(90deg, #4F46E5 0%, #7C3AED 100%)",
-                  color: "#FFFFFF",
-                  textTransform: "none",
-                  boxShadow: "0 10px 25px rgba(79, 70, 229, 0.4)",
-                  transition: "all 0.3s ease",
-                  "&:hover": {
-                    transform: "translateY(-2px)",
-                    boxShadow: "0 15px 30px rgba(79, 70, 229, 0.5)",
-                    background: "linear-gradient(90deg, #4338CA 0%, #6D28D9 100%)",
-                  },
-                }}
-              >
-                Submit Inquiry
-              </Button>
-            </Grid>
-          </Grid>
-        </Card>
-      </Container>
+            <p className="text-base font-sans text-zinc-700 font-medium leading-relaxed">
+              Whether you are an engineering Dean looking to improve interview pass rates, or an individual student eager to join our office internships and start building real software, our doors are open.
+            </p>
 
-      {/* Success Modal */}
-      <Modal
-        open={successModalOpen}
-        onClose={handleCloseModal}
-        aria-labelledby="success-modal-title"
-        aria-describedby="success-modal-description"
-        sx={{
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "center",
-          p: 2,
-        }}
-      >
-        <Box
-          sx={{
-            bgcolor: "#0B1228",
-            border: "1px solid rgba(255, 255, 255, 0.1)",
-            boxShadow: "0 25px 50px rgba(0,0,0,0.5)",
-            borderRadius: "24px",
-            p: { xs: 4, md: 5 },
-            maxWidth: "500px",
-            width: "100%",
-            textAlign: "center",
-            position: "relative",
-            outline: "none",
-          }}
-        >
-          <IconButton
-            onClick={handleCloseModal}
-            sx={{
-              position: "absolute",
-              top: 16,
-              right: 16,
-              color: "#94A3B8",
-              "&:hover": { color: "#FFFFFF" },
-            }}
-          >
-            <CloseIcon />
-          </IconButton>
+            {/* Quick Contact Box */}
+            <div className="neo-glass p-6 rounded-3xl border border-black/[0.08] flex flex-col gap-3 mt-2 shadow-sm bg-white/60">
+              <span className="text-xs font-bold uppercase tracking-widest text-zinc-500 font-sans">
+                ● Fast Team Response
+              </span>
+              <div className="flex items-center justify-between text-sm font-bold text-[#1a1a1a]">
+                <span>Direct Human Reply</span>
+                <span className="px-3 py-1 bg-[#1a1a1a] text-[#9fff00] rounded-full text-xs font-bold">
+                  Within 24 Hours
+                </span>
+              </div>
+              <div className="w-full h-px bg-black/[0.06] my-1"></div>
+              <p className="text-xs sm:text-sm text-zinc-600 font-sans leading-relaxed">
+                Direct Phone / WhatsApp: <strong className="text-[#1a1a1a]">{SITE_BRANDING.supportPhone}</strong> ({SITE_BRANDING.officeAddress}).
+              </p>
+            </div>
 
-          <Box
-            component="img"
-            src="/logo.png?v=3"
-            alt="THAKSA.AI Logo"
-            sx={{ height: 40, mb: 3 }}
-          />
+            <div className="p-5 bg-white/70 rounded-2xl border border-black/[0.06] text-xs sm:text-sm text-zinc-600 leading-relaxed font-sans shadow-2xs">
+              <strong className="text-[#1a1a1a]">In-Person Focus:</strong> All our internships, workshops, and campus programs are conducted strictly face-to-face inside college computer labs or directly at our software office.
+            </div>
+          </div>
 
-          <CheckCircleOutlineIcon
-            sx={{
-              fontSize: 64,
-              color: "#10B981",
-              mb: 2,
-            }}
-          />
-
-          <Typography
-            id="success-modal-title"
-            variant="h5"
-            sx={{
-              color: "#FFFFFF",
-              fontWeight: 700,
-              mb: 2,
-            }}
-          >
-            Thank You For Reaching Out
-          </Typography>
-
-          <Typography
-            id="success-modal-description"
-            sx={{
-              color: "#94A3B8",
-              mb: 4,
-              lineHeight: 1.6,
-            }}
-          >
-            We have received your inquiry successfully. Our team will review the details and connect with you shortly to discuss the most suitable program for your institution.
-          </Typography>
-
-          <Stack direction={{ xs: "column", sm: "row" }} spacing={2} justifyContent="center">
-            <Button
-              variant="outlined"
-              onClick={handleCloseModal}
-              sx={{
-                py: 1.5,
-                px: 3,
-                borderRadius: "12px",
-                borderColor: "rgba(255,255,255,0.2)",
-                color: "#FFFFFF",
-                textTransform: "none",
-                fontWeight: 600,
-                "&:hover": {
-                  borderColor: "#FFFFFF",
-                  bgcolor: "rgba(255,255,255,0.05)",
-                },
-              }}
+          {/* Right Form Column */}
+          <div className="lg:col-span-7">
+            <motion.div
+              initial={{ opacity: 0, y: 15 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5 }}
+              className="neo-glass p-6 sm:p-10 md:p-12 rounded-3xl border border-black/[0.1] shadow-xl bg-white/85 backdrop-blur-xl"
             >
-              Close
-            </Button>
-            <Button
-              component={Link}
-              to="/"
-              variant="contained"
-              sx={{
-                py: 1.5,
-                px: 3,
-                borderRadius: "12px",
-                background: "#4F46E5",
-                color: "#FFFFFF",
-                textTransform: "none",
-                fontWeight: 600,
-                "&:hover": {
-                  background: "#4338CA",
-                },
-              }}
-            >
-              Continue Browsing
-            </Button>
-          </Stack>
-        </Box>
-      </Modal>
-    </Box>
+              {submitted ? (
+                <div className="py-12 text-center flex flex-col items-center gap-4">
+                  <div className="w-16 h-16 rounded-full bg-[#9fff00] text-[#1a1a1a] flex items-center justify-center text-3xl font-extrabold mb-2 shadow-lg">
+                    ✓
+                  </div>
+                  <h3 className="text-2xl sm:text-3xl font-display font-bold text-[#1a1a1a] tracking-tight">
+                    We've Received Your Message!
+                  </h3>
+                  <p className="text-base text-zinc-600 max-w-md font-sans leading-relaxed">
+                    Thank you, <strong className="text-[#1a1a1a]">{formData.name}</strong>. Our mentors have received your inquiry for <strong className="text-[#1a1a1a]">{formData.programOfInterest}</strong> and will reach out via phone and WhatsApp directly.
+                  </p>
+                  <button
+                    type="button"
+                    onClick={() => navigate("/")}
+                    className="mt-6 bg-[#1a1a1a] text-white px-8 py-4 rounded-full text-sm font-bold tracking-wide hover:bg-black transition-all shadow-md focus:outline-none focus:ring-2 focus:ring-[#9fff00]"
+                  >
+                    Return to Home Page →
+                  </button>
+                </div>
+              ) : (
+                <form onSubmit={handleSubmit} className="flex flex-col gap-6 font-sans">
+                  
+                  {/* Mode Selector Toggle */}
+                  <div className="flex flex-col gap-2 border-b border-black/[0.08] pb-6">
+                    <span className="text-xs font-bold uppercase tracking-wider text-zinc-500">
+                      Who is submitting this application?
+                    </span>
+                    <div className="grid grid-cols-2 gap-2 p-1.5 bg-black/[0.04] rounded-2xl border border-black/5">
+                      <button
+                        type="button"
+                        onClick={() => handleModeSwitch("college")}
+                        className={`py-3 px-4 rounded-xl text-xs sm:text-sm font-display font-bold tracking-wide transition-all ${
+                          applicantType === "college"
+                            ? "bg-[#1a1a1a] text-white shadow-md"
+                            : "text-zinc-600 hover:text-black hover:bg-white/50"
+                        }`}
+                      >
+                        College / Institution
+                      </button>
+                      <button
+                        type="button"
+                        onClick={() => handleModeSwitch("student")}
+                        className={`py-3 px-4 rounded-xl text-xs sm:text-sm font-display font-bold tracking-wide transition-all ${
+                          applicantType === "student"
+                            ? "bg-[#9fff00] text-[#1a1a1a] shadow-md border border-black/10"
+                            : "text-zinc-600 hover:text-black hover:bg-white/50"
+                        }`}
+                      >
+                        Solo Student / Intern
+                      </button>
+                    </div>
+                  </div>
+
+                  {/* Form Title */}
+                  <div>
+                    <h2 className="text-xl sm:text-2xl font-display font-bold text-[#1a1a1a]">
+                      {applicantType === "college" ? "Institutional Campus Inquiry" : "Solo Internship & Mentorship Application"}
+                    </h2>
+                    <p className="text-xs sm:text-sm text-zinc-500 mt-1 font-sans">
+                      {applicantType === "college"
+                        ? "For college Deans, TPOs, and Department Chairs requesting campus bootcamps."
+                        : "For enthusiastic engineering students applying to work face-to-face in our office."}
+                    </p>
+                  </div>
+
+                  {/* Name and College / Org */}
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
+                    <div className="flex flex-col gap-1.5">
+                      <label htmlFor="name" className="text-xs font-bold uppercase tracking-wider text-zinc-700">
+                        Your Full Name *
+                      </label>
+                      <input
+                        id="name"
+                        name="name"
+                        type="text"
+                        required
+                        placeholder={applicantType === "college" ? "Dr. / Prof. / Mr. Name" : "Enter your full name"}
+                        value={formData.name}
+                        onChange={handleChange}
+                        className="px-4 py-3 bg-white rounded-xl border border-black/15 focus:border-[#1a1a1a] focus:outline-none text-sm text-[#1a1a1a] shadow-2xs font-medium transition-colors"
+                      />
+                    </div>
+
+                    <div className="flex flex-col gap-1.5">
+                      <label htmlFor="collegeOrOrganization" className="text-xs font-bold uppercase tracking-wider text-zinc-700">
+                        {applicantType === "college" ? "College / University Name *" : "Your College & Branch Name *"}
+                      </label>
+                      <input
+                        id="collegeOrOrganization"
+                        name="collegeOrOrganization"
+                        type="text"
+                        required
+                        placeholder={applicantType === "college" ? "e.g. Kakatiya University College" : "e.g. SR College - CSE 3rd Year"}
+                        value={formData.collegeOrOrganization}
+                        onChange={handleChange}
+                        className="px-4 py-3 bg-white rounded-xl border border-black/15 focus:border-[#1a1a1a] focus:outline-none text-sm text-[#1a1a1a] shadow-2xs font-medium transition-colors"
+                      />
+                    </div>
+                  </div>
+
+                  {/* Email & Phone */}
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
+                    <div className="flex flex-col gap-1.5">
+                      <label htmlFor="email" className="text-xs font-bold uppercase tracking-wider text-zinc-700">
+                        Email Address *
+                      </label>
+                      <input
+                        id="email"
+                        name="email"
+                        type="email"
+                        required
+                        placeholder={applicantType === "college" ? "tpo@college.ac.in" : "student@gmail.com"}
+                        value={formData.email}
+                        onChange={handleChange}
+                        className="px-4 py-3 bg-white rounded-xl border border-black/15 focus:border-[#1a1a1a] focus:outline-none text-sm text-[#1a1a1a] shadow-2xs font-medium transition-colors"
+                      />
+                    </div>
+
+                    <div className="flex flex-col gap-1.5">
+                      <label htmlFor="phone" className="text-xs font-bold uppercase tracking-wider text-zinc-700">
+                        Phone / WhatsApp Number *
+                      </label>
+                      <input
+                        id="phone"
+                        name="phone"
+                        type="tel"
+                        required
+                        placeholder="+91 94948 XXXXX"
+                        value={formData.phone}
+                        onChange={handleChange}
+                        className="px-4 py-3 bg-white rounded-xl border border-black/15 focus:border-[#1a1a1a] focus:outline-none text-sm text-[#1a1a1a] shadow-2xs font-medium transition-colors"
+                      />
+                    </div>
+                  </div>
+
+                  {/* Conditional Fields based on Mode */}
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
+                    <div className="flex flex-col gap-1.5">
+                      <label htmlFor="programOfInterest" className="text-xs font-bold uppercase tracking-wider text-zinc-700">
+                        {applicantType === "college" ? "Target Program *" : "Interested Opportunity *"}
+                      </label>
+                      <select
+                        id="programOfInterest"
+                        name="programOfInterest"
+                        value={formData.programOfInterest}
+                        onChange={handleChange}
+                        className="px-4 py-3 bg-white rounded-xl border border-black/15 focus:border-[#1a1a1a] focus:outline-none text-sm font-medium text-[#1a1a1a] shadow-2xs transition-colors"
+                      >
+                        {applicantType === "college" ? (
+                          <>
+                            <option value="Campus Recruitment Training (CRT)">Campus Recruitment Training (CRT)</option>
+                            <option value="3 to 5 Day Practical Workshops">3 to 5 Day Practical Workshops</option>
+                            <option value="Final-Year Engineering Projects">Final-Year Engineering Projects</option>
+                            <option value="Faculty Development Program (FDP)">Faculty Development Program (FDP)</option>
+                          </>
+                        ) : (
+                          <>
+                            <option value="Office Practical Internship">Office Practical Internship (In-Person)</option>
+                            <option value="Final-Year Guided Project">Final-Year Guided Project</option>
+                            <option value="Startup & Tech Mentorship">Startup & Tech Business Mentorship</option>
+                            <option value="Freelancing Client Network Access">Freelancing Client Network Access</option>
+                          </>
+                        )}
+                      </select>
+                    </div>
+
+                    <div className="flex flex-col gap-1.5">
+                      <label htmlFor="roleOrBranch" className="text-xs font-bold uppercase tracking-wider text-zinc-700">
+                        {applicantType === "college" ? "Estimated Cohort Size *" : "Your Current Year / Status *"}
+                      </label>
+                      {applicantType === "college" ? (
+                        <select
+                          id="studentCohortSize"
+                          name="studentCohortSize"
+                          value={formData.studentCohortSize}
+                          onChange={handleChange}
+                          className="px-4 py-3 bg-white rounded-xl border border-black/15 focus:border-[#1a1a1a] focus:outline-none text-sm font-medium text-[#1a1a1a] shadow-2xs transition-colors"
+                        >
+                          <option value="Under 100 Students">Under 100 Students</option>
+                          <option value="100 - 250 Students">100 - 250 Students</option>
+                          <option value="250 - 500 Students">250 - 500 Students</option>
+                          <option value="500+ Students (Full College)">500+ Students (Full College)</option>
+                        </select>
+                      ) : (
+                        <input
+                          id="roleOrBranch"
+                          name="roleOrBranch"
+                          type="text"
+                          required
+                          placeholder="e.g. 3rd Year B.Tech CSE"
+                          value={formData.roleOrBranch}
+                          onChange={handleChange}
+                          className="px-4 py-3 bg-white rounded-xl border border-black/15 focus:border-[#1a1a1a] focus:outline-none text-sm text-[#1a1a1a] shadow-2xs font-medium transition-colors"
+                        />
+                      )}
+                    </div>
+                  </div>
+
+                  {/* Message */}
+                  <div className="flex flex-col gap-1.5">
+                    <label htmlFor="message" className="text-xs font-bold uppercase tracking-wider text-zinc-700">
+                      {applicantType === "college" ? "Semester Schedule & Questions" : "Tell Us About Your Goals & Enthusiasm"}
+                    </label>
+                    <textarea
+                      id="message"
+                      name="message"
+                      rows="4"
+                      placeholder={
+                        applicantType === "college"
+                          ? "Share target seminar dates, branch requirements, or customized curriculum requests..."
+                          : "Tell us why you want to join our face-to-face team, what skills you are practicing, or any startups/projects you want to build..."
+                      }
+                      value={formData.message}
+                      onChange={handleChange}
+                      className="px-4 py-3 bg-white rounded-xl border border-black/15 focus:border-[#1a1a1a] focus:outline-none text-sm text-[#1a1a1a] shadow-2xs font-medium transition-colors resize-y"
+                    ></textarea>
+                  </div>
+
+                  <button
+                    type="submit"
+                    className="w-full mt-2 bg-[#1a1a1a] text-white py-4 rounded-full text-sm sm:text-base font-bold tracking-wide hover:bg-black hover:scale-[1.01] active:scale-[0.99] transition-all shadow-xl flex items-center justify-center gap-2.5 focus:outline-none focus:ring-2 focus:ring-[#9fff00]"
+                  >
+                    <span className="w-3 h-3 rounded-full bg-[#9fff00] block animate-pulse"></span>
+                    <span>{applicantType === "college" ? "Send Institutional Inquiry →" : "Submit Student Application →"}</span>
+                  </button>
+                </form>
+              )}
+            </motion.div>
+          </div>
+
+        </div>
+      </main>
     </>
   );
 }
-
-// Shared styles for TextFields to maintain the premium dark look
-const textFieldSx = {
-  "& .MuiOutlinedInput-root": {
-    color: "#FFFFFF",
-    bgcolor: "rgba(255, 255, 255, 0.03)",
-    borderRadius: "12px",
-    transition: "all 0.2s ease-in-out",
-    "& fieldset": {
-      borderColor: "rgba(255, 255, 255, 0.1)",
-    },
-    "&:hover fieldset": {
-      borderColor: "rgba(255, 255, 255, 0.2)",
-    },
-    "&.Mui-focused fieldset": {
-      borderColor: "#4F46E5",
-      borderWidth: "1px",
-    },
-    "&.Mui-error fieldset": {
-      borderColor: "#EF4444",
-    },
-  },
-  "& .MuiInputLabel-root": {
-    color: "#94A3B8",
-    "&.Mui-focused": {
-      color: "#4F46E5",
-    },
-    "&.Mui-error": {
-      color: "#EF4444",
-    },
-  },
-  "& .MuiSelect-icon": {
-    color: "#94A3B8",
-  },
-  // Fix dropdown menu dark styling
-  "& .MuiMenuItem-root": {
-    color: "#FFFFFF",
-  },
-};

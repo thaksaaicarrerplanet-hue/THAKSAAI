@@ -7,7 +7,6 @@ import {
   CardContent,
   Chip,
   CircularProgress,
-  Divider,
   Stack,
   Tab,
   Table,
@@ -26,12 +25,12 @@ import { getAllUsers } from "../../../services/adminServices";
 import { useNavigate } from "react-router-dom";
 
 const filterTabs = ["all", "student", "instructor", "admin"];
-const filterLabels = { all: "All", student: "Students", instructor: "Instructors", admin: "Admins" };
+const filterLabels = { all: "All Accounts", student: "Students", instructor: "Instructors", admin: "Administrators" };
 
 const roleColors = {
-  admin: { bg: "#fef2f2", color: "#991b1b" },
-  instructor: { bg: "#eff6ff", color: "#1e40af" },
-  student: { bg: "#f0fdf4", color: "#166534" },
+  admin: { bg: "#f3e8ff", color: "#6b21a8" },
+  instructor: { bg: "#e0f2fe", color: "#0369a1" },
+  student: { bg: "#dcfce7", color: "#15803d" },
 };
 
 export const UserTable = ({ onView, onEditRole, onDelete }) => {
@@ -54,7 +53,7 @@ export const UserTable = ({ onView, onEditRole, onDelete }) => {
       const data = await getAllUsers();
       setUsers(data?.users || []);
     } catch (requestError) {
-      setError(requestError?.response?.data?.message || "Failed to load users");
+      setError(requestError?.response?.data?.message || "Could not load user accounts from database.");
     } finally {
       setLoading(false);
     }
@@ -67,18 +66,22 @@ export const UserTable = ({ onView, onEditRole, onDelete }) => {
 
   if (loading) {
     return (
-      <Stack direction="row" spacing={1.2} alignItems="center">
-        <CircularProgress size={20} />
-        <Typography color="text.secondary">Loading users...</Typography>
+      <Stack direction="row" spacing={1.5} alignItems="center" sx={{ py: 6, px: 2 }}>
+        <CircularProgress size={24} sx={{ color: "#1a1a1a" }} />
+        <Typography sx={{ fontWeight: 600, color: "#64748b", fontFamily: "'Work Sans', sans-serif" }}>
+          Loading user accounts...
+        </Typography>
       </Stack>
     );
   }
 
   return (
-    <Card elevation={0} sx={{ borderRadius: 3, border: "1px solid #e2e8f0" }}>
-      <CardContent sx={{ p: { xs: 1.5, sm: 2.2 } }}>
-        <Typography variant="h6" sx={{ mb: 1.2, fontWeight: 800 }}>Users List</Typography>
-        {error ? <Alert severity="error" sx={{ mb: 1.5 }}>{error}</Alert> : null}
+    <Card elevation={0} sx={{ borderRadius: "14px", border: "1px solid rgba(0,0,0,0.08)", bgcolor: "#ffffff", boxShadow: "0 4px 20px rgba(0,0,0,0.02)" }}>
+      <CardContent sx={{ p: { xs: 2.5, sm: 3.5 } }}>
+        <Typography component="h2" sx={{ fontSize: "1.35rem", fontFamily: "'Instrument Serif', serif", fontWeight: 700, color: "#1a1a1a", mb: 2 }}>
+          Registered Accounts Directory
+        </Typography>
+        {error ? <Alert severity="error" sx={{ mb: 2.5, borderRadius: "8px" }}>{error}</Alert> : null}
 
         <Tabs
           value={filterTabs.indexOf(roleFilter)}
@@ -86,20 +89,28 @@ export const UserTable = ({ onView, onEditRole, onDelete }) => {
           variant={isMobile ? "scrollable" : "standard"}
           scrollButtons="auto"
           allowScrollButtonsMobile
-          sx={{ mb: 2, borderBottom: "1px solid #e2e8f0" }}
+          sx={{ 
+            mb: 3, 
+            borderBottom: "1px solid rgba(0,0,0,0.08)",
+            "& .MuiTab-root": { textTransform: "none", fontWeight: 600, fontSize: "0.88rem", color: "#64748b", pb: 1.5 },
+            "& .Mui-selected": { color: "#1a1a1a", fontWeight: 800 },
+            "& .MuiTabs-indicator": { backgroundColor: "#1a1a1a", height: "3px", borderRadius: "3px 3px 0 0" }
+          }}
         >
           {filterTabs.map((tab) => (
-            <Tab key={tab} label={filterLabels[tab]} sx={{ textTransform: "none", fontWeight: 600 }} />
+            <Tab key={tab} label={filterLabels[tab]} />
           ))}
         </Tabs>
 
         {/* Mobile card view */}
         {isMobile ? (
-          <Stack spacing={1.5}>
+          <Stack spacing={2}>
             {filteredUsers.length === 0 ? (
-              <Typography color="text.secondary" sx={{ py: 3, textAlign: "center" }}>
-                No users found.
-              </Typography>
+              <Box sx={{ p: 4, textAlign: "center", bgcolor: "#f8f9fa", borderRadius: "10px", border: "1px dashed rgba(0,0,0,0.1)" }}>
+                <Typography sx={{ color: "#64748b", fontWeight: 500 }}>
+                  No user accounts found in this category.
+                </Typography>
+              </Box>
             ) : (
               filteredUsers.map((user) => {
                 const rc = roleColors[user.role] || { bg: "#f1f5f9", color: "#475569" };
@@ -107,42 +118,43 @@ export const UserTable = ({ onView, onEditRole, onDelete }) => {
                   <Box
                     key={user.id}
                     sx={{
-                      border: "1px solid #e2e8f0",
-                      borderRadius: 2.5,
-                      p: 2,
-                      bgcolor: "#fff",
+                      border: "1px solid rgba(0,0,0,0.08)",
+                      borderRadius: "12px",
+                      p: 2.5,
+                      bgcolor: "#ffffff",
+                      boxShadow: "0 2px 8px rgba(0,0,0,0.02)",
                     }}
                   >
-                    <Stack direction="row" spacing={1.5} alignItems="center" sx={{ mb: 1.5 }}>
+                    <Stack direction="row" spacing={1.5} alignItems="center" sx={{ mb: 2 }}>
                       <Box
                         sx={{
-                          width: 40,
-                          height: 40,
+                          width: 42,
+                          height: 42,
                           borderRadius: "50%",
-                          bgcolor: "#f1f5f9",
+                          bgcolor: "#1a1a1a",
                           display: "flex",
                           alignItems: "center",
                           justifyContent: "center",
-                          color: "#64748b",
+                          color: "#9fff00",
                           flexShrink: 0,
                         }}
                       >
                         <PersonRoundedIcon fontSize="small" />
                       </Box>
                       <Box sx={{ minWidth: 0, flexGrow: 1 }}>
-                        <Typography sx={{ fontWeight: 700, color: "#0f172a", fontSize: "0.95rem" }} noWrap>
-                          {user.name}
+                        <Typography sx={{ fontWeight: 700, color: "#1a1a1a", fontSize: "1rem" }} noWrap>
+                          {user.name || "Unnamed User"}
                         </Typography>
-                        <Typography variant="body2" color="text.secondary" noWrap>
+                        <Typography variant="body2" sx={{ color: "#64748b", fontSize: "0.82rem" }} noWrap>
                           {user.email}
                         </Typography>
                       </Box>
                       <Chip
-                        label={user.role}
+                        label={String(user.role).toUpperCase()}
                         size="small"
                         sx={{
                           fontWeight: 700,
-                          textTransform: "capitalize",
+                          fontSize: "0.68rem",
                           bgcolor: rc.bg,
                           color: rc.color,
                           flexShrink: 0,
@@ -150,28 +162,27 @@ export const UserTable = ({ onView, onEditRole, onDelete }) => {
                       />
                     </Stack>
 
-                    <Stack direction="row" spacing={1} sx={{ flexWrap: "wrap", gap: 0.5 }} useFlexGap>
+                    <Stack direction="row" spacing={1} sx={{ flexWrap: "wrap", gap: 1 }}>
                       <Button
                         variant="contained"
                         size="small"
-                        sx={{ textTransform: "none", borderRadius: 2, flex: 1, minWidth: 70 }}
+                        sx={{ textTransform: "none", bgcolor: "#1a1a1a", color: "#ffffff", borderRadius: "50px", fontWeight: 600, fontSize: "0.75rem", flex: 1, "&:hover": { bgcolor: "#000" } }}
                         onClick={() => (onView ? onView(user.id) : navigate(`/admin/students/${user.id}`))}
                       >
-                        View
+                        View Profile
                       </Button>
                       <Button
                         variant="outlined"
                         size="small"
-                        sx={{ textTransform: "none", borderRadius: 2, flex: 1, minWidth: 70 }}
+                        sx={{ textTransform: "none", borderColor: "rgba(0,0,0,0.15)", color: "#1a1a1a", borderRadius: "50px", fontWeight: 600, fontSize: "0.75rem", flex: 1 }}
                         onClick={() => (onEditRole ? onEditRole(user) : navigate(`/admin/students/${user.id}/role`))}
                       >
-                        Edit Role
+                        Change Role
                       </Button>
                       <Button
                         variant="outlined"
-                        color="error"
                         size="small"
-                        sx={{ textTransform: "none", borderRadius: 2, flex: 1, minWidth: 70 }}
+                        sx={{ textTransform: "none", borderColor: "rgba(220,38,38,0.3)", color: "#dc2626", borderRadius: "50px", fontWeight: 600, fontSize: "0.75rem", flex: 1, "&:hover": { bgcolor: "rgba(220,38,38,0.04)" } }}
                         onClick={() => (onDelete ? onDelete(user.id) : navigate(`/admin/students/${user.id}/delete`))}
                       >
                         Delete
@@ -184,62 +195,68 @@ export const UserTable = ({ onView, onEditRole, onDelete }) => {
           </Stack>
         ) : (
           /* Desktop table view */
-          <TableContainer sx={{ overflowX: "auto" }}>
+          <TableContainer sx={{ borderRadius: "10px", border: "1px solid rgba(0,0,0,0.06)", overflowX: "auto" }}>
             <Table sx={{ minWidth: 700 }}>
-              <TableHead>
+              <TableHead sx={{ bgcolor: "#EDEEF5" }}>
                 <TableRow>
-                  <TableCell><strong>Name</strong></TableCell>
-                  <TableCell><strong>Email</strong></TableCell>
-                  <TableCell><strong>Role</strong></TableCell>
-                  <TableCell align="right"><strong>Actions</strong></TableCell>
+                  <TableCell sx={{ fontWeight: 700, fontSize: "0.75rem", textTransform: "uppercase", color: "#475569", py: 1.5 }}>Name</TableCell>
+                  <TableCell sx={{ fontWeight: 700, fontSize: "0.75rem", textTransform: "uppercase", color: "#475569", py: 1.5 }}>Email Address</TableCell>
+                  <TableCell sx={{ fontWeight: 700, fontSize: "0.75rem", textTransform: "uppercase", color: "#475569", py: 1.5 }}>Account Role</TableCell>
+                  <TableCell align="right" sx={{ fontWeight: 700, fontSize: "0.75rem", textTransform: "uppercase", color: "#475569", py: 1.5 }}>Management Actions</TableCell>
                 </TableRow>
               </TableHead>
               <TableBody>
                 {filteredUsers.length === 0 ? (
                   <TableRow>
-                    <TableCell colSpan={4}>
-                      <Typography color="text.secondary" sx={{ py: 2, textAlign: "center" }}>No users found.</Typography>
+                    <TableCell colSpan={4} sx={{ py: 5, textAlign: "center" }}>
+                      <Typography sx={{ color: "#64748b", fontWeight: 500 }}>No users found in this category.</Typography>
                     </TableCell>
                   </TableRow>
                 ) : (
-                  filteredUsers.map((user) => (
-                    <TableRow key={user.id} hover>
-                      <TableCell>{user.name}</TableCell>
-                      <TableCell>{user.email}</TableCell>
-                      <TableCell>
-                        <Chip label={user.role} size="small" sx={{ fontWeight: 700, textTransform: "capitalize" }} />
-                      </TableCell>
-                      <TableCell align="right">
-                        <Stack direction="row" spacing={1} justifyContent="flex-end">
-                          <Button
-                            variant="contained"
-                            size="small"
-                            sx={{ textTransform: "none" }}
-                            onClick={() => (onView ? onView(user.id) : navigate(`/admin/students/${user.id}`))}
-                          >
-                            View
-                          </Button>
-                          <Button
-                            variant="outlined"
-                            size="small"
-                            sx={{ textTransform: "none" }}
-                            onClick={() => (onEditRole ? onEditRole(user) : navigate(`/admin/students/${user.id}/role`))}
-                          >
-                            Edit Role
-                          </Button>
-                          <Button
-                            variant="contained"
-                            color="error"
-                            size="small"
-                            sx={{ textTransform: "none" }}
-                            onClick={() => (onDelete ? onDelete(user.id) : navigate(`/admin/students/${user.id}/delete`))}
-                          >
-                            Delete
-                          </Button>
-                        </Stack>
-                      </TableCell>
-                    </TableRow>
-                  ))
+                  filteredUsers.map((user) => {
+                    const rc = roleColors[user.role] || { bg: "#f1f5f9", color: "#475569" };
+                    return (
+                      <TableRow key={user.id} sx={{ "&:hover": { bgcolor: "#f8f9fa" }, transition: "background 0.2s" }}>
+                        <TableCell sx={{ fontWeight: 600, color: "#1a1a1a", py: 2 }}>{user.name || "Unnamed User"}</TableCell>
+                        <TableCell sx={{ color: "#475569", fontWeight: 500, py: 2 }}>{user.email}</TableCell>
+                        <TableCell sx={{ py: 2 }}>
+                          <Chip 
+                            label={String(user.role).toUpperCase()} 
+                            size="small" 
+                            sx={{ fontWeight: 700, fontSize: "0.68rem", bgcolor: rc.bg, color: rc.color }} 
+                          />
+                        </TableCell>
+                        <TableCell align="right" sx={{ py: 2 }}>
+                          <Stack direction="row" spacing={1} justifyContent="flex-end">
+                            <Button
+                              variant="contained"
+                              size="small"
+                              sx={{ textTransform: "none", bgcolor: "#1a1a1a", color: "#ffffff", borderRadius: "50px", fontWeight: 600, px: 2, "&:hover": { bgcolor: "#000000" } }}
+                              onClick={() => (onView ? onView(user.id) : navigate(`/admin/students/${user.id}`))}
+                            >
+                              View
+                            </Button>
+                            <Button
+                              variant="outlined"
+                              size="small"
+                              sx={{ textTransform: "none", borderColor: "rgba(0,0,0,0.15)", color: "#1a1a1a", borderRadius: "50px", fontWeight: 600, px: 2, "&:hover": { bgcolor: "rgba(0,0,0,0.03)", borderColor: "#1a1a1a" } }}
+                              onClick={() => (onEditRole ? onEditRole(user) : navigate(`/admin/students/${user.id}/role`))}
+                            >
+                              Edit Role
+                            </Button>
+                            <Button
+                              variant="outlined"
+                              size="small"
+                              sx={{ textTransform: "none", borderColor: "rgba(220,38,38,0.3)", color: "#dc2626", borderRadius: "50px", fontWeight: 600, px: 2, "&:hover": { bgcolor: "rgba(220,38,38,0.05)", borderColor: "#dc2626" } }}
+                              onClick={() => (onDelete ? onDelete(user.id) : navigate(`/admin/students/${user.id}/delete`))}
+                            >
+                              Delete
+                            </Button>
+                          </Stack>
+                        </TableCell>
+                      </TableRow>
+                    );
+                  })
                 )}
               </TableBody>
             </Table>

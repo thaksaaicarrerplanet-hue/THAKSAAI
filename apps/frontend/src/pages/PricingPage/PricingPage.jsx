@@ -1,126 +1,187 @@
+﻿import React from "react";
+import { Helmet } from "react-helmet-async";
 import { useNavigate } from "react-router-dom";
-import {
-  Box,
-  Button,
-  Card,
-  CardContent,
-  Container,
-  Grid,
-  Stack,
-  Typography,
-} from "@mui/material";
+import { motion } from "framer-motion";
 
 const plans = [
   {
-    name: "Foundation Track",
-    description: "For beginners building strong fundamentals",
-    price: "INR 000",
-    duration: "3 Months",
-    cta: "Choose Plan",
-    includes: [
-      "Core fundamentals and concepts",
-      "Structured weekly roadmap",
-      "Recorded session access",
-      "Basic project exposure",
+    title: "3 to 5 Day Practical Workshops",
+    subtitle: "Short Technical Bootcamps",
+    desc: "Perfect for introducing students to exciting industry topics like AI Chat Applications, Cloud Computing, Docker, and Data Science during semester vacations or workshop weeks.",
+    features: [
+      "Led by experienced practicing software developers",
+      "All required cloud accounts & AI keys provided by us",
+      "Hands-on coding exercises in your campus computer rooms",
+      "Team project presentation & certificate distribution on final day",
+      "Available for all Computer Science & Engineering streams"
     ],
+    tag: "POPULAR WORKSHOPS",
+    recommended: false
   },
   {
-    name: "Professional Track",
-    description: "For learners preparing for industry roles",
-    price: "INR 000",
-    duration: "4 Months",
-    cta: "Choose Plan",
-    includes: [
-      "Complete structured curriculum",
-      "Live instructor-led sessions",
-      "Real-world projects",
-      "Career and interview guidance",
-      "Continuous evaluation and feedback",
+    title: "Semester Campus Training (CRT)",
+    subtitle: "Comprehensive Placement Bootcamp",
+    desc: "Our complete 15-week campus recruitment program engineered to boost your college placement hiring numbers. We organize students into three learning groups based on skill level.",
+    features: [
+      "Friendly initial skill check to match learning groups",
+      "Weekly practical coding practice and automated feedback",
+      "Every Friday timed online practice exams mirroring corporate hiring tests",
+      "Regular weekly progress reports delivered directly to TPOs & Deans",
+      "Proven 94% average technical exam pass rate across colleges"
     ],
+    tag: "MOST RECOMMENDED FOR TPOS",
+    recommended: true
   },
   {
-    name: "Advanced Mentorship",
-    description: "For learners seeking deep personalized guidance",
-    price: "INR 000",
-    duration: "4+ Months",
-    cta: "Choose Plan",
-    includes: [
-      "Everything in Professional Track",
-      "1-to-1 mentorship sessions",
-      "Advanced system thinking",
-      "Personalized growth roadmap",
-      "Extended career support",
+    title: "Full College Partnership",
+    subtitle: "Institution-Wide Engineering Support",
+    desc: "A year-round collaborative partnership for engineering colleges that want comprehensive support across campus training, specialized workshops, and final-year software projects.",
+    features: [
+      "Includes full 3-Tier Campus Recruitment Training (CRT)",
+      "Guided mentorship for all student final-year software projects",
+      "Multi-topic workshops across CSE, AIML, ECE, and EEE departments",
+      "Direct phone and electronic support for college placement officers",
+      "Priority scheduling during corporate recruitment seasons"
     ],
-  },
+    tag: "FULL INSTITUTION SUPPORT",
+    recommended: false
+  }
 ];
 
 export default function PricingPage() {
   const navigate = useNavigate();
+
   return (
-    <Box
-      sx={{
-        py: { xs: 6, md: 9 },
-        minHeight: "calc(100vh - 80px)",
-        backgroundColor: "#f8fafc",
-      }}
-    >
-      <Container maxWidth="lg">
-        <Stack textAlign="center" spacing={1} sx={{ mb: 5 }}>
-          <Typography variant="h4" sx={{ fontWeight: 700 }}>
-            Pricing Plans
-          </Typography>
-          <Typography color="text.secondary" sx={{ maxWidth: 760, mx: "auto" }}>
-            Transparent pricing designed for structured learning and consistent progress.
-          </Typography>
-        </Stack>
+    <>
+      <Helmet>
+        <title>College Partnership Plans & Programs | THAKSAAI</title>
+        <meta
+          name="description"
+          content="Explore transparent, collaborative college training partnership options including short practical workshops and full semester campus recruitment bootcamps."
+        />
+      </Helmet>
 
-        <Grid container spacing={3}>
-          {plans.map((plan) => (
-            <Grid key={plan.name} size={{ xs: 12, md: 6, lg: 4 }}>
-              <Card
-                elevation={0}
-                sx={{
-                  height: "100%",
-                  borderRadius: 2.5,
-                  border: "1px solid",
-                  borderColor: "divider",
-                }}
+      <main className="w-full min-h-screen bg-[#EDEEF5] pt-28 sm:pt-36 pb-24 px-6 md:px-10 text-[#1a1a1a] selection:bg-[#9fff00] selection:text-black">
+        <div className="max-w-7xl mx-auto">
+          
+          {/* Header */}
+          <div className="max-w-3xl mb-16 pb-8 border-b border-black/[0.08]">
+            <div className="inline-flex items-center gap-2 bg-white/80 backdrop-blur-md px-3.5 py-1 rounded-full text-xs font-bold uppercase tracking-widest text-zinc-600 mb-4 shadow-xs">
+              <span className="w-2 h-2 rounded-full bg-[#9fff00] block animate-pulse"></span>
+              College Partnership Options
+            </div>
+            <h1 className="text-4xl sm:text-5xl md:text-6xl font-display font-bold text-[#1a1a1a] tracking-tight leading-tight mb-4">
+              Simple partnership plans for engineering colleges.
+            </h1>
+            <p className="text-base sm:text-lg font-sans text-zinc-600 leading-relaxed">
+              We partner directly with college leadership and departments to run practical coding programs on campus. Choose the support option that fits your academic calendar and student hiring goals.
+            </p>
+          </div>
+
+          {/* Pricing Cards Grid */}
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-20 items-stretch">
+            {plans.map((p, idx) => (
+              <motion.article
+                key={idx}
+                whileHover={{ y: -4 }}
+                transition={{ duration: 0.22 }}
+                className={`p-8 rounded-3xl flex flex-col justify-between transition-all relative ${
+                  p.recommended
+                    ? "bg-[#1a1a1a] text-white border-2 border-[#9fff00] shadow-2xl scale-[1.02] z-10"
+                    : "neo-glass text-[#1a1a1a] border border-black/[0.08] shadow-sm"
+                }`}
               >
-                <CardContent sx={{ p: 3, height: "100%", display: "flex", flexDirection: "column" }}>
-                  <Typography variant="h6" sx={{ fontWeight: 700 }}>
-                    {plan.name}
-                  </Typography>
-                  <Typography color="text.secondary" sx={{ mt: 0.4 }}>
-                    {plan.description}
-                  </Typography>
-                  <Typography sx={{ mt: 2, fontSize: { xs: "1.9rem", md: "2.1rem" }, fontWeight: 700, color: "primary.main" }}>
-                    {plan.price}
-                  </Typography>
-                  <Typography variant="body2" color="text.secondary" sx={{ mb: 1.7 }}>
-                    Duration: {plan.duration}
-                  </Typography>
+                <div>
+                  <div className="flex items-center justify-between mb-6">
+                    <span className={`text-xs font-mono font-extrabold px-3.5 py-1.5 rounded-full uppercase tracking-wider ${
+                      p.recommended ? "bg-[#9fff00] text-[#1a1a1a]" : "bg-[#1a1a1a] text-white"
+                    }`}>
+                      ● {p.tag}
+                    </span>
+                  </div>
 
-                  <Stack spacing={1} sx={{ mb: 2 }}>
-                    {plan.includes.map((item) => (
-                      <Typography key={item} variant="body2" color="text.secondary">
-                        - {item}
-                      </Typography>
+                  <span className={`text-xs font-bold uppercase tracking-widest block mb-1 ${
+                    p.recommended ? "text-[#9fff00]" : "text-zinc-500"
+                  }`}>
+                    {p.subtitle}
+                  </span>
+
+                  <h2 className={`text-2xl sm:text-3xl font-display font-bold tracking-tight mb-4 ${
+                    p.recommended ? "text-white" : "text-[#1a1a1a]"
+                  }`}>
+                    {p.title}
+                  </h2>
+
+                  <p className={`text-sm font-sans leading-relaxed mb-8 pb-6 border-b ${
+                    p.recommended ? "text-zinc-300 border-white/10" : "text-zinc-600 border-black/[0.06]"
+                  }`}>
+                    {p.desc}
+                  </p>
+
+                  <h4 className={`text-xs font-bold uppercase tracking-wider mb-4 ${
+                    p.recommended ? "text-zinc-400" : "text-zinc-500"
+                  }`}>
+                    What Is Included:
+                  </h4>
+
+                  <ul className="flex flex-col gap-3 font-sans mb-10">
+                    {p.features.map((feat, i) => (
+                      <li key={i} className="flex items-start gap-3 text-sm leading-snug">
+                        <span className={`font-bold text-base mt-0.5 ${
+                          p.recommended ? "text-[#9fff00]" : "text-[#0D9488]"
+                        }`}>✓</span>
+                        <span className={p.recommended ? "text-zinc-200 font-medium" : "text-zinc-700 font-medium"}>
+                          {feat}
+                        </span>
+                      </li>
                     ))}
-                  </Stack>
+                  </ul>
+                </div>
 
-                  <Button variant="contained" sx={{ mt: "auto", py: 1.1 }} onClick={() => navigate("/contact")}>
-                    {plan.cta}
-                  </Button>
-                </CardContent>
-              </Card>
-            </Grid>
-          ))}
-        </Grid>
+                <button
+                  type="button"
+                  onClick={() => navigate(`/contact?track=${encodeURIComponent(p.title)}`)}
+                  className={`w-full py-4 rounded-full text-sm font-bold tracking-wide transition-all shadow-md flex items-center justify-center gap-2 focus:outline-none focus:ring-2 ${
+                    p.recommended
+                      ? "bg-[#9fff00] text-[#1a1a1a] hover:bg-white focus:ring-white"
+                      : "bg-[#1a1a1a] text-white hover:bg-black focus:ring-[#9fff00]"
+                  }`}
+                >
+                  <span className={`w-2.5 h-2.5 rounded-full animate-pulse ${
+                    p.recommended ? "bg-[#1a1a1a]" : "bg-[#9fff00]"
+                  }`}></span>
+                  Discuss This Plan With Our Team →
+                </button>
+              </motion.article>
+            ))}
+          </div>
 
-        <Typography textAlign="center" color="text.secondary" sx={{ mt: 4 }}>
-          Contact us for custom guidance and plan recommendations.
-        </Typography>
-      </Container>
-    </Box>
+          {/* Our Cloud Assurance Promise Box */}
+          <section aria-label="Our Assurance" className="neo-glass p-8 sm:p-12 rounded-3xl border border-black/[0.08] shadow-sm flex flex-col md:flex-row items-center justify-between gap-8">
+            <div className="max-w-2xl">
+              <span className="text-xs font-bold uppercase tracking-widest text-zinc-500 font-sans block mb-2">
+                Our Assurance to Colleges
+              </span>
+              <h3 className="text-2xl sm:text-3xl font-display font-bold text-[#1a1a1a] tracking-tight mb-3">
+                No extra software fees or cloud billing worries.
+              </h3>
+              <p className="text-sm sm:text-base font-sans text-zinc-600 leading-relaxed">
+                When you partner with us, we supply all necessary online developer tools, AWS/GCP server testing environments, and AI software accounts for your students during the workshops. Your college never has to worry about unexpected cloud billing.
+              </p>
+            </div>
+            <div className="shrink-0">
+              <button
+                type="button"
+                onClick={() => navigate("/contact")}
+                className="bg-[#1a1a1a] text-white px-8 py-4 rounded-full text-sm font-bold tracking-wide hover:bg-black transition-all shadow-md focus:outline-none focus:ring-2 focus:ring-[#9fff00]"
+              >
+                Schedule a Friendly Meeting →
+              </button>
+            </div>
+          </section>
+
+        </div>
+      </main>
+    </>
   );
 }

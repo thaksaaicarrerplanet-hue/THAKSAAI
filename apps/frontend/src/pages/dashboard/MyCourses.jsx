@@ -30,19 +30,16 @@ export default function MyCourses() {
     let active = true;
     const loadData = async () => {
       try {
-        const [dashData, publicData] = await Promise.all([
-          getUserDashboard(),
-          getPublicCourses({ limit: 100 }), // Fetch up to 100 courses
-        ]);
+        const dashData = await getUserDashboard();
         if (!active) return;
-        setEnrolledCourses(dashData?.enrolledCourses || []);
-        const courses = Array.isArray(publicData) ? publicData : publicData?.courses || [];
-        setAllCourses(courses);
+        const enrolled = dashData?.enrolledCourses || [];
+        setEnrolledCourses(enrolled);
+        setAllCourses(enrolled);
 
-        // Load ratings for all courses
+        // Load ratings for enrolled courses
         const ratingsData = {};
         await Promise.all(
-          courses.map(async (course) => {
+          enrolled.map(async (course) => {
             try {
               const rating = await getCourseRatingSummary(course.id);
               ratingsData[course.id] = {
@@ -56,7 +53,7 @@ export default function MyCourses() {
         );
         if (active) setRatings(ratingsData);
       } catch (err) {
-        console.error("Failed to load courses:", err);
+        console.error("Failed to load enrolled courses:", err);
       } finally {
         if (active) setLoading(false);
       }
