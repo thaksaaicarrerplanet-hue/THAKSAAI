@@ -6,12 +6,12 @@ import JourneyDeck from "../components/common/JourneyDeck";
 
 export default function AboutPage() {
   const [journeyImages, setJourneyImages] = useState([
-    "/images/journey/media__1785772594838.png",
-    "/images/journey/media__1785773050846.png",
-    "/images/journey/media__1785773062260.png",
-    "/images/journey/media__1785941175085.jpg",
-    "/images/journey/media__1785944946454.jpg",
-    "/images/journey/media__1785950990344.png",
+    "/images/journey/IMG-20260301-WA0008.jpg",
+    "/images/journey/IMG-20260301-WA0018.jpg",
+    "/images/journey/IMG-20260619-WA0004.jpg",
+    "/images/journey/IMG-20260619-WA0008.jpg",
+    "/images/journey/IMG-20260619-WA0024.jpg",
+    "/images/journey/IMG-20260717-WA0027.jpg",
   ]);
 
   useEffect(() => {
