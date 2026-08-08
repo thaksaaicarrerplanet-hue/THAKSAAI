@@ -24,16 +24,6 @@ const internshipOfferings = [
     badge: "Digital Marketing Intern",
     title: "Digital Marketing & Growth Systems",
     desc: "Drive brand visibility and institutional student acquisition through technical SEO, performance marketing analytics, conversion rate optimization, and systematic content engineering."
-  },
-  {
-    badge: "BDA & Sales Intern",
-    title: "Business Development Associate (BDA)",
-    desc: "Spearhead corporate and academic collaborations. Gain direct execution experience in B2B technology sales, college TPO partnership negotiations, and technical account management."
-  },
-  {
-    badge: "Data & BI Intern",
-    title: "Data Engineering & BI Systems",
-    desc: "Engineer end-to-end data analytics pipelines, perform predictive telemetry modeling with Python and SQL, and deploy automated Business Intelligence dashboards (PowerBI/Tableau)."
   }
 ];
 
@@ -66,7 +56,7 @@ export default function InternshipsPage() {
                 In-Person Office Internships
               </div>
               <h1 className="text-4xl sm:text-5xl md:text-6xl font-display font-bold text-[#1a1a1a] tracking-tight leading-[1.12] mb-6">
-                Work at HQ. Build production software face-to-face.
+                Build production software face-to-face.
               </h1>
               <p className="text-lg sm:text-xl font-sans text-zinc-600 leading-relaxed mb-8">
                 We reject passive online video classes and synthetic theory. Our internships are executed strictly in-person directly inside our engineering studios at <strong className="text-[#1a1a1a]">{SITE_BRANDING.buildingName}, Gachibowli</strong>. Collaborate alongside experienced software architects to master technology execution.
