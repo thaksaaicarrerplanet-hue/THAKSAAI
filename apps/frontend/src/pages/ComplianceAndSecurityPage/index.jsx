@@ -51,7 +51,7 @@ export default function ComplianceAndSecurityPage() {
             </h1>
 
             {/* Interactive Tab Switcher */}
-            <div className="flex flex-wrap items-center gap-2 bg-white/60 p-1.5 rounded-xl border border-black/[0.07] w-max">
+            <div className="flex flex-col sm:flex-row flex-wrap items-stretch sm:items-center gap-2 bg-white/60 p-1.5 rounded-xl border border-black/[0.07] w-full lg:w-max">
               {tabs.map((tab) => {
                 const isActive = activeTab === tab.id;
                 return (
@@ -59,7 +59,7 @@ export default function ComplianceAndSecurityPage() {
                     key={tab.id}
                     type="button"
                     onClick={() => handleTabChange(tab)}
-                    className={`px-5 py-2.5 rounded-lg text-xs sm:text-sm font-bold transition-all focus:outline-none ${
+                    className={`px-5 py-3 sm:py-2.5 rounded-lg text-xs sm:text-sm font-bold transition-all focus:outline-none text-center w-full sm:w-auto ${
                       isActive 
                         ? "bg-[#1a1a1a] text-white shadow-xs" 
                         : "text-[#1a1a1a]/70 hover:text-[#1a1a1a] hover:bg-white/80"
