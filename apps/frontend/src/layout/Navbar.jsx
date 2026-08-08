@@ -19,8 +19,14 @@ export default function Navbar() {
     <header className="fixed top-0 left-0 w-full z-50 py-3 sm:py-4 md:py-5 bg-[#EDEEF5]/96 border-b border-black/[0.06] shadow-[0_2px_15px_rgba(0,0,0,0.03)] transition-colors duration-200">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 md:px-10 flex items-center justify-between">
         
-        {/* Left: Brand Logo */}
-        <BrandLogo variant="navbar" />
+        {/* Left: Brand Logo Image */}
+        <Link to="/" aria-label="Navigate to THAKSAAI homepage" className="shrink-0 focus:outline-none focus:ring-2 focus:ring-[#9fff00] rounded-sm inline-block">
+          <img 
+            src="/images/logos/thaksa_banner_logo.jpg" 
+            alt="THAKSA.AI Logo" 
+            className="h-8 sm:h-10 md:h-12 w-auto object-contain rounded shadow-2xs hover:scale-105 transition-transform duration-300"
+          />
+        </Link>
 
         {/* Center: Core Programs Navigation */}
         <nav className="hidden lg:flex items-center justify-center gap-7 xl:gap-9" aria-label="Main navigation">
