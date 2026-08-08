@@ -1,8 +1,7 @@
 import React from "react";
-import { Box, Container, Grid, Typography, Button, Stack } from "@mui/material";
+import { Helmet } from "react-helmet-async";
 import { useNavigate } from "react-router-dom";
-import ArrowForwardRoundedIcon from "@mui/icons-material/ArrowForwardRounded";
-import { MASTER_FONTS, MASTER_PALETTE } from "../../theme/masterThemeConfig";
+import { motion } from "framer-motion";
 
 const workshops = [
   {
@@ -39,56 +38,94 @@ export default function WorkshopPage() {
   const navigate = useNavigate();
 
   return (
-    <Box sx={{ bgcolor: MASTER_PALETTE.paper, minHeight: "100vh", pt: { xs: 14, md: 18 }, pb: 16, color: MASTER_PALETTE.ink }}>
-      <Container maxWidth="lg">
-        {/* Header */}
-        <Box sx={{ mb: { xs: 8, md: 12 }, maxWidth: "860px", borderBottom: `1px solid ${MASTER_PALETTE.hairline}`, pb: 6 }}>
-          <Typography sx={{ fontFamily: MASTER_FONTS.sans, fontWeight: 700, fontSize: "0.78rem", letterSpacing: "0.2em", textTransform: "uppercase", color: MASTER_PALETTE.inkMuted, mb: 2.5 }}>
-            Practitioner Workshop Immersions
-          </Typography>
-          <Typography component="h1" sx={{ fontFamily: MASTER_FONTS.display, fontSize: { xs: "2.8rem", md: "4.2rem" }, color: MASTER_PALETTE.ink, lineHeight: 1.08, mb: 4 }}>
-            3 to 5 day on-campus engineering laboratories. Zero textbook theory.
-          </Typography>
-          <Typography sx={{ fontFamily: MASTER_FONTS.sans, fontSize: { xs: "1.05rem", md: "1.2rem" }, color: MASTER_PALETTE.inkMuted, lineHeight: 1.7, mb: 5 }}>
-            Conducted directly inside your college computer labs by practicing senior software developers. Every student completes the immersion with a deployed live application and a rigorous GitHub portfolio commit.
-          </Typography>
-          <Button variant="contained" onClick={() => navigate("/contact")} endIcon={<ArrowForwardRoundedIcon />} sx={{ height: "50px", px: 4.5, bgcolor: MASTER_PALETTE.ink, color: MASTER_PALETTE.paper, fontSize: "0.98rem", fontWeight: 600, borderRadius: "4px" }}>
-            Book an On-Campus Workshop
-          </Button>
-        </Box>
+    <>
+      <Helmet>
+        <title>On-Campus Engineering Workshops | THAKSAAI</title>
+        <meta
+          name="description"
+          content="3 to 5 day intensive on-campus engineering laboratories. Zero textbook theory. Real practitioner deployments."
+        />
+      </Helmet>
 
-        {/* Workshop Tracks Grid */}
-        <Grid container spacing={4}>
-          {workshops.map((w, idx) => (
-            <Grid item xs={12} md={6} key={idx}>
-              <Box sx={{ p: { xs: 4, md: 5 }, bgcolor: MASTER_PALETTE.paper, border: `1px solid ${MASTER_PALETTE.hairlineDark}`, height: "100%", display: "flex", flexDirection: "column", justifyContent: "space-between", transition: "all 0.2s ease", "&:hover": { bgcolor: MASTER_PALETTE.paperDeep } }}>
-                <Box>
-                  <Stack direction="row" justifyContent="space-between" alignItems="center" sx={{ mb: 2 }}>
-                    <Typography sx={{ fontFamily: MASTER_FONTS.sans, fontSize: "0.76rem", fontWeight: 700, letterSpacing: "0.15em", textTransform: "uppercase", color: MASTER_PALETTE.inkMuted }}>
+      <main className="w-full min-h-screen bg-[#EDEEF5] pt-28 sm:pt-36 pb-24 px-6 md:px-10 text-[#1a1a1a] selection:bg-[#9fff00] selection:text-black">
+        <div className="max-w-7xl mx-auto">
+          
+          {/* Header */}
+          <header className="max-w-4xl mb-16 pb-12 border-b border-black/[0.08]">
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5 }}
+            >
+              <div className="inline-flex items-center gap-2 bg-[#1a1a1a] text-[#9fff00] px-4 py-1.5 rounded-full text-xs font-bold uppercase tracking-widest shadow-md mb-6">
+                <span className="w-2 h-2 rounded-full bg-[#9fff00] block animate-pulse"></span>
+                Practitioner Workshop Immersions
+              </div>
+              <h1 className="text-4xl sm:text-5xl md:text-6xl font-display font-bold text-[#1a1a1a] tracking-tight leading-[1.12] mb-6">
+                3 to 5 day on-campus engineering laboratories. <span className="text-zinc-500 line-through">Zero theory.</span>
+              </h1>
+              <p className="text-lg sm:text-xl font-sans text-zinc-600 leading-relaxed mb-8">
+                Conducted directly inside your college computer labs by practicing senior software developers. Every student completes the immersion with a deployed live application and a rigorous GitHub portfolio commit.
+              </p>
+              
+              <button
+                type="button"
+                onClick={() => navigate("/contact")}
+                className="inline-flex items-center justify-center gap-2 bg-[#1a1a1a] text-white px-8 py-4 rounded-full text-sm font-bold tracking-wide hover:bg-black hover:scale-105 active:scale-95 transition-all shadow-xl focus:outline-none focus:ring-2 focus:ring-[#9fff00]"
+              >
+                Book an On-Campus Workshop →
+              </button>
+            </motion.div>
+          </header>
+
+          {/* Workshop Grid */}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8">
+            {workshops.map((w, idx) => (
+              <motion.div 
+                key={idx}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5, delay: idx * 0.1 }}
+                className="neo-glass bg-white/70 p-8 sm:p-10 rounded-3xl border border-black/[0.08] flex flex-col justify-between shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300"
+              >
+                <div className="mb-8">
+                  <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6">
+                    <span className="text-xs font-bold uppercase tracking-widest text-zinc-500 font-sans">
                       {w.track}
-                    </Typography>
-                    <Typography sx={{ px: 1.5, py: 0.4, bgcolor: MASTER_PALETTE.paperDeep, border: `1px solid ${MASTER_PALETTE.hairline}`, fontSize: "0.75rem", fontWeight: 700, fontFamily: MASTER_FONTS.sans }}>
+                    </span>
+                    <span className="px-3 py-1 bg-[#1a1a1a] text-[#9fff00] text-xs font-bold font-mono uppercase tracking-wider rounded-full w-max">
                       {w.days}
-                    </Typography>
-                  </Stack>
-                  <Typography component="h3" sx={{ fontFamily: MASTER_FONTS.display, fontSize: "2rem", color: MASTER_PALETTE.ink, lineHeight: 1.15, mb: 2.5 }}>
+                    </span>
+                  </div>
+                  
+                  <h3 className="text-2xl sm:text-3xl font-display font-bold text-[#1a1a1a] tracking-tight leading-snug mb-4">
                     {w.title}
-                  </Typography>
-                  <Typography sx={{ fontFamily: MASTER_FONTS.sans, fontSize: "0.85rem", fontWeight: 700, color: MASTER_PALETTE.ink, mb: 2 }}>
-                    Stack: <Box component="span" sx={{ fontWeight: 400, color: MASTER_PALETTE.inkMuted }}>{w.stack}</Box>
-                  </Typography>
-                  <Typography sx={{ fontFamily: MASTER_FONTS.sans, fontSize: "0.96rem", color: MASTER_PALETTE.inkMuted, lineHeight: 1.7, mb: 4 }}>
+                  </h3>
+                  
+                  <div className="bg-zinc-100/80 p-4 rounded-xl mb-6 border border-black/[0.04]">
+                    <span className="text-xs font-bold uppercase tracking-wider text-[#1a1a1a] block mb-1">Tech Stack</span>
+                    <span className="font-mono text-sm text-zinc-600">{w.stack}</span>
+                  </div>
+                  
+                  <p className="text-base font-sans text-zinc-600 leading-relaxed">
                     {w.body}
-                  </Typography>
-                </Box>
-                <Button variant="outlined" onClick={() => navigate("/contact")} sx={{ width: "max-content", height: "40px", borderColor: MASTER_PALETTE.hairlineDark, color: MASTER_PALETTE.ink, fontSize: "0.88rem", fontWeight: 600 }}>
+                  </p>
+                </div>
+
+                <button
+                  type="button"
+                  onClick={() => navigate(`/contact?track=${encodeURIComponent(w.title)}`)}
+                  className="w-full sm:w-auto self-start inline-flex items-center justify-center gap-2 bg-white text-[#1a1a1a] border border-black/15 hover:border-black px-6 py-3 rounded-full text-sm font-bold tracking-wide transition-all shadow-xs hover:shadow-sm focus:outline-none"
+                >
                   Request Syllabus & Pricing →
-                </Button>
-              </Box>
-            </Grid>
-          ))}
-        </Grid>
-      </Container>
-    </Box>
+                </button>
+              </motion.div>
+            ))}
+          </div>
+
+        </div>
+      </main>
+    </>
   );
 }
