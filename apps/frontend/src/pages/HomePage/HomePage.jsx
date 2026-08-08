@@ -1,10 +1,11 @@
-﻿import React from "react";
+import React from "react";
 import { Helmet } from "react-helmet-async";
 import PaperHero from "./sections/PaperHero";
 import PaperProofStrip from "./sections/PaperProofStrip";
 import PaperAudienceRouting from "./sections/PaperAudienceRouting";
 import PaperMethodology from "./sections/PaperMethodology";
 import PaperEvidenceTable from "./sections/PaperEvidenceTable";
+import PaperGallery from "./sections/PaperGallery";
 import PaperClosingCTA from "./sections/PaperClosingCTA";
 
 // ============================================================================
@@ -39,7 +40,10 @@ export default function HomePage() {
         {/* 5. Comparative Evidence Ledger Table */}
         <PaperEvidenceTable />
 
-        {/* 6. High-Contrast TPO Advisory Conversion CTA */}
+        {/* 6. Honest Documentary-Style Studio Gallery */}
+        <PaperGallery />
+
+        {/* 7. High-Contrast TPO Advisory Conversion CTA */}
         <PaperClosingCTA />
       </main>
     </>

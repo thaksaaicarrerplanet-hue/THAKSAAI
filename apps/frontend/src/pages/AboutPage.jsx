@@ -2,40 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Helmet } from "react-helmet-async";
 import { motion } from "framer-motion";
 import api from "../api/axios";
-import JourneyDeck from "../components/common/JourneyDeck";
-
 export default function AboutPage() {
-  const [journeyImages, setJourneyImages] = useState([
-    "/images/journey/IMG-20260301-WA0008.jpg",
-    "/images/journey/IMG-20260301-WA0018.jpg",
-    "/images/journey/IMG-20260619-WA0004.jpg",
-    "/images/journey/IMG-20260619-WA0008.jpg",
-    "/images/journey/IMG-20260619-WA0024.jpg",
-    "/images/journey/IMG-20260717-WA0027.jpg",
-  ]);
-
-  useEffect(() => {
-    let isMounted = true;
-    const fetchSupabaseMedia = async () => {
-      try {
-        const res = await api.get('/upload?bucket=media');
-        if (res.data?.files && res.data.files.length > 0 && isMounted) {
-          // Filter to only display actual images (ignore PDFs etc if any were uploaded)
-          const validImages = res.data.files
-            .filter(f => f.url.match(/\.(jpeg|jpg|gif|png|webp|avif)$/i))
-            .map(f => f.url);
-
-          if (validImages.length > 0) {
-            setJourneyImages(validImages);
-          }
-        }
-      } catch (err) {
-        console.error("Failed to load Supabase media (using fallback UI):", err.message);
-      }
-    };
-    fetchSupabaseMedia();
-    return () => { isMounted = false; };
-  }, []);
 
   return (
     <div className="w-full bg-[#f8f9fa] min-h-screen pt-24 pb-20 overflow-x-hidden">
@@ -168,28 +135,6 @@ export default function AboutPage() {
         </div>
       </section>
 
-      {/* The THAKSAAI Journey (Infinite Image Carousel) */}
-      <section className="w-full bg-[#1a1a1a] py-16 sm:py-24 mb-20 overflow-hidden relative">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 md:px-10 mb-12 flex flex-col md:flex-row md:items-end justify-between gap-6">
-          <div>
-            <h2 className="text-3xl sm:text-4xl font-display font-bold text-white tracking-tight">
-              The THAKSAAI Journey
-            </h2>
-            <p className="text-zinc-400 font-sans mt-3 max-w-xl text-sm sm:text-base leading-relaxed">
-              A glimpse into our on-campus workshops, real-world capstone defenses, and the vibrant culture of engineering execution across our partner universities.
-            </p>
-          </div>
-          <div className="flex gap-2">
-            <span className="w-3 h-3 rounded-full bg-[#9fff00]"></span>
-            <span className="w-3 h-3 rounded-full bg-white/20"></span>
-            <span className="w-3 h-3 rounded-full bg-white/20"></span>
-          </div>
-        </div>
-
-        <div className="w-full flex justify-center py-6 sm:py-10">
-          <JourneyDeck images={journeyImages} />
-        </div>
-      </section>
 
       {/* Meet the Founder Section */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 md:px-10 mb-24">

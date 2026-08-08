@@ -17,6 +17,7 @@ export default function SupabaseImageCard({
   onActionClick,
   aspectRatio = "aspect-[16/10]",
   className = "",
+  children,
 }) {
   const [loaded, setLoaded] = useState(false);
   const [error, setError] = useState(false);
@@ -79,6 +80,12 @@ export default function SupabaseImageCard({
             <p className="text-sm font-sans text-zinc-600 leading-relaxed font-normal mt-0.5">
               {description}
             </p>
+          )}
+
+          {children && (
+            <div className="mt-4">
+              {children}
+            </div>
           )}
         </div>
       </div>

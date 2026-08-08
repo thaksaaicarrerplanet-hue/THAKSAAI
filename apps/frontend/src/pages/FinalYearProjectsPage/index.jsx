@@ -2,19 +2,23 @@ import React from "react";
 import { Helmet } from "react-helmet-async";
 import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
+import SupabaseImageCard from "../../components/common/SupabaseImageCard";
 
 const pillars = [
   {
+    imageKey: "capstone-git",
     num: "01",
     title: "Production Git Workflows",
     desc: "Eliminating static zip folder submissions. Students implement industry branch architecture, semantic commits, code review pull requests, and automated branch protection rules."
   },
   {
+    imageKey: "workshop-devops",
     num: "02",
     title: "Automated Test Suites & CI/CD",
     desc: "Every capstone must demonstrate exceeding 80% automated unit and integration test coverage executing inside continuous integration server pipelines prior to production merger."
   },
   {
+    imageKey: "crt-tier-a",
     num: "03",
     title: "Architectural Peer Defense",
     desc: "Simulating enterprise RFC (Request for Comments) design reviews. Teams defend their database indexing, caching strategies, and security schemas before active tech leads."
@@ -68,13 +72,19 @@ export default function FinalYearProjectsPage() {
 
           {/* Pillars of Verified Production */}
           <section aria-label="The 3 Pillars of Production Standards" className="mb-20">
-            <div className="mb-12">
-              <span className="text-xs font-bold uppercase tracking-widest text-zinc-500 font-sans block mb-2">
-                The Production Standard
-              </span>
-              <h2 className="text-3xl sm:text-4xl font-display font-bold text-[#1a1a1a] tracking-tight max-w-3xl leading-tight">
-                Three mandatory pillars separating academic projects from software engineering.
-              </h2>
+            <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-6 mb-12">
+              <div>
+                <span className="text-xs font-bold uppercase tracking-widest text-zinc-500 font-sans block mb-2">
+                  The Production Standard
+                </span>
+                <h2 className="text-3xl sm:text-4xl font-display font-bold text-[#1a1a1a] tracking-tight max-w-3xl leading-tight">
+                  Three mandatory pillars separating academic projects from software engineering.
+                </h2>
+              </div>
+              <div className="inline-flex items-center gap-2 text-xs font-bold text-zinc-700 bg-white/70 px-4 py-2.5 rounded-xl border border-black/10 shrink-0 shadow-sm neo-glass">
+                <span className="w-2 h-2 rounded-full bg-[#1a1a1a]"></span>
+                Strict Evaluation
+              </div>
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6 sm:gap-8">
@@ -85,17 +95,17 @@ export default function FinalYearProjectsPage() {
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
                   transition={{ duration: 0.5, delay: idx * 0.1 }}
-                  className="neo-glass p-8 sm:p-10 rounded-3xl border border-black/[0.08] flex flex-col justify-start shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300 bg-white/70"
+                  className="flex"
                 >
-                  <span className="text-5xl font-display font-bold text-[#1a1a1a] mb-6 opacity-80">
-                    {p.num}
-                  </span>
-                  <h3 className="text-xl sm:text-2xl font-display font-bold text-[#1a1a1a] tracking-tight mb-4">
-                    {p.title}
-                  </h3>
-                  <p className="text-sm sm:text-base font-sans text-zinc-600 leading-relaxed">
-                    {p.desc}
-                  </p>
+                  <SupabaseImageCard
+                    imageKey={p.imageKey}
+                    badgeText={`Pillar ${p.num}`}
+                    title={p.title}
+                    description={p.desc}
+                    actionText="Discuss Pillar Standards →"
+                    onActionClick={() => navigate("/contact")}
+                    className="w-full"
+                  />
                 </motion.div>
               ))}
             </div>
