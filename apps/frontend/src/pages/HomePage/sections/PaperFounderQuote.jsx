@@ -23,14 +23,14 @@ export default function PaperFounderQuote() {
           >
             <div className="relative aspect-[4/5] rounded-[2rem] overflow-hidden shadow-2xl border-4 border-white/60 bg-white">
               <img
-                src="/images/founders/tharunkrishna.jpg"
+                src="/images/founders/tharunkrishna_home.jpg"
                 alt="K. Tharunkrishna - Founder of THAKSAAI"
                 className="w-full h-full object-cover object-top hover:scale-105 transition-transform duration-500"
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent"></div>
-              <div className="absolute bottom-6 left-6 right-6 text-white text-left">
-                <h3 className="text-xl sm:text-2xl font-display font-bold">K. Tharunkrishna</h3>
-                <p className="text-xs text-[#9fff00] font-sans font-bold uppercase tracking-wider mt-1">Founder, THAKSAAI</p>
+              <div className="absolute inset-0 bg-gradient-to-t from-white/95 via-white/40 to-transparent"></div>
+              <div className="absolute bottom-6 left-6 right-6 text-[#1a1a1a] text-left">
+                <h3 className="text-xl sm:text-2xl font-display font-bold drop-shadow-sm">K. Tharunkrishna</h3>
+                <p className="text-xs text-[#0a2540] font-sans font-bold uppercase tracking-wider mt-1 drop-shadow-sm">FOUNDER & CEO</p>
               </div>
             </div>
           </motion.div>
