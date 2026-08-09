@@ -1,11 +1,10 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import { Helmet } from "react-helmet-async";
 import { motion } from "framer-motion";
-import api from "../api/axios";
 export default function AboutPage() {
 
   return (
-    <div className="w-full bg-[#f8f9fa] min-h-screen pt-24 pb-20 overflow-x-hidden">
+    <div className="w-full bg-[#EDEEF5] min-h-screen pt-28 sm:pt-36 pb-20 overflow-x-hidden">
       <Helmet>
         <title>About Us | THAKSAAI</title>
         <meta
@@ -66,15 +65,17 @@ export default function AboutPage() {
                 </svg>
               </div>
               <h3 className="text-xl font-bold text-[#1a1a1a] font-display mb-4 leading-snug">
-                The "Performance Gap": Theory vs. Practice
+                The Gap Between Degrees & Reality
               </h3>
               <p className="text-zinc-600 font-sans text-sm leading-relaxed mb-6">
-                Academic research identifies a critical "performance gap" where graduates possess strong theoretical knowledge but entirely lack the practical, system-level reasoning required in modern enterprise environments.
+                Most graduates have strong textbook knowledge but struggle when placed in a real tech job. They simply haven't been taught how to build actual, working software for real businesses.
               </p>
             </div>
             <div className="pt-6 border-t border-black/5 mt-auto">
               <p className="text-xs font-bold tracking-wide uppercase text-zinc-400 mb-1">Academic Reference</p>
-              <p className="text-xs text-zinc-600 font-semibold">The Global State of the Art in Engineering Education (MIT Study) & CDIO Framework</p>
+              <a href="https://jwel.mit.edu/assets/document/global-state-art-engineering-education" target="_blank" rel="noopener noreferrer" className="text-xs text-[#0a66c2] hover:underline font-semibold block">
+                The Global State of the Art in Engineering Education (MIT Study) & CDIO Framework ↗
+              </a>
             </div>
           </motion.div>
 
@@ -93,15 +94,17 @@ export default function AboutPage() {
                 </svg>
               </div>
               <h3 className="text-xl font-bold text-[#1a1a1a] font-display mb-4 leading-snug">
-                The Soft Skills & Business Deficit
+                Missing Communication & Teamwork
               </h3>
               <p className="text-zinc-600 font-sans text-sm leading-relaxed mb-6">
-                Technical capability without business awareness is obsolete. Studies focused on the engineering sector prove that soft skills, agile teamwork, and corporate communication are the weakest links for fresh graduates.
+                Just being a good coder isn't enough anymore. Real companies are looking for engineers who can communicate clearly with clients, work in fast-paced teams, and understand the business side of tech.
               </p>
             </div>
             <div className="pt-6 border-t border-black/5 mt-auto">
               <p className="text-xs font-bold tracking-wide uppercase text-zinc-400 mb-1">Academic Reference</p>
-              <p className="text-xs text-zinc-600 font-semibold">India Skills Report & Royal Academy of Engineering: Engineers 2030</p>
+              <a href="https://wheebox.com/india-skills-report" target="_blank" rel="noopener noreferrer" className="text-xs text-[#0a66c2] hover:underline font-semibold block">
+                India Skills Report & Royal Academy of Engineering: Engineers 2030 ↗
+              </a>
             </div>
           </motion.div>
 
@@ -121,15 +124,17 @@ export default function AboutPage() {
                 </svg>
               </div>
               <h3 className="text-xl font-bold text-white font-display mb-4 leading-snug">
-                The Paradigm Shift to Experiential Learning
+                Learning by Actually Building
               </h3>
               <p className="text-zinc-400 font-sans text-sm leading-relaxed mb-6">
-                The global academic consensus demands an immediate shift away from rote learning toward project-based, experiential learning integrated directly with enterprise partners and authentic execution pipelines.
+                The traditional way of memorizing theory is outdated. Today, the only proven way to master engineering is by building hands-on, real-world projects alongside experienced tech industry mentors.
               </p>
             </div>
             <div className="pt-6 border-t border-white/10 mt-auto relative z-10">
               <p className="text-xs font-bold tracking-wide uppercase text-zinc-500 mb-1">Academic Reference</p>
-              <p className="text-xs text-[#9fff00] font-semibold">Journal of Engineering Education (Experiential & Integrated Learning)</p>
+              <a href="https://onlinelibrary.wiley.com/journal/21689830" target="_blank" rel="noopener noreferrer" className="text-xs text-[#9fff00] hover:underline font-semibold block">
+                Journal of Engineering Education (Experiential & Integrated Learning) ↗
+              </a>
             </div>
           </motion.div>
         </div>

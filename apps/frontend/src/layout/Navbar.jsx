@@ -13,6 +13,7 @@ export default function Navbar() {
     { label: "CRT", path: "/crt" },
     { label: "PROJECTS", path: "/final-year-projects" },
     { label: "ABOUT US", path: "/about" },
+    { label: "STUDIO", path: "/studio" },
   ];
 
   return (
@@ -41,21 +42,10 @@ export default function Navbar() {
           ))}
         </nav>
 
-        {/* Right: LMS Portal Login & Action Button */}
+        {/* Right: Action Buttons */}
         <div className="flex items-center justify-end gap-2 sm:gap-3 shrink-0">
           
-          {/* Prominent Login Button */}
-          <button
-            type="button"
-            onClick={() => navigate("/login")}
-            aria-label="Access Login"
-            className="hidden lg:inline-flex items-center justify-center gap-2 bg-white/95 text-[#1a1a1a] border border-black/15 hover:border-black px-4 sm:px-5 py-2 sm:py-2.5 rounded-full text-xs md:text-sm font-bold tracking-wide transition-all shadow-2xs hover:shadow-xs focus:outline-none focus:ring-2 focus:ring-[#9fff00] shrink-0"
-          >
-            <span className="w-2 h-2 rounded-full bg-[#2563eb] block"></span>
-            <span>Login</span>
-          </button>
-
-          {/* Primary Advisory CTA */}
+          {/* Primary CTA */}
           <button
             type="button"
             onClick={() => navigate("/contact")}
@@ -94,7 +84,7 @@ export default function Navbar() {
             initial={{ opacity: 0, height: 0 }}
             animate={{ opacity: 1, height: "auto" }}
             exit={{ opacity: 0, height: 0 }}
-            className="lg:hidden overflow-hidden bg-[#EDEEF5] border-b border-black/10 shadow-lg mt-2"
+            className="lg:hidden overflow-y-auto bg-[#EDEEF5] border-b border-black/10 shadow-lg mt-2 max-h-[calc(100vh-70px)]"
           >
             <div className="flex flex-col px-6 py-6 gap-5">
               <span className="text-xs font-bold uppercase tracking-wider text-zinc-500 font-sans">
@@ -119,24 +109,12 @@ export default function Navbar() {
                   type="button"
                   onClick={() => {
                     setMobileOpen(false);
-                    navigate("/login");
-                  }}
-                  className="w-full py-3.5 bg-white border border-black/15 text-[#1a1a1a] font-bold rounded-xl text-base flex items-center justify-center gap-2.5 shadow-xs"
-                >
-                  <span className="w-2.5 h-2.5 rounded-full bg-[#2563eb] block"></span>
-                  <span>Login</span>
-                </button>
-
-                <button
-                  type="button"
-                  onClick={() => {
-                    setMobileOpen(false);
                     navigate("/contact");
                   }}
-                  className="w-full py-3.5 bg-[#1a1a1a] text-white font-bold rounded-xl text-base flex items-center justify-center gap-2.5 shadow-sm"
+                  className="w-full py-3.5 bg-[#1a1a1a] text-white font-bold rounded-xl text-base flex items-center justify-center gap-2.5 shadow-sm hover:scale-105 transition-all"
                 >
                   <span className="w-2.5 h-2.5 rounded-full bg-[#9fff00] block animate-pulse"></span>
-                  <span>Connect with Advisory</span>
+                  <span>Contact Us</span>
                 </button>
               </div>
             </div>

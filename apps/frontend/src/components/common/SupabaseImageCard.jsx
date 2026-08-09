@@ -102,8 +102,10 @@ export default function SupabaseImageCard({
             {actionText}
           </span>
           
-          <span className="w-7 h-7 rounded-full bg-[#1a1a1a] text-[#9fff00] flex items-center justify-center font-bold text-xs shadow-xs group-hover:bg-black group-hover:scale-105 transition-all shrink-0">
-            ↗
+          <span className="w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-[#1a1a1a] text-[#9fff00] flex items-center justify-center shadow-xs group-hover:bg-black group-hover:scale-105 transition-all shrink-0">
+            <svg className="w-3.5 h-3.5 sm:w-4 sm:h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth="3">
+              <path strokeLinecap="round" strokeLinejoin="round" d="M4.5 19.5l15-15m0 0H8.25m11.25 0v11.25" />
+            </svg>
           </span>
         </button>
       </div>

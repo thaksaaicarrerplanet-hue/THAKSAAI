@@ -51,6 +51,12 @@ export const SITE_BRANDING = {
   heroSub: "THAKSAAI operates on-campus algorithmic bootcamps and verified engineering capstones. Designed explicitly for college leadership demanding top-tier placement milestones without textbook redundancy.",
 };
 
+/**
+ * Centralised WhatsApp contact number (E.164 format, no +).
+ * Always derive WhatsApp URLs from this — never hardcode the number directly.
+ */
+export const WHATSAPP_NUMBER = SITE_BRANDING.contactPhone.replace(/\D/g, "");
+
 export const THEME = {
   name: SITE_BRANDING.name,
   domain: SITE_BRANDING.domain,

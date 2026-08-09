@@ -20,6 +20,7 @@ import ComplianceAndSecurityPage from "../pages/ComplianceAndSecurityPage";
 import NotFound from "../pages/NotFound";
 import AccessDenied from "../pages/AccessDenied";
 import AboutPage from "../pages/AboutPage";
+import StudioPage from "../pages/StudioPage";
 
 import LoginPage from "../pages/LoginPage";
 import ForgotPasswordPage from "../pages/ForgotPasswordPage";
@@ -59,12 +60,12 @@ export default function AppRoutes() {
       <Route element={<PublicLayout />}>
         <Route path="/" element={<HomePage />} />
         <Route path="/about" element={<AboutPage />} />
+        <Route path="/studio" element={<StudioPage />} />
         
         {/* Core Career Accelerator Programs */}
         <Route path="/workshops" element={<WorkshopPage />} />
         <Route path="/internships" element={<InternshipsPage />} />
         <Route path="/crt" element={<TrainingPage />} />
-        <Route path="/training" element={<TrainingPage />} />
         <Route path="/final-year-projects" element={<FinalYearProjectsPage />} />
 
         {/* Institutional & Catalogue Pages */}
@@ -142,8 +143,6 @@ export default function AppRoutes() {
         </Route>
       </Route>
 
-      {/* Global Fallback Wrapper */}
-      <Route path="*" element={<RouteFallback />} />
     </Routes>
   );
 }

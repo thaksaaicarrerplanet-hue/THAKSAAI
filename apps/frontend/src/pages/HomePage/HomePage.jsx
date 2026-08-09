@@ -6,6 +6,7 @@ import PaperAudienceRouting from "./sections/PaperAudienceRouting";
 import PaperMethodology from "./sections/PaperMethodology";
 import PaperEvidenceTable from "./sections/PaperEvidenceTable";
 import PaperGallery from "./sections/PaperGallery";
+import PaperStudioHighlight from "./sections/PaperStudioHighlight";
 import PaperClosingCTA from "./sections/PaperClosingCTA";
 
 // ============================================================================
@@ -43,8 +44,11 @@ export default function HomePage() {
         {/* 6. Honest Documentary-Style Studio Gallery */}
         <PaperGallery />
 
-        {/* 7. High-Contrast TPO Advisory Conversion CTA */}
+        {/* 7. High-Contrast TPO Advisory Conversion CTA (Join Our Community) */}
         <PaperClosingCTA />
+
+        {/* 8. High-Impact B2B Venture Studio Conversion Module */}
+        <PaperStudioHighlight />
       </main>
     </>
   );

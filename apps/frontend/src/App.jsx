@@ -4,6 +4,7 @@ import { Analytics } from "@vercel/analytics/react";
 import { SpeedInsights } from "@vercel/speed-insights/react";
 import AppRoutes from "./routes/AppRoutes";
 import ScrollToTop from "./components/ScrollToTop";
+import ErrorBoundary from "./components/ErrorBoundary";
 
 /**
  * Core Application Root.
@@ -14,10 +15,12 @@ export default function App() {
   return (
     <HelmetProvider>
       <BrowserRouter>
-        <ScrollToTop />
-        <AppRoutes />
-        <Analytics />
-        <SpeedInsights />
+        <ErrorBoundary>
+          <ScrollToTop />
+          <AppRoutes />
+          <Analytics />
+          <SpeedInsights />
+        </ErrorBoundary>
       </BrowserRouter>
     </HelmetProvider>
   );

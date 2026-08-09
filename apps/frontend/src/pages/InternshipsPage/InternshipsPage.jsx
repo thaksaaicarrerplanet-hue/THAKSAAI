@@ -7,23 +7,23 @@ import { SITE_BRANDING } from "../../theme/masterThemeConfig";
 const internshipOfferings = [
   {
     badge: "AI & GenAI Intern",
-    title: "Artificial Intelligence & Generative AI",
-    desc: "Build modern LLM applications, retrieval-augmented generation (RAG) architectural tools, and autonomous AI agents using OpenAI and Anthropic SDKs. Transform AI concepts into production software."
+    title: "Artificial Intelligence & Smart Tools",
+    desc: "You'll learn how to build real AI-powered apps — chatbots, smart search tools, and automated assistants. We use the same tools that companies like Google and OpenAI use, and you'll build working products from day one."
   },
   {
     badge: "Full-Stack Web Intern",
-    title: "Full-Stack Web & Enterprise Systems",
-    desc: "Develop scalable cloud applications utilizing React, Next.js, Node.js, TypeScript, and Supabase. Implement real production systems design and robust distributed API architecture."
+    title: "Web Development & Full-Stack Apps",
+    desc: "Learn how to build complete websites and web apps from scratch — the front-end that users see, and the back-end that makes it all work. You'll work on real client projects alongside our senior developers."
   },
   {
     badge: "DevOps Engineer Intern",
-    title: "DevOps & Cloud Infrastructure",
-    desc: "Master automated cloud infrastructure, Docker containerization, AWS/Azure deployment pipelines, Linux server governance, and enterprise CI/CD workflows."
+    title: "Cloud Hosting & App Deployment",
+    desc: "Learn how to take a finished app and put it live on the internet, keep it running 24/7, and automatically update it when changes are made. These are skills every tech company needs and very few freshers have."
   },
   {
     badge: "Digital Marketing Intern",
-    title: "Digital Marketing & Growth Systems",
-    desc: "Drive brand visibility and institutional student acquisition through technical SEO, performance marketing analytics, conversion rate optimization, and systematic content engineering."
+    title: "Digital Marketing & Online Growth",
+    desc: "Learn how businesses actually get customers online — through Google, Instagram, and content. You'll run real campaigns, track results, and understand what actually drives growth for a business."
   }
 ];
 
@@ -56,10 +56,10 @@ export default function InternshipsPage() {
                 In-Person Office Internships
               </div>
               <h1 className="text-4xl sm:text-5xl md:text-6xl font-display font-bold text-[#1a1a1a] tracking-tight leading-[1.12] mb-6">
-                Build production software face-to-face.
+                Learn by working on real projects, in person.
               </h1>
               <p className="text-lg sm:text-xl font-sans text-zinc-600 leading-relaxed mb-8">
-                We reject passive online video classes and synthetic theory. Our internships are executed strictly in-person directly inside our engineering studios at <strong className="text-[#1a1a1a]">{SITE_BRANDING.buildingName}, Gachibowli</strong>. Collaborate alongside experienced software architects to master technology execution.
+                Forget online courses and YouTube tutorials. Our internships happen face-to-face inside our office at <strong className="text-[#1a1a1a]">{SITE_BRANDING.buildingName}, Gachibowli</strong>. You sit next to experienced developers and work on real projects together, every single day.
               </p>
             </motion.div>
           </header>
@@ -69,10 +69,10 @@ export default function InternshipsPage() {
             <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-6 mb-12">
               <div>
                 <span className="text-xs font-bold uppercase tracking-widest text-zinc-500 font-sans block mb-2">
-                  Active Hiring Domains (2026 Cohorts)
+                  Open Internships (2026)
                 </span>
                 <h2 className="text-3xl sm:text-4xl font-display font-bold text-[#1a1a1a] tracking-tight">
-                  Select Your Specialized Track
+                  Which area do you want to work in?
                 </h2>
               </div>
               <div className="inline-flex items-center gap-2 text-xs font-bold text-zinc-700 bg-white/70 px-4 py-2.5 rounded-xl border border-black/10 shrink-0 shadow-sm neo-glass">
@@ -108,7 +108,7 @@ export default function InternshipsPage() {
                     onClick={() => navigate(`/contact?internship=${encodeURIComponent(item.badge)}`)}
                     className="w-full inline-flex items-center justify-center gap-2 bg-white text-[#1a1a1a] border border-black/15 hover:border-black px-6 py-3 rounded-full text-sm font-bold tracking-wide transition-all shadow-xs hover:shadow-sm focus:outline-none"
                   >
-                    Apply for Track →
+                    Apply for This →
                   </button>
                 </motion.div>
               ))}
@@ -129,10 +129,10 @@ export default function InternshipsPage() {
               
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 font-sans">
                 {[
-                  { title: "Real Client Interaction", desc: "Interact directly with actual enterprise clients to understand professional software & business scoping." },
-                  { title: "HQ Studio Access", desc: `Collaborate directly at our ${SITE_BRANDING.buildingName} office alongside practicing senior engineers.` },
-                  { title: "Commercial Execution", desc: "Understand how technology startups, B2B sales operations, and marketing systems acquire and retain real revenue." },
-                  { title: "Verified Credentials", desc: "Earn an authentic, provable Professional Industry Experience Certificate upon program milestone achievement." },
+                  { title: "Work with Real Clients", desc: "You'll sit in on actual client meetings and see how software is scoped, discussed, and delivered in a professional setting." },
+                  { title: "Work at Our Office", desc: `You'll come to our ${SITE_BRANDING.buildingName} office every day and work directly alongside our senior developers.` },
+                  { title: "Understand How Businesses Work", desc: "You'll see how a real tech company finds clients, closes deals, and builds products that people actually pay for." },
+                  { title: "Get a Real Certificate", desc: "Once you complete the program, you get a certificate of professional experience that you can show employers and add to your resume." },
                 ].map((m, i) => (
                   <div key={i} className="flex flex-col">
                     <h4 className="text-lg font-bold font-display text-white mb-3">
@@ -156,10 +156,10 @@ export default function InternshipsPage() {
                 For Passionate Engineering Candidates
               </span>
               <h3 className="text-2xl sm:text-3xl md:text-4xl font-display font-bold text-[#1a1a1a] tracking-tight leading-tight">
-                Ready to transition from online tutorials to executing in an enterprise tech office?
+                Ready to stop watching tutorials and start working on real things?
               </h3>
               <p className="text-sm sm:text-base font-sans font-normal text-zinc-600 mt-4 leading-relaxed">
-                We evaluate enthusiasm, technical curiosity, and willingness to execute over simple academic grades. Submit your details to meet our directors at <strong className="text-[#1a1a1a]">{SITE_BRANDING.buildingName}</strong>.
+                We care more about your attitude and curiosity than your grades. Share your details and come meet our team at <strong className="text-[#1a1a1a]">{SITE_BRANDING.buildingName}</strong>.
               </p>
             </div>
             <button

@@ -8,25 +8,38 @@ const pillars = [
   {
     imageKey: "capstone-git",
     num: "01",
-    title: "Production Git Workflows",
-    desc: "Eliminating static zip folder submissions. Students implement industry branch architecture, semantic commits, code review pull requests, and automated branch protection rules."
+    title: "Learn to Use Git Like a Real Developer",
+    desc: "Stop submitting ZIP files. We teach students to use Git — the tool every software company uses to manage and share code. You'll learn how to save your work, review changes, and collaborate with a team."
   },
   {
     imageKey: "workshop-devops",
     num: "02",
-    title: "Automated Test Suites & CI/CD",
-    desc: "Every capstone must demonstrate exceeding 80% automated unit and integration test coverage executing inside continuous integration server pipelines prior to production merger."
+    title: "Test Your Code Before It Breaks",
+    desc: "Real companies don't just build software — they test it automatically before releasing it. We teach students how to write tests so their project doesn't crash when someone uses it."
   },
   {
     imageKey: "crt-tier-a",
     num: "03",
-    title: "Architectural Peer Defense",
-    desc: "Simulating enterprise RFC (Request for Comments) design reviews. Teams defend their database indexing, caching strategies, and security schemas before active tech leads."
+    title: "Present & Defend Your Project",
+    desc: "Every student must explain their design choices to a panel of senior developers — just like in a real company review. This builds confidence and teaches you to think about your code like a professional."
   }
 ];
 
 export default function FinalYearProjectsPage() {
   const navigate = useNavigate();
+
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    show: {
+      opacity: 1,
+      transition: { staggerChildren: 0.15 }
+    }
+  };
+
+  const itemVariants = {
+    hidden: { opacity: 0, y: 30 },
+    show: { opacity: 1, y: 0, transition: { duration: 0.5, ease: "easeOut" } }
+  };
 
   return (
     <>
@@ -50,14 +63,14 @@ export default function FinalYearProjectsPage() {
             >
               <div className="inline-flex items-center gap-2 bg-[#1a1a1a] text-[#9fff00] px-4 py-1.5 rounded-full text-xs font-bold uppercase tracking-widest shadow-md mb-6">
                 <span className="w-2 h-2 rounded-full bg-[#9fff00] block animate-pulse"></span>
-                Enterprise Capstone Architecture
+                Final Year Projects
               </div>
               <h1 className="text-4xl sm:text-5xl md:text-6xl font-display font-bold text-[#1a1a1a] tracking-tight leading-[1.12] mb-6">
                 Stop buying fake projects. <br className="hidden md:block" />
-                Build real products.
+                Build something real.
               </h1>
               <p className="text-lg sm:text-xl font-sans text-zinc-600 leading-relaxed mb-8">
-                THAKSAAI converts mandatory final-year engineering requirements from static, copied scripts into live production microservices deployed on AWS and GCP—providing unshakeable evidence during technical interview screening.
+                We help final-year engineering students build actual, working software applications — not copied scripts. Your project will be live on the internet and something you can confidently show in any job interview.
               </p>
               
               <button
@@ -65,7 +78,7 @@ export default function FinalYearProjectsPage() {
                 onClick={() => navigate("/contact")}
                 className="inline-flex items-center justify-center gap-2 bg-[#1a1a1a] text-white px-8 py-4 rounded-full text-sm font-bold tracking-wide hover:bg-black hover:scale-105 active:scale-95 transition-all shadow-xl focus:outline-none focus:ring-2 focus:ring-[#9fff00]"
               >
-                Institutional Capstone Consultation →
+                Talk to Our Team →
               </button>
             </motion.div>
           </header>
@@ -75,10 +88,10 @@ export default function FinalYearProjectsPage() {
             <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-6 mb-12">
               <div>
                 <span className="text-xs font-bold uppercase tracking-widest text-zinc-500 font-sans block mb-2">
-                  The Production Standard
+                  What We Check
                 </span>
                 <h2 className="text-3xl sm:text-4xl font-display font-bold text-[#1a1a1a] tracking-tight max-w-3xl leading-tight">
-                  Three mandatory pillars separating academic projects from software engineering.
+                  Three things every good final-year project must have.
                 </h2>
               </div>
               <div className="inline-flex items-center gap-2 text-xs font-bold text-zinc-700 bg-white/70 px-4 py-2.5 rounded-xl border border-black/10 shrink-0 shadow-sm neo-glass">
@@ -87,28 +100,31 @@ export default function FinalYearProjectsPage() {
               </div>
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 sm:gap-8">
+            <motion.div 
+              variants={containerVariants}
+              initial="hidden"
+              whileInView="show"
+              viewport={{ once: true, margin: "-50px" }}
+              className="grid grid-cols-1 md:grid-cols-3 gap-6 sm:gap-8"
+            >
               {pillars.map((p, idx) => (
                 <motion.div
                   key={idx}
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.5, delay: idx * 0.1 }}
-                  className="flex"
+                  variants={itemVariants}
+                  className="flex h-full"
                 >
                   <SupabaseImageCard
                     imageKey={p.imageKey}
                     badgeText={`Pillar ${p.num}`}
                     title={p.title}
                     description={p.desc}
-                    actionText="Discuss Pillar Standards →"
+                    actionText="Ask Us About This →"
                     onActionClick={() => navigate("/contact")}
                     className="w-full"
                   />
                 </motion.div>
               ))}
-            </div>
+            </motion.div>
           </section>
 
           {/* Conversion Footer */}
@@ -117,10 +133,10 @@ export default function FinalYearProjectsPage() {
             
             <div className="max-w-2xl relative z-10">
               <h3 className="text-2xl sm:text-4xl font-display font-bold text-white tracking-tight leading-tight">
-                Secure your career before graduation.
+                Get your career started before you graduate.
               </h3>
               <p className="text-sm sm:text-base font-sans font-normal text-zinc-400 mt-4 leading-relaxed">
-                A strong capstone project is your ultimate technical portfolio. Reach out to coordinate with our master architects and execute a project that guarantees interview selection.
+                A strong final-year project is one of the most powerful things you can show a company. Our team works with you directly to build and launch a project you are genuinely proud of.
               </p>
             </div>
             <button
