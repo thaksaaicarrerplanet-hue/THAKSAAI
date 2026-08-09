@@ -44,13 +44,13 @@ export default function PaperAudienceRouting() {
         >
           <div className="inline-flex items-center gap-2 px-3.5 py-1.5 bg-white/80 backdrop-blur-md rounded-full border border-black/10 text-[10px] sm:text-xs font-extrabold uppercase tracking-widest text-zinc-700 shadow-2xs mb-4 sm:mb-6">
             <span className="w-2 h-2 rounded-full bg-[#9fff00] animate-pulse"></span>
-            <span>The Career Accelerator Engine</span>
+            <span>The Career Accelerator</span>
           </div>
           <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-display font-black text-[#1a1a1a] tracking-tight leading-[1.12] mb-5 sm:mb-6">
-            Everything grows from one focused mission.
+            Everything we do serves one focused mission.
           </h2>
           <p className="text-base sm:text-lg md:text-xl font-sans font-medium text-zinc-600 leading-relaxed max-w-2xl">
-            We don't build disconnected departments. We focus purely on four core educational pillars designed specifically to transform engineering students into high-value industry professionals.
+            We focus purely on four core areas designed to transform students into highly skilled, job-ready professionals.
           </p>
         </motion.div>
 
@@ -68,7 +68,7 @@ export default function PaperAudienceRouting() {
               badgeText="Pillar 1"
               subtitle="Campus Bootcamps"
               title="Practical Workshops"
-              description="Intensive 3-to-5 day coding algorithms and tech entrepreneurship bootcamps conducted directly on university campuses."
+              description="Intense 3-to-5 day coding and tech bootcamps held right on your university campus."
               actionText="View Workshops"
               onActionClick={() => navigate("/workshops")}
               aspectRatio="aspect-[16/10]"
@@ -80,9 +80,9 @@ export default function PaperAudienceRouting() {
             <SupabaseImageCard
               imageKey="workshop-devops"
               badgeText="Pillar 2"
-              subtitle="Face-to-Face Work"
+              subtitle="Real Experience"
               title="Direct Internships"
-              description="Work directly inside our engineering studios alongside practicing senior developers to learn tech business execution and client interaction."
+              description="Work side-by-side with senior developers in our studios to learn how real tech businesses operate."
               actionText="Explore Internships"
               onActionClick={() => navigate("/internships")}
               aspectRatio="aspect-[16/10]"
@@ -96,7 +96,7 @@ export default function PaperAudienceRouting() {
               badgeText="Pillar 3"
               subtitle="Job Placement Prep"
               title="Campus Training (CRT)"
-              description="An exhaustive on-campus placement preparation program producing verifiable technical pass milestones for technology firms."
+              description="Comprehensive on-campus training that guarantees students are ready to pass real tech company interviews."
               actionText="Learn About CRT"
               onActionClick={() => navigate("/crt")}
               aspectRatio="aspect-[16/10]"
@@ -110,7 +110,7 @@ export default function PaperAudienceRouting() {
               badgeText="Pillar 4"
               subtitle="Build Software"
               title="Final-Year Projects"
-              description="Replace copied academic reports with authentic, working software products engineered directly under experienced industry mentorship."
+              description="Build real, working software under the guidance of industry experts, instead of just writing academic reports."
               actionText="View Projects"
               onActionClick={() => navigate("/final-year-projects")}
               aspectRatio="aspect-[16/10]"
