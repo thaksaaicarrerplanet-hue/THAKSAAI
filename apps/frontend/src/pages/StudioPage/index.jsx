@@ -7,18 +7,18 @@ import { SITE_BRANDING, WHATSAPP_NUMBER } from "../../theme/masterThemeConfig";
 const studioPillars = [
   {
     num: "01",
-    title: "Custom SaaS & Web Platforms",
-    desc: "We architect scalable, high-performance web applications and internal operational tools. Built on modern stacks (React, Node.js, Postgres) optimized for speed, security, and zero downtime."
+    title: "Custom Web & App Development",
+    desc: "We build fast, secure, and easy-to-use websites and applications tailored to your exact business needs. Whether it's an internal tool or a customer-facing app, we make sure it works flawlessly."
   },
   {
     num: "02",
-    title: "AI & Workflow Automation",
-    desc: "Cut operational bloat by integrating custom Large Language Models (LLMs), RAG pipelines, and automated CRM workflows directly into your daily business processes."
+    title: "AI Tools & Automation",
+    desc: "Save time and money by letting AI handle the repetitive tasks. We build smart chatbots, automate your daily workflows, and integrate AI seamlessly into your business."
   },
   {
     num: "03",
-    title: "Scalable Digital Presence",
-    desc: "High-conversion corporate websites, technical SEO infrastructure, and programmatic social media automation systems designed to autonomously generate B2B leads."
+    title: "Growing Your Online Business",
+    desc: "We help you build a strong online presence that actually brings in customers. From great websites to smart marketing tools, we set you up for long-term growth."
   }
 ];
 
@@ -58,7 +58,7 @@ export default function StudioPage() {
         <title>Enterprise Studio | THAKSAAI</title>
         <meta
           name="description"
-          content="Premium Enterprise Engineering at Startup Budgets. Custom software, AI automation, and web platforms built by vetted top-tier engineers."
+          content="Get high-quality software and websites built for your business without the massive agency price tag."
         />
       </Helmet>
 
@@ -79,14 +79,14 @@ export default function StudioPage() {
             >
               <div className="inline-flex items-center gap-2 bg-[#1a1a1a] border border-white/10 text-[#9fff00] px-4 py-1.5 rounded-full text-xs font-bold uppercase tracking-widest shadow-lg mb-8">
                 <span className="w-2 h-2 rounded-full bg-[#9fff00] block animate-pulse"></span>
-                THAKSAAI Venture Studio
+                THAKSAAI Software Studio
               </div>
               <h1 className="text-4xl sm:text-6xl lg:text-[4.5rem] font-display font-bold text-white tracking-tighter leading-[1.05] mb-8">
-                Premium enterprise engineering. <br className="hidden md:block" />
-                <span className="text-zinc-500">Startup budgets.</span>
+                Great software built for your business. <br className="hidden md:block" />
+                <span className="text-zinc-500">Without the massive price tag.</span>
               </h1>
               <p className="text-lg sm:text-xl font-sans text-zinc-400 leading-relaxed mb-10 max-w-2xl">
-                We deploy elite, vetted engineering talent directly from our advanced academy to architect scalable web platforms, internal tools, and AI pipelines. No buzzwords. Just rigorous, measurable execution.
+                We use the best talent from our own training academy to build your websites, apps, and AI tools. No confusing tech jargon. Just high-quality software delivered on time.
               </p>
               
               <button
@@ -94,7 +94,7 @@ export default function StudioPage() {
                 onClick={() => document.getElementById('intake-docket').scrollIntoView({ behavior: 'smooth' })}
                 className="inline-flex items-center justify-center gap-3 bg-[#9fff00] text-[#111111] px-8 py-4 rounded-full text-sm font-bold tracking-wide hover:bg-white hover:scale-105 active:scale-95 transition-all shadow-xl focus:outline-none focus:ring-2 focus:ring-white"
               >
-                Scope Your Project 
+                Tell Us About Your Project 
                 <span className="text-lg leading-none">↓</span>
               </button>
             </motion.div>
@@ -105,10 +105,10 @@ export default function StudioPage() {
             <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-6 mb-16">
               <div>
                 <span className="text-xs font-bold uppercase tracking-widest text-[#9fff00] font-sans block mb-3">
-                  Technical Architecture
+                  What We Do
                 </span>
                 <h2 className="text-3xl sm:text-5xl font-display font-bold text-white tracking-tight">
-                  Our Execution Pillars
+                  How We Can Help You
                 </h2>
               </div>
             </div>
@@ -143,16 +143,16 @@ export default function StudioPage() {
              <div className="bg-gradient-to-br from-[#1a1a1a] to-[#0a0a0a] border border-white/5 p-8 sm:p-16 rounded-[2rem] shadow-2xl">
                <div className="max-w-3xl">
                   <span className="text-xs font-bold uppercase tracking-widest text-[#9fff00] font-sans block mb-4">
-                    The Business Model Advantage
+                    Why Choose Us
                   </span>
                   <h3 className="text-3xl sm:text-4xl lg:text-5xl font-display font-bold text-white tracking-tight leading-tight mb-8">
-                    Why we can build Silicon Valley architecture at regional prices.
+                    Why we can build great software at a fraction of the cost.
                   </h3>
                   <p className="text-lg font-sans text-zinc-300 leading-relaxed font-normal mb-6">
-                    Traditional agencies artificially inflate software costs because they suffer from massive recruitment overhead and idle bench times. 
+                    Most software agencies charge you a lot of money because they have high overhead costs and pay recruiters to find their developers.
                   </p>
                   <p className="text-lg font-sans text-zinc-300 leading-relaxed font-normal">
-                    Because THAKSAAI operates an elite engineering academy as our core engine, we possess exclusive, first-hand access to the top 1% of technical talent before they ever hit the open market. This allows our senior architects to deploy highly-motivated, hyper-skilled engineering squads to your project instantly, completely eliminating traditional agency markup.
+                    Because we run a training academy, we already have direct access to the most passionate, hard-working developers before anyone else does. We use this direct connection to build a team for your project quickly and affordably, without the extra markup.
                   </p>
                </div>
              </div>
@@ -165,10 +165,10 @@ export default function StudioPage() {
                 
                 <div className="relative z-10 mb-12">
                   <h3 className="text-3xl sm:text-4xl font-display font-bold text-white tracking-tight mb-4">
-                    Initiate Project Scoping
+                    Let's Build Together
                   </h3>
                   <p className="text-zinc-400 font-sans text-base">
-                    Submit your project parameters. One of our lead architects will contact you within 24 hours to schedule a deep-dive technical consultation.
+                    Fill out this short form with some details about what you need. Our team will get back to you quickly to discuss the next steps in plain English.
                   </p>
                 </div>
 
@@ -183,9 +183,9 @@ export default function StudioPage() {
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="3" d="M5 13l4 4L19 7" />
                       </svg>
                     </div>
-                    <h4 className="text-2xl font-display font-bold text-white mb-3">Scope Submitted Successfully</h4>
+                    <h4 className="text-2xl font-display font-bold text-white mb-3">Message Ready to Send!</h4>
                     <p className="text-zinc-400 max-w-sm font-sans">
-                      Our architecture team is reviewing your requirements and will reach out to you shortly.
+                      Please hit send in WhatsApp to complete your inquiry. We'll be in touch soon!
                     </p>
                   </motion.div>
                 ) : (
@@ -204,7 +204,7 @@ export default function StudioPage() {
                         <input name="email" value={formData.email} onChange={handleChange} required type="email" className="w-full px-4 py-3.5 bg-[#111111] text-white border border-white/10 rounded-xl focus:outline-none focus:border-[#9fff00] focus:ring-1 focus:ring-[#9fff00] transition-all font-sans" placeholder="founder@startup.com" />
                       </div>
                       <div className="flex flex-col gap-2">
-                        <label className="text-xs font-bold uppercase tracking-wider text-zinc-500 font-sans">Target Deployment Timeline *</label>
+                        <label className="text-xs font-bold uppercase tracking-wider text-zinc-500 font-sans">When do you need this done? *</label>
                         <select name="timeline" value={formData.timeline} onChange={handleChange} required className="w-full px-4 py-3.5 bg-[#111111] text-white border border-white/10 rounded-xl focus:outline-none focus:border-[#9fff00] focus:ring-1 focus:ring-[#9fff00] transition-all font-sans appearance-none cursor-pointer">
                           <option value="" disabled>Select timeline</option>
                           <option value="urgent">Immediate (1-2 weeks)</option>
@@ -216,15 +216,15 @@ export default function StudioPage() {
                     </div>
 
                     <div className="flex flex-col gap-2">
-                      <label className="text-xs font-bold uppercase tracking-wider text-zinc-500 font-sans">Project Architecture & Scope *</label>
-                      <textarea name="scope" value={formData.scope} onChange={handleChange} required rows="5" className="w-full px-4 py-3.5 bg-[#111111] text-white border border-white/10 rounded-xl focus:outline-none focus:border-[#9fff00] focus:ring-1 focus:ring-[#9fff00] transition-all font-sans resize-none" placeholder="Briefly describe the software, app, or automation system you need built..."></textarea>
+                      <label className="text-xs font-bold uppercase tracking-wider text-zinc-500 font-sans">Tell us about your project *</label>
+                      <textarea name="scope" value={formData.scope} onChange={handleChange} required rows="5" className="w-full px-4 py-3.5 bg-[#111111] text-white border border-white/10 rounded-xl focus:outline-none focus:border-[#9fff00] focus:ring-1 focus:ring-[#9fff00] transition-all font-sans resize-none" placeholder="Briefly describe what you need built, any ideas you have, or problems you're trying to solve..."></textarea>
                     </div>
 
                     <button
                       type="submit"
                       className="mt-6 w-full sm:w-auto self-end inline-flex items-center justify-center gap-3 bg-[#9fff00] text-[#111111] px-10 py-4 rounded-xl text-sm font-bold tracking-wide hover:bg-white hover:-translate-y-1 transition-all shadow-[0_0_20px_rgba(159,255,0,0.15)] focus:outline-none focus:ring-2 focus:ring-white disabled:opacity-70 disabled:cursor-not-allowed disabled:hover:translate-y-0"
                     >
-                      Submit Scope for Review →
+                      Send Your Details →
                     </button>
                   </form>
                 )}
