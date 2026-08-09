@@ -5,6 +5,7 @@ import PaperProofStrip from "./sections/PaperProofStrip";
 import PaperAudienceRouting from "./sections/PaperAudienceRouting";
 import PaperMethodology from "./sections/PaperMethodology";
 import PaperEvidenceTable from "./sections/PaperEvidenceTable";
+import PaperFounderQuote from "./sections/PaperFounderQuote";
 import PaperGallery from "./sections/PaperGallery";
 import PaperStudioHighlight from "./sections/PaperStudioHighlight";
 import PaperClosingCTA from "./sections/PaperClosingCTA";
@@ -40,6 +41,9 @@ export default function HomePage() {
 
         {/* 5. Comparative Evidence Ledger Table */}
         <PaperEvidenceTable />
+
+        {/* 5.5 Founder Vision & Signature Section */}
+        <PaperFounderQuote />
 
         {/* 6. Honest Documentary-Style Studio Gallery */}
         <PaperGallery />
