@@ -20,7 +20,7 @@ const MarqueeRow = ({ images, speed, direction = "right" }) => {
   return (
     <div className="relative flex overflow-hidden w-full group py-3">
       <div 
-        className={`flex whitespace-nowrap w-max gap-4 sm:gap-6 ${direction === "right" ? "animate-marquee-right" : "animate-marquee-left"} hover:[animation-play-state:paused]`}
+        className={`flex whitespace-nowrap w-max gap-4 sm:gap-6 ${direction === "right" ? "animate-marquee-right" : "animate-marquee-left"}`}
         style={{ animationDuration: `${speed}s` }}
       >
         {/* Render the images twice to create the seamless infinite loop */}
@@ -82,7 +82,7 @@ export default function PaperGallery() {
       </div>
 
       {/* Infinite Scrolling Marquee Container */}
-      <div className="relative z-10 w-full flex flex-col gap-2 -rotate-1 scale-105">
+      <div className="relative z-10 w-full flex flex-col gap-2">
         {/* Left and Right Gradient Masks to fade the edges */}
         <div className="absolute top-0 left-0 w-16 sm:w-32 h-full bg-gradient-to-r from-[#1a1a1a] to-transparent z-20 pointer-events-none"></div>
         <div className="absolute top-0 right-0 w-16 sm:w-32 h-full bg-gradient-to-l from-[#1a1a1a] to-transparent z-20 pointer-events-none"></div>
