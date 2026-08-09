@@ -50,7 +50,7 @@ export default function PaperFounderQuote() {
             {/* Single line vision quote */}
             <h2 className="text-xl sm:text-2xl lg:text-[1.65rem] font-display italic font-medium text-[#1a1a1a] leading-relaxed mb-8 relative">
               <span className="text-[#9fff00] text-3xl font-serif inline-block mr-1">“</span>
-              We replace outdated university theory with real-world coding, direct industry mentorship, and actual software development.
+              We don’t measure our success by the certificates our students receive, but by the real software they build and the life-changing careers they secure.
               <span className="text-[#9fff00] text-3xl font-serif inline-block ml-1">”</span>
             </h2>
 
