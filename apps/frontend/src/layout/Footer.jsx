@@ -1,7 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { SITE_BRANDING } from "../theme/masterThemeConfig";
-import BrandLogo from "../components/common/BrandLogo";
 
 export default function Footer() {
   const socialLinks = [
@@ -75,7 +74,13 @@ export default function Footer() {
           {/* Column 1: Institutional Brand (4 Spans on desktop) */}
           <div className="flex flex-col gap-5 lg:col-span-4">
             <div className="flex items-center gap-2">
-              <BrandLogo variant="footer" />
+              <Link to="/" aria-label="Navigate to THAKSAAI homepage" className="shrink-0 focus:outline-none focus:ring-2 focus:ring-[#9fff00] rounded-sm inline-block">
+                <img 
+                  src="/images/logos/thaksa_banner_logo.jpg" 
+                  alt="THAKSA.AI Logo" 
+                  className="h-10 sm:h-12 w-auto object-contain rounded shadow-2xs hover:scale-105 transition-transform duration-300"
+                />
+              </Link>
             </div>
             
             <p className="text-sm font-sans font-normal text-zinc-600 leading-relaxed max-w-sm">

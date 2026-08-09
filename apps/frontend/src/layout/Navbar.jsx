@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
-import BrandLogo from "../components/common/BrandLogo";
 
 export default function Navbar() {
   const [mobileOpen, setMobileOpen] = useState(false);
