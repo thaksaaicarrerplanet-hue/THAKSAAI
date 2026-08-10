@@ -27,10 +27,12 @@ export default function PaperFounderQuote() {
                 alt="K. Tharunkrishna - Founder & CEO of THAKSAAI"
                 className="w-full h-full object-cover object-top hover:scale-105 transition-transform duration-500"
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent"></div>
+              <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-black/10 to-transparent"></div>
               <div className="absolute bottom-6 left-6 right-6 text-white text-left">
-                <h3 className="text-xl sm:text-2xl font-display font-bold">K. Tharunkrishna</h3>
-                <p className="text-xs font-sans font-bold uppercase tracking-wider mt-1" style={{ color: '#0a2fa8' }}>Founder &amp; CEO</p>
+                <h3 className="text-xl sm:text-2xl font-display font-bold drop-shadow-lg">K. Tharunkrishna</h3>
+                <span className="inline-block mt-2 px-3 py-1 rounded-full text-[11px] font-sans font-extrabold uppercase tracking-widest bg-white" style={{ color: '#0a2fa8', letterSpacing: '0.12em' }}>
+                  Founder &amp; CEO
+                </span>
               </div>
             </div>
           </motion.div>

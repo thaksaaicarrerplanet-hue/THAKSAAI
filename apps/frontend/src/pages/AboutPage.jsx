@@ -167,7 +167,9 @@ export default function AboutPage() {
             <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent"></div>
             <div className="absolute bottom-6 left-6 right-6 text-white">
               <p className="text-3xl font-display font-bold">K. Tharunkrishna</p>
-              <p className="font-semibold text-sm tracking-wide mt-2" style={{ color: '#0a2fa8' }}>Founder • Career Transformation Mentor • Industry Educator</p>
+              <span className="inline-block mt-2 px-3 py-1 rounded-full text-[11px] font-sans font-extrabold uppercase tracking-widest bg-white" style={{ color: '#0a2fa8', letterSpacing: '0.12em' }}>
+                Founder &bull; Career Transformation Mentor &bull; Industry Educator
+              </span>
             </div>
           </div>
 
