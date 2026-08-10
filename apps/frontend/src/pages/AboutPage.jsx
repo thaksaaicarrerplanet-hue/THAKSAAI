@@ -164,10 +164,10 @@ export default function AboutPage() {
               alt="K. Tharunkrishna" 
               className="absolute inset-0 w-full h-full object-cover object-top"
             />
-            <div className="absolute inset-0 bg-gradient-to-t from-white/95 via-white/40 to-transparent"></div>
-            <div className="absolute bottom-6 left-6 right-6 text-[#1a1a1a]">
-              <p className="text-3xl font-display font-bold drop-shadow-sm">K. Tharunkrishna</p>
-              <p className="text-[#0a2540] font-semibold text-sm tracking-wide mt-2 drop-shadow-sm">Founder • Career Transformation Mentor • Industry Educator</p>
+            <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent"></div>
+            <div className="absolute bottom-6 left-6 right-6 text-white">
+              <p className="text-3xl font-display font-bold">K. Tharunkrishna</p>
+              <p className="text-[#9fff00] font-semibold text-sm tracking-wide mt-2">Founder • Career Transformation Mentor • Industry Educator</p>
             </div>
           </div>
 
