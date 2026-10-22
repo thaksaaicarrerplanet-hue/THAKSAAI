@@ -1,5 +1,9 @@
 # THAKSA E-Learning Platform — Full-Stack Educational & Workshop Management System
 
+[![Live Deployment](https://img.shields.io/badge/Live_Deployment-Vercel-success?style=flat-square&logo=vercel)](https://thaksaelearningplatform.vercel.app)
+
+**Live Deployment:** [https://thaksaelearningplatform.vercel.app](https://thaksaelearningplatform.vercel.app)
+
 [![Framework](https://img.shields.io/badge/Frontend-React_%2B_GSAP-blue?style=flat-square&logo=react&logoColor=white)](https://react.dev)
 [![Backend](https://img.shields.io/badge/Backend-Node.js_%2B_Express-green?style=flat-square&logo=node.js&logoColor=white)](https://nodejs.org)
 [![Database](https://img.shields.io/badge/Database-PostgreSQL-336791?style=flat-square&logo=postgresql&logoColor=white)](https://postgresql.org)
