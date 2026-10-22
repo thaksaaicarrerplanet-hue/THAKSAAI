@@ -1,55 +1,77 @@
-# THAKSA E-Learning Platform
+# THAKSA E-Learning Platform — Full-Stack Educational & Workshop Management System
 
-<div align="center">
-  <h3>🎓 Full-Stack E-Learning Platform for Workshops, Training & Final Year Projects</h3>
-  <br/>
-  <img src="./Frontend/public/screenshots/home_hero.png" alt="THAKSA Homepage" width="100%"/>
-</div>
+[![Framework](https://img.shields.io/badge/Frontend-React_%2B_GSAP-blue?style=flat-square&logo=react&logoColor=white)](https://react.dev)
+[![Backend](https://img.shields.io/badge/Backend-Node.js_%2B_Express-green?style=flat-square&logo=node.js&logoColor=white)](https://nodejs.org)
+[![Database](https://img.shields.io/badge/Database-PostgreSQL-336791?style=flat-square&logo=postgresql&logoColor=white)](https://postgresql.org)
+[![Testing](https://img.shields.io/badge/Testing-Playwright_E2E-orange?style=flat-square&logo=playwright&logoColor=white)](https://playwright.dev)
+
+**THAKSA E-Learning** is an enterprise-grade full-stack learning management system (LMS) designed for colleges, training academies, and workshop organizers. It streamlines student enrollments, project submission tracking, live instructor-led sessions, course approvals, and attendance logging.
 
 ---
 
-## 📂 Repository Structure
+## ⚡ Core Modules
+
+- **Course Catalog & Approval Pipelines:** Instructors can draft course syllabi and learning modules; administrators review and approve before publishing.
+- **Live Session Tracking:** Tracks scheduled webinars, virtual classroom links, and real-time student attendance with automated index-optimized database queries.
+- **Project & Workshop Deliverables:** Dedicated upload portals for final year student capstones and engineering projects.
+- **Modern Smooth UI:** Built with React, GSAP animations, and Lenis smooth scrolling for a premium, engaging learning experience.
+- **Automated Scalability Indexes:** PostgreSQL schema migrations with compound indexes ensuring fast querying even under high concurrent student load.
+
+---
+
+## 🏗️ Architecture
 
 ```
 THAKSA_E-LEARNING/
-├── Frontend/    # React + Vite + MUI — User interface
-└── Backend/     # Node.js + Express + PostgreSQL — REST API
+├── apps/
+│   ├── backend/                     # Node.js Express API & Database migrations
+│   │   ├── db/migrations/           # Scalability & index migrations
+│   │   ├── index.js                 # API server entrypoint
+│   │   └── package.json
+│   └── frontend/                    # React UI with GSAP & Playwright tests
+├── SEO_Optimization_Report.md
+└── README.md
 ```
-
-## 🚀 Quick Start
-
-### Run Backend
-```bash
-cd Backend
-npm install
-npm run dev     # starts on http://localhost:3000
-```
-
-### Run Frontend
-```bash
-cd Frontend
-npm install
-npm run dev     # starts on http://localhost:5173
-```
-
-## 📖 Documentation
-
-| | README |
-|--|--------|
-| 🖥️ **Frontend** | [Frontend/README.md](./Frontend/README.md) — Setup, routes, stack, screenshots |
-| ⚙️ **Backend** | [Backend/README.md](./Backend/README.md) — DB setup, .env config, API reference |
 
 ---
 
-## 🌟 Core Features
+## 💻 Local Development Setup
 
-- 🔧 **Workshops** — Offline, campus-based workshops led by industry experts
-- 💼 **Training & Placement** — End-to-end placement preparation & placement drives
-- 🚀 **Final Year Projects** — IEEE-standard guided project execution
-- 📚 **Courses & Batches** — Structured learning tracks with live sessions
-- 🔐 **Role-Based Dashboards** — Student · Instructor · Admin portals
-- 📱 **WhatsApp Integration** — Floating contact button (+91 90525 15284)
+```bash
+# 1. Clone repository
+git clone https://github.com/MuhammadMinhaj229/THAKSA_E-LEARNING.git
+cd THAKSA_E-LEARNING
+
+# 2. Setup Backend
+cd apps/backend
+npm install
+# Configure your PostgreSQL connection string in .env
+# DATABASE_URL=postgres://user:password@localhost:5432/thaksa_db
+npm run db:migrate
+npm start
+
+# 3. Setup Frontend (in separate terminal)
+cd ../frontend
+npm install
+npm run dev
+```
 
 ---
 
-© 2025 THAKSA Academy. All rights reserved.
+## 🚀 How to Deploy
+
+### Backend Deployment (Render / Railway / DigitalOcean)
+1. Link `apps/backend` to **Render** or **Railway**.
+2. Environment variables: `DATABASE_URL`, `PORT=5000`, `JWT_SECRET`.
+3. Start command: `node index.js`.
+
+### Frontend Deployment (Vercel)
+1. Link repository to **Vercel** with Root Directory set to `apps/frontend`.
+2. Framework: **Vite** / **React**.
+3. Set `VITE_API_URL` pointing to your deployed backend API.
+4. Click **Deploy**.
+
+---
+
+## 👤 Author
+Engineered by **Mohammed Minhaj Mahmood** ([@MuhammadMinhaj229](https://github.com/MuhammadMinhaj229)).
