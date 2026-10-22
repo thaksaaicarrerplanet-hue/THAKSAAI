@@ -9,7 +9,7 @@
 
 ---
 
-## ⚡ Core Modules
+## Core Modules
 
 - **Course Catalog & Approval Pipelines:** Instructors can draft course syllabi and learning modules; administrators review and approve before publishing.
 - **Live Session Tracking:** Tracks scheduled webinars, virtual classroom links, and real-time student attendance with automated index-optimized database queries.
@@ -19,23 +19,23 @@
 
 ---
 
-## 🏗️ Architecture
+## Architecture
 
 ```
 THAKSA_E-LEARNING/
-├── apps/
-│   ├── backend/                     # Node.js Express API & Database migrations
-│   │   ├── db/migrations/           # Scalability & index migrations
-│   │   ├── index.js                 # API server entrypoint
-│   │   └── package.json
-│   └── frontend/                    # React UI with GSAP & Playwright tests
-├── SEO_Optimization_Report.md
-└── README.md
+ apps/
+    backend/                     # Node.js Express API & Database migrations
+       db/migrations/           # Scalability & index migrations
+       index.js                 # API server entrypoint
+       package.json
+    frontend/                    # React UI with GSAP & Playwright tests
+ SEO_Optimization_Report.md
+ README.md
 ```
 
 ---
 
-## 💻 Local Development Setup
+## Local Development Setup
 
 ```bash
 # 1. Clone repository
@@ -58,7 +58,7 @@ npm run dev
 
 ---
 
-## 🚀 How to Deploy
+## How to Deploy
 
 ### Backend Deployment (Render / Railway / DigitalOcean)
 1. Link `apps/backend` to **Render** or **Railway**.
@@ -73,5 +73,5 @@ npm run dev
 
 ---
 
-## 👤 Author
+## Author
 Engineered by **Mohammed Minhaj Mahmood** ([@MuhammadMinhaj229](https://github.com/MuhammadMinhaj229)).
