@@ -160,7 +160,7 @@ export default function AdminLayout() {
         }}
       >
         <Toolbar sx={{ minHeight: 70, px: { xs: 2, sm: 4 } }}>
-          <IconButton onClick={() => setMobileOpen(true)} sx={{ display: { md: "none" }, mr: 2, color: "#1a1a1a" }}>
+          <IconButton aria-label="Open navigation menu" onClick={() => setMobileOpen(true)} sx={{ display: { md: "none" }, mr: 2, color: "#1a1a1a" }}>
             <MenuRoundedIcon />
           </IconButton>
           <Box sx={{ display: "flex", justifyContent: "space-between", alignItems: "center", width: "100%" }}>
