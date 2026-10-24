@@ -6,9 +6,11 @@ on:
       - main
       - preview
       - "audit/**"
+      - "work/**"
   pull_request:
     branches:
       - main
+      - preview
   workflow_dispatch:
 
 permissions:
