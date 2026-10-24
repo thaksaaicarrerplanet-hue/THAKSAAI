@@ -46,7 +46,7 @@ const HIGHLIGHTS = [
     value: 'Lab',
     unit: 'Practice',
     label: 'Hands-On Engineering Sessions',
-    detail: 'Programs are structured around practical exercises, guided builds, and work students can explain.
+    detail: 'Programs are structured around practical exercises, guided builds, and work students can explain.',
   },
 ];
 
