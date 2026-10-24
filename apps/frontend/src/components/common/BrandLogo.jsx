@@ -8,8 +8,6 @@ import { BRAND_ASSETS, BRAND_METADATA } from "../../theme/brandIdentity";
  * and generous prominent sizing across Navbars, Footers, Dashboards, and Auth screens.
  */
 export default function BrandLogo({ variant = "navbar", customSub = "", className = "", disableLink = false }) {
-  const isDark = variant === "dark" || variant === "footer" || variant === "auth-dark";
-
   // Configure prominent enlarged dimensions and clean typography without period
   const config = {
     navbar: {

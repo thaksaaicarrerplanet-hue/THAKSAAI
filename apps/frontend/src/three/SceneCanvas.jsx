@@ -81,7 +81,6 @@ export const SceneCanvas = ({
       controller.dispose();
       controllerRef.current = null;
     };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [tier, reducedMotion]);
 
   useEffect(() => {

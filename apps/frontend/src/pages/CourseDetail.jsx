@@ -1,7 +1,6 @@
 ﻿import React from "react";
 import { Helmet } from "react-helmet-async";
 import { useParams, useNavigate, Link } from "react-router-dom";
-import { motion } from "framer-motion";
 
 const courseDetailsDatabase = {
   "crt-group-a": {

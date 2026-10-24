@@ -1,7 +1,6 @@
 ﻿import React, { useState } from "react";
 import { Helmet } from "react-helmet-async";
 import { useNavigate, Link } from "react-router-dom";
-import { motion } from "framer-motion";
 import SupabaseImageCard from "../../components/common/SupabaseImageCard";
 
 const courseCatalogue = [

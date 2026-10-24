@@ -28,7 +28,28 @@ api.interceptors.request.use((req) => {
 });
 
 api.interceptors.response.use(
-  (response) => response,
+  (response) => {
+    const contentType = String(response.headers?.["content-type"] || "").toLowerCase();
+    const requestUrl = String(response.config?.url || "");
+    const apiBase = String(response.config?.baseURL || "");
+    const isApiRequest = requestUrl.startsWith("/api") || apiBase.includes("/api");
+
+    // The Vercel SPA fallback can return index.html with HTTP 200 for a missing /api route.
+    // Detect that configuration error rather than allowing HTML to masquerade as JSON.
+    if (isApiRequest && contentType.includes("text/html")) {
+      const error = new Error(
+        "The API returned website HTML instead of JSON. Configure VITE_API_URL or the deployment's /api routing."
+      );
+      error.response = response;
+      error.normalized = {
+        code: "API_PROXY_MISCONFIGURED",
+        message: error.message,
+      };
+      return Promise.reject(error);
+    }
+
+    return response;
+  },
   (error) => {
     const normalizedError = Object.assign(error, {
       normalized: {

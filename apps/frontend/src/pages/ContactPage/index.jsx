@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react';
+import React, { useState } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { useSearchParams } from 'react-router-dom';
 import { SITE_BRANDING, WHATSAPP_NUMBER } from '../../theme/masterThemeConfig';
@@ -11,7 +11,6 @@ export default function ContactPage() {
   const initialQuery = searchParams.get('query') || '';
   const initialCompany = searchParams.get('college') || searchParams.get('organization') || '';
   const initialTrack = searchParams.get('track') || searchParams.get('interest') || 'crt';
-  const mountTimeRef = useRef(Date.now());
 
   const [status, setStatus] = useState('idle'); // 'idle' | 'submitting' | 'success' | 'error'
   const [errorMsg, setErrorMsg] = useState('');
@@ -47,7 +46,6 @@ export default function ContactPage() {
         subject: `THAKSA Inquiry (${formData.track.toUpperCase()})`,
         message: formData.scope || `Program inquiry for ${formData.track}`,
         botcheck: formData.botcheck,
-        formLoadedAt: mountTimeRef.current,
       });
       setStatus('success');
     } catch (err) {
