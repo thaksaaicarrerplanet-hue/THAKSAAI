@@ -1,4 +1,5 @@
 import { defineConfig, devices } from "@playwright/test";
+import process from "node:process";
 
 const baseURL = "http://127.0.0.1:5174";
 
