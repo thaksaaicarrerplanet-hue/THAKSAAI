@@ -145,7 +145,7 @@ export default function PaperHero() {
           >
             <p className="font-mono text-[9px] uppercase tracking-[0.2em] text-white/40">THK / ARTIFACT 001</p>
             <p className="mt-2 text-xs leading-relaxed text-white/65">
-              Move your cursor to shift the light.
+              Move or tap to shift the light.
             </p>
           </motion.div>
           <div className="absolute right-[-8%] top-[18%] h-[64%] w-[88%] rounded-full border border-white/[0.07]" />
