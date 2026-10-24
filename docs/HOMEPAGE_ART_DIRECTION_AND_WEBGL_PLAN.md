@@ -86,3 +86,18 @@
 3. Commit all code and plan updates once on the existing work branch, updating the one existing PR.
 4. After that consolidated push, inspect the one resulting Vercel preview and confirm CI status.
 5. Keep the PR draft and do not merge to `preview` or `main` without the user's approval.
+
+
+## 6. Validation record
+
+The consolidated application-code commit `40f5a031d6b707e3588a98326144570a425fa696` passed these checks on October 24, 2026:
+
+- Frontend ESLint: **passed**
+- Vite production build: **passed**
+- Compressed bundle budget: **passed**
+- Backend JavaScript syntax: **passed**
+- Playwright browser smoke and authentication regression tests: **passed** in [GitHub Actions run 40111802476](https://github.com/MuhammadMinhaj229/THAKSA_E-LEARNING/actions/runs/40111802476)
+
+The validation run originally exposed a mismatch between the homepage restoration and the existing test: the Capability Reactor was expected to remain as a separate home section. It is now retained after the hero; it does not replace the original wave-grid background.
+
+The remaining release step is to verify a preview deployment built from this corrected head. The manual Vercel deployment API hit the team's free-tier daily deployment limit, so the next attempt uses the repository's linked Git deployment flow instead of another manual deployment request.
