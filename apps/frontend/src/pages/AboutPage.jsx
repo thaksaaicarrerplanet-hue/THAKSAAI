@@ -1,261 +1,283 @@
-import React from "react";
-import { Helmet } from "react-helmet-async";
-import { motion } from "framer-motion";
+import React from 'react';
+import { Helmet } from 'react-helmet-async';
+import { SpotlightCard } from '../components/ui/SpotlightCard';
+import { DepthButton } from '../components/ui/DepthButton';
+import { SITE_BRANDING } from '../theme/masterThemeConfig';
+import { useTextScramble } from '../hooks/useTextScramble';
+
+const EDUCATIONAL_ORG_JSON_LD = {
+  '@context': 'https://schema.org',
+  '@type': 'EducationalOrganization',
+  name: SITE_BRANDING.name,
+  url: 'https://www.thaksa.ai/about',
+  founder: {
+    '@type': 'Person',
+    name: 'K. Tharunkrishna',
+    jobTitle: 'Founder & CEO',
+  },
+  address: {
+    '@type': 'PostalAddress',
+    streetAddress: 'Diamond Hills, Lumbini Avenue, Gachibowli',
+    addressLocality: 'Hyderabad',
+    addressRegion: 'Telangana',
+    postalCode: '500032',
+    addressCountry: 'IN',
+  },
+};
+
 export default function AboutPage() {
+  const eyebrow = useTextScramble('ABOUT THAKSA.AI // MISSION, RESEARCH & LEADERSHIP', {
+    duration: 600,
+    trigger: true,
+  });
 
   return (
-    <div className="w-full bg-[#EDEEF5] min-h-screen pt-28 sm:pt-36 pb-20 overflow-x-hidden">
+    <div className="w-full bg-[#F7F8F4] min-h-screen pb-24 overflow-x-clip">
       <Helmet>
-        <title>About Us | THAKSAAI</title>
+        <title>About THAKSA.AI | Mission, Leadership &amp; Engineering Pedagogy</title>
         <meta
           name="description"
-          content="Learn about the THAKSAAI journey, our founders, and our mission to develop engineers who create value independently."
+          content="Learn about THAKSA.AI's mission, leadership under Founder & CEO K. Tharunkrishna, and our execution-first engineering pedagogy across Hyderabad and Warangal."
         />
+        <script type="application/ld+json">{JSON.stringify(EDUCATIONAL_ORG_JSON_LD)}</script>
       </Helmet>
 
-      {/* Hero Section */}
-      <section className="max-w-5xl mx-auto px-4 sm:px-6 md:px-10 mb-20 text-center mt-12">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
-        >
-          <div className="inline-flex items-center gap-2 bg-[#1a1a1a] text-[#9fff00] px-4 py-1.5 rounded-full text-xs font-bold tracking-widest uppercase mb-6 shadow-md">
-            <span className="w-2 h-2 rounded-full bg-[#9fff00] animate-pulse"></span>
-            About Our Mission
+      {/* Dark Spatial Hero Section */}
+      <section className="relative w-full bg-[#080D1A] text-white iso-grid-dark border-b border-white/10 py-16 sm:py-24 mb-20 overflow-hidden">
+        <div
+          aria-hidden="true"
+          className="pointer-events-none absolute -top-28 left-1/3 w-[500px] h-[500px] rounded-full bg-[#3659D9]/20 blur-[140px]"
+        />
+        <div className="relative z-10 max-w-5xl mx-auto px-4 sm:px-6 md:px-10 text-center">
+          <div className="inline-flex items-center gap-2 bg-white/[0.06] border border-white/15 text-[#C7F36B] px-4 py-1.5 rounded-full font-mono text-xs uppercase tracking-[0.16em] mb-6">
+            <span className="w-2 h-2 rounded-full bg-[#C7F36B] animate-pulse" aria-hidden="true" />
+            <span>{eyebrow}</span>
           </div>
-          <h1 className="text-4xl sm:text-6xl font-display font-bold text-[#1a1a1a] tracking-tight leading-[1.1] mb-6">
-            Developing engineers who can <br className="hidden sm:block" />
-            <span className="relative inline-block mt-2">
-              <span className="relative z-10 px-2">create value independently.</span>
-              <span className="absolute bottom-1 sm:bottom-2 left-0 w-full h-[30%] bg-[#9fff00]/40 -z-0 -rotate-1"></span>
-            </span>
+
+          <h1
+            className="font-display font-bold text-white tracking-[-0.03em] leading-[1.06] mb-6"
+            style={{ fontSize: 'clamp(2.25rem, 4.5vw + 1rem, 4.25rem)' }}
+          >
+            Developing engineers who can{' '}
+            <span className="text-[#C7F36B]">create value independently.</span>
           </h1>
-          <p className="text-base sm:text-xl font-sans text-zinc-600 max-w-3xl mx-auto leading-relaxed">
-            At THAKSAAI, we believe in Zero Hyped Content and Real Face-to-Face Skills. We bring industry-standard coding environments, structured mentorship, and verifiable execution pipelines directly to college campuses.
+
+          <p className="text-base sm:text-xl text-slate-300 max-w-3xl mx-auto leading-relaxed">
+            At THAKSA.AI, we believe in zero hyped content and real face-to-face engineering skills.
+            We bring production coding environments, structured mentorship, and verifiable
+            execution pipelines directly to college campuses across Telangana.
           </p>
-        </motion.div>
+        </div>
       </section>
 
-      {/* Chapter 2: The Crisis (Education Reformation Research) */}
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 md:px-10 mb-24">
-        <div className="text-center mb-16">
-          <div className="inline-flex items-center gap-2 bg-white border border-black/10 text-[#0a66c2] px-4 py-1.5 rounded-full text-xs font-bold tracking-widest uppercase mb-6 shadow-sm">
-            The Industry Crisis
-          </div>
-          <h2 className="text-3xl sm:text-5xl font-display font-bold text-[#1a1a1a] tracking-tight max-w-3xl mx-auto leading-tight">
-            Why Engineering Education <br className="hidden sm:block" /> Must Be Reformed
+      {/* Why Engineering Education Must Be Reformed */}
+      <section className="max-w-[1280px] mx-auto px-4 sm:px-6 md:px-10 mb-24">
+        <div className="text-center mb-14">
+          <span className="font-mono text-xs uppercase tracking-[0.16em] text-[#3659D9] block mb-2">
+            RESEARCH &amp; PEDAGOGY // 02
+          </span>
+          <h2 className="text-3xl sm:text-4xl font-display font-bold text-[#101828] tracking-[-0.02em]">
+            Why Engineering Education Must Be Reformed
           </h2>
-          <div className="w-16 h-1.5 bg-[#9fff00] mx-auto mt-8 rounded-full"></div>
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-          {/* Research Blog 1 */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.5 }}
-            className="bg-white rounded-3xl p-8 border border-black/[0.08] shadow-[0_4px_20px_rgba(0,0,0,0.03)] hover:-translate-y-2 transition-transform duration-300 flex flex-col h-full"
-          >
-            <div className="mb-auto">
-              <div className="text-[#0a66c2] mb-4 bg-blue-50 w-14 h-14 rounded-2xl flex items-center justify-center">
-                <svg className="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
-                </svg>
-              </div>
-              <h3 className="text-xl font-bold text-[#1a1a1a] font-display mb-4 leading-snug">
-                The Gap Between Degrees & Reality
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+          <SpotlightCard tone="light" tilt maxTilt={3} className="p-8 flex flex-col justify-between">
+            <div>
+              <div className="font-mono text-xs text-[#3659D9] font-bold mb-3">01 // SYNTACTIC GAP</div>
+              <h3 className="text-xl font-display font-bold text-[#101828] mb-3">
+                The Gap Between Degrees &amp; Production Reality
               </h3>
-              <p className="text-zinc-600 font-sans text-sm leading-relaxed mb-6">
-                Most graduates have strong textbook knowledge but struggle when placed in a real tech job. They simply haven't been taught how to build actual, working software for real businesses.
+              <p className="text-sm text-[#5B6475] leading-relaxed mb-6">
+                Most graduates have textbook knowledge but struggle when placed in a real software
+                team. Our cohorts train students directly inside Git workflows, API contracts, and
+                live cloud deployment environments.
               </p>
             </div>
-            <div className="pt-6 border-t border-black/5 mt-auto">
-              <p className="text-xs font-bold tracking-wide uppercase text-zinc-400 mb-1">Academic Reference</p>
-              <a href="https://jwel.mit.edu/assets/document/global-state-art-engineering-education" target="_blank" rel="noopener noreferrer" className="text-xs text-[#0a66c2] hover:underline font-semibold block">
-                The Global State of the Art in Engineering Education (MIT Study) & CDIO Framework ↗
+            <div className="pt-4 border-t border-[#E3E5DE]">
+              <span className="font-mono text-[10px] uppercase tracking-wider text-[#5B6475] block mb-1">
+                Academic Reference
+              </span>
+              <a
+                href="https://jwel.mit.edu/assets/document/global-state-art-engineering-education"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-xs font-semibold text-[#3659D9] hover:underline"
+              >
+                MIT Global State of the Art in Engineering Education &amp; CDIO Framework ↗
               </a>
             </div>
-          </motion.div>
+          </SpotlightCard>
 
-          {/* Research Blog 2 */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.5, delay: 0.1 }}
-            className="bg-white rounded-3xl p-8 border border-black/[0.08] shadow-[0_4px_20px_rgba(0,0,0,0.03)] hover:-translate-y-2 transition-transform duration-300 flex flex-col h-full"
-          >
-            <div className="mb-auto">
-              <div className="text-[#0a66c2] mb-4 bg-blue-50 w-14 h-14 rounded-2xl flex items-center justify-center">
-                <svg className="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
-                </svg>
+          <SpotlightCard tone="light" tilt maxTilt={3} className="p-8 flex flex-col justify-between">
+            <div>
+              <div className="font-mono text-xs text-[#3659D9] font-bold mb-3">
+                02 // COLLABORATIVE RIGOR
               </div>
-              <h3 className="text-xl font-bold text-[#1a1a1a] font-display mb-4 leading-snug">
-                Missing Communication & Teamwork
+              <h3 className="text-xl font-display font-bold text-[#101828] mb-3">
+                Technical Communication &amp; Viva Defense
               </h3>
-              <p className="text-zinc-600 font-sans text-sm leading-relaxed mb-6">
-                Just being a good coder isn't enough anymore. Real companies are looking for engineers who can communicate clearly with clients, work in fast-paced teams, and understand the business side of tech.
+              <p className="text-sm text-[#5B6475] leading-relaxed mb-6">
+                Writing code is only half the requirement. Modern engineering teams hire graduates
+                who can articulate architectural trade-offs, defend system designs, and collaborate
+                under sprint deadlines.
               </p>
             </div>
-            <div className="pt-6 border-t border-black/5 mt-auto">
-              <p className="text-xs font-bold tracking-wide uppercase text-zinc-400 mb-1">Academic Reference</p>
-              <a href="https://wheebox.com/india-skills-report" target="_blank" rel="noopener noreferrer" className="text-xs text-[#0a66c2] hover:underline font-semibold block">
-                India Skills Report & Royal Academy of Engineering: Engineers 2030 ↗
+            <div className="pt-4 border-t border-[#E3E5DE]">
+              <span className="font-mono text-[10px] uppercase tracking-wider text-[#5B6475] block mb-1">
+                Academic Reference
+              </span>
+              <a
+                href="https://wheebox.com/india-skills-report"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-xs font-semibold text-[#3659D9] hover:underline"
+              >
+                India Skills Report &amp; Royal Academy of Engineering: Engineers 2030 ↗
               </a>
             </div>
-          </motion.div>
+          </SpotlightCard>
 
-          {/* Research Blog 3 */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.5, delay: 0.2 }}
-            className="bg-[#1a1a1a] rounded-3xl p-8 shadow-[0_10px_30px_rgba(0,0,0,0.15)] hover:-translate-y-2 transition-transform duration-300 flex flex-col h-full relative overflow-hidden"
-          >
-            <div className="absolute top-0 right-0 w-32 h-32 bg-[#9fff00]/10 rounded-full blur-3xl pointer-events-none"></div>
-            <div className="mb-auto relative z-10">
-              <div className="text-[#1a1a1a] mb-4 bg-[#9fff00] w-14 h-14 rounded-2xl flex items-center justify-center">
-                <svg className="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M13 10V3L4 14h7v7l9-11h-7z" />
-                </svg>
+          <SpotlightCard tone="dark" tilt maxTilt={3} className="p-8 flex flex-col justify-between">
+            <div>
+              <div className="font-mono text-xs text-[#C7F36B] font-bold mb-3">
+                03 // EXPERIENTIAL PROOF
               </div>
-              <h3 className="text-xl font-bold text-white font-display mb-4 leading-snug">
+              <h3 className="text-xl font-display font-bold text-white mb-3">
                 Learning by Actually Building
               </h3>
-              <p className="text-zinc-400 font-sans text-sm leading-relaxed mb-6">
-                The traditional way of memorizing theory is outdated. Today, the only proven way to master engineering is by building hands-on, real-world projects alongside experienced tech industry mentors.
+              <p className="text-sm text-slate-300 leading-relaxed mb-6">
+                Every THAKSA pathway culminates in a working, inspectable artifact—whether a
+                deployed web application, a benchmarked CRT algorithmic dossier, or a live
+                capstone defense.
               </p>
             </div>
-            <div className="pt-6 border-t border-white/10 mt-auto relative z-10">
-              <p className="text-xs font-bold tracking-wide uppercase text-zinc-500 mb-1">Academic Reference</p>
-              <a href="https://onlinelibrary.wiley.com/journal/21689830" target="_blank" rel="noopener noreferrer" className="text-xs text-[#9fff00] hover:underline font-semibold block">
-                Journal of Engineering Education (Experiential & Integrated Learning) ↗
+            <div className="pt-4 border-t border-white/10">
+              <span className="font-mono text-[10px] uppercase tracking-wider text-slate-400 block mb-1">
+                Academic Reference
+              </span>
+              <a
+                href="https://onlinelibrary.wiley.com/journal/21689830"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-xs font-semibold text-[#C7F36B] hover:underline"
+              >
+                Journal of Engineering Education (Experiential &amp; Integrated Learning) ↗
               </a>
             </div>
-          </motion.div>
+          </SpotlightCard>
         </div>
       </section>
 
-
-      {/* Meet the Founder Section */}
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 md:px-10 mb-24">
-        <div className="text-center mb-16">
-          <h2 className="text-3xl sm:text-5xl font-display font-bold text-[#1a1a1a] tracking-tight">
+      {/* Meet the Founder Section — Restored White Bottom Shade Gradient + Navy Tagline */}
+      <section className="max-w-[1280px] mx-auto px-4 sm:px-6 md:px-10 mb-24">
+        <div className="text-center mb-14">
+          <span className="font-mono text-xs uppercase tracking-[0.16em] text-[#3659D9] block mb-2">
+            EXECUTIVE LEADERSHIP // 03
+          </span>
+          <h2 className="text-3xl sm:text-4xl font-display font-bold text-[#101828] tracking-[-0.02em]">
             Meet the Founder
           </h2>
-          <div className="w-16 h-1.5 bg-[#9fff00] mx-auto mt-6 rounded-full"></div>
         </div>
 
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.8 }}
-          className="bg-white rounded-3xl overflow-hidden border border-black/[0.05] shadow-2xl flex flex-col md:flex-row items-stretch max-w-5xl mx-auto"
-        >
-          {/* Image Side */}
-          <div className="w-full md:w-5/12 min-h-[400px] md:min-h-[500px] relative">
-            <img 
-              src="/images/founders/cofounder.jpg" 
-              alt="K. Tharunkrishna" 
+        <div className="bg-white rounded-3xl overflow-hidden border border-[#E3E5DE] shadow-[0_24px_48px_-24px_rgba(16,24,40,0.24)] flex flex-col md:flex-row items-stretch max-w-5xl mx-auto">
+          {/* Portrait Side */}
+          <div className="w-full md:w-5/12 min-h-[420px] md:min-h-[500px] relative">
+            <img
+              src="/images/founders/cofounder.jpg"
+              alt="K. Tharunkrishna - Founder & CEO of THAKSA.AI"
+              loading="lazy"
+              decoding="async"
               className="absolute inset-0 w-full h-full object-cover object-top"
             />
-            <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent"></div>
-            <div className="absolute bottom-6 left-6 right-6 text-white">
-              <p className="text-3xl font-display font-bold">K. Tharunkrishna</p>
-              <span className="inline-block mt-2 px-3 py-1 rounded-full text-[11px] font-sans font-extrabold uppercase tracking-widest bg-white" style={{ color: '#0a2fa8', letterSpacing: '0.12em' }}>
-                Founder &bull; Career Transformation Mentor &bull; Industry Educator
+            {/* Signature white bottom shade gradient */}
+            <div
+              aria-hidden="true"
+              className="absolute inset-0 bg-gradient-to-t from-[#F7F8F4] via-[#F7F8F4]/55 to-transparent"
+            />
+            <div className="absolute bottom-6 left-6 right-6 text-left">
+              <p className="text-2xl sm:text-3xl font-display font-bold text-[#101828]">
+                K. Tharunkrishna
+              </p>
+              <span
+                className="inline-block mt-1.5 text-xs font-sans font-extrabold uppercase tracking-[0.12em]"
+                style={{ color: '#0a2540' }}
+              >
+                FOUNDER &amp; CEO &bull; CAREER TRANSFORMATION MENTOR
               </span>
             </div>
           </div>
 
-          {/* Content Side */}
+          {/* Bio Side */}
           <div className="w-full md:w-7/12 p-8 sm:p-12 md:p-14 flex flex-col justify-center">
-            <div className="mb-8 relative">
-              <svg className="w-12 h-12 text-[#9fff00]/40 absolute -top-4 -left-4 -z-10" fill="currentColor" viewBox="0 0 32 32">
-                <path d="M10 8c-3.3 0-6 2.7-6 6v10h10V14H8c0-1.1.9-2 2-2V8zm18 0c-3.3 0-6 2.7-6 6v10h10V14h-6c0-1.1.9-2 2-2V8z" />
-              </svg>
-              <p className="text-xl sm:text-2xl font-display italic text-[#1a1a1a] leading-relaxed relative z-10 font-medium">
-                "Building industry-ready professionals through practical learning, mentorship, and career-focused training."
-              </p>
-            </div>
-            
-            <p className="text-zinc-600 font-sans text-base sm:text-lg leading-relaxed mb-10">
-              Driven by a vision to bridge the gap between academic education and industry demands, K. Tharunkrishna has dedicated his career to empowering students. Through rigorous Campus Recruitment Training (CRT) and real-world technology education, he transforms learners into industry-ready professionals.
+            <blockquote className="text-xl sm:text-2xl font-display italic text-[#101828] leading-relaxed mb-6 font-medium">
+              “We don’t measure our success by the certificates our students receive, but by the real software they build and the life-changing careers they secure.”
+            </blockquote>
+
+            <p className="text-[#5B6475] text-base leading-relaxed mb-8">
+              Driven by a mission to bridge the divide between university curricula and production
+              engineering, K. Tharunkrishna leads THAKSA.AI’s academic partnerships, Campus
+              Recruitment Training (CRT) architecture, and hands-on mentorship programs across
+              Hyderabad and Warangal.
             </p>
 
-            <a 
-              href="https://www.linkedin.com/in/tharunkrishna-kaithoju-185140261/" 
-              target="_blank" 
-              rel="noopener noreferrer"
-              className="inline-flex items-center justify-center gap-3 bg-[#0a66c2] text-white font-bold py-4 px-8 rounded-xl hover:bg-[#004182] transition-all hover:shadow-lg hover:shadow-[#0a66c2]/30 hover:-translate-y-0.5 self-start"
-            >
-              <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
-                <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/>
-              </svg>
-              Connect on LinkedIn
-            </a>
+            <div className="flex flex-wrap items-center gap-3.5">
+              <a
+                href="https://www.linkedin.com/in/tharunkrishna-kaithoju-185140261/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="min-h-[48px] inline-flex items-center justify-center gap-3 bg-[#0a66c2] text-white font-semibold py-3 px-7 rounded-xl hover:bg-[#004182] transition-all"
+              >
+                <span>Connect on LinkedIn</span>
+                <span aria-hidden="true">↗</span>
+              </a>
+              <DepthButton to="/contact" variant="primary" size="md">
+                <span>Partner with Directorate</span>
+              </DepthButton>
+            </div>
           </div>
-        </motion.div>
+        </div>
       </section>
 
       {/* Strategy & Operations Section */}
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 md:px-10 mb-20">
+      <section className="max-w-[1280px] mx-auto px-4 sm:px-6 md:px-10">
         <div className="text-center mb-12">
-          <h3 className="text-2xl sm:text-4xl font-display font-bold text-[#1a1a1a] tracking-tight">
-            Strategy & Operations
+          <span className="font-mono text-xs uppercase tracking-[0.16em] text-[#3659D9] block mb-2">
+            INSTITUTIONAL ADVISORY // 04
+          </span>
+          <h3 className="text-2xl sm:text-3xl font-display font-bold text-[#101828] tracking-[-0.02em]">
+            Strategy &amp; Operations Leadership
           </h3>
-          <div className="w-12 h-1 bg-[#9fff00] mx-auto mt-4 rounded-full"></div>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
-          {/* Dr. Murthy */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.5 }}
-            className="bg-white rounded-2xl p-8 sm:p-10 border border-black/[0.08] shadow-[0_4px_20px_rgba(0,0,0,0.03)] hover:-translate-y-2 transition-transform duration-300 flex flex-col items-center text-center"
-          >
-            <div className="w-20 h-20 rounded-full bg-gradient-to-br from-[#1a1a1a] to-[#333333] border-2 border-[#9fff00] flex items-center justify-center mb-6 shadow-lg shadow-black/10">
-              <span className="text-3xl font-bold text-white font-display">M</span>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-4xl mx-auto">
+          <SpotlightCard tone="light" className="p-8 text-left">
+            <div className="w-12 h-12 rounded-xl bg-[#101828] text-[#C7F36B] font-display font-bold text-xl flex items-center justify-center mb-5">
+              M
             </div>
-            <h3 className="text-2xl font-bold text-[#1a1a1a] font-display mb-1">
-              Dr. Murthy
-            </h3>
-            <p className="text-[#0a66c2] font-semibold text-xs tracking-wide uppercase mb-4">
-              Senior Business Lead
+            <h4 className="text-xl font-display font-bold text-[#101828]">Dr. Murthy</h4>
+            <p className="font-mono text-xs uppercase tracking-[0.14em] text-[#3659D9] mt-1 mb-4">
+              Senior Business &amp; Institutional Lead
             </p>
-            <p className="text-zinc-600 font-sans text-sm leading-relaxed">
-              Spearheading THAKSAAI’s corporate strategy and university partnerships. With extensive leadership experience, Dr. Murthy bridges the gap between academic institutions and enterprise hiring demands to scale our impact.
+            <p className="text-sm text-[#5B6475] leading-relaxed">
+              Spearheads THAKSA.AI’s university partnerships and corporate strategy, aligning
+              departmental training calendars with enterprise engineering expectations.
             </p>
-          </motion.div>
+          </SpotlightCard>
 
-          {/* R. Sudheer */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.5, delay: 0.1 }}
-            className="bg-white rounded-2xl p-8 sm:p-10 border border-black/[0.08] shadow-[0_4px_20px_rgba(0,0,0,0.03)] hover:-translate-y-2 transition-transform duration-300 flex flex-col items-center text-center"
-          >
-            <div className="w-20 h-20 rounded-full bg-gradient-to-br from-[#1a1a1a] to-[#333333] border-2 border-[#9fff00] flex items-center justify-center mb-6 shadow-lg shadow-black/10">
-              <span className="text-3xl font-bold text-white font-display">S</span>
+          <SpotlightCard tone="light" className="p-8 text-left">
+            <div className="w-12 h-12 rounded-xl bg-[#101828] text-[#C7F36B] font-display font-bold text-xl flex items-center justify-center mb-5">
+              S
             </div>
-            <h3 className="text-2xl font-bold text-[#1a1a1a] font-display mb-1">
-              R. Sudheer
-            </h3>
-            <p className="text-[#0a66c2] font-semibold text-xs tracking-wide uppercase mb-4">
-              Business Operations
+            <h4 className="text-xl font-display font-bold text-[#101828]">R. Sudheer</h4>
+            <p className="font-mono text-xs uppercase tracking-[0.14em] text-[#3659D9] mt-1 mb-4">
+              Operations &amp; Cohort Execution Lead
             </p>
-            <p className="text-zinc-600 font-sans text-sm leading-relaxed">
-              Driving the operational execution of our campus bootcamps and CRT programs. Sudheer ensures our training pipelines scale efficiently while maintaining rigorous, uncompromising industry standards.
+            <p className="text-sm text-[#5B6475] leading-relaxed">
+              Oversees on-campus workshop logistics, lab readiness, and student milestone tracking
+              across partner engineering colleges in Telangana.
             </p>
-          </motion.div>
+          </SpotlightCard>
         </div>
       </section>
     </div>

@@ -1,107 +1,162 @@
-import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import React, { useRef } from 'react';
+import { Link } from 'react-router-dom';
+import { motion, useScroll, useSpring, useTransform } from 'framer-motion';
+
+const SPECIALIZATIONS = [
+  { name: 'Full Stack Web Development', color: '#C7F36B' },
+  { name: 'AWS, DevOps & MLOps', color: '#38BDF8' },
+  { name: 'Agentic AI', color: '#6D8DFF' },
+];
+
+const HERO_PILLARS = [
+  { label: 'On-Campus Workshops', desc: '3–5 Day Practical Bootcamps', href: '/workshops' },
+  { label: 'Campus CRT Training', desc: 'Complete Placement Preparation', href: '/crt' },
+  { label: 'Industry Internships', desc: 'Real Project Experience', href: '/internships' },
+];
 
 export default function PaperHero() {
-  const [inquiry, setInquiry] = useState("");
-  const navigate = useNavigate();
+  const heroRef = useRef(null);
+  const { scrollYProgress } = useScroll({
+    target: heroRef,
+    offset: ['start start', 'end start'],
+  });
 
-  const handleConsultation = (e) => {
-    e.preventDefault();
-    navigate(inquiry.trim() ? `/contact?query=${encodeURIComponent(inquiry)}` : "/contact");
+  const smoothProgress = useSpring(scrollYProgress, {
+    stiffness: 65,
+    damping: 22,
+    mass: 0.4,
+  });
+
+  const headlineY = useTransform(smoothProgress, [0, 1], [0, -90]);
+  const headlineOpacity = useTransform(smoothProgress, [0, 0.85], [1, 0]);
+
+  const scrollToStory = () => {
+    const el = document.getElementById('course-storytelling');
+    if (el) el.scrollIntoView({ behavior: 'smooth' });
   };
 
   return (
-    <section className="relative min-h-[96vh] w-full flex flex-col items-center justify-center bg-[#1a1a1a] pt-28 sm:pt-36 md:pt-42 pb-24 px-4 sm:px-6 md:px-10 select-none overflow-hidden">
-      
-      {/* 
-        =======================================================================
-        REAL WORKSHOP BACKGROUND
-        Using a real, high-quality image from the THAKSAAI journey to 
-        reinforce "Zero Hyped Content and Real Face-to-Face Skills".
-        =======================================================================
-      */}
-      <div 
-        className="absolute inset-0 w-full h-full pointer-events-none z-0 overflow-hidden"
-        style={{ transform: "translateZ(0)", contain: "paint" }}
+    <section
+      ref={heroRef}
+      aria-label="THAKSA.AI Hero"
+      className="relative w-full min-h-[calc(100vh-76px)] bg-transparent text-white flex flex-col justify-between py-6 sm:py-10"
+    >
+      {/* Center Stage: Executive Typography & Rearranged Domain Specializations */}
+      <motion.div
+        style={{ y: headlineY, opacity: headlineOpacity }}
+        className="relative z-10 max-w-[1140px] w-full mx-auto px-4 sm:px-8 my-auto py-6 sm:py-10 flex flex-col items-center text-center"
       >
-        <img
-          src="/images/journey/media__1785944946454.jpg"
-          alt="THAKSAAI Real Workshop"
-          className="w-full h-full object-cover block opacity-40 scale-105"
-        />
-        {/* Deep, rich gradients to ensure text legibility and brand colors */}
-        <div className="absolute inset-0 bg-gradient-to-br from-[#1a1a1a]/90 via-[#1a1a1a]/70 to-[#1a1a1a]/90 mix-blend-multiply"></div>
-        <div className="absolute top-0 left-0 w-full h-32 bg-gradient-to-b from-[#1a1a1a] via-[#1a1a1a]/80 to-transparent"></div>
-        <div className="absolute bottom-0 left-0 w-full h-40 bg-gradient-to-t from-[#1a1a1a] via-[#1a1a1a]/90 to-transparent"></div>
-      </div>
-
-      {/* Perfectly Centered Hero Content with High-Contrast Typography */}
-      <div className="max-w-5xl w-full mx-auto relative z-10 text-center flex flex-col items-center justify-center select-text">
-        
-        {/* Top Badge */}
-        <div className="inline-flex items-center gap-2.5 bg-black/85 backdrop-blur-md px-5 py-2 rounded-full border border-white/10 mb-6 sm:mb-8 shadow-[0_4px_20px_rgba(0,0,0,0.5)]">
-          <span className="w-2.5 h-2.5 rounded-full bg-[#9fff00] block animate-pulse"></span>
-          <span className="text-xs sm:text-sm font-sans font-extrabold uppercase tracking-wider text-white">
-            The Career Accelerator
-          </span>
-        </div>
-
-        {/* 
-          =====================================================================
-          ULTRA-VISIBLE WHITE TYPOGRAPHY WITH DEEP SHADOWS
-          =====================================================================
-        */}
-        <h1 className="font-display font-black text-4xl sm:text-5xl md:text-6xl lg:text-[4.7rem] leading-[1.12] sm:leading-[1.16] tracking-tight text-white max-w-4xl mx-auto drop-shadow-[0_4px_16px_rgba(0,0,0,0.95)] px-2">
-          <span className="block mb-1 sm:mb-2">Develop engineers who can</span>
-          <span className="inline-flex items-center justify-center flex-wrap gap-2.5 sm:gap-3.5">
-            
-            {/* Highlighted core principle */}
-            <span className="text-[#9fff00] drop-shadow-[0_3px_12px_rgba(0,0,0,0.9)] font-extrabold underline decoration-white/20 decoration-4 sm:decoration-6 underline-offset-4 sm:underline-offset-8">
-              create value
-            </span>
-            
-            {/* Pulsing Green Indicator Pill */}
-            <span
-              title="Active Practical Training"
-              aria-label="Active training indicator"
-              className="inline-flex items-center justify-center align-middle w-[36px] sm:w-[50px] lg:w-[58px] h-[28px] sm:h-[38px] lg:h-[46px] border border-white/20 rounded-full bg-black/90 shadow-[0_4px_20px_rgba(0,0,0,0.8)] transition-transform hover:scale-110 shrink-0"
-            >
-              <span className="w-2.5 h-2.5 sm:w-3.5 sm:h-3.5 lg:w-4 lg:h-4 rounded-full bg-[#9fff00] block animate-ping"></span>
-            </span>
-          </span>{" "}
-          <span>independently.</span>
-        </h1>
-
-        {/* Highly Visible Subtitle */}
-        <p className="mt-6 sm:mt-8 text-base sm:text-lg md:text-xl lg:text-[1.35rem] font-sans text-zinc-300 font-medium max-w-3xl mx-auto leading-relaxed drop-shadow-[0_3px_10px_rgba(0,0,0,0.95)] px-3 sm:px-6">
-          Learning exists to create real capability, not just paper certificates. We conduct hands-on, in-person engineering bootcamps for launching startups, mastering freelancing, and securing top careers.
-        </p>
-
-        {/* Center-Aligned Interactive Input Capsule */}
-        <form
-          onSubmit={handleConsultation}
-          className="mt-9 sm:mt-12 w-full max-w-xl mx-auto px-2 sm:px-0"
+        {/* Top Institutional Eyebrow */}
+        <motion.div
+          initial={{ opacity: 0, y: 14 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.45 }}
+          className="inline-flex items-center gap-2.5 px-4 py-1.5 rounded-full bg-white/[0.05] border border-white/15 mb-6"
         >
-          <div className="bg-white/5 backdrop-blur-md rounded-full border border-white/20 p-1.5 pl-6 flex items-center shadow-[0_15px_40px_rgba(0,0,0,0.45)] hover:border-[#9fff00]/50 hover:bg-white/10 transition-all">
-            <input
-              type="text"
-              value={inquiry}
-              onChange={(e) => setInquiry(e.target.value)}
-              placeholder="How can we empower your college or career?"
-              aria-label="Enter inquiry"
-              className="w-full bg-transparent text-white placeholder:text-zinc-400 text-sm sm:text-base font-sans font-medium focus:outline-none border-none pr-3"
-            />
-            <button
-              type="submit"
-              aria-label="Send inquiry"
-              className="bg-[#9fff00] text-[#1a1a1a] px-7 h-12 rounded-full font-extrabold text-xs sm:text-sm tracking-wide shrink-0 hover:bg-[#b3ff33] hover:scale-[1.02] active:scale-[0.98] transition-all shadow-[0_0_20px_rgba(159,255,0,0.3)] flex items-center gap-2 focus:outline-none focus:ring-2 focus:ring-white"
-            >
-              <span>Explore</span>
-              <span className="text-[#1a1a1a] font-extrabold text-lg">→</span>
-            </button>
-          </div>
-        </form>
+          <span className="w-1.5 h-1.5 rounded-full bg-[#C7F36B]" />
+          <span className="text-[11px] sm:text-xs font-semibold uppercase tracking-[0.16em] text-slate-200">
+            Industry–Academia Engineering Institution
+          </span>
+        </motion.div>
 
+        <motion.h1
+          initial={{ opacity: 0, y: 24 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.65, delay: 0.05 }}
+          className="font-display font-bold tracking-[-0.04em] leading-[1.02] text-white mb-6"
+          style={{ fontSize: 'clamp(2.5rem, 7.4vw, 6.6rem)' }}
+        >
+          Real Engineers.{' '}
+          <span className="block text-transparent bg-clip-text bg-gradient-to-r from-[#C7F36B] via-white to-[#6D8DFF]">
+            Real Code. Real Careers.
+          </span>
+        </motion.h1>
+
+        <motion.p
+          initial={{ opacity: 0, y: 18 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 0.1 }}
+          className="text-base sm:text-xl md:text-2xl text-slate-300 font-normal max-w-[52ch] leading-[1.55] mb-7 px-2"
+        >
+          Experienced industry professionals empowering engineering talent to build and ship
+          production software through <strong className="text-white">Workshops</strong>,{' '}
+          <strong className="text-white">CRT Training</strong>, and{' '}
+          <strong className="text-white">Internships</strong>.
+        </motion.p>
+
+        {/* Rearranged Domain Mastery Strip: 3 Distinct Architectural Badges */}
+        <motion.div
+          initial={{ opacity: 0, y: 16 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.55, delay: 0.14 }}
+          className="flex flex-wrap items-center justify-center gap-2.5 sm:gap-3 mb-9"
+        >
+          {SPECIALIZATIONS.map((spec) => (
+            <button
+              key={spec.name}
+              type="button"
+              onClick={scrollToStory}
+              className="px-4 py-2 rounded-full bg-[#091124]/85 hover:bg-[#101C38] border border-white/15 hover:border-white/30 backdrop-blur-md inline-flex items-center gap-2.5 text-xs sm:text-sm font-display font-semibold text-white transition-all cursor-pointer shadow-sm"
+            >
+              <span
+                className="w-2 h-2 rounded-full shrink-0"
+                style={{ backgroundColor: spec.color, boxShadow: `0 0 10px ${spec.color}` }}
+              />
+              <span>{spec.name}</span>
+            </button>
+          ))}
+        </motion.div>
+
+        {/* Action Buttons */}
+        <motion.div
+          initial={{ opacity: 0, y: 18 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 0.18 }}
+          className="flex flex-col sm:flex-row items-stretch sm:items-center justify-center gap-3.5 w-full sm:w-auto px-4 sm:px-0"
+        >
+          <button
+            type="button"
+            onClick={scrollToStory}
+            className="min-h-[50px] px-8 py-3.5 rounded-full bg-[#C7F36B] hover:bg-[#d8fa88] text-[#050811] font-display font-bold text-sm sm:text-base transition-all cursor-pointer flex items-center justify-center gap-2 shadow-[0_0_30px_-6px_rgba(199,243,107,0.5)]"
+          >
+            <span>Explore Our Architecture</span>
+            <span aria-hidden="true">↓</span>
+          </button>
+
+          <Link
+            to="/contact"
+            className="min-h-[50px] px-8 py-3.5 rounded-full bg-white/[0.08] hover:bg-white/[0.14] text-white border border-white/20 font-display font-semibold text-sm sm:text-base transition-all flex items-center justify-center gap-2"
+          >
+            <span>Talk to Our Team</span>
+            <span aria-hidden="true" className="text-[#C7F36B]">→</span>
+          </Link>
+        </motion.div>
+      </motion.div>
+
+      {/* Bottom Floating Dock: 3 Core Institutional Pillars */}
+      <div className="relative z-10 max-w-[1120px] w-full mx-auto px-4 sm:px-8">
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 p-2.5 rounded-2xl bg-[#090F1E]/80 backdrop-blur-md border border-white/12">
+          {HERO_PILLARS.map((item) => (
+            <Link
+              key={item.label}
+              to={item.href}
+              className="group px-5 py-3.5 rounded-xl hover:bg-white/[0.06] transition-all flex items-center justify-between gap-3 border border-transparent hover:border-[#C7F36B]/40"
+            >
+              <div>
+                <span className="font-display font-bold text-sm sm:text-base text-white group-hover:text-[#C7F36B] transition-colors block">
+                  {item.label}
+                </span>
+                <span className="text-xs text-slate-400 block mt-0.5">{item.desc}</span>
+              </div>
+              <span
+                aria-hidden="true"
+                className="text-sm text-slate-400 group-hover:text-[#C7F36B] group-hover:translate-x-1 transition-all"
+              >
+                →
+              </span>
+            </Link>
+          ))}
+        </div>
       </div>
     </section>
   );

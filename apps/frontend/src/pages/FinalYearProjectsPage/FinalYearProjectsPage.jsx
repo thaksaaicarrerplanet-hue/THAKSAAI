@@ -1,130 +1,260 @@
-﻿import React from "react";
-import { Helmet } from "react-helmet-async";
-import { useNavigate } from "react-router-dom";
-import { motion } from "framer-motion";
-import SupabaseImageCard from "../../components/common/SupabaseImageCard";
+import React, { useState } from 'react';
+import { Helmet } from 'react-helmet-async';
+import { useNavigate } from 'react-router-dom';
+import SupabaseImageCard from '../../components/common/SupabaseImageCard';
+import { SpotlightCard } from '../../components/ui/SpotlightCard';
+import { DepthButton } from '../../components/ui/DepthButton';
+import { useTextScramble } from '../../hooks/useTextScramble';
 
-const capstoneArchitectures = [
+const CAPSTONE_PILLARS = [
   {
-    imageKey: "capstone-git",
-    badge: "Teamwork & Git",
-    subtitle: "Modern Code Collaboration",
-    title: "Coding in Teams Using Git",
-    desc: "Instead of emailing code files back and forth, students learn how professional developers work together using Git branches and code reviews without overwriting each other's work."
+    imageKey: 'capstone-git',
+    badge: 'STAGE 01 // TEAM GIT WORKFLOW',
+    subtitle: 'Collaborative Engineering',
+    title: 'Multi-Branch Team Development in Git',
+    desc: 'Instead of copying a single ZIP folder, student teams learn how real engineering squads collaborate using Git branches, pull requests, and peer code reviews.',
   },
   {
-    imageKey: "capstone-cicd",
-    badge: "Automated Testing",
-    subtitle: "Reliable Software Quality",
-    title: "Automated Test Checking (CI/CD)",
-    desc: "Students write tests that automatically verify their app still works whenever they add new code. Good code is then published online automatically for job recruiters to explore and test."
+    imageKey: 'capstone-cicd',
+    badge: 'STAGE 02 // AUTOMATED QUALITY',
+    subtitle: 'CI/CD & Cloud Hosting',
+    title: 'Automated Testing & Live Cloud Deployment',
+    desc: 'Students write automated tests and deploy their full-stack or AI system to a live cloud URL so internal examiners and job interviewers can test the working software.',
   },
   {
-    imageKey: "capstone-defense",
-    badge: "Live Presentations",
-    subtitle: "Interview Confidence",
-    title: "Practice Project Presentations",
-    desc: "Students present their completed software app to experienced senior developers. They explain how they built it, how they stored data, and answer typical job interview technical questions."
-  }
+    imageKey: 'capstone-defense',
+    badge: 'STAGE 03 // VIVA & INTERVIEW DEFENSE',
+    subtitle: 'Architectural Confidence',
+    title: 'Mock Viva & Technical Panel Defense',
+    desc: 'Every student practices defending the system architecture, database schema, and code logic in front of senior developers—eliminating viva anxiety.',
+  },
+];
+
+const BRANCH_ARCHETYPES = [
+  {
+    id: 'cse-it',
+    branch: 'CSE & IT',
+    title: 'Cloud SaaS, Microservices & Distributed Web Systems',
+    projects: [
+      'Multi-Tenant Campus Placement & Assessment Engine with Live Code Execution',
+      'High-Concurrency Event Booking & Real-Time Notification Architecture',
+      'End-to-End Encrypted Healthcare Records Portal with Role-Based Access',
+    ],
+  },
+  {
+    id: 'aiml-ds',
+    branch: 'AIML & Data Science',
+    title: 'Applied Generative AI, RAG & Computer Vision Pipelines',
+    projects: [
+      'Domain-Specific Legal/Medical Document RAG Assistant with Citation Verification',
+      'Real-Time Defect Detection & Quality Inspection using Edge Computer Vision',
+      'Automated Financial Anomaly Detection & Predictive Analytics Pipeline',
+    ],
+  },
+  {
+    id: 'ece-iot',
+    branch: 'ECE & IoT Systems',
+    title: 'Connected Telemetry, Edge Sensors & Cloud Dashboards',
+    projects: [
+      'Industrial IoT Sensor Telemetry Mesh with Real-Time Cloud Alerting',
+      'Smart Agricultural Micro-Climate Controller with Predictive Irrigation',
+      'Low-Latency Wearable Health Telemetry & Emergency Dispatch Platform',
+    ],
+  },
+  {
+    id: 'eee-energy',
+    branch: 'EEE & Smart Grid',
+    title: 'Smart Energy Monitoring, EV Telemetry & Load Forecasting',
+    projects: [
+      'Smart Campus Energy Consumption & Solar Yield Analytics Platform',
+      'EV Battery Health Telemetry & Charging Station Load Balancer',
+      'Automated Industrial Power-Factor Monitoring & Fault Alert System',
+    ],
+  },
 ];
 
 export default function FinalYearProjectsPage() {
   const navigate = useNavigate();
+  const [selectedBranch, setSelectedBranch] = useState(BRANCH_ARCHETYPES[0].id);
+
+  const eyebrow = useTextScramble(
+    'PILLAR 04 // DEFENSE-READY B.TECH & M.TECH CAPSTONE PROJECTS',
+    { duration: 600, trigger: true }
+  );
+
+  const activeBranch =
+    BRANCH_ARCHETYPES.find((b) => b.id === selectedBranch) || BRANCH_ARCHETYPES[0];
 
   return (
     <>
       <Helmet>
-        <title>Final-Year Engineering Projects | THAKSAAI</title>
+        <title>Final-Year Engineering Projects · Cloud &amp; AI Capstones | THAKSA.AI</title>
         <meta
           name="description"
-          content="Helping students build working final-year cloud software projects using real team Git tools and live project presentations."
+          content="Build genuine, version-controlled cloud and AI final-year engineering projects with THAKSA.AI—complete with Git history, live deployment, and mock viva defense."
         />
       </Helmet>
 
-      <main className="w-full min-h-screen bg-[#EDEEF5] pt-28 sm:pt-36 pb-24 px-6 md:px-10 text-[#1a1a1a] selection:bg-[#9fff00] selection:text-black">
-        <div className="max-w-7xl mx-auto">
-          
-          {/* Header */}
-          <header className="max-w-4xl mb-16 pb-8 border-b border-black/[0.08]">
-            <div className="inline-flex items-center gap-2 bg-white/80 backdrop-blur-md px-3.5 py-1 rounded-full text-xs font-bold uppercase tracking-widest text-zinc-600 mb-4 shadow-xs">
-              <span className="w-2 h-2 rounded-full bg-[#9fff00] block animate-pulse"></span>
-              Final-Year Engineering Projects
-            </div>
-            <h1 className="text-4xl sm:text-5xl md:text-6xl font-display font-bold text-[#1a1a1a] tracking-tight leading-[1.12] mb-5">
-              Build working cloud software instead of plain scripts.
-            </h1>
-            <p className="text-lg sm:text-xl font-sans text-zinc-600 leading-relaxed">
-              Many students struggle to build real software for their university final-year project requirement. We guide your students step-by-step to build working web apps that run on the cloud and impress job interviewers.
-            </p>
-          </header>
+      <div className="w-full min-h-screen bg-[#F7F8F4] text-[#101828]">
+        {/* Dark Spatial Hero */}
+        <section className="relative w-full bg-[#080D1A] text-white iso-grid-dark border-b border-white/10 py-16 sm:py-24 overflow-hidden">
+          <div
+            aria-hidden="true"
+            className="pointer-events-none absolute -top-28 left-1/4 w-[480px] h-[480px] rounded-full bg-[#3659D9]/20 blur-[140px]"
+          />
 
-          {/* 3 Pillars of Thaksa Projects */}
-          <section aria-label="3 Core Skills Taught" className="mb-20">
-            <h2 className="text-2xl sm:text-3xl font-display font-bold text-[#1a1a1a] mb-8">
-              What Students Learn
+          <div className="relative z-10 max-w-[1280px] mx-auto px-4 sm:px-6 md:px-10">
+            <div className="max-w-3xl">
+              <div className="inline-flex items-center gap-2.5 px-3.5 py-1.5 rounded-full bg-white/[0.06] border border-white/15 mb-6">
+                <span className="w-2 h-2 rounded-full bg-[#C7F36B] animate-pulse" />
+                <span className="font-mono text-[11px] uppercase tracking-[0.16em] text-[#C7F36B]">
+                  {eyebrow}
+                </span>
+              </div>
+
+              <h1
+                className="font-display font-bold text-white tracking-[-0.03em] leading-[1.06] mb-6"
+                style={{ fontSize: 'clamp(2.25rem, 4.5vw + 1rem, 4.25rem)' }}
+              >
+                Stop buying black-box ZIP projects.{' '}
+                <span className="text-[#C7F36B]">Engineer a system you can defend.</span>
+              </h1>
+
+              <p className="text-base sm:text-lg text-slate-300 leading-relaxed mb-8">
+                When students buy pre-made project templates, they fail both their university viva
+                and technical job interviews. THAKSA mentors student teams step-by-step to design,
+                code, test, and deploy genuine cloud and AI applications they understand inside out.
+              </p>
+
+              <div className="flex flex-wrap items-center gap-3.5">
+                <DepthButton to="/contact?track=projects" variant="electric" size="lg">
+                  <span>Enroll Capstone Team / Department</span>
+                  <span aria-hidden="true">→</span>
+                </DepthButton>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* Main Content */}
+        <section className="max-w-[1280px] mx-auto px-4 sm:px-6 md:px-10 py-16 sm:py-24">
+          {/* 3 Core Skills Taught */}
+          <div className="mb-12">
+            <span className="font-mono text-xs uppercase tracking-[0.16em] text-[#3659D9] block mb-2">
+              HOW WE MENTOR CAPSTONE TEAMS // 01
+            </span>
+            <h2 className="text-3xl sm:text-4xl font-display font-bold text-[#101828]">
+              Three Engineering Standards in Every Project
             </h2>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-              {capstoneArchitectures.map((item, idx) => (
+          </div>
+
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-7 mb-20">
+            {CAPSTONE_PILLARS.map((item) => (
+              <SpotlightCard
+                key={item.badge}
+                tone="light"
+                tilt
+                maxTilt={3}
+                className="p-6 flex flex-col justify-between gap-5"
+              >
                 <SupabaseImageCard
-                  key={idx}
                   imageKey={item.imageKey}
                   badgeText={item.badge}
                   subtitle={item.subtitle}
                   title={item.title}
                   description={item.desc}
-                  actionText="Learn About Our Projects →"
-                  onActionClick={() => navigate("/contact?capstone=Final+Year+Projects")}
+                  aspectRatio="aspect-[16/10]"
                 />
-              ))}
-            </div>
-          </section>
+                <DepthButton
+                  onClick={() =>
+                    navigate(`/contact?track=projects&query=${encodeURIComponent(item.title)}`)
+                  }
+                  variant="secondary"
+                  size="md"
+                  className="w-full"
+                >
+                  <span>Start With This Standard</span>
+                  <span aria-hidden="true">→</span>
+                </DepthButton>
+              </SpotlightCard>
+            ))}
+          </div>
 
-          {/* Departmental Coverage Banner */}
-          <section aria-label="Supported engineering departments" className="neo-glass p-8 sm:p-12 rounded-3xl border border-black/[0.08] shadow-sm mb-16">
-            <h3 className="text-2xl font-display font-bold text-[#1a1a1a] mb-6">
-              Project Ideas for All College Branches
-            </h3>
-            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6 text-sm font-sans">
-              <div className="p-5 bg-white/70 rounded-2xl border border-black/[0.05]">
-                <strong className="text-base block mb-1 text-[#1a1a1a]">Computer Science (CSE / IT)</strong>
-                <span className="text-zinc-600 block">Cloud Web Applications, Smart Search Tools, AI Chat Assistants, and Fast Data Systems.</span>
+          {/* Interactive Branch Architecture Explorer */}
+          <SpotlightCard tone="dark" className="p-7 sm:p-12">
+            <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-6 pb-8 border-b border-white/10">
+              <div>
+                <span className="font-mono text-xs uppercase tracking-[0.16em] text-[#C7F36B] block mb-2">
+                  DEPARTMENTAL PROJECT ARCHITECTURES // 02
+                </span>
+                <h3 className="text-2xl sm:text-3xl font-display font-bold text-white">
+                  Select your engineering branch to inspect sample project systems
+                </h3>
               </div>
-              <div className="p-5 bg-white/70 rounded-2xl border border-black/[0.05]">
-                <strong className="text-base block mb-1 text-[#1a1a1a]">AI & Data Science (AIML)</strong>
-                <span className="text-zinc-600 block">Machine Learning Prediction Tools, Smart Image Recognition, and Automated Data Analyzers.</span>
-              </div>
-              <div className="p-5 bg-white/70 rounded-2xl border border-black/[0.05]">
-                <strong className="text-base block mb-1 text-[#1a1a1a]">Electronics (ECE)</strong>
-                <span className="text-zinc-600 block">Connected Internet-of-Things (IoT) Device Apps, Sensor Data Dashboards, and Audio Tools.</span>
-              </div>
-              <div className="p-5 bg-white/70 rounded-2xl border border-black/[0.05]">
-                <strong className="text-base block mb-1 text-[#1a1a1a]">Electrical (EEE)</strong>
-                <span className="text-zinc-600 block">Smart Energy Usage Dashboards, Solar System Data Monitors, and Power Safety Apps.</span>
+
+              <div className="flex flex-wrap gap-2">
+                {BRANCH_ARCHETYPES.map((b) => {
+                  const active = b.id === selectedBranch;
+                  return (
+                    <button
+                      key={b.id}
+                      type="button"
+                      onClick={() => setSelectedBranch(b.id)}
+                      className={`px-4 py-2 rounded-xl font-mono text-xs uppercase tracking-wider border transition-all cursor-pointer ${
+                        active
+                          ? 'bg-[#C7F36B] text-[#101828] border-[#C7F36B] font-bold'
+                          : 'bg-white/[0.05] text-slate-300 border-white/10 hover:text-white'
+                      }`}
+                    >
+                      {b.branch}
+                    </button>
+                  );
+                })}
               </div>
             </div>
-          </section>
 
-          {/* CTA Box */}
-          <section aria-label="Project support callout" className="bg-[#1a1a1a] text-white p-10 sm:p-14 rounded-3xl flex flex-col sm:flex-row items-center justify-between gap-8 shadow-2xl border border-white/10">
-            <div>
-              <span className="text-xs font-mono text-[#9fff00] font-bold uppercase tracking-widest block mb-2">
-                ● Simple Project Collaboration
-              </span>
-              <h3 className="text-3xl font-display font-bold text-white tracking-tight">
-                Want us to guide student projects at your college?
-              </h3>
+            <div className="pt-8">
+              <h4 className="text-xl font-display font-bold text-[#C7F36B] mb-5">
+                {activeBranch.branch} — {activeBranch.title}
+              </h4>
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
+                {activeBranch.projects.map((proj, i) => (
+                  <div
+                    key={proj}
+                    className="p-5 rounded-2xl bg-[#070B14] border border-white/10 flex flex-col justify-between gap-3"
+                  >
+                    <span className="font-mono text-xs text-[#6D8DFF]">
+                      ARCHETYPE // 0{i + 1}
+                    </span>
+                    <p className="text-sm font-medium text-white leading-relaxed">{proj}</p>
+                    <span className="font-mono text-[10px] text-[#C7F36B] uppercase tracking-wider">
+                      ✓ IEEE DOCS + GIT REPO + CLOUD DEMO
+                    </span>
+                  </div>
+                ))}
+              </div>
+
+              <div className="flex flex-wrap items-center justify-between gap-4 pt-6 border-t border-white/10">
+                <p className="text-xs sm:text-sm font-mono text-slate-300">
+                  Have a custom problem statement? Our architects will help your team scope and build it.
+                </p>
+                <DepthButton
+                  onClick={() =>
+                    navigate(
+                      `/contact?track=projects&query=${encodeURIComponent(activeBranch.branch + ' Capstone')}`
+                    )
+                  }
+                  variant="electric"
+                  size="md"
+                >
+                  <span>Request {activeBranch.branch} Project List</span>
+                  <span aria-hidden="true">→</span>
+                </DepthButton>
+              </div>
             </div>
-            <button
-              type="button"
-              onClick={() => navigate("/contact")}
-              className="bg-[#9fff00] text-[#1a1a1a] px-8 py-4 rounded-full text-base font-bold tracking-wide hover:bg-white hover:scale-105 active:scale-95 transition-all shadow-xl shrink-0 focus:outline-none focus:ring-2 focus:ring-white"
-            >
-              Contact Our Team →
-            </button>
-          </section>
-
-        </div>
-      </main>
+          </SpotlightCard>
+        </section>
+      </div>
     </>
   );
 }

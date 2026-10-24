@@ -1,6 +1,6 @@
-import { useCallback, useEffect, useState } from "react";
+import React, { Suspense, useCallback, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import ReactPlayer from "react-player";
+const ReactPlayer = React.lazy(() => import("react-player"));
 import {
   Alert,
   Box,
@@ -216,7 +216,7 @@ function LessonsTab({ modules, currentLesson, onSelectLesson, onMarkComplete, ma
             {currentLesson ? (
               <>
                 <Box sx={{ bgcolor: "#000", borderRadius: "12px 12px 0 0", overflow: "hidden" }}>
-                  <ReactPlayer url={currentLesson.video_url} controls width="100%" height="420px" />
+                  <Suspense fallback={<CircularProgress size={28} />}><ReactPlayer url={currentLesson.video_url} controls width="100%" height="420px" /></Suspense>
                 </Box>
                 <Box sx={{ p: 2.5 }}>
                   <Stack direction="row" alignItems="center" justifyContent="space-between">

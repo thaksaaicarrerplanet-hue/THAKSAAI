@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+﻿import React, { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import { Helmet } from "react-helmet-async";
 import { login } from "../../services/userServices";
@@ -116,8 +116,8 @@ export default function LoginPage() {
         <div className="text-center mb-8 pb-6 border-b border-black/[0.08] flex flex-col items-center">
           <BrandLogo variant="auth" disableLink className="mb-5" />
           <div className="inline-flex items-center gap-2 bg-[#1a1a1a] text-white px-3.5 py-1 rounded-full text-xs font-semibold tracking-wide mb-4 shadow-2xs border border-white/10">
-            <span className="w-2 h-2 rounded-full bg-[#9fff00] block"></span>
-            <span>Learning Portal • {SITE_BRANDING.shortAddress}</span>
+            <span className="w-2 h-2 rounded-full bg-[#C7F36B] block"></span>
+            <span>Learning Portal â€¢ {SITE_BRANDING.shortAddress}</span>
           </div>
           <h1 className="text-3xl sm:text-4xl font-display font-bold text-[#1a1a1a] tracking-tight leading-[1.15]">
             Sign in to your account
@@ -147,7 +147,7 @@ export default function LoginPage() {
               className={`px-4 py-3.5 rounded-xl bg-white border text-sm font-medium text-[#1a1a1a] shadow-2xs focus:outline-none transition-all ${
                 errors.email 
                   ? "border-red-500 focus:ring-2 focus:ring-red-300" 
-                  : "border-black/20 focus:border-[#1a1a1a] focus:ring-2 focus:ring-[#9fff00]/50"
+                  : "border-black/20 focus:border-[#1a1a1a] focus:ring-2 focus:ring-[#C7F36B]/50"
               }`}
             />
             {errors.email && (
@@ -162,7 +162,7 @@ export default function LoginPage() {
               </label>
               <Link
                 to="/forgot-password"
-                className="text-xs font-medium text-zinc-600 hover:text-[#1a1a1a] underline decoration-[#9fff00] decoration-2 underline-offset-3 transition-colors"
+                className="text-xs font-medium text-zinc-600 hover:text-[#1a1a1a] underline decoration-[#C7F36B] decoration-2 underline-offset-3 transition-colors"
               >
                 Forgot your password?
               </Link>
@@ -181,7 +181,7 @@ export default function LoginPage() {
                 className={`w-full pl-4 pr-16 py-3.5 rounded-xl bg-white border text-sm font-medium text-[#1a1a1a] shadow-2xs focus:outline-none transition-all ${
                   errors.password 
                     ? "border-red-500 focus:ring-2 focus:ring-red-300" 
-                    : "border-black/20 focus:border-[#1a1a1a] focus:ring-2 focus:ring-[#9fff00]/50"
+                    : "border-black/20 focus:border-[#1a1a1a] focus:ring-2 focus:ring-[#C7F36B]/50"
                 }`}
               />
               <button
@@ -201,10 +201,10 @@ export default function LoginPage() {
           <button
             type="submit"
             disabled={loading}
-            className="w-full mt-2 bg-[#1a1a1a] text-white py-4 rounded-xl text-sm font-bold tracking-wide uppercase hover:bg-black transition-all shadow-md hover:shadow-lg flex items-center justify-center gap-2.5 focus:outline-none focus:ring-2 focus:ring-[#9fff00] disabled:opacity-60 disabled:pointer-events-none"
+            className="w-full mt-2 bg-[#1a1a1a] text-white py-4 rounded-xl text-sm font-bold tracking-wide uppercase hover:bg-black transition-all shadow-md hover:shadow-lg flex items-center justify-center gap-2.5 focus:outline-none focus:ring-2 focus:ring-[#C7F36B] disabled:opacity-60 disabled:pointer-events-none"
           >
-            <span className="w-2.5 h-2.5 rounded-full bg-[#9fff00]"></span>
-            {loading ? "Signing in..." : "Sign In →"}
+            <span className="w-2.5 h-2.5 rounded-full bg-[#C7F36B]"></span>
+            {loading ? "Signing in..." : "Sign In â†’"}
           </button>
         </form>
 

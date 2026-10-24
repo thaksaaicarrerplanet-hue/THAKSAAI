@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useMemo, useState } from "react";
+﻿import { useCallback, useEffect, useMemo, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Alert, Box, Button, Card, CardContent, Grid, Stack, Typography, CircularProgress } from "@mui/material";
 import PeopleIcon from "@mui/icons-material/People";
@@ -87,8 +87,8 @@ export default function AdminDashboard() {
     <Box sx={{ pb: 6 }}>
       <Box sx={{ display: "flex", flexWrap: "wrap", justifyContent: "space-between", alignItems: "flex-end", mb: 4, pb: 2.5, borderBottom: "1px solid rgba(0,0,0,0.08)", gap: 2 }}>
         <Box>
-          <Box sx={{ display: "inline-flex", alignItems: "center", gap: 1, bgcolor: "#1a1a1a", color: "#9fff00", px: 2.2, py: 0.5, borderRadius: "20px", fontSize: "0.75rem", fontWeight: 700, mb: 1.5 }}>
-            <span>● ADMIN MANAGEMENT PORTAL</span>
+          <Box sx={{ display: "inline-flex", alignItems: "center", gap: 1, bgcolor: "#1a1a1a", color: "#C7F36B", px: 2.2, py: 0.5, borderRadius: "20px", fontSize: "0.75rem", fontWeight: 700, mb: 1.5 }}>
+            <span>â— ADMIN MANAGEMENT PORTAL</span>
           </Box>
           <Typography component="h1" sx={{ fontSize: { xs: "1.9rem", sm: "2.5rem" }, fontFamily: "'Instrument Serif', serif", fontWeight: 700, color: "#1a1a1a", letterSpacing: "-0.02em", lineHeight: 1.15 }}>
             Platform Operations & Account Management
@@ -137,7 +137,7 @@ export default function AdminDashboard() {
               "&:hover": { bgcolor: "#000000", transform: "translateY(-1px)", boxShadow: "0 6px 16px rgba(0,0,0,0.2)" }
             }}
           >
-            <span style={{ display: "inline-block", width: 7, height: 7, borderRadius: "50%", backgroundColor: "#9fff00", marginRight: 2 }} />
+            <span style={{ display: "inline-block", width: 7, height: 7, borderRadius: "50%", backgroundColor: "#C7F36B", marginRight: 2 }} />
             Create User Account
           </Button>
         </Stack>
@@ -179,11 +179,11 @@ export default function AdminDashboard() {
                   <Box sx={{ color }}>{icon}</Box>
                 </Stack>
                 <Typography sx={{ fontSize: "2.2rem", fontWeight: 700, color: "#1a1a1a", fontFamily: "'Instrument Serif', serif" }}>
-                  {key === "revenue" ? `₹${values[key].toLocaleString()}` : values[key].toLocaleString()}
+                  {key === "revenue" ? `â‚¹${values[key].toLocaleString()}` : values[key].toLocaleString()}
                 </Typography>
                 {path && (
                   <Typography sx={{ fontSize: "0.78rem", color: "#2563eb", fontWeight: 600, mt: 1.5, display: "inline-block" }}>
-                    View management page →
+                    View management page â†’
                   </Typography>
                 )}
               </CardContent>

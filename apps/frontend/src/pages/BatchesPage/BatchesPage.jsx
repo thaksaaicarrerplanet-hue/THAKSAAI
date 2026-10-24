@@ -26,14 +26,14 @@ export default function BatchesPage() {
         />
       </Helmet>
 
-      <main className="w-full min-h-screen bg-[#EDEEF5] pt-28 sm:pt-36 pb-24 px-6 md:px-10 text-[#1a1a1a] selection:bg-[#9fff00] selection:text-black">
+      <main className="w-full min-h-screen bg-[#F7F8F4] pt-28 sm:pt-36 pb-24 px-6 md:px-10 text-[#1a1a1a] selection:bg-[#C7F36B] selection:text-black">
         <div className="max-w-7xl mx-auto">
           
           {/* Header */}
           <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-12 pb-8 border-b border-black/[0.08]">
             <div className="max-w-3xl">
               <div className="inline-flex items-center gap-2 bg-[#1a1a1a] text-white px-3.5 py-1 rounded-full text-xs font-bold uppercase tracking-widest mb-4 shadow-sm">
-                <span className="w-2 h-2 rounded-full bg-[#9fff00] block animate-ping"></span>
+                <span className="w-2 h-2 rounded-full bg-[#C7F36B] block animate-ping"></span>
                 Live College Bootcamps
               </div>
               <h1 className="text-4xl sm:text-5xl md:text-6xl font-display font-bold text-[#1a1a1a] tracking-tight leading-tight">
@@ -54,8 +54,8 @@ export default function BatchesPage() {
                 <button
                   key={item.key}
                   onClick={() => setFilter(item.key)}
-                  className={`px-4 py-2 rounded-full border transition-all focus:outline-none focus:ring-2 focus:ring-[#9fff00] ${
-                    filter === item.key ? "bg-[#1a1a1a] text-[#9fff00] border-[#1a1a1a]" : "bg-white/80 text-zinc-700 border-black/10 hover:bg-white"
+                  className={`px-4 py-2 rounded-full border transition-all focus:outline-none focus:ring-2 focus:ring-[#C7F36B] ${
+                    filter === item.key ? "bg-[#1a1a1a] text-[#C7F36B] border-[#1a1a1a]" : "bg-white/80 text-zinc-700 border-black/10 hover:bg-white"
                   }`}
                 >
                   {item.label}
@@ -78,7 +78,7 @@ export default function BatchesPage() {
                     <span className="text-xs font-mono font-bold px-3 py-1 rounded-full bg-[#1a1a1a] text-white">
                       Batch #{b.code}
                     </span>
-                    <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-extrabold uppercase bg-[#9fff00] text-[#1a1a1a] shadow-xs">
+                    <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-extrabold uppercase bg-[#C7F36B] text-[#1a1a1a] shadow-xs">
                       ● {b.status}
                     </span>
                   </div>
@@ -109,7 +109,7 @@ export default function BatchesPage() {
                   <button
                     type="button"
                     onClick={() => navigate(`/contact?college=${encodeURIComponent(b.college)}`)}
-                    className="text-xs font-bold text-[#1a1a1a] hover:text-black underline decoration-[#9fff00] decoration-2 underline-offset-4 focus:outline-none"
+                    className="text-xs font-bold text-[#1a1a1a] hover:text-black underline decoration-[#C7F36B] decoration-2 underline-offset-4 focus:outline-none"
                   >
                     Ask a Question About This Batch →
                   </button>
@@ -121,12 +121,12 @@ export default function BatchesPage() {
           {/* Note Banner */}
           <div className="p-6 sm:p-8 bg-white/70 backdrop-blur-md rounded-2xl border border-black/[0.08] flex flex-col sm:flex-row items-center justify-between gap-6 text-sm font-sans text-zinc-600 shadow-xs">
             <div className="flex items-center gap-3">
-              <span className="w-3 h-3 rounded-full bg-[#9fff00] shrink-0"></span>
+              <span className="w-3 h-3 rounded-full bg-[#C7F36B] shrink-0"></span>
               <span>All student training is conducted practically inside college computer labs with practicing software developers.</span>
             </div>
             <Link
               to="/placements"
-              className="text-sm font-bold text-[#1a1a1a] whitespace-nowrap hover:underline decoration-[#9fff00] decoration-2 underline-offset-4"
+              className="text-sm font-bold text-[#1a1a1a] whitespace-nowrap hover:underline decoration-[#C7F36B] decoration-2 underline-offset-4"
             >
               Check Student Results →
             </Link>

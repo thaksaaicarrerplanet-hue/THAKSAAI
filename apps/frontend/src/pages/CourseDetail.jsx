@@ -84,7 +84,7 @@ export default function CourseDetail() {
         <meta name="description" content={data.desc} />
       </Helmet>
 
-      <main className="w-full min-h-screen bg-[#EDEEF5] pt-28 sm:pt-36 pb-24 px-6 md:px-10 text-[#1a1a1a] selection:bg-[#9fff00] selection:text-black">
+      <main className="w-full min-h-screen bg-[#F7F8F4] pt-28 sm:pt-36 pb-24 px-6 md:px-10 text-[#1a1a1a] selection:bg-[#C7F36B] selection:text-black">
         <div className="max-w-5xl mx-auto">
           
           {/* Back Button */}
@@ -98,7 +98,7 @@ export default function CourseDetail() {
           {/* Main Content Box */}
           <article className="neo-glass p-8 sm:p-12 md:p-14 rounded-3xl border border-black/[0.08] shadow-lg">
             
-            <div className="inline-flex items-center gap-2 bg-[#1a1a1a] text-[#9fff00] px-3.5 py-1 rounded-full text-xs font-bold uppercase tracking-widest mb-4 shadow-xs">
+            <div className="inline-flex items-center gap-2 bg-[#1a1a1a] text-[#C7F36B] px-3.5 py-1 rounded-full text-xs font-bold uppercase tracking-widest mb-4 shadow-xs">
               ● {data.badge}
             </div>
 
@@ -160,7 +160,7 @@ export default function CourseDetail() {
           {/* Bottom Action Card */}
           <div className="mt-12 bg-[#1a1a1a] text-white p-8 sm:p-12 rounded-3xl flex flex-col sm:flex-row items-center justify-between gap-6 shadow-xl border border-white/10">
             <div>
-              <span className="text-xs font-mono text-[#9fff00] font-bold uppercase tracking-widest block mb-1">
+              <span className="text-xs font-mono text-[#C7F36B] font-bold uppercase tracking-widest block mb-1">
                 ● For College Leadership & Faculty
               </span>
               <h3 className="text-2xl sm:text-3xl font-display font-bold text-white tracking-tight">
@@ -173,7 +173,7 @@ export default function CourseDetail() {
             <button
               type="button"
               onClick={() => navigate(`/contact?track=${encodeURIComponent(data.title)}`)}
-              className="bg-[#9fff00] text-[#1a1a1a] px-8 py-4 rounded-full text-sm font-bold tracking-wide hover:bg-white hover:scale-105 active:scale-95 transition-all shadow-lg shrink-0 focus:outline-none focus:ring-2 focus:ring-white"
+              className="bg-[#C7F36B] text-[#1a1a1a] px-8 py-4 rounded-full text-sm font-bold tracking-wide hover:bg-white hover:scale-105 active:scale-95 transition-all shadow-lg shrink-0 focus:outline-none focus:ring-2 focus:ring-white"
             >
               Contact Our Team →
             </button>

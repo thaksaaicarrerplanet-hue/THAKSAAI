@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+﻿import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Box, Button, Card, CardContent, CircularProgress, Grid, Stack, Typography } from "@mui/material";
 import MenuBookRoundedIcon from "@mui/icons-material/MenuBookRounded";
@@ -90,8 +90,8 @@ export default function UserDashboard() {
       {/* Simple Header Banner */}
       <Box sx={{ mb: 5, pb: 3, borderBottom: "1px solid rgba(0,0,0,0.08)", display: "flex", flexWrap: "wrap", alignItems: "flex-end", justifyContent: "space-between", gap: 2 }}>
         <Box>
-          <Box sx={{ display: "inline-flex", alignItems: "center", gap: 1, bgcolor: "#1a1a1a", color: "#9fff00", px: 2, py: 0.5, borderRadius: "20px", fontSize: "0.75rem", fontWeight: 700, mb: 1.5 }}>
-            <span>● STUDENT LEARNING DASHBOARD</span>
+          <Box sx={{ display: "inline-flex", alignItems: "center", gap: 1, bgcolor: "#1a1a1a", color: "#C7F36B", px: 2, py: 0.5, borderRadius: "20px", fontSize: "0.75rem", fontWeight: 700, mb: 1.5 }}>
+            <span>â— STUDENT LEARNING DASHBOARD</span>
           </Box>
           <Typography component="h1" sx={{ fontSize: { xs: "1.9rem", sm: "2.5rem" }, fontFamily: "'Instrument Serif', serif", fontWeight: 700, color: "#1a1a1a", letterSpacing: "-0.02em", lineHeight: 1.15 }}>
             Develop engineers who can create value independently.
@@ -115,7 +115,7 @@ export default function UserDashboard() {
             "&:hover": { bgcolor: "#000000", boxShadow: "0 4px 12px rgba(0,0,0,0.15)" }
           }}
         >
-          Go to My Courses →
+          Go to My Courses â†’
         </Button>
       </Box>
 
@@ -145,7 +145,7 @@ export default function UserDashboard() {
         <Card elevation={0} sx={{ borderRadius: "14px", border: "1px solid rgba(0,0,0,0.12)", mb: 5, bgcolor: "#ffffff", boxShadow: "0 8px 24px rgba(0,0,0,0.04)" }}>
           <CardContent sx={{ p: { xs: 3, md: 4 } }}>
             <Stack direction="row" alignItems="center" spacing={1.5} sx={{ mb: 3 }}>
-              <Box sx={{ width: 10, height: 10, borderRadius: "50%", bgcolor: "#9fff00", border: "1px solid #1a1a1a" }} />
+              <Box sx={{ width: 10, height: 10, borderRadius: "50%", bgcolor: "#C7F36B", border: "1px solid #1a1a1a" }} />
               <Typography sx={{ fontWeight: 700, fontSize: "1.2rem", color: "#1a1a1a", fontFamily: "'Instrument Serif', serif", textTransform: "uppercase", letterSpacing: "0.03em" }}>
                 Live Classroom & Lab Sessions In Progress
               </Typography>
@@ -163,7 +163,7 @@ export default function UserDashboard() {
                   <Box>
                     <Typography sx={{ fontWeight: 700, fontSize: "1.1rem", color: "#1a1a1a" }}>{session.title}</Typography>
                     <Typography variant="body2" sx={{ color: "#475569", mt: 0.5, fontWeight: 500 }}>
-                      {session.course_title} • Instructor: {session.instructor_name}
+                      {session.course_title} â€¢ Instructor: {session.instructor_name}
                     </Typography>
                   </Box>
                   <Button
@@ -178,12 +178,12 @@ export default function UserDashboard() {
                       borderRadius: "50px",
                       fontSize: "0.75rem",
                       bgcolor: session.is_present ? "#16a34a" : "#1a1a1a",
-                      color: session.is_present ? "#ffffff" : "#9fff00",
+                      color: session.is_present ? "#ffffff" : "#C7F36B",
                       "&:hover": { bgcolor: "#000000" },
                       "&.Mui-disabled": { bgcolor: "#e2e8f0", color: "#64748b" }
                     }}
                   >
-                    {session.is_present ? "✓ Attendance Recorded" : marking === session.id ? "Saving..." : "Mark Present →"}
+                    {session.is_present ? "âœ“ Attendance Recorded" : marking === session.id ? "Saving..." : "Mark Present â†’"}
                   </Button>
                 </Stack>
               ))}
@@ -217,7 +217,7 @@ export default function UserDashboard() {
                       textAlign: "center",
                       borderRadius: "8px",
                       bgcolor: item.status === "present" ? "#1a1a1a" : item.status === "excused" ? "#fef3c7" : "#f1f5f9",
-                      color: item.status === "present" ? "#9fff00" : item.status === "excused" ? "#92400e" : "#64748b",
+                      color: item.status === "present" ? "#C7F36B" : item.status === "excused" ? "#92400e" : "#64748b",
                       border: "1px solid rgba(0,0,0,0.06)"
                     }}>
                       <Typography sx={{ fontSize: "0.75rem", fontWeight: 700, textTransform: "uppercase", display: "block" }}>
@@ -238,8 +238,8 @@ export default function UserDashboard() {
           <Card elevation={0} sx={{ borderRadius: "14px", border: "1px solid rgba(0,0,0,0.08)", bgcolor: "#1a1a1a", color: "#ffffff", h: "100%" }}>
             <CardContent sx={{ p: 4, display: "flex", flexDirection: "column", height: "100%", justifyContent: "space-between" }}>
               <Box>
-                <Box sx={{ display: "inline-flex", alignItems: "center", gap: 1, color: "#9fff00", fontSize: "0.75rem", fontWeight: 700, textTransform: "uppercase", mb: 1.5 }}>
-                  <span>● REAL-WORLD PROJECTS</span>
+                <Box sx={{ display: "inline-flex", alignItems: "center", gap: 1, color: "#C7F36B", fontSize: "0.75rem", fontWeight: 700, textTransform: "uppercase", mb: 1.5 }}>
+                  <span>â— REAL-WORLD PROJECTS</span>
                 </Box>
                 <Typography sx={{ fontSize: "1.4rem", fontWeight: 700, color: "#ffffff", fontFamily: "'Instrument Serif', serif", mb: 1.5 }}>
                   Final-Year Project Workspace
@@ -253,7 +253,7 @@ export default function UserDashboard() {
                 sx={{
                   w: "100%",
                   py: 1.6,
-                  bgcolor: "#9fff00",
+                  bgcolor: "#C7F36B",
                   color: "#1a1a1a",
                   fontWeight: 700,
                   fontSize: "0.85rem",
@@ -263,7 +263,7 @@ export default function UserDashboard() {
                   "&:hover": { bgcolor: "#ffffff" }
                 }}
               >
-                Open Project Studio →
+                Open Project Studio â†’
               </Button>
             </CardContent>
           </Card>

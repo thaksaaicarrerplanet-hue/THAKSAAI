@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useMemo, useState } from "react";
+﻿import { useCallback, useEffect, useMemo, useState } from "react";
 import {
   Alert,
   Box,
@@ -134,7 +134,7 @@ export default function InstructorDashboard() {
                   {icon}
                 </Stack>
                 <Typography sx={{ fontSize: "2rem", fontWeight: 700, color: "#1a1a1a", fontFamily: "'Instrument Serif', serif" }}>
-                  {key === "totalRevenue" ? `₹${normalizedStats[key].toLocaleString()}` : normalizedStats[key].toLocaleString()}
+                  {key === "totalRevenue" ? `â‚¹${normalizedStats[key].toLocaleString()}` : normalizedStats[key].toLocaleString()}
                 </Typography>
               </CardContent>
             </Card>
@@ -149,7 +149,7 @@ export default function InstructorDashboard() {
             Course Overview
           </Typography>
           {courses.length === 0 ? (
-            <Box sx={{ textAlign: "center", py: 4, bgcolor: "#EDEEF5", borderRadius: "8px", border: "1px dashed rgba(0,0,0,0.1)" }}>
+            <Box sx={{ textAlign: "center", py: 4, bgcolor: "#F7F8F4", borderRadius: "8px", border: "1px dashed rgba(0,0,0,0.1)" }}>
               <Typography sx={{ color: "#64748b", fontWeight: 500 }}>
                 No active courses assigned to your account yet.
               </Typography>
@@ -157,7 +157,7 @@ export default function InstructorDashboard() {
           ) : (
             <TableContainer>
               <Table sx={{ minWidth: 600 }}>
-                <TableHead sx={{ bgcolor: "#EDEEF5" }}>
+                <TableHead sx={{ bgcolor: "#F7F8F4" }}>
                   <TableRow>
                     <TableCell sx={{ fontWeight: 700, fontSize: "0.75rem", textTransform: "uppercase", color: "#475569", py: 1.5 }}>Course Name</TableCell>
                     <TableCell align="center" sx={{ fontWeight: 700, fontSize: "0.75rem", textTransform: "uppercase", color: "#475569", py: 1.5 }}>Status</TableCell>
@@ -183,8 +183,8 @@ export default function InstructorDashboard() {
                         />
                       </TableCell>
                       <TableCell align="right" sx={{ fontWeight: 600, color: "#1a1a1a", py: 2 }}>{Number(course.students_count || 0)}</TableCell>
-                      <TableCell align="right" sx={{ fontWeight: 600, color: "#64748b", py: 2 }}>₹{Number(course.price || 0).toLocaleString()}</TableCell>
-                      <TableCell align="right" sx={{ fontWeight: 700, color: "#16a34a", py: 2 }}>₹{Number(course.revenue || 0).toLocaleString()}</TableCell>
+                      <TableCell align="right" sx={{ fontWeight: 600, color: "#64748b", py: 2 }}>â‚¹{Number(course.price || 0).toLocaleString()}</TableCell>
+                      <TableCell align="right" sx={{ fontWeight: 700, color: "#16a34a", py: 2 }}>â‚¹{Number(course.revenue || 0).toLocaleString()}</TableCell>
                     </TableRow>
                   ))}
                 </TableBody>

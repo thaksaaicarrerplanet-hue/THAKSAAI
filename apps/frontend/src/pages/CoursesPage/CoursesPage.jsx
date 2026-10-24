@@ -33,14 +33,14 @@ export default function CoursesPage() {
         />
       </Helmet>
 
-      <main className="w-full min-h-screen bg-[#EDEEF5] pt-28 sm:pt-36 pb-24 px-6 md:px-10 text-[#1a1a1a] selection:bg-[#9fff00] selection:text-black">
+      <main className="w-full min-h-screen bg-[#F7F8F4] pt-28 sm:pt-36 pb-24 px-6 md:px-10 text-[#1a1a1a] selection:bg-[#C7F36B] selection:text-black">
         <div className="max-w-7xl mx-auto">
           
           {/* Header */}
           <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-12 pb-8 border-b border-black/[0.08]">
             <div className="max-w-3xl">
               <div className="inline-flex items-center gap-2 bg-white/80 backdrop-blur-md px-3.5 py-1 rounded-full text-xs font-bold uppercase tracking-widest text-zinc-600 mb-4 shadow-xs">
-                <span className="w-2 h-2 rounded-full bg-[#9fff00] block animate-pulse"></span>
+                <span className="w-2 h-2 rounded-full bg-[#C7F36B] block animate-pulse"></span>
                 Practical Course Directory
               </div>
               <h1 className="text-4xl sm:text-5xl md:text-6xl font-display font-bold text-[#1a1a1a] tracking-tight leading-tight">
@@ -61,8 +61,8 @@ export default function CoursesPage() {
                 <button
                   key={tab.key}
                   onClick={() => setSelectedFilter(tab.key)}
-                  className={`px-4 py-2 rounded-full border transition-all focus:outline-none focus:ring-2 focus:ring-[#9fff00] ${
-                    selectedFilter === tab.key ? "bg-[#1a1a1a] text-[#9fff00] border-[#1a1a1a]" : "bg-white/80 text-zinc-700 border-black/10 hover:bg-white"
+                  className={`px-4 py-2 rounded-full border transition-all focus:outline-none focus:ring-2 focus:ring-[#C7F36B] ${
+                    selectedFilter === tab.key ? "bg-[#1a1a1a] text-[#C7F36B] border-[#1a1a1a]" : "bg-white/80 text-zinc-700 border-black/10 hover:bg-white"
                   }`}
                 >
                   {tab.label}
@@ -114,7 +114,7 @@ export default function CoursesPage() {
             <button
               type="button"
               onClick={() => navigate("/contact")}
-              className="bg-[#1a1a1a] text-white px-8 py-4 rounded-full text-sm font-bold tracking-wide hover:bg-black hover:scale-105 active:scale-95 transition-all shadow-md shrink-0 focus:outline-none focus:ring-2 focus:ring-[#9fff00]"
+              className="bg-[#1a1a1a] text-white px-8 py-4 rounded-full text-sm font-bold tracking-wide hover:bg-black hover:scale-105 active:scale-95 transition-all shadow-md shrink-0 focus:outline-none focus:ring-2 focus:ring-[#C7F36B]"
             >
               Contact Our Team →
             </button>

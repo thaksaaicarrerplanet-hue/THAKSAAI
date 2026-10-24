@@ -1,4 +1,4 @@
-import React from "react";
+﻿import React from "react";
 import { Helmet } from "react-helmet-async";
 import { useNavigate, useLocation } from "react-router-dom";
 import { SITE_BRANDING } from "../../theme/masterThemeConfig";
@@ -24,14 +24,14 @@ export default function InstitutionalCollaborationPage() {
         <meta name="description" content={subDescription} />
       </Helmet>
 
-      <main className="w-full min-h-screen bg-[#EDEEF5] pt-28 sm:pt-36 pb-24 px-4 sm:px-6 md:px-10 text-[#1a1a1a] selection:bg-[#9fff00] selection:text-black">
+      <main className="w-full min-h-screen bg-[#F7F8F4] pt-28 sm:pt-36 pb-24 px-4 sm:px-6 md:px-10 text-[#1a1a1a] selection:bg-[#C7F36B] selection:text-black">
         <div className="max-w-6xl mx-auto">
           
           {/* Header Banner */}
           <header className="mb-14 pb-8 border-b border-black/[0.08]">
             <div className="inline-flex items-center gap-2.5 bg-white/90 px-4 py-1.5 rounded-full text-xs font-bold uppercase tracking-wider text-[#1a1a1a] mb-4 shadow-2xs border border-black/5">
-              <span className="w-2 h-2 rounded-full bg-[#9fff00] block animate-pulse"></span>
-              <span>Institutional Academic Partnerships • {SITE_BRANDING.buildingName}</span>
+              <span className="w-2 h-2 rounded-full bg-[#C7F36B] block animate-pulse"></span>
+              <span>Institutional Academic Partnerships â€¢ {SITE_BRANDING.buildingName}</span>
             </div>
             <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-display font-bold text-[#1a1a1a] tracking-tight leading-[1.12] mb-4">
               {pageTitle}
@@ -68,7 +68,7 @@ export default function InstitutionalCollaborationPage() {
                       desc: isTPO ? "Access our centralized LMS Portal to track real-time attendance, lab execution commits, and candidate coding competency percentiles." : "Partner with THAKSAAI senior leads to publish high-impact final year engineering projects that fulfill AICTE and NBA accreditation criteria."
                     }
                   ].map((block, idx) => (
-                    <div key={idx} className="p-6 bg-[#EDEEF5]/50 rounded-xl border border-black/[0.05]">
+                    <div key={idx} className="p-6 bg-[#F7F8F4]/50 rounded-xl border border-black/[0.05]">
                       <h3 className="text-lg font-bold text-[#1a1a1a] font-display mb-2">{block.title}</h3>
                       <p className="text-xs sm:text-sm text-zinc-600 leading-relaxed">{block.desc}</p>
                     </div>
@@ -87,7 +87,7 @@ export default function InstitutionalCollaborationPage() {
                     { step: "04", name: "LMS Telemetry & Placement Certification", detail: "Generate verifiable competency transcripts and connect high-performing candidates directly with hiring technology recruiters." }
                   ].map((st, idx) => (
                     <div key={idx} className="flex items-start gap-4 sm:gap-6">
-                      <span className="w-10 h-10 rounded-full bg-[#1a1a1a] text-[#9fff00] font-bold font-display text-base flex items-center justify-center shrink-0">
+                      <span className="w-10 h-10 rounded-full bg-[#1a1a1a] text-[#C7F36B] font-bold font-display text-base flex items-center justify-center shrink-0">
                         {st.step}
                       </span>
                       <div>
@@ -103,7 +103,7 @@ export default function InstitutionalCollaborationPage() {
             {/* Direct Advisory Action Column */}
             <div className="lg:col-span-4 flex flex-col gap-6">
               <aside className="bg-[#1a1a1a] text-white p-8 rounded-2xl shadow-xl border border-white/10 sticky top-28">
-                <span className="text-xs font-bold uppercase tracking-widest text-[#9fff00] block mb-2 font-sans">
+                <span className="text-xs font-bold uppercase tracking-widest text-[#C7F36B] block mb-2 font-sans">
                   Direct Executive Communication
                 </span>
                 <h3 className="text-2xl font-display font-bold mb-4">
@@ -116,13 +116,13 @@ export default function InstitutionalCollaborationPage() {
                 <div className="flex flex-col gap-4 pt-4 border-t border-white/10 text-sm font-sans mb-8">
                   <div>
                     <span className="text-xs text-zinc-400 block uppercase font-bold">Primary Telephone Advisory</span>
-                    <a href={`tel:${SITE_BRANDING.supportPhone.replace(/[^0-9+]/g, '')}`} className="text-lg font-bold text-white hover:text-[#9fff00] transition-colors mt-0.5 block">
+                    <a href={`tel:${SITE_BRANDING.supportPhone.replace(/[^0-9+]/g, '')}`} className="text-lg font-bold text-white hover:text-[#C7F36B] transition-colors mt-0.5 block">
                       {SITE_BRANDING.supportPhone}
                     </a>
                   </div>
                   <div>
                     <span className="text-xs text-zinc-400 block uppercase font-bold">Directorate Email</span>
-                    <a href={`mailto:${SITE_BRANDING.contactEmail}`} className="text-sm font-bold text-white hover:text-[#9fff00] transition-colors mt-0.5 block">
+                    <a href={`mailto:${SITE_BRANDING.contactEmail}`} className="text-sm font-bold text-white hover:text-[#C7F36B] transition-colors mt-0.5 block">
                       {SITE_BRANDING.contactEmail}
                     </a>
                   </div>
@@ -137,9 +137,9 @@ export default function InstitutionalCollaborationPage() {
                 <button
                   type="button"
                   onClick={() => navigate(`/contact?college=${encodeURIComponent(isTPO ? "TPO Advisory Inquiry" : "Faculty Collaboration Inquiry")}`)}
-                  className="w-full py-4 bg-[#9fff00] text-[#1a1a1a] rounded-full font-bold text-sm tracking-wide hover:bg-white transition-all shadow-md block text-center"
+                  className="w-full py-4 bg-[#C7F36B] text-[#1a1a1a] rounded-full font-bold text-sm tracking-wide hover:bg-white transition-all shadow-md block text-center"
                 >
-                  Schedule Advisory Conference →
+                  Schedule Advisory Conference â†’
                 </button>
               </aside>
             </div>

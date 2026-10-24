@@ -1,106 +1,127 @@
-﻿import React from "react";
-import { motion } from "framer-motion";
+import React from 'react';
+import { SectionShell } from '../../../components/ui/SectionShell';
+import { SpotlightCard } from '../../../components/ui/SpotlightCard';
 
-const benchmarkRows = [
+const COMPARISON_ROWS = [
   {
-    domain: "Study Material",
-    traditional: "Static textbooks that are years behind current tech industry trends.",
-    thaksa: "Practical programming exercises derived directly from recent job technical interview tests.",
-    tag: "Up to Date"
+    code: 'DIM // 01',
+    dimension: 'Classroom Teaching Method',
+    typical: 'One-way slide decks and memorized syntax handouts with zero live coding.',
+    thaksa: 'Practitioner-led workstation execution—every student codes inside Git & cloud sandboxes.',
   },
   {
-    domain: "Classroom Learning",
-    traditional: "One huge class where advanced students get bored and beginners get lost.",
-    thaksa: "Students learn in skill-matched groups so everyone progresses comfortably at their best pace.",
-    tag: "Personalized"
+    code: 'DIM // 02',
+    dimension: 'Student Skill Grouping',
+    typical: '400+ students crowded into a single hall regardless of coding background.',
+    thaksa: 'Diagnostic baseline groups students into Tier A (Product), Tier B (Core), and Tier C (Foundations).',
   },
   {
-    domain: "Final-Year Projects",
-    traditional: "Simple project code folders without automated testing or collaborative tools.",
-    thaksa: "Real team coding workflows (Git), automated test scripts, and live practice presentations.",
-    tag: "Real Projects"
+    code: 'DIM // 03',
+    dimension: 'Final-Year Project Quality',
+    typical: 'Purchased black-box ZIP templates that students cannot explain during viva.',
+    thaksa: 'Step-by-step mentored cloud & AI engineering with CI/CD tests and mock viva defense panels.',
   },
   {
-    domain: "Instructors",
-    traditional: "Lecturers who may not have recent hands-on cloud software development experience.",
-    thaksa: "Experienced software developers actively working in leading tech corporations.",
-    tag: "Industry Experts"
-  }
+    code: 'DIM // 04',
+    dimension: 'Instructor Profile',
+    typical: 'Full-time academic lecturers without recent production software delivery.',
+    thaksa: 'Active software engineers and architects from THAKSA Software Studio in Gachibowli.',
+  },
+  {
+    code: 'DIM // 05',
+    dimension: 'TPO & Principal Accountability',
+    typical: 'A generic attendance sheet handed over on the final day.',
+    thaksa: 'Weekly Friday proctored test scorecards, GitHub repository links, and interview readiness rubrics.',
+  },
 ];
 
 export default function PaperEvidenceTable() {
   return (
-    <section aria-label="Why Practical Training Matters" className="w-full bg-[#EDEEF5] py-14 sm:py-24 border-b border-black/[0.06]">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 md:px-10">
-        
-        <div className="max-w-3xl mb-10 sm:mb-12">
-          <span className="text-xs font-bold uppercase tracking-widest text-zinc-500 font-sans block mb-2">
-            Why Our Training Works
-          </span>
-          <h2 className="text-3xl sm:text-4xl md:text-5xl font-display font-bold text-[#1a1a1a] tracking-tight leading-tight mb-3 sm:mb-4">
-            Traditional theory vs. practical training.
-          </h2>
-          <p className="text-sm sm:text-base md:text-lg font-sans text-zinc-600 leading-relaxed">
-            Here is a clear side-by-side comparison showing why our practical bootcamps help students perform much better in job interviews compared to traditional classroom study.
-          </p>
-        </div>
-
-        <motion.div
-          initial={{ opacity: 0, y: 15 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
-          className="neo-glass rounded-2xl border border-black/[0.08] overflow-hidden shadow-sm"
-        >
-          <div className="overflow-x-auto w-full">
-            <table className="w-full text-left border-collapse min-w-[650px] sm:min-w-[700px]">
-              <thead>
-                <tr className="bg-[#1a1a1a] text-white border-b border-black/10">
-                  <th className="p-4 sm:p-6 text-xs sm:text-sm font-display font-bold uppercase tracking-wider w-[22%]">
-                    Topic
-                  </th>
-                  <th className="p-4 sm:p-6 text-xs sm:text-sm font-sans font-medium text-zinc-400 w-[38%] bg-white/[0.03]">
-                    Traditional University Teaching
-                  </th>
-                  <th className="p-4 sm:p-6 text-xs sm:text-sm font-display font-bold text-[#9fff00] w-[40%]">
-                    THAKSAAI Practical Training
-                  </th>
-                </tr>
-              </thead>
-              <tbody className="divide-y divide-black/[0.06]">
-                {benchmarkRows.map((row, idx) => (
-                  <tr key={idx} className="hover:bg-white/50 transition-colors">
-                    <td className="p-4 sm:p-6 text-sm sm:text-base font-display font-bold text-[#1a1a1a]">
-                      {row.domain}
-                    </td>
-                    <td className="p-4 sm:p-6 text-xs sm:text-base font-sans text-zinc-600 leading-relaxed bg-black/[0.015]">
-                      <div className="flex items-start gap-2 sm:gap-2.5">
-                        <span className="text-red-500 font-bold font-mono mt-0.5 shrink-0">✕</span>
-                        <span>{row.traditional}</span>
-                      </div>
-                    </td>
-                    <td className="p-4 sm:p-6 text-xs sm:text-base font-sans font-medium text-[#1a1a1a] leading-relaxed bg-white/60">
-                      <div className="flex flex-col gap-2.5 sm:gap-3">
-                        <div className="flex items-start gap-2 sm:gap-2.5">
-                          <span className="text-[#0D9488] font-bold font-mono text-sm sm:text-base mt-0.5 shrink-0">✓</span>
-                          <span>{row.thaksa}</span>
-                        </div>
-                        <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider bg-[#1a1a1a] text-[#9fff00] w-max shadow-xs">
-                          ● {row.tag}
-                        </span>
-                      </div>
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
-          <div className="p-4 sm:p-5 bg-black/[0.02] border-t border-black/[0.06] flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2 text-xs text-zinc-500 font-sans">
-            <span>Proven across partner engineering colleges in Computer Science and Engineering.</span>
-            <span className="font-semibold text-[#1a1a1a] shrink-0">● Proven Results</span>
-          </div>
-        </motion.div>
+    <SectionShell
+      id="evidence-comparison"
+      tone="porcelain"
+      eyebrow="PEDAGOGICAL CONTRAST MATRIX // 005"
+      title="Why generic training fails—and why THAKSA students actually build."
+      subtitle="See the exact difference between passive lecture vendors and THAKSA.AI’s workstation-first teaching system."
+    >
+      {/* Desktop Semantic Accessible Matrix */}
+      <div className="hidden md:block overflow-hidden rounded-3xl border border-[#DDE1DA] bg-white shadow-[0_24px_48px_-24px_rgba(16,24,40,0.14)]">
+        <table className="w-full text-left border-collapse">
+          <caption className="sr-only">
+            Comparison between generic classroom training and THAKSA engineering pedagogy across five institutional dimensions
+          </caption>
+          <thead>
+            <tr className="bg-[#0B1120] text-[#F7F8F4] font-mono text-xs uppercase tracking-[0.14em]">
+              <th scope="col" className="py-5 px-6 w-[25%] border-r border-white/10">
+                Teaching Dimension
+              </th>
+              <th scope="col" className="py-5 px-6 w-[35%] border-r border-white/10 text-slate-300">
+                ✕ Generic Coaching Vendors
+              </th>
+              <th scope="col" className="py-5 px-6 w-[40%] text-[#C7F36B]">
+                ✓ THAKSA Teaching Architecture
+              </th>
+            </tr>
+          </thead>
+          <tbody className="divide-y divide-[#E3E5DE] text-sm">
+            {COMPARISON_ROWS.map((row) => (
+              <tr key={row.code} className="group hover:bg-[#F7F8F4] transition-colors">
+                <th
+                  scope="row"
+                  className="py-5 px-6 align-top border-r border-[#E3E5DE]"
+                >
+                  <span className="font-mono text-[10px] uppercase tracking-[0.14em] text-[#3659D9] block mb-1">
+                    {row.code}
+                  </span>
+                  <span className="font-display font-bold text-base text-[#101828]">
+                    {row.dimension}
+                  </span>
+                </th>
+                <td className="py-5 px-6 text-[#5B6475] align-top border-r border-[#E3E5DE] leading-relaxed">
+                  {row.typical}
+                </td>
+                <td className="py-5 px-6 text-[#101828] font-medium align-top leading-relaxed bg-[#C7F36B]/[0.07] group-hover:bg-[#C7F36B]/[0.14] transition-colors">
+                  <div className="flex items-start gap-3">
+                    <span
+                      aria-hidden="true"
+                      className="mt-0.5 w-5 h-5 rounded-md bg-[#101828] text-[#C7F36B] font-mono text-xs flex items-center justify-center shrink-0"
+                    >
+                      ✓
+                    </span>
+                    <span>{row.thaksa}</span>
+                  </div>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
       </div>
-    </section>
+
+      {/* Mobile Stacked Spotlight Cards (< 768px) */}
+      <div className="grid grid-cols-1 gap-4 md:hidden">
+        {COMPARISON_ROWS.map((row) => (
+          <SpotlightCard key={row.code} tone="light" className="p-5 flex flex-col gap-3">
+            <div>
+              <span className="font-mono text-[10px] font-bold uppercase tracking-[0.14em] text-[#3659D9]">
+                {row.code}
+              </span>
+              <h3 className="text-lg font-display font-bold text-[#101828]">{row.dimension}</h3>
+            </div>
+            <div className="p-3.5 rounded-xl bg-[#F7F8F4] border border-[#E3E5DE]">
+              <div className="font-mono text-[10px] uppercase tracking-wider text-rose-600 mb-1">
+                ✕ Generic Coaching
+              </div>
+              <p className="text-xs text-[#5B6475] leading-relaxed">{row.typical}</p>
+            </div>
+            <div className="p-4 rounded-xl bg-[#0B1120] text-white">
+              <div className="font-mono text-[10px] uppercase tracking-wider text-[#C7F36B] mb-1">
+                ✓ THAKSA Teaching Practice
+              </div>
+              <p className="text-xs text-slate-100 leading-relaxed">{row.thaksa}</p>
+            </div>
+          </SpotlightCard>
+        ))}
+      </div>
+    </SectionShell>
   );
 }

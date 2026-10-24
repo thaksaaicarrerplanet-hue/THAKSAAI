@@ -1,178 +1,276 @@
-import React from "react";
-import { Helmet } from "react-helmet-async";
-import { useNavigate } from "react-router-dom";
-import { motion } from "framer-motion";
-import { SITE_BRANDING } from "../../theme/masterThemeConfig";
+import React, { useState } from 'react';
+import { Helmet } from 'react-helmet-async';
+import { useNavigate } from 'react-router-dom';
+import { SITE_BRANDING } from '../../theme/masterThemeConfig';
+import { SpotlightCard } from '../../components/ui/SpotlightCard';
+import { DepthButton } from '../../components/ui/DepthButton';
+import { useTextScramble } from '../../hooks/useTextScramble';
 
-const internshipOfferings = [
+const INTERNSHIP_DOMAINS = [
   {
-    badge: "AI & GenAI Intern",
-    title: "Artificial Intelligence & Smart Tools",
-    desc: "You'll learn how to build real AI-powered apps — chatbots, smart search tools, and automated assistants. We use the same tools that companies like Google and OpenAI use, and you'll build working products from day one."
+    id: 'ai-genai',
+    code: 'DOM // 01',
+    badge: 'AI & GenAI Engineering Intern',
+    title: 'Artificial Intelligence, RAG & Agent Systems',
+    duration: '8 to 16 Weeks · In-Office (Gachibowli)',
+    desc: 'Sit alongside our AI engineers to build production LLM applications—document-grounded RAG assistants, intelligent workflow automation, and structured API services.',
+    stack: ['Python', 'FastAPI', 'OpenAI / Gemini', 'Vector DBs', 'Docker'],
+    sprints: [
+      'Weeks 01–03 // Python API Architecture, Git Branching & Prompt Guardrails',
+      'Weeks 04–08 // Vector Embeddings, Hybrid Search & RAG Microservice Build',
+      'Weeks 09–12 // Agentic Tool-Calling & Frontend Integration',
+      'Weeks 13–16 // Production Load Testing, Code Review & Live Deployment',
+    ],
   },
   {
-    badge: "Full-Stack Web Intern",
-    title: "Web Development & Full-Stack Apps",
-    desc: "Learn how to build complete websites and web apps from scratch — the front-end that users see, and the back-end that makes it all work. You'll work on real client projects alongside our senior developers."
+    id: 'fullstack-web',
+    code: 'DOM // 02',
+    badge: 'Full-Stack Software Intern',
+    title: 'Modern Full-Stack Web & API Engineering',
+    duration: '8 to 16 Weeks · In-Office (Gachibowli)',
+    desc: 'Build complete, production-grade web applications from relational database schemas and authenticated REST APIs to responsive React interfaces on real studio projects.',
+    stack: ['React 19', 'Node.js / Express', 'PostgreSQL', 'TypeScript', 'Git'],
+    sprints: [
+      'Weeks 01–03 // Relational Schema Design, SQL Indexing & Git PR Workflow',
+      'Weeks 04–08 // JWT Auth, Role-Based Access & REST API Endpoints',
+      'Weeks 09–12 // Component Architecture, State Management & Performance',
+      'Weeks 13–16 // End-to-End Testing, CI/CD & Production Release',
+    ],
   },
   {
-    badge: "DevOps Engineer Intern",
-    title: "Cloud Hosting & App Deployment",
-    desc: "Learn how to take a finished app and put it live on the internet, keep it running 24/7, and automatically update it when changes are made. These are skills every tech company needs and very few freshers have."
+    id: 'cloud-devops',
+    code: 'DOM // 03',
+    badge: 'Cloud & DevOps Intern',
+    title: 'Cloud Infrastructure, Docker & CI/CD Automation',
+    duration: '8 to 12 Weeks · In-Office / Hybrid',
+    desc: 'Master the infrastructure skills very few freshers possess: containerizing applications, writing GitHub Actions pipelines, managing Linux servers, and monitoring uptime.',
+    stack: ['Linux', 'Docker', 'GitHub Actions', 'Nginx', 'Cloud Hosting'],
+    sprints: [
+      'Weeks 01–03 // Linux Administration, Shell Scripting & Networking',
+      'Weeks 04–06 // Multi-Stage Dockerfiles & Container Orchestration',
+      'Weeks 07–09 // Automated Testing & CI/CD Deployment Pipelines',
+      'Weeks 10–12 // Reverse Proxies, SSL, Security & Uptime Observability',
+    ],
   },
   {
-    badge: "Digital Marketing Intern",
-    title: "Digital Marketing & Online Growth",
-    desc: "Learn how businesses actually get customers online — through Google, Instagram, and content. You'll run real campaigns, track results, and understand what actually drives growth for a business."
-  }
+    id: 'digital-growth',
+    code: 'DOM // 04',
+    badge: 'Growth & Product Marketing Intern',
+    title: 'Digital Growth, Analytics & Technical Positioning',
+    duration: '8 to 12 Weeks · In-Office (Gachibowli)',
+    desc: 'Learn how software products and B2B brands acquire users—running measurable campaigns, conversion funnels, SEO architecture, and performance analytics.',
+    stack: ['Search & SEO', 'Funnel Analytics', 'Content Systems', 'CRM Automation'],
+    sprints: [
+      'Weeks 01–03 // Market Positioning, ICP Research & Funnel Architecture',
+      'Weeks 04–06 // High-Conversion Landing Pages & Content Execution',
+      'Weeks 07–09 // Paid & Organic Campaign Operations',
+      'Weeks 10–12 // Attribution Reporting & Growth Portfolio Defense',
+    ],
+  },
 ];
 
 export default function InternshipsPage() {
   const navigate = useNavigate();
+  const [selectedDomainId, setSelectedDomainId] = useState(INTERNSHIP_DOMAINS[0].id);
+
+  const eyebrow = useTextScramble(
+    'PILLAR 03 // IN-OFFICE STUDIO INTERNSHIPS AT GACHIBOWLI HQ',
+    { duration: 600, trigger: true }
+  );
+
+  const activeDomain =
+    INTERNSHIP_DOMAINS.find((d) => d.id === selectedDomainId) || INTERNSHIP_DOMAINS[0];
 
   return (
     <>
       <Helmet>
-        <title>Professional Domain Internships | THAKSAAI</title>
+        <title>Supervised In-Office Engineering Internships | THAKSA.AI</title>
         <meta
           name="description"
-          content="Apply for in-person THAKSAAI office internships in AI & GenAI, Full-Stack Web, DevOps, Digital Marketing, and Business Development at Jyothi Imperial, Gachibowli."
+          content="Apply for face-to-face engineering internships in AI & GenAI, Full-Stack Web, Cloud DevOps, and Digital Growth at THAKSA.AI HQ in Jyothi Imperial, Gachibowli, Hyderabad."
         />
       </Helmet>
-      
-      <main className="w-full min-h-screen bg-[#EDEEF5] pt-28 sm:pt-36 pb-24 px-6 md:px-10 text-[#1a1a1a] selection:bg-[#9fff00] selection:text-black">
-        
-        <div className="max-w-7xl mx-auto">
-          
-          {/* Header */}
-          <header className="max-w-4xl mb-20 pb-12 border-b border-black/[0.08]">
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5 }}
-            >
-              <div className="inline-flex items-center gap-2 bg-[#1a1a1a] text-[#9fff00] px-4 py-1.5 rounded-full text-xs font-bold uppercase tracking-widest shadow-md mb-6">
-                <span className="w-2 h-2 rounded-full bg-[#9fff00] block animate-pulse"></span>
-                In-Person Office Internships
-              </div>
-              <h1 className="text-4xl sm:text-5xl md:text-6xl font-display font-bold text-[#1a1a1a] tracking-tight leading-[1.12] mb-6">
-                Learn by working on real projects, in person.
-              </h1>
-              <p className="text-lg sm:text-xl font-sans text-zinc-600 leading-relaxed mb-8">
-                Forget online courses and YouTube tutorials. Our internships happen face-to-face inside our office at <strong className="text-[#1a1a1a]">{SITE_BRANDING.buildingName}, Gachibowli</strong>. You sit next to experienced developers and work on real projects together, every single day.
-              </p>
-            </motion.div>
-          </header>
 
-          {/* Official 6 Domain Showcase Grid */}
-          <section aria-label="Official Internship Domain Offerings" className="mb-24">
-            <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-6 mb-12">
-              <div>
-                <span className="text-xs font-bold uppercase tracking-widest text-zinc-500 font-sans block mb-2">
-                  Open Internships (2026)
+      <div className="w-full min-h-screen bg-[#F7F8F4] text-[#101828]">
+        {/* Dark Spatial Hero */}
+        <section className="relative w-full bg-[#080D1A] text-white iso-grid-dark border-b border-white/10 py-16 sm:py-24 overflow-hidden">
+          <div
+            aria-hidden="true"
+            className="pointer-events-none absolute -top-28 right-1/4 w-[500px] h-[500px] rounded-full bg-[#C7F36B]/12 blur-[140px]"
+          />
+
+          <div className="relative z-10 max-w-[1280px] mx-auto px-4 sm:px-6 md:px-10">
+            <div className="max-w-3xl">
+              <div className="inline-flex items-center gap-2.5 px-3.5 py-1.5 rounded-full bg-white/[0.06] border border-white/15 mb-6">
+                <span className="w-2 h-2 rounded-full bg-[#C7F36B] animate-pulse" />
+                <span className="font-mono text-[11px] uppercase tracking-[0.16em] text-[#C7F36B]">
+                  {eyebrow}
                 </span>
-                <h2 className="text-3xl sm:text-4xl font-display font-bold text-[#1a1a1a] tracking-tight">
-                  Which area do you want to work in?
+              </div>
+
+              <h1
+                className="font-display font-bold text-white tracking-[-0.03em] leading-[1.06] mb-6"
+                style={{ fontSize: 'clamp(2.25rem, 4.5vw + 1rem, 4.25rem)' }}
+              >
+                Forget recorded videos.{' '}
+                <span className="text-[#C7F36B]">Sit beside senior developers and ship.</span>
+              </h1>
+
+              <p className="text-base sm:text-lg text-slate-300 leading-relaxed mb-8">
+                Our internships happen face-to-face inside our engineering studio at{' '}
+                <strong className="text-white">{SITE_BRANDING.buildingName}, Gachibowli, Hyderabad</strong>.
+                You work on real sprint tickets, undergo daily pull-request code reviews, and
+                graduate with verifiable production experience.
+              </p>
+
+              <div className="flex flex-wrap items-center gap-3.5">
+                <DepthButton to="/contact?track=internships" variant="electric" size="lg">
+                  <span>Apply for Gachibowli Internship</span>
+                  <span aria-hidden="true">→</span>
+                </DepthButton>
+                <DepthButton
+                  href={SITE_BRANDING.whatsappLink}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  variant="ghostDark"
+                  size="lg"
+                >
+                  <span>WhatsApp Coordinator</span>
+                </DepthButton>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* Interactive 16-Week Sprint Explorer + Domain Grid */}
+        <section className="max-w-[1280px] mx-auto px-4 sm:px-6 md:px-10 py-16 sm:py-24">
+          {/* Interactive Sprint Roadmap Stage */}
+          <SpotlightCard tone="dark" className="p-6 sm:p-10 mb-16">
+            <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-6 pb-8 border-b border-white/10">
+              <div>
+                <span className="font-mono text-xs uppercase tracking-[0.16em] text-[#C7F36B] block mb-2">
+                  INTERACTIVE 16-WEEK SPRINT INSPECTOR
+                </span>
+                <h2 className="text-2xl sm:text-3xl font-display font-bold text-white">
+                  How we mentor interns week by week at our Gachibowli office
                 </h2>
               </div>
-              <div className="inline-flex items-center gap-2 text-xs font-bold text-zinc-700 bg-white/70 px-4 py-2.5 rounded-xl border border-black/10 shrink-0 shadow-sm neo-glass">
-                <span className="w-2 h-2 rounded-full bg-[#1a1a1a]"></span>
-                Direct Mentorship at HQ
+
+              <div className="flex flex-wrap gap-2">
+                {INTERNSHIP_DOMAINS.map((dom) => {
+                  const active = dom.id === selectedDomainId;
+                  return (
+                    <button
+                      key={dom.id}
+                      type="button"
+                      onClick={() => setSelectedDomainId(dom.id)}
+                      className={`px-3.5 py-2 rounded-xl font-mono text-xs uppercase tracking-wider border transition-all cursor-pointer ${
+                        active
+                          ? 'bg-[#C7F36B] text-[#101828] border-[#C7F36B] font-bold'
+                          : 'bg-white/[0.05] text-slate-300 border-white/10 hover:text-white'
+                      }`}
+                    >
+                      {dom.code}
+                    </button>
+                  );
+                })}
               </div>
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
-              {internshipOfferings.map((item, idx) => (
-                <motion.div
-                  key={idx}
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.5, delay: idx * 0.1 }}
-                  className="neo-glass bg-white p-8 sm:p-10 rounded-3xl border border-black/[0.08] flex flex-col h-full shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300"
-                >
-                  <div className="mb-auto">
-                    <span className="inline-block px-3 py-1 bg-[#1a1a1a] text-[#9fff00] text-xs font-bold font-mono uppercase tracking-wider rounded-full mb-6">
-                      {item.badge}
+            <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 pt-8 items-center">
+              <div className="lg:col-span-5 flex flex-col gap-4">
+                <span className="font-mono text-xs text-[#C7F36B] uppercase tracking-wider">
+                  {activeDomain.badge} · {activeDomain.duration}
+                </span>
+                <h3 className="text-2xl font-display font-bold text-white">{activeDomain.title}</h3>
+                <p className="text-sm text-slate-300 leading-relaxed">{activeDomain.desc}</p>
+                <div className="flex flex-wrap gap-2 pt-2">
+                  {activeDomain.stack.map((tech) => (
+                    <span
+                      key={tech}
+                      className="font-mono text-xs px-3 py-1 rounded-lg bg-white/[0.06] border border-white/10 text-[#C7F36B]"
+                    >
+                      {tech}
                     </span>
-                    <h3 className="text-2xl font-display font-bold text-[#1a1a1a] tracking-tight leading-snug mb-4">
-                      {item.title}
-                    </h3>
-                    <p className="text-base font-sans text-zinc-600 leading-relaxed mb-8">
-                      {item.desc}
-                    </p>
-                  </div>
-                  
-                  <button
-                    type="button"
-                    onClick={() => navigate(`/contact?internship=${encodeURIComponent(item.badge)}`)}
-                    className="w-full inline-flex items-center justify-center gap-2 bg-white text-[#1a1a1a] border border-black/15 hover:border-black px-6 py-3 rounded-full text-sm font-bold tracking-wide transition-all shadow-xs hover:shadow-sm focus:outline-none"
-                  >
-                    Apply for This →
-                  </button>
-                </motion.div>
-              ))}
-            </div>
-          </section>
+                  ))}
+                </div>
+              </div>
 
-          {/* Value Adds Section */}
-          <section aria-label="What Interns Gain" className="mb-24 bg-[#1a1a1a] p-8 sm:p-14 md:p-16 rounded-3xl border border-white/10 shadow-2xl relative overflow-hidden">
-            <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-[#9fff00]/5 rounded-full blur-3xl pointer-events-none"></div>
-            
-            <div className="relative z-10">
-              <span className="text-xs font-bold uppercase tracking-widest text-zinc-500 font-sans block mb-2">
-                The Office Environment
-              </span>
-              <h3 className="text-3xl sm:text-4xl font-display font-bold text-white tracking-tight mb-12">
-                What THAKSAAI Interns Gain
-              </h3>
-              
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 font-sans">
-                {[
-                  { title: "Work with Real Clients", desc: "You'll sit in on actual client meetings and see how software is scoped, discussed, and delivered in a professional setting." },
-                  { title: "Work at Our Office", desc: `You'll come to our ${SITE_BRANDING.buildingName} office every day and work directly alongside our senior developers.` },
-                  { title: "Understand How Businesses Work", desc: "You'll see how a real tech company finds clients, closes deals, and builds products that people actually pay for." },
-                  { title: "Get a Real Certificate", desc: "Once you complete the program, you get a certificate of professional experience that you can show employers and add to your resume." },
-                ].map((m, i) => (
-                  <div key={i} className="flex flex-col">
-                    <h4 className="text-lg font-bold font-display text-white mb-3">
-                      {m.title}
-                    </h4>
-                    <p className="text-sm text-zinc-400 leading-relaxed font-normal">
-                      {m.desc}
+              <div className="lg:col-span-7 grid grid-cols-1 sm:grid-cols-2 gap-3.5">
+                {activeDomain.sprints.map((sprint, i) => (
+                  <div
+                    key={sprint}
+                    className="p-4 rounded-2xl bg-[#070B14] border border-white/10 flex flex-col justify-between gap-2"
+                  >
+                    <span className="font-mono text-xs font-bold text-[#C7F36B]">
+                      STAGE 0{i + 1}
+                    </span>
+                    <p className="text-xs sm:text-sm font-mono text-slate-200 leading-relaxed">
+                      {sprint}
                     </p>
-                    <div className="w-12 h-1 bg-[#9fff00]/30 mt-6 rounded-full"></div>
                   </div>
                 ))}
               </div>
             </div>
-          </section>
+          </SpotlightCard>
 
-          {/* Bottom Conversion Capsule */}
-          <section aria-label="Student Enrollment Banner" className="bg-white p-8 sm:p-12 md:p-14 rounded-3xl flex flex-col lg:flex-row items-start lg:items-center justify-between gap-8 shadow-xl border border-black/[0.08] neo-glass">
-            <div className="max-w-2xl">
-              <span className="inline-flex items-center gap-2 text-xs font-sans text-zinc-500 font-bold uppercase tracking-wider mb-3">
-                <span className="w-2 h-2 rounded-full bg-[#1a1a1a]"></span>
-                For Passionate Engineering Candidates
-              </span>
-              <h3 className="text-2xl sm:text-3xl md:text-4xl font-display font-bold text-[#1a1a1a] tracking-tight leading-tight">
-                Ready to stop watching tutorials and start working on real things?
-              </h3>
-              <p className="text-sm sm:text-base font-sans font-normal text-zinc-600 mt-4 leading-relaxed">
-                We care more about your attitude and curiosity than your grades. Share your details and come meet our team at <strong className="text-[#1a1a1a]">{SITE_BRANDING.buildingName}</strong>.
-              </p>
-            </div>
-            <button
-              type="button"
-              onClick={() => navigate("/contact?internship=General Application")}
-              className="bg-[#1a1a1a] text-white px-8 py-4 rounded-full text-sm sm:text-base font-bold tracking-wide hover:bg-black transition-all shadow-lg shrink-0 focus:outline-none focus:ring-2 focus:ring-[#9fff00] hover:-translate-y-1"
-            >
-              Apply for Internship →
-            </button>
-          </section>
+          {/* All Domain Cards */}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8">
+            {INTERNSHIP_DOMAINS.map((item) => (
+              <SpotlightCard
+                key={item.id}
+                tone="light"
+                tilt
+                maxTilt={3}
+                className="p-7 sm:p-9 flex flex-col justify-between gap-6"
+              >
+                <div>
+                  <div className="flex items-center justify-between gap-2 mb-4">
+                    <span className="px-3 py-1 rounded-full bg-[#101828] text-[#C7F36B] font-mono text-xs font-bold uppercase tracking-wider">
+                      {item.badge}
+                    </span>
+                    <span className="font-mono text-xs text-[#3659D9] font-semibold">
+                      {item.code}
+                    </span>
+                  </div>
 
-        </div>
-      </main>
+                  <h3 className="text-2xl font-display font-bold text-[#101828] mb-3">
+                    {item.title}
+                  </h3>
+                  <p className="text-sm sm:text-base text-[#5B6475] leading-relaxed mb-5">
+                    {item.desc}
+                  </p>
+
+                  <div className="flex flex-wrap gap-2 pt-4 border-t border-[#E3E5DE]">
+                    {item.stack.map((tech) => (
+                      <span
+                        key={tech}
+                        className="font-mono text-[11px] px-2.5 py-1 rounded bg-[#F7F8F4] border border-[#E3E5DE] text-[#101828]"
+                      >
+                        {tech}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+
+                <DepthButton
+                  onClick={() =>
+                    navigate(
+                      `/contact?track=internships&query=${encodeURIComponent(item.badge)}`
+                    )
+                  }
+                  variant="precision"
+                  size="md"
+                  className="w-full"
+                >
+                  <span>Apply for {item.badge}</span>
+                  <span aria-hidden="true">→</span>
+                </DepthButton>
+              </SpotlightCard>
+            ))}
+          </div>
+        </section>
+      </div>
     </>
   );
 }

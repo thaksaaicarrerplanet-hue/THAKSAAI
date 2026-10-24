@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+﻿import React, { useState } from "react";
 import { Helmet } from "react-helmet-async";
 import { useLocation, useNavigate } from "react-router-dom";
 import { SITE_BRANDING } from "../../theme/masterThemeConfig";
@@ -37,13 +37,13 @@ export default function ComplianceAndSecurityPage() {
         />
       </Helmet>
 
-      <main className="w-full min-h-screen bg-[#EDEEF5] pt-28 sm:pt-36 pb-24 px-4 sm:px-6 md:px-10 text-[#1a1a1a] selection:bg-[#9fff00] selection:text-black">
+      <main className="w-full min-h-screen bg-[#F7F8F4] pt-28 sm:pt-36 pb-24 px-4 sm:px-6 md:px-10 text-[#1a1a1a] selection:bg-[#C7F36B] selection:text-black">
         <div className="max-w-5xl mx-auto">
           
           {/* Header & Tab Bar */}
           <header className="mb-12 pb-8 border-b border-black/[0.08]">
             <div className="inline-flex items-center gap-2.5 bg-white/90 px-4 py-1.5 rounded-full text-xs font-bold uppercase tracking-wider text-[#1a1a1a] mb-4 shadow-2xs border border-black/5">
-              <span className="w-2 h-2 rounded-full bg-[#9fff00] block"></span>
+              <span className="w-2 h-2 rounded-full bg-[#C7F36B] block"></span>
               <span>Corporate Governance & Institutional Compliance</span>
             </div>
             <h1 className="text-3xl sm:text-4xl md:text-5xl font-display font-bold text-[#1a1a1a] tracking-tight mb-6">
@@ -81,7 +81,7 @@ export default function ComplianceAndSecurityPage() {
                 <h2 className="text-2xl sm:text-3xl font-display font-bold text-[#1a1a1a]">
                   THAKSAAI Terms of Service (Academic & Enterprise Sprints)
                 </h2>
-                <p className="text-sm text-zinc-500 font-mono">Effective Date: August 2026 • Governing Office: {SITE_BRANDING.buildingName}, Hyderabad</p>
+                <p className="text-sm text-zinc-500 font-mono">Effective Date: August 2026 â€¢ Governing Office: {SITE_BRANDING.buildingName}, Hyderabad</p>
                 
                 <section className="flex flex-col gap-3 mt-2">
                   <h3 className="text-lg font-bold font-display text-[#1a1a1a]">1. Institutional Mandate & Agreement Scoping</h3>
@@ -181,7 +181,7 @@ export default function ComplianceAndSecurityPage() {
             )}
 
             {/* Bottom Contact Box */}
-            <div className="mt-12 pt-8 border-t border-black/[0.08] flex flex-col sm:flex-row items-center justify-between gap-6 bg-[#EDEEF5]/60 p-6 rounded-xl">
+            <div className="mt-12 pt-8 border-t border-black/[0.08] flex flex-col sm:flex-row items-center justify-between gap-6 bg-[#F7F8F4]/60 p-6 rounded-xl">
               <div>
                 <strong className="text-base font-display font-bold text-[#1a1a1a] block">Have Legal or Compliance Queries?</strong>
                 <p className="text-xs sm:text-sm text-zinc-600 mt-1">Directly contact our General Counsel & Admin Directorate at HQ.</p>
@@ -191,7 +191,7 @@ export default function ComplianceAndSecurityPage() {
                 onClick={() => navigate("/contact?college=Legal Compliance Inquiry")}
                 className="bg-[#1a1a1a] text-white px-6 py-3 rounded-full font-bold text-xs sm:text-sm tracking-wide hover:bg-black transition-all shrink-0 shadow-sm"
               >
-                Contact Directorate →
+                Contact Directorate â†’
               </button>
             </div>
 
