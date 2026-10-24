@@ -57,6 +57,7 @@ const configuredOrigins = (process.env.FRONTEND_ORIGINS || '')
 const allowedOrigins = new Set([
     'https://thaksaai.in',
     'https://www.thaksaai.in',
+    'https://thaksaelearningplatform.vercel.app',
     'http://localhost:5173',
     ...configuredOrigins
 ]);
