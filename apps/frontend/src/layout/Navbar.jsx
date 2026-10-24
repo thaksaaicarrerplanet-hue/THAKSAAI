@@ -8,6 +8,8 @@ const NAV_ITEMS = [
   { label: 'Workshops', path: '/workshops' },
   { label: 'CRT Training', path: '/crt' },
   { label: 'Internships', path: '/internships' },
+  { label: 'Projects', path: '/final-year-projects' },
+  { label: 'Courses', path: '/courses' },
   { label: 'Studio', path: '/studio' },
   { label: 'About', path: '/about' },
 ];
