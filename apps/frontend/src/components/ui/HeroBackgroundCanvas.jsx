@@ -129,7 +129,10 @@ export default function HeroBackgroundCanvas({ className = "" }) {
       }
 
       renderer.render(scene, camera);
-      if (!disposed && !hasRendered) {\n        hasRendered = true;\n        setRenderState("active");\n      }
+      if (!disposed && !hasRendered) {
+        hasRendered = true;
+        setRenderState("active");
+      }
       if (!reducedMotion) scheduleFrame();
     };
 
