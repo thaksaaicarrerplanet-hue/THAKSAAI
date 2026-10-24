@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { useReducedMotion } from '../../hooks/useReducedMotion';
 
 /**
@@ -56,6 +56,14 @@ export function SpotlightCard({
     cardRef.current.style.transform =
       'perspective(1000px) rotateX(0deg) rotateY(0deg) translateY(0px)';
   };
+
+  useEffect(() => {
+    if (!reducedMotion || !cardRef.current) return;
+    cardRef.current.style.transform = 'none';
+    cardRef.current.style.removeProperty('--mouse-x');
+    cardRef.current.style.removeProperty('--mouse-y');
+    setHovered(false);
+  }, [reducedMotion]);
 
   const baseToneClasses = isDark
     ? 'bg-[#111A2E]/95 text-[#F7F8F4] border border-white/12 shadow-[0_24px_48px_-24px_rgba(0,0,0,0.65)]'
