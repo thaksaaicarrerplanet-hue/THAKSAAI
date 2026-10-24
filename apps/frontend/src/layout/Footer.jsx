@@ -5,7 +5,8 @@ import { prefetchRoute } from '../routes/lazy';
 
 export default function Footer() {
   const scrollToTop = () => {
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+    const reducedMotion = window.matchMedia?.("(prefers-reduced-motion: reduce)").matches;
+    window.scrollTo({ top: 0, behavior: reducedMotion ? "auto" : "smooth" });
   };
 
   return (
@@ -142,7 +143,7 @@ export default function Footer() {
                   {SITE_BRANDING.buildingName}
                 </div>
                 <p className="text-xs text-slate-300 leading-relaxed mt-1">
-                  Diamond Hills, Lumbini Avenue, Gachibowli, Hyderabad, Telangana 500032
+                  {SITE_BRANDING.officeAddress}
                 </p>
               </div>
               <div className="h-px bg-white/10" />
@@ -216,9 +217,9 @@ export default function Footer() {
 
         {/* Bottom Attribution Bar */}
         <div className="pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-slate-400 font-mono">
-          <p>© {new Date().getFullYear()} {SITE_BRANDING.name}. All institutional syllabus frameworks verified.</p>
+          <p>© {new Date().getFullYear()} {SITE_BRANDING.name}. Workshops · CRT · Internships · Capstone projects.</p>
           <p className="text-slate-400">
-            Engineered in Gachibowli, Hyderabad · Built for 4G & Institutional Scale
+            Designed for practical engineering learning · Built for accessible delivery
           </p>
         </div>
       </div>

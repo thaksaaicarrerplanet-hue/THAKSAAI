@@ -9,7 +9,7 @@ const EDUCATIONAL_ORG_JSON_LD = {
   '@context': 'https://schema.org',
   '@type': 'EducationalOrganization',
   name: SITE_BRANDING.name,
-  url: 'https://www.thaksa.ai/about',
+  url: 'https://www.thaksaai.in/about',
   founder: {
     '@type': 'Person',
     name: 'K. Tharunkrishna',

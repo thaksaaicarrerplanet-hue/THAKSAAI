@@ -9,6 +9,7 @@ import { DepthButton } from '../../components/ui/DepthButton';
 export default function ContactPage() {
   const [searchParams] = useSearchParams();
   const initialQuery = searchParams.get('query') || '';
+  const initialCompany = searchParams.get('college') || searchParams.get('organization') || '';
   const initialTrack = searchParams.get('track') || searchParams.get('interest') || 'crt';
   const mountTimeRef = useRef(Date.now());
 
@@ -16,7 +17,7 @@ export default function ContactPage() {
   const [errorMsg, setErrorMsg] = useState('');
 
   const [formData, setFormData] = useState({
-    company: '',
+    company: initialCompany,
     name: '',
     email: '',
     phone: '',
@@ -176,7 +177,7 @@ export default function ContactPage() {
                   </div>
                 </div>
               ) : (
-                <form onSubmit={handleSubmit} className="flex flex-col gap-5" noValidate>
+                <form onSubmit={handleSubmit} className="flex flex-col gap-5">
                   <div className="pb-4 border-b border-[#E3E5DE]">
                     <span className="font-mono text-[11px] uppercase tracking-[0.14em] text-[#3659D9]">
                       INTAKE SPECIFICATION

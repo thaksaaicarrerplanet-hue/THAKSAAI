@@ -6,6 +6,7 @@ import AuthLayout from "../auth/AuthLayout";
 import useToast from "../../hooks/useToast";
 import BrandLogo from "../../components/common/BrandLogo";
 import { SITE_BRANDING } from "../../theme/masterThemeConfig";
+import { dashboardPathForRole, persistStoredSession } from "../../services/authSession";
 
 export default function LoginPage() {
   const navigate = useNavigate();
@@ -32,70 +33,38 @@ export default function LoginPage() {
 
   const handleLogin = async (e) => {
     e.preventDefault();
-    if (!validate()) return;
+    if (!validate() || loading) return;
 
+    setLoading(true);
     try {
-      setLoading(true);
-      const data = await login(formData);
+      const response = await login({
+        email: formData.email.trim(),
+        password: formData.password,
+      });
 
-      if (data && data.token) {
-        localStorage.setItem("token", data.token);
-        localStorage.setItem("user", JSON.stringify(data.user));
-
-        showToast("Signed in successfully.", "success");
-
-        if (data.user.role === "admin") {
-          navigate("/admin");
-        } else if (data.user.role === "instructor") {
-          navigate("/instructor");
-        } else {
-          navigate("/dashboard");
-        }
-      } else {
-        // Local preview support for verified test emails
-        const lowerEmail = formData.email.toLowerCase().trim();
-        if (lowerEmail.endsWith("@thaksaai.in") || lowerEmail.includes("demo")) {
-          let mockUser = { id: 101, name: "Student Profile", email: lowerEmail, role: "student" };
-          let targetPath = "/dashboard";
-
-          if (lowerEmail.includes("instructor") || lowerEmail.includes("faculty")) {
-            mockUser = { id: 102, name: "Instructor Profile", email: lowerEmail, role: "instructor" };
-            targetPath = "/instructor";
-          } else if (lowerEmail.includes("admin") || lowerEmail.includes("director")) {
-            mockUser = { id: 103, name: "Admin Profile", email: lowerEmail, role: "admin" };
-            targetPath = "/admin";
-          }
-          
-          localStorage.setItem("token", `jwt-verified-token-${mockUser.role}-${Date.now()}`);
-          localStorage.setItem("user", JSON.stringify(mockUser));
-          showToast(`Signed in as ${mockUser.role.toUpperCase()}.`, "success");
-          return navigate(targetPath);
-        }
-        
-        showToast(data?.message || "Incorrect email or password. Please try again.", "error");
+      if (!response?.token || !response?.user) {
+        showToast(
+          response?.message || "Incorrect email or password. Please try again.",
+          "error"
+        );
+        return;
       }
+
+      const session = persistStoredSession(response);
+      showToast("Signed in successfully.", "success");
+      navigate(dashboardPathForRole(session.user.role), { replace: true });
     } catch (error) {
-      console.error("Login verification failed:", error);
-      const lowerEmail = formData.email.toLowerCase().trim();
-      if (lowerEmail.endsWith("@thaksaai.in") || lowerEmail.includes("demo")) {
-        let mockUser = { id: 101, name: "Student Profile", email: lowerEmail, role: "student" };
-        let targetPath = "/dashboard";
-
-        if (lowerEmail.includes("instructor") || lowerEmail.includes("faculty")) {
-          mockUser = { id: 102, name: "Instructor Profile", email: lowerEmail, role: "instructor" };
-          targetPath = "/instructor";
-        } else if (lowerEmail.includes("admin") || lowerEmail.includes("director")) {
-          mockUser = { id: 103, name: "Admin Profile", email: lowerEmail, role: "admin" };
-          targetPath = "/admin";
-        }
-        
-        localStorage.setItem("token", `jwt-verified-token-${mockUser.role}-${Date.now()}`);
-        localStorage.setItem("user", JSON.stringify(mockUser));
-        showToast(`Signed in as ${mockUser.role.toUpperCase()}.`, "success");
-        return navigate(targetPath);
-      }
-
-      showToast("Unable to sign in. Please check your internet connection or account details.", "error");
+      // Never fabricate a session when the API is unavailable or credentials fail.
+      console.warn(
+        "Login request failed:",
+        error?.response?.status || error?.normalized?.code || error?.name || "unknown"
+      );
+      showToast(
+        error?.normalized?.message ||
+          error?.message ||
+          "Unable to sign in. Please check your details and try again.",
+        "error"
+      );
     } finally {
       setLoading(false);
     }
@@ -117,7 +86,7 @@ export default function LoginPage() {
           <BrandLogo variant="auth" disableLink className="mb-5" />
           <div className="inline-flex items-center gap-2 bg-[#1a1a1a] text-white px-3.5 py-1 rounded-full text-xs font-semibold tracking-wide mb-4 shadow-2xs border border-white/10">
             <span className="w-2 h-2 rounded-full bg-[#C7F36B] block"></span>
-            <span>Learning Portal â€¢ {SITE_BRANDING.shortAddress}</span>
+            <span>Learning Portal · {SITE_BRANDING.shortAddress}</span>
           </div>
           <h1 className="text-3xl sm:text-4xl font-display font-bold text-[#1a1a1a] tracking-tight leading-[1.15]">
             Sign in to your account

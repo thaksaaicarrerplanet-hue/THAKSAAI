@@ -16,7 +16,7 @@ export default function App() {
       <ThemeProvider theme={appTheme}>
         <CssBaseline />
         <ToastProvider>
-          <MotionConfig reducedMotion="never">
+          <MotionConfig reducedMotion="user">
             <BrowserRouter>
               <a
                 href="#main"

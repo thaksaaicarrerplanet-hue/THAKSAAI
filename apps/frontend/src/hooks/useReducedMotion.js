@@ -1,17 +1,38 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState } from "react";
+
+const QUERY = "(prefers-reduced-motion: reduce)";
+
+function getPreference() {
+  if (typeof window === "undefined" || typeof window.matchMedia !== "function") return false;
+  try {
+    return window.matchMedia(QUERY).matches;
+  } catch {
+    return false;
+  }
+}
 
 export function useReducedMotion() {
-  const [reduced, setReduced] = useState(() => {
-    if (typeof window === 'undefined' || !window.matchMedia) return false;
-    return window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  });
+  const [reduced, setReduced] = useState(getPreference);
 
   useEffect(() => {
-    if (typeof window === 'undefined' || !window.matchMedia) return undefined;
-    const mq = window.matchMedia('(prefers-reduced-motion: reduce)');
-    const handler = (e) => setReduced(e.matches);
-    mq.addEventListener('change', handler);
-    return () => mq.removeEventListener('change', handler);
+    if (typeof window === "undefined" || typeof window.matchMedia !== "function") return undefined;
+
+    let mediaQuery;
+    try {
+      mediaQuery = window.matchMedia(QUERY);
+    } catch {
+      return undefined;
+    }
+
+    const handler = (event) => setReduced(Boolean(event.matches));
+    if (typeof mediaQuery.addEventListener === "function") {
+      mediaQuery.addEventListener("change", handler);
+      return () => mediaQuery.removeEventListener("change", handler);
+    }
+
+    // Safari versions before MediaQueryList.addEventListener use addListener.
+    mediaQuery.addListener?.(handler);
+    return () => mediaQuery.removeListener?.(handler);
   }, []);
 
   return reduced;

@@ -17,6 +17,8 @@ export const SceneCanvas = ({
 }) => {
   const canvasRef = useRef(null);
   const controllerRef = useRef(null);
+  const onSelectRef = useRef(onSelect);
+  useEffect(() => { onSelectRef.current = onSelect; }, [onSelect]);
   const reducedMotion = useReducedMotion();
   const [ready, setReady] = useState(false);
 
@@ -25,18 +27,24 @@ export const SceneCanvas = ({
     if (!canvas) return undefined;
 
     let controller;
+    let readyFrame = null;
+    let isIntersecting = false;
     try {
       controller = new ArchitectureSceneController({
         canvas,
         modules,
         selectedId,
-        onSelect,
+        onSelect: (id) => onSelectRef.current?.(id),
         tier,
+        reducedMotion,
         reducedMotion,
       });
       controllerRef.current = controller;
-      setReady(true);
-      if (onReady) onReady();
+      readyFrame = window.requestAnimationFrame(() => {
+        readyFrame = null;
+        setReady(true);
+        onReady?.();
+      });
     } catch {
       // Fallback remains visible if WebGL context creation fails
       return undefined;
@@ -44,22 +52,31 @@ export const SceneCanvas = ({
 
     const handleResize = () => controller.resize();
     const handleVisibility = () => {
-      controller.setVisibility(document.visibilityState === 'visible');
+      controller.setVisibility(isIntersecting && document.visibilityState === 'visible');
     };
 
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        controller.setVisibility(entry.isIntersecting && document.visibilityState === 'visible');
-      },
-      { threshold: 0.05 }
-    );
+    const observer = typeof IntersectionObserver !== 'undefined'
+      ? new IntersectionObserver(
+          ([entry]) => {
+            isIntersecting = entry.isIntersecting;
+            controller.setVisibility(isIntersecting && document.visibilityState === 'visible');
+          },
+          { threshold: 0.05 }
+        )
+      : null;
 
-    observer.observe(canvas);
+    if (observer) {
+      observer.observe(canvas);
+    } else {
+      isIntersecting = true;
+      controller.setVisibility(document.visibilityState === 'visible');
+    }
     window.addEventListener('resize', handleResize, { passive: true });
     document.addEventListener('visibilitychange', handleVisibility);
 
     return () => {
-      observer.disconnect();
+      observer?.disconnect();
+      if (readyFrame !== null) window.cancelAnimationFrame(readyFrame);
       window.removeEventListener('resize', handleResize);
       document.removeEventListener('visibilitychange', handleVisibility);
       controller.dispose();

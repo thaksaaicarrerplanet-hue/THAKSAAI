@@ -6,7 +6,7 @@ const STUDENT_COMMITMENTS = [
   {
     id: '01',
     title: 'Production-Grade Builds',
-    metric: '100% Live Code',
+    metric: 'Live Build Reviews',
     desc: 'Every cohort engineers and deploys live systems across Full Stack, AWS/MLOps, and Agentic AI.',
     accent: '#C7F36B',
   },

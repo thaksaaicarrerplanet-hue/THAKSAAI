@@ -70,13 +70,15 @@ const PARTICLE_FRAGMENT_SHADER = /* glsl */ `
  * 3. 4 Orbiting Pillar Monoliths (Workshops, CRT, Internships, Projects) that elevate & focus on selection
  */
 export class ArchitectureSceneController {
-  constructor({ canvas, modules, selectedId, onSelect, onHover, tier = 'high' }) {
+  constructor({ canvas, modules, selectedId, onSelect, onHover, tier = "mid", reducedMotion = false }) {
     this.canvas = canvas;
     this.modules = modules || [];
     this.selectedId = selectedId;
     this.onSelect = onSelect;
     this.onHover = onHover;
-    this.tier = tier === 'low' ? 'mid' : tier;
+    this.tier = tier || 'mid';
+    this.reducedMotion = Boolean(reducedMotion);
+    this.staticFrameRendered = false;
 
     this.disposed = false;
     this.isVisible = true;
@@ -104,11 +106,12 @@ export class ArchitectureSceneController {
 
     this.renderer = new THREE.WebGLRenderer({
       canvas: this.canvas,
-      antialias: true,
+      antialias: this.tier === 'high',
       alpha: true,
       powerPreference: 'high-performance',
     });
-    this.renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2));
+    const pixelRatioCap = this.tier === 'high' ? 1.75 : this.tier === 'mid' ? 1.25 : 1;
+    this.renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, pixelRatioCap));
     this.renderer.setSize(width, height, false);
     this.renderer.toneMapping = THREE.ACESFilmicToneMapping;
     this.renderer.toneMappingExposure = 1.22;
@@ -201,7 +204,7 @@ export class ArchitectureSceneController {
     this.stageGroup.add(this.gyroRing2);
 
     // 3. Lusion-inspired GPU Flow-Field Particle Swarm
-    const particleCount = 1500;
+    const particleCount = this.tier === 'high' ? 1200 : this.tier === 'mid' ? 500 : 120;
     const positions = new Float32Array(particleCount * 3);
     const scales = new Float32Array(particleCount);
     const phases = new Float32Array(particleCount);
@@ -381,6 +384,10 @@ export class ArchitectureSceneController {
     this.camera.aspect = width / height;
     this.camera.updateProjectionMatrix();
     this.renderer.setSize(width, height, false);
+    if (this.reducedMotion && this.scene && this.camera) {
+      this.renderer.render(this.scene, this.camera);
+      this.staticFrameRendered = true;
+    }
   }
 
   setVisibility(visible) {
@@ -395,7 +402,7 @@ export class ArchitectureSceneController {
   }
 
   startLoop() {
-    if (!this.rafId && this.isVisible && !this.disposed) {
+    if (!this.rafId && this.isVisible && !this.disposed && !(this.reducedMotion && this.staticFrameRendered)) {
       this.rafId = requestAnimationFrame(() => this.tick());
     }
   }
@@ -403,6 +410,12 @@ export class ArchitectureSceneController {
   tick() {
     this.rafId = null;
     if (this.disposed || !this.isVisible) return;
+
+    if (this.reducedMotion) {
+      this.renderer.render(this.scene, this.camera);
+      this.staticFrameRendered = true;
+      return;
+    }
 
     const elapsed = this.clock.getElapsedTime();
     const damping = 0.1;

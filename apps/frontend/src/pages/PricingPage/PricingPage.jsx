@@ -27,7 +27,7 @@ const plans = [
       "Weekly practical coding practice and automated feedback",
       "Every Friday timed online practice exams mirroring corporate hiring tests",
       "Regular weekly progress reports delivered directly to TPOs & Deans",
-      "Proven 94% average technical exam pass rate across colleges"
+      "Assessment-led progress checks, structured feedback, and institution-aligned reporting"
     ],
     tag: "MOST RECOMMENDED FOR TPOS",
     recommended: true
@@ -54,7 +54,7 @@ export default function PricingPage() {
   return (
     <>
       <Helmet>
-        <title>College Partnership Plans & Programs | THAKSAAI</title>
+        <title>College Partnership Options & Scoped Proposals | THAKSAAI</title>
         <meta
           name="description"
           content="Explore transparent, collaborative college training partnership options including short practical workshops and full semester campus recruitment bootcamps."
@@ -71,10 +71,10 @@ export default function PricingPage() {
               College Partnership Options
             </div>
             <h1 className="text-4xl sm:text-5xl md:text-6xl font-display font-bold text-[#1a1a1a] tracking-tight leading-tight mb-4">
-              Simple partnership plans for engineering colleges.
+              Partnerships scoped to the outcomes your institution needs.
             </h1>
             <p className="text-base sm:text-lg font-sans text-zinc-600 leading-relaxed">
-              We partner directly with college leadership and departments to run practical coding programs on campus. Choose the support option that fits your academic calendar and student hiring goals.
+              We work with college leadership and departments to scope workshops, semester training, and project mentorship around the academic calendar. Because delivery varies by cohort size, schedule, venue, and scope, we provide a tailored proposal instead of publishing an unsupported one-size-fits-all rate.
             </p>
           </div>
 

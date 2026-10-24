@@ -1,8 +1,8 @@
 /**
  * ============================================================================
  * THAKSAAI — Institutional Proof & Verification Registry
- * Hard Rule: Only items with `verified: true` and a valid `source` are rendered
- * by <MetricLedger /> or public pages. Unverified claims are quarantined in
+ * Hard Rule: Only claims supported by visible, published program structure are rendered
+ * by <MetricLedger />. Operational outcomes and placement metrics require documented evidence.
  * UNVERIFIED_CLAIM_LEDGER for owner sign-off.
  * ============================================================================
  */
@@ -15,7 +15,7 @@ export const VERIFIED_PROOF = [
     unit: "Core Pillars",
     label: "Integrated Capability Pathways",
     detail: "On-campus Workshops, structured CRT, supervised Internships, and defense-ready Final-Year Projects.",
-    source: "THAKSAAI Institutional Curriculum Architecture (2025–2026)",
+    source: "Published pathway catalogue and corresponding program routes",
     verified: true,
   },
   {
@@ -25,8 +25,8 @@ export const VERIFIED_PROOF = [
     unit: "Regional Hubs",
     label: "Active Telangana Corridors",
     detail: "Direct in-person lab execution across Hyderabad (Gachibowli HQ), Warangal, and regional engineering colleges.",
-    source: "THAKSAAI Operations Directorate — Gachibowli HQ",
-    verified: true,
+    source: "Operational evidence required before publication",
+    verified: false,
   },
   {
     id: "proof-methodology",
@@ -35,7 +35,7 @@ export const VERIFIED_PROOF = [
     unit: "Execution Stages",
     label: "Assess → Train → Build → Demonstrate",
     detail: "Every cohort moves from baseline diagnostic evaluation to a version-controlled, deployable engineering artifact.",
-    source: "THAKSAAI Pedagogy Standard v2.4",
+    source: "Published four-stage methodology on this website",
     verified: true,
   },
   {
@@ -45,8 +45,8 @@ export const VERIFIED_PROOF = [
     unit: "Practitioner-Led",
     label: "Hands-On Lab Delivery",
     detail: "All sessions are conducted around live repositories, automated code reviews, and technical defense rubrics.",
-    source: "THAKSAAI Faculty & Mentor Governance Charter",
-    verified: true,
+    source: "Cohort-level delivery records required before publication",
+    verified: false,
   },
 ];
 

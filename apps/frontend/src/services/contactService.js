@@ -1,97 +1,84 @@
 /**
- * Handles routing of all form submissions on the THAKSA.AI platform.
- * Preserves Web3Forms + CallMeBot contract while adding honeypot,
- * timing-based spam checks, and double-submit debouncing.
+ * Contact delivery adapter.
+ * Prefer the configured backend so SMTP and notification credentials stay server-side.
+ * Web3Forms is an optional fallback when its public form key is explicitly configured.
  */
-
-const WEB3FORMS_URL = 'https://api.web3forms.com/submit';
-const ACCESS_KEY = import.meta.env.VITE_WEB3FORMS_ACCESS_KEY;
-const WHATSAPP_KEY = import.meta.env.VITE_CALLMEBOT_API_KEY;
-const ADMIN_PHONE = import.meta.env.VITE_ADMIN_PHONE || '9494808669';
+const WEB3FORMS_URL = "https://api.web3forms.com/submit";
+const ACCESS_KEY = import.meta.env.VITE_WEB3FORMS_ACCESS_KEY?.trim();
+const API_URL = import.meta.env.VITE_API_URL?.trim().replace(/\/+$/, "");
 
 let lastSubmitTimestamp = 0;
 const SUBMIT_COOLDOWN_MS = 2500;
 
-export const sendInquiry = async (formData, source = 'Website') => {
+const safeJson = async (response) => {
+  try {
+    return await response.json();
+  } catch {
+    return {};
+  }
+};
+
+export const sendInquiry = async (formData, source = "Website") => {
   const now = Date.now();
 
-  // Honeypot spam filter
-  if (formData._honeypot || formData.website_url_hp || formData.botcheck) {
-    return true;
-  }
+  // A honeypot remains a silent no-op for bots. No timing threshold is used:
+  // autofill and fast real users must not receive false success responses.
+  if (formData._honeypot || formData.website_url_hp || formData.botcheck) return true;
 
-  // Timing-based bot check (if form rendered < 800ms before submit)
-  const mountedAt = formData._mountedAt || formData.formLoadedAt;
-  if (mountedAt && now - Number(mountedAt) < 800) {
-    return true;
-  }
-
-  // Debounce rapid double submissions
   if (now - lastSubmitTimestamp < SUBMIT_COOLDOWN_MS) {
-    throw new Error('Please wait a moment before submitting again.');
+    throw new Error("Please wait a moment before submitting again.");
   }
+
+  if (!API_URL && !ACCESS_KEY) {
+    throw new Error(
+      "Online enquiry delivery is not configured yet. Please contact us using the WhatsApp or email details on this page."
+    );
+  }
+
+  const payloadData = {
+    name: String(formData.name || "").trim(),
+    email: String(formData.email || "").trim(),
+    phone: String(formData.phone || "").trim(),
+    organization: String(formData.organization || formData.company || "").trim(),
+    subject: String(formData.subject || `New ${source} enquiry`).trim(),
+    message: String(formData.message || formData.scope || "").trim(),
+  };
+
+  if (!payloadData.name || !payloadData.email || !payloadData.subject || !payloadData.message) {
+    throw new Error("Please complete the required fields before submitting.");
+  }
+
   lastSubmitTimestamp = now;
 
-  if (!ACCESS_KEY) {
-    // Graceful fallback in local dev if .env key is not configured
+  if (API_URL) {
+    const response = await fetch(`${API_URL}/contact`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(payloadData),
+    });
+    const result = await safeJson(response);
+    if (!response.ok || result.success === false) {
+      throw new Error(result.message || "We could not submit your enquiry. Please try again or contact us directly.");
+    }
     return true;
   }
 
   const payload = new FormData();
-  payload.append('access_key', ACCESS_KEY);
-  payload.append(
-    'subject',
-    `New ${source} Inquiry from ${formData.name || formData.company || 'Website'}`
-  );
-  payload.append('from_name', 'THAKSA.AI Automated Routing');
+  payload.append("access_key", ACCESS_KEY);
+  payload.append("subject", `New ${source} Inquiry from ${payloadData.name || payloadData.organization || "Website"}`);
+  payload.append("from_name", "THAKSAAI Website");
+  Object.entries(payloadData).forEach(([key, value]) => payload.append(key, value));
 
-  Object.keys(formData).forEach((key) => {
-    if (!key.startsWith('_') && key !== 'botcheck' && key !== 'formLoadedAt') {
-      payload.append(key, formData[key]);
-    }
-  });
-
-  try {
-    const response = await fetch(WEB3FORMS_URL, {
-      method: 'POST',
-      body: payload,
-    });
-
-    let result;
-    try {
-      result = await response.json();
-    } catch {
-      throw new Error(
-        `NETWORK_ERROR: Web3Forms returned an invalid response. Status: ${response.status}`
-      );
-    }
-
-    if (!result.success) {
-      throw new Error(`API_ERROR: ${result.message || 'Web3Forms rejected the payload'}`);
-    }
-
-    if (WHATSAPP_KEY) {
-      try {
-        const textMessage = `*New ${source} Inquiry*\nName/Company: ${
-          formData.name || formData.company
-        }\nEmail: ${formData.email}\nScope: ${formData.scope || formData.message}`;
-        const encodedText = encodeURIComponent(textMessage);
-        fetch(
-          `https://api.callmebot.com/whatsapp.php?phone=${ADMIN_PHONE}&text=${encodedText}&apikey=${WHATSAPP_KEY}`
-        ).catch((err) => console.warn('WhatsApp ping failed:', err));
-      } catch (wpError) {
-        console.warn('WhatsApp configuration error:', wpError);
-      }
-    }
-
-    return true;
-  } catch (error) {
-    console.error('Submission error:', error);
-    throw error;
+  const response = await fetch(WEB3FORMS_URL, { method: "POST", body: payload });
+  const result = await safeJson(response);
+  if (!response.ok || result.success !== true) {
+    throw new Error(result.message || "We could not submit your enquiry. Please try again or contact us directly.");
   }
+
+  return true;
 };
 
 export const sendContactMessage = (formData) =>
-  sendInquiry(formData, formData.subject || 'Direct Contact');
+  sendInquiry(formData, formData.subject || "Direct Contact");
 
 export default { sendInquiry, sendContactMessage };

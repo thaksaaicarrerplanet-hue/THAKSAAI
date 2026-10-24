@@ -1,6 +1,7 @@
 import React from 'react';
 import { Helmet } from 'react-helmet-async';
 import PaperHero from './sections/PaperHero';
+import CapabilityReactor from '../../components/ui/CapabilityReactor';
 import PaperProofStrip from './sections/PaperProofStrip';
 import PaperAudienceRouting from './sections/PaperAudienceRouting';
 import PaperMethodology from './sections/PaperMethodology';
@@ -14,7 +15,7 @@ const EDUCATIONAL_ORG_JSON_LD = {
   '@context': 'https://schema.org',
   '@type': 'EducationalOrganization',
   name: SITE_BRANDING.name,
-  url: 'https://www.thaksa.ai',
+  url: 'https://www.thaksaai.in',
   email: SITE_BRANDING.contactEmail,
   telephone: SITE_BRANDING.supportPhone,
   address: {

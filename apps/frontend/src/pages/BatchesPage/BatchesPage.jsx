@@ -4,25 +4,61 @@ import { useNavigate, Link } from "react-router-dom";
 import { motion } from "framer-motion";
 
 const activeBatches = [
-  { code: "KU-2026", college: "Kakatiya University College of Engineering", track: "Group A: Advanced Algorithms", size: "94 Students", runtime: "Topic: Trees and Graphs", status: "IN COMPUTER LAB", location: "Warangal Campus Lab #01" },
-  { code: "SR-2026", college: "SR Engineering Institute of Technology", track: "Group B: Software Development", size: "160 Students", runtime: "Topic: Database Design & SQL", status: "IN COMPUTER LAB", location: "Warangal Campus Lab #03" },
-  { code: "VNR-2026", college: "VNR Vignana Jyothi Institute of Engg", track: "AI & ChatGPT Apps Workshop", size: "120 Students", runtime: "Day 3 of 4: Building Smart Search", status: "WORKSHOP ACTIVE", location: "Hyderabad College Lab" },
-  { code: "CBIT-2026", college: "CBIT Engineering Campus", track: "Final-Year Project Mentorship", size: "45 Student Teams", runtime: "Stage 2: Adding Automated Tests", status: "PROJECT REVIEWS", location: "Online Monitored Sessions" },
+  {
+    code: "FORMAT-01",
+    category: "GROUP",
+    college: "Campus recruitment training",
+    track: "Structured Campus Recruitment Training",
+    size: "Cohort size agreed with the institution",
+    runtime: "Diagnostic baseline, coding drills, and mock interviews",
+    status: "EXAMPLE FORMAT",
+    location: "Host college lab or agreed training space",
+  },
+  {
+    code: "FORMAT-02",
+    category: "AI",
+    college: "Applied AI workshop",
+    track: "AI & ChatGPT Applications Workshop",
+    size: "Participant capacity agreed with host faculty",
+    runtime: "Guided build, API integration, and practical demonstration",
+    status: "EXAMPLE FORMAT",
+    location: "Host college lab or agreed venue",
+  },
+  {
+    code: "FORMAT-03",
+    category: "PROJECT",
+    college: "Final-year project mentorship",
+    track: "Final-Year Capstone Project Mentorship",
+    size: "Support model agreed with the student team",
+    runtime: "System design, implementation, testing, and technical defense",
+    status: "EXAMPLE FORMAT",
+    location: "Scheduled mentoring sessions",
+  },
+  {
+    code: "FORMAT-04",
+    category: "GROUP",
+    college: "Technical skills bootcamp",
+    track: "Full-Stack & Cloud Engineering Bootcamp",
+    size: "Duration and cohort defined per engagement",
+    runtime: "Git workflow, deployment, and code review",
+    status: "EXAMPLE FORMAT",
+    location: "College lab or approved training space",
+  },
 ];
 
 export default function BatchesPage() {
   const navigate = useNavigate();
   const [filter, setFilter] = useState("ALL");
 
-  const filtered = filter === "ALL" ? activeBatches : activeBatches.filter(b => b.track.toUpperCase().includes(filter));
+  const filtered = filter === "ALL" ? activeBatches : activeBatches.filter((b) => b.category === filter);
 
   return (
     <>
       <Helmet>
-        <title>Live College Training Batches | THAKSAAI</title>
+        <title>Program Delivery Formats | THAKSAAI</title>
         <meta
           name="description"
-          content="See active student training bootcamps and workshops currently running across partner engineering colleges."
+          content="Explore illustrative THAKSAAI workshop, campus training, and project mentorship formats. Engagement details are confirmed directly with each institution."
         />
       </Helmet>
 
@@ -33,14 +69,14 @@ export default function BatchesPage() {
           <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-12 pb-8 border-b border-black/[0.08]">
             <div className="max-w-3xl">
               <div className="inline-flex items-center gap-2 bg-[#1a1a1a] text-white px-3.5 py-1 rounded-full text-xs font-bold uppercase tracking-widest mb-4 shadow-sm">
-                <span className="w-2 h-2 rounded-full bg-[#C7F36B] block animate-ping"></span>
-                Live College Bootcamps
+                <span className="w-2 h-2 rounded-full bg-[#C7F36B] block "></span>
+                Illustrative Program Formats
               </div>
               <h1 className="text-4xl sm:text-5xl md:text-6xl font-display font-bold text-[#1a1a1a] tracking-tight leading-tight">
-                Active College Batches.
+                Practical Program Formats.
               </h1>
               <p className="text-base sm:text-lg font-sans text-zinc-600 mt-3 leading-relaxed">
-                Check out practical training programs happening right now inside college computer labs across Telangana and Hyderabad. Our instructors teach hands-on coding directly to students on campus.
+                These are illustrative delivery formats, not a live batch roster. Partner institutions, schedules, enrolment, venues, and current activity are confirmed directly with our team.
               </p>
             </div>
 
@@ -53,6 +89,8 @@ export default function BatchesPage() {
               ].map((item) => (
                 <button
                   key={item.key}
+                  type="button"
+                  aria-pressed={filter === item.key}
                   onClick={() => setFilter(item.key)}
                   className={`px-4 py-2 rounded-full border transition-all focus:outline-none focus:ring-2 focus:ring-[#C7F36B] ${
                     filter === item.key ? "bg-[#1a1a1a] text-[#C7F36B] border-[#1a1a1a]" : "bg-white/80 text-zinc-700 border-black/10 hover:bg-white"
@@ -66,9 +104,9 @@ export default function BatchesPage() {
 
           {/* Batches Grid */}
           <section aria-label="Active Cohorts Directory" className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-16">
-            {filtered.map((b, idx) => (
+            {filtered.map((b) => (
               <motion.article
-                key={idx}
+                key={b.code}
                 whileHover={{ y: -4 }}
                 transition={{ duration: 0.22 }}
                 className="neo-glass p-7 rounded-3xl border border-black/[0.08] flex flex-col justify-between shadow-sm hover:shadow-xl transition-shadow"
@@ -76,7 +114,7 @@ export default function BatchesPage() {
                 <div>
                   <div className="flex items-center justify-between gap-3 mb-5 pb-4 border-b border-black/[0.05]">
                     <span className="text-xs font-mono font-bold px-3 py-1 rounded-full bg-[#1a1a1a] text-white">
-                      Batch #{b.code}
+                      Program {b.code}
                     </span>
                     <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-extrabold uppercase bg-[#C7F36B] text-[#1a1a1a] shadow-xs">
                       ● {b.status}
@@ -92,11 +130,11 @@ export default function BatchesPage() {
 
                   <div className="grid grid-cols-2 gap-3 p-4 bg-white/60 rounded-xl border border-black/[0.04] text-xs font-sans mb-6">
                     <div>
-                      <span className="text-zinc-500 font-semibold block">Students Enrolled</span>
+                      <span className="text-zinc-500 font-semibold block">Planning basis</span>
                       <strong className="text-sm text-[#1a1a1a] font-bold">{b.size}</strong>
                     </div>
                     <div>
-                      <span className="text-zinc-500 font-semibold block">Current Topic</span>
+                      <span className="text-zinc-500 font-semibold block">Typical focus</span>
                       <strong className="text-sm text-[#1a1a1a] font-bold">{b.runtime}</strong>
                     </div>
                   </div>
@@ -111,7 +149,7 @@ export default function BatchesPage() {
                     onClick={() => navigate(`/contact?college=${encodeURIComponent(b.college)}`)}
                     className="text-xs font-bold text-[#1a1a1a] hover:text-black underline decoration-[#C7F36B] decoration-2 underline-offset-4 focus:outline-none"
                   >
-                    Ask a Question About This Batch →
+                    Ask About This Format →
                   </button>
                 </div>
               </motion.article>
@@ -122,13 +160,13 @@ export default function BatchesPage() {
           <div className="p-6 sm:p-8 bg-white/70 backdrop-blur-md rounded-2xl border border-black/[0.08] flex flex-col sm:flex-row items-center justify-between gap-6 text-sm font-sans text-zinc-600 shadow-xs">
             <div className="flex items-center gap-3">
               <span className="w-3 h-3 rounded-full bg-[#C7F36B] shrink-0"></span>
-              <span>All student training is conducted practically inside college computer labs with practicing software developers.</span>
+              <span>Final cohort size, dates, venue, and delivery format are agreed directly with the institution or student team.</span>
             </div>
             <Link
               to="/placements"
               className="text-sm font-bold text-[#1a1a1a] whitespace-nowrap hover:underline decoration-[#C7F36B] decoration-2 underline-offset-4"
             >
-              Check Student Results →
+              Explore Assessment Framework →
             </Link>
           </div>
 

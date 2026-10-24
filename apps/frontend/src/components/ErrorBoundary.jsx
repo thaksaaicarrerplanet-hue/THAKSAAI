@@ -16,6 +16,7 @@ export default class ErrorBoundary extends React.Component {
   }
 
   componentDidCatch(error, info) {
+    // Keep diagnostics in the browser console; no remote error-reporting service is configured here.
     console.error("[THAKSAAI ErrorBoundary]", error, info.componentStack);
   }
 
@@ -65,7 +66,7 @@ export default class ErrorBoundary extends React.Component {
               We hit an unexpected error.
             </h1>
             <p style={{ color: "#9ca3af", lineHeight: 1.6, marginBottom: "2rem" }}>
-              Our team has been notified. Please refresh the page to continue â€” your data is safe.
+              The page couldn't finish rendering. Refresh to try again. Unsaved changes may need to be entered again.
             </p>
             <button
               onClick={() => window.location.reload()}

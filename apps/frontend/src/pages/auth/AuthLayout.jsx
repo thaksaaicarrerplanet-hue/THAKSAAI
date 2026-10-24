@@ -17,7 +17,7 @@ export default function AuthLayout({ children, onBackHome }) {
           onClick={onBackHome}
           className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/70 hover:bg-white text-xs font-bold text-zinc-700 uppercase tracking-wider mb-6 shadow-xs border border-black/[0.06] transition-all focus:outline-none focus:ring-2 focus:ring-[#C7F36B]"
         >
-          â† Return to Home Page
+          ← Return to home
         </button>
 
         {/* Neo-Glass Container */}
@@ -26,7 +26,7 @@ export default function AuthLayout({ children, onBackHome }) {
         </main>
 
         <p className="text-center text-xs font-sans text-zinc-500 mt-6">
-          â— Secure Institutional Login Gateway for Partner Engineering Colleges.
+          • Sign in with the account issued by your institution.
         </p>
       </div>
     </div>

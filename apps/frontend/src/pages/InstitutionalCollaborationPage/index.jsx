@@ -52,7 +52,7 @@ export default function InstitutionalCollaborationPage() {
                 </h2>
                 <p className="text-sm sm:text-base text-zinc-700 leading-relaxed font-normal mb-6">
                   {isTPO
-                    ? "Traditional recruitment training often fails because students memorize textbook algorithmic answers rather than building actual working systems. THAKSAAI deploys practicing software engineering architects directly to university campus labs to conduct immersive 40-hour to 120-hour execution sprints in Full-Stack AI, DevOps, and Data Systems."
+                    ? "Traditional recruitment training often fails because students memorize textbook algorithmic answers rather than building actual working systems. THAKSAAI deploys practicing software engineering architects directly to university campus labs to plan practical, scoped execution sprints across full-stack development, cloud, AI, and data systems."
                     : "University engineering professors represent the intellectual foundation of technology education. THAKSAAI invites engineering faculty to bridge the gap between academic curricula and live industry standards by co-supervising production capstones at our Gachibowli AI engineering center."
                   }
                 </p>
@@ -60,12 +60,12 @@ export default function InstitutionalCollaborationPage() {
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-8 pt-6 border-t border-black/[0.06]">
                   {[
                     {
-                      title: isTPO ? "Verified Capstone Defenses" : "Faculty Studio Residency",
-                      desc: isTPO ? "Each cohort candidate completes a rigorous technical defense with real GitHub code repositories verified by our engineering directorate." : "Professors receive VIP technical access to our Gachibowli cloud clusters and generative AI inference architectures for continuous skill enhancement."
+                      title: isTPO ? "Structured Capstone Defenses" : "Faculty Collaboration",
+                      desc: isTPO ? "Capstone expectations and technical review criteria are agreed with the institution before the engagement begins." : "Faculty can collaborate with the team on curriculum alignment, practical labs, and project review planning."
                     },
                     {
-                      title: isTPO ? "Transparent TPO Analytics Dashboard" : "Co-Authored Industry Capstones",
-                      desc: isTPO ? "Access our centralized LMS Portal to track real-time attendance, lab execution commits, and candidate coding competency percentiles." : "Partner with THAKSAAI senior leads to publish high-impact final year engineering projects that fulfill AICTE and NBA accreditation criteria."
+                      title: isTPO ? "Institution-Aligned Progress Reporting" : "Co-Supervised Capstone Projects",
+                      desc: isTPO ? "Agree on useful progress snapshots from attendance, assessments, and project deliverables; the exact reporting scope is documented with the institution." : "Work with the team to scope final-year projects, review milestones, and prepare students to demonstrate their own implementation."
                     }
                   ].map((block, idx) => (
                     <div key={idx} className="p-6 bg-[#F7F8F4]/50 rounded-xl border border-black/[0.05]">

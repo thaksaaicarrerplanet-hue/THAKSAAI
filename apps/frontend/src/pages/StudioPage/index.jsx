@@ -16,6 +16,7 @@ const CONFIGURATOR_MODULES = [
 
 export default function StudioPage() {
   const [submitted, setSubmitted] = useState(false);
+  const [draftUrl, setDraftUrl] = useState('');
   const [selectedModules, setSelectedModules] = useState(['Custom Web & SaaS Platform']);
   const [formData, setFormData] = useState({
     company: '',
@@ -51,7 +52,9 @@ export default function StudioPage() {
 *Project Scope:* ${formData.scope}`;
 
     const url = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(msg)}`;
-    window.open(url, '_blank');
+    setDraftUrl(url);
+    // Opening WhatsApp prepares a draft; the visitor still needs to send it.
+    window.open(url, '_blank', 'noopener,noreferrer');
     setSubmitted(true);
   };
 
@@ -185,11 +188,19 @@ export default function StudioPage() {
                       ✓
                     </div>
                     <h3 className="text-2xl font-display font-bold text-white">
-                      Studio Scope Dispatched
+                      Studio WhatsApp Draft Prepared
                     </h3>
                     <p className="text-sm text-slate-300 max-w-md">
-                      Your project configuration has been formatted for our engineering lead.
+                      Your project details are ready in a WhatsApp draft. Review the message in WhatsApp and tap Send to submit it to our team.
                     </p>
+                    <a
+                      href={draftUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex min-h-11 items-center justify-center rounded-xl border border-white/20 px-5 py-3 text-sm font-semibold text-white hover:bg-white/10 focus-visible:outline-2 focus-visible:outline-offset-3 focus-visible:outline-[#C7F36B]"
+                    >
+                      Reopen WhatsApp draft ↗
+                    </a>
                     <DepthButton onClick={() => setSubmitted(false)} variant="ghostDark" size="md">
                       <span>Configure Another Scope</span>
                     </DepthButton>

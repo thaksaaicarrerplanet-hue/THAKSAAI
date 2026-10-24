@@ -52,30 +52,112 @@ const courseDetailsDatabase = {
     schedule: "4 Intensive Days (8 Hours per day inside campus computer labs)",
     prereq: "Basic knowledge of Python scripting and internet fundamentals."
   }
-};
-
-const defaultCourse = {
-  title: "Practical Campus Training Program",
-  badge: "Guided Campus Course",
-  forWho: "Engineering students preparing for software interviews and real developer work.",
-  desc: "A hands-on coding course taught by experienced industry engineers directly inside your college computer labs. We focus on writing real, working code without repetitive theory lectures.",
-  topics: [
-    "Practical Problem Solving with Real Industry Examples",
-    "Writing Clean, Understandable Programming Logic",
-    "Working Collaboratively Using Modern Git Team Tools",
-    "Automated Code Verification and Error Debugging",
-    "Weekly Practice Exercises to Build Coding Confidence",
-    "Live Technical Presentation & Mentoring Sessions"
-  ],
-  schedule: "Flexible campus timetable coordinated directly with college Deans and TPOs.",
-  prereq: "Enrolled in a partner computer science or engineering college degree."
+  "crt-group-c": {
+    title: "Group C: Coding Fundamentals",
+    badge: "15-Week Semester Campus Training",
+    forWho: "Students building confidence with basic programming and logical problem solving.",
+    desc: "A foundations-first training format that develops programming fluency through guided exercises, debugging, and progressively harder problems.",
+    topics: [
+      "Variables, Types, Conditions, Loops, and Functions",
+      "Arrays, Strings, and Basic Data Transformations",
+      "Reading Errors and Debugging Program Flow",
+      "Introductory Object-Oriented Programming",
+      "Git Fundamentals and Collaborative Code Practice",
+      "Timed Practice Sets with Structured Feedback"
+    ],
+    schedule: "A semester-length format coordinated with the partner institution.",
+    prereq: "No advanced programming experience required."
+  },
+  "workshop-cloud": {
+    title: "Cloud Computing & Docker Workshop",
+    badge: "5-Day Practical Workshop",
+    forWho: "Engineering students learning deployment, Linux, and cloud-native foundations.",
+    desc: "A guided workshop covering containerized applications and a deployment workflow, with practical exercises and a final demonstration.",
+    topics: [
+      "Linux and Command-Line Fundamentals",
+      "Docker Images, Containers, and Build Contexts",
+      "Environment Configuration and Container Networking",
+      "CI Workflows for Linting and Production Builds",
+      "Cloud Hosting Concepts and Deployment Readiness",
+      "Operational Checks, Logs, and Troubleshooting"
+    ],
+    schedule: "A five-day format; timetable and hosting environment are confirmed with the institution.",
+    prereq: "Basic command-line and programming familiarity is helpful."
+  },
+  "workshop-backend": {
+    title: "Backend Systems & API Engineering Workshop",
+    badge: "3-Day Practical Workshop",
+    forWho: "Students ready to explore backend services and API design.",
+    desc: "Build a small backend service while learning API contracts, data validation, security basics, testing, and operational considerations.",
+    topics: [
+      "REST API Design and Resource Modelling",
+      "Request Validation and Consistent Error Responses",
+      "Database Access and Data Integrity Basics",
+      "Authentication, Authorization, and Input Safety",
+      "API Testing and Observability Fundamentals",
+      "Packaging and Demonstrating a Working Service"
+    ],
+    schedule: "A three-day format, tailored to the host institution's lab schedule.",
+    prereq: "Basic programming and HTTP concepts."
+  },
+  "capstone-cloud-saas": {
+    title: "Final-Year Project: Cloud Web Application",
+    badge: "Guided Capstone Track",
+    forWho: "Final-year teams interested in building a deployable web application.",
+    desc: "A mentoring framework for turning a project brief into a tested web application with documented architecture, version-controlled delivery, and a demonstration-ready deployment.",
+    topics: [
+      "Problem Definition, Scope, and Acceptance Criteria",
+      "Application Architecture and Data Modelling",
+      "API Contracts, Authentication, and Validation",
+      "Responsive Frontend Implementation",
+      "Automated Tests, Review Cycles, and Deployment",
+      "Documentation, Demonstration, and Technical Defense"
+    ],
+    schedule: "Milestones are agreed with the student team and academic calendar.",
+    prereq: "A project brief and a team willing to participate in implementation and review."
+  },
+  "capstone-ai-rag": {
+    title: "Final-Year Project: AI Document Assistant",
+    badge: "Guided AI Capstone Track",
+    forWho: "Final-year teams interested in applied AI, document retrieval, and grounded question answering.",
+    desc: "A supervised project format for building a document question-answering application with source-grounded retrieval, evaluation, and clear limitations.",
+    topics: [
+      "Document Parsing, Cleaning, and Chunking",
+      "Embedding Models and Vector Retrieval",
+      "Retrieval-Augmented Generation and Source References",
+      "Evaluation Sets, Hallucination Checks, and Guardrails",
+      "Backend API and User Interface Integration",
+      "Privacy, Deployment, Documentation, and Technical Defense"
+    ],
+    schedule: "Milestones are agreed with the team, available resources, and academic calendar.",
+    prereq: "Basic programming experience; Python familiarity is recommended."
+  },
 };
 
 export default function CourseDetail() {
   const { courseId } = useParams();
   const navigate = useNavigate();
 
-  const data = courseDetailsDatabase[courseId] || defaultCourse;
+  const data = courseDetailsDatabase[courseId];
+
+  if (!data) {
+    return (
+      <>
+        <Helmet>
+          <title>Course Not Found | THAKSAAI</title>
+          <meta name="robots" content="noindex,follow" />
+        </Helmet>
+        <main className="flex min-h-[65vh] items-center justify-center bg-[#F7F8F4] px-4 py-20 text-[#101828]">
+          <div className="w-full max-w-xl rounded-3xl border border-[#E3E5DE] bg-white p-8 text-center shadow-xl sm:p-12">
+            <p className="font-mono text-xs font-semibold uppercase tracking-[0.15em] text-[#3659D9]">Course catalogue</p>
+            <h1 className="mt-3 font-display text-3xl font-bold">We couldn't find that course.</h1>
+            <p className="mt-3 text-sm leading-relaxed text-[#5B6475]">The link may be outdated or the course may no longer be listed. Return to the catalogue to choose an available program.</p>
+            <Link to="/courses" className="mt-6 inline-flex min-h-11 items-center justify-center rounded-xl bg-[#101828] px-5 py-3 text-sm font-bold text-white hover:bg-[#1A2335]">Browse courses →</Link>
+          </div>
+        </main>
+      </>
+    );
+  }
 
   return (
     <>

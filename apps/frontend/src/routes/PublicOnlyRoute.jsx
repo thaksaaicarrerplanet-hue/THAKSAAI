@@ -1,32 +1,13 @@
 import { Navigate, Outlet } from "react-router-dom";
+import { clearStoredSession, dashboardPathForRole, readStoredSession } from "../services/authSession";
 
 export default function PublicOnlyRoute({ children }) {
-  const token = localStorage.getItem("token");
-  let user = null;
-
-  try {
-    user = JSON.parse(localStorage.getItem("user") || "null");
-  } catch {
-    user = null;
+  const session = readStoredSession();
+  if (session) {
+    return <Navigate to={dashboardPathForRole(session.user.role)} replace />;
   }
 
-  const dashboardPath =
-    user?.role === "admin"
-      ? "/admin"
-      : user?.role === "instructor"
-      ? "/instructor"
-      : user?.role === "student"
-      ? "/dashboard"
-      : "/login";
-
-  if (token) {
-    if (!user?.role) {
-      localStorage.removeItem("token");
-      localStorage.removeItem("user");
-      return <Navigate to="/login" replace />;
-    }
-    return <Navigate to={dashboardPath} replace />;
-  }
-
-  return children ? children : <Outlet />;
+  // Remove malformed/stale data if present. The route remains public when no valid session exists.
+  clearStoredSession();
+  return children || <Outlet />;
 }
