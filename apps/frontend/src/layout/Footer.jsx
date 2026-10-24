@@ -84,6 +84,20 @@ export default function Footer() {
               Domain Internships
             </Link>
             <Link
+              to="/final-year-projects"
+              onPointerEnter={() => prefetchRoute('/final-year-projects')}
+              className="text-sm text-slate-200 hover:text-[#C7F36B] transition-colors py-1"
+            >
+              Final-Year Projects
+            </Link>
+            <Link
+              to="/courses"
+              onPointerEnter={() => prefetchRoute('/courses')}
+              className="text-sm text-slate-200 hover:text-[#C7F36B] transition-colors py-1"
+            >
+              Course Catalogue
+            </Link>
+            <Link
               to="/studio"
               onPointerEnter={() => prefetchRoute('/studio')}
               className="text-sm text-slate-200 hover:text-[#C7F36B] transition-colors py-1"
