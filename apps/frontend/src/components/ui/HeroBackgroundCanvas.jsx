@@ -24,9 +24,9 @@ export default function HeroBackgroundCanvas() {
     const canTrackPointer =
       !reducedMotion && window.matchMedia?.("(pointer: fine)").matches;
 
-    const isMobile = width < 768;
-    const rows = isMobile ? 10 : 16;
-    const cols = isMobile ? 18 : 28;
+    let isMobile = width < 768;
+    let rows = isMobile ? 10 : 16;
+    let cols = isMobile ? 18 : 28;
     const orbs = Array.from({ length: isMobile ? 10 : 20 }, (_, index) => ({
       x: Math.random(),
       y: Math.random(),
@@ -46,6 +46,9 @@ export default function HeroBackgroundCanvas() {
     const resize = () => {
       width = window.innerWidth;
       height = window.innerHeight;
+      isMobile = width < 768;
+      rows = isMobile ? 10 : 16;
+      cols = isMobile ? 18 : 28;
       const dpr = Math.min(window.devicePixelRatio || 1, isMobile ? 1.2 : 1.5);
       canvas.width = Math.max(1, Math.round(width * dpr));
       canvas.height = Math.max(1, Math.round(height * dpr));
