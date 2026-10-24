@@ -43,28 +43,31 @@ export default function HomePage() {
         <script type="application/ld+json">{JSON.stringify(EDUCATIONAL_ORG_JSON_LD)}</script>
       </Helmet>
 
-      {/* 1. Full-Screen 60fps Wave Hero + Simple Kinetic Typography */}
+      {/* 1. Editorial hero with clear program pathways */}
       <PaperHero />
 
-      {/* 2. Scroll-Scrubbed Manifesto + Velocity Marquee + Verified Proof */}
+      {/* 2. Interactive, adaptive 3D capability architecture */}
+      <CapabilityReactor />
+
+      {/* 3. Scroll-scrubbed manifesto, program context, and proof ledger */}
       <PaperProofStrip />
 
-      {/* 3. Pinned Horizontal Scroll Cinema Reel: 01 Workshops · 02 CRT · 03 Internships · 04 Projects */}
+      {/* 4. Program discovery and audience-specific pathways */}
       <PaperAudienceRouting />
 
-      {/* 4. 4-Stage Execution Pipeline: Assess → Train → Build → Defend */}
+      {/* 5. Assess → Train → Build → Demonstrate methodology */}
       <PaperMethodology />
 
-      {/* 5. Dual-Direction Auto-Scrolling Portfolio & Campus Lab Filmstrip */}
+      {/* 6. Documentary gallery with reduced-motion support */}
       <PaperGallery />
 
-      {/* 6. Dynamic Scroll-Animated Leadership & Vision Stage */}
+      {/* 7. Leadership and vision */}
       <PaperFounderQuote />
 
-      {/* 7. Executive Software Studio Showcase (Moved to the end of the page) */}
+      {/* 8. Software Studio showcase */}
       <PaperStudioHighlight />
 
-      {/* 8. Closing Institutional & Studio Launchpad CTA */}
+      {/* 9. Training and Studio conversion paths */}
       <PaperClosingCTA />
     </>
   );
