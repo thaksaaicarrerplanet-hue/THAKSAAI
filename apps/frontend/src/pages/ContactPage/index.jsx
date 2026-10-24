@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { useSearchParams } from 'react-router-dom';
 import { SITE_BRANDING, WHATSAPP_NUMBER } from '../../theme/masterThemeConfig';
@@ -10,7 +10,10 @@ export default function ContactPage() {
   const [searchParams] = useSearchParams();
   const initialQuery = searchParams.get('query') || '';
   const initialCompany = searchParams.get('college') || searchParams.get('organization') || '';
-  const initialTrack = searchParams.get('track') || searchParams.get('interest') || 'crt';
+  const initialTrack =
+    searchParams.get('track') ||
+    searchParams.get('interest') ||
+    (searchParams.get('audience') === 'studio' ? 'studio' : 'crt');
 
   const [status, setStatus] = useState('idle'); // 'idle' | 'submitting' | 'success' | 'error'
   const [errorMsg, setErrorMsg] = useState('');
@@ -24,6 +27,25 @@ export default function ContactPage() {
     scope: initialQuery,
     botcheck: '',
   });
+
+  // Keep campaign/program context in sync when navigation changes only the query string.
+  useEffect(() => {
+    const nextCompany = searchParams.get('college') || searchParams.get('organization');
+    const nextTrack =
+      searchParams.get('track') ||
+      searchParams.get('interest') ||
+      (searchParams.get('audience') === 'studio' ? 'studio' : null);
+    const nextScope = searchParams.get('query');
+
+    if (!nextCompany && !nextTrack && !nextScope) return;
+
+    setFormData((current) => ({
+      ...current,
+      ...(nextCompany ? { company: nextCompany } : {}),
+      ...(nextTrack ? { track: nextTrack } : {}),
+      ...(nextScope ? { scope: nextScope } : {}),
+    }));
+  }, [searchParams]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
