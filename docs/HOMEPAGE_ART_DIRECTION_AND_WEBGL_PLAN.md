@@ -89,3 +89,55 @@ The hero background should be beautiful without becoming the page's main perform
 ## Scope / claims
 
 The hero and background changes in this branch are an initial implementation pass. The rest of the homepage section ideas above are the recommended integration backlog—not a claim that all sections have already been rebuilt. The external preview is protected, so a real browser-based visual inspection must still be performed in an authenticated preview session before calling the work finished.
+
+
+## Research refresh — current references and specific integration ideas
+
+This addendum incorporates a live review of Lusion's current homepage and the available Active Theory portfolio case study, plus current Three.js and MDN guidance. The source sites evolve; these are design observations, not promises that every detail remains unchanged.
+
+### Lusion: order the story, not just the effects
+
+The [current Lusion homepage](https://lusion.co/) moves from an interactive creative promise into an approach statement, featured work, a more immersive closing passage and a contact invitation. Its official copy describes combining design, motion, 3D and development into distinctive digital experiences. A [mesh3d case study of an earlier homepage](https://mesh3d.gallery/website/lusion-realise-your-creative-ideas) documents cursor-reactive glossy geometry, scroll-connected scenes and a featured-project gallery. The useful lesson is **one unmistakable visual signature → proof of craft → explanation of method → a clear CTA**. The exact prior scene is historical inspiration, not a requirement to copy.
+
+### Active Theory: make input visibly matter
+
+The [current official Active Theory site](https://activetheory.net/) is JavaScript-rendered, so a static text view cannot completely verify its live details. In its [Communication Arts portfolio interview](https://www.commarts.com/webpicks/active-theory-2), Active Theory described a simple work/contact pill affected by scroll velocity, AI-assisted project discovery, and WebGL interactions reacting to mouse or touch. Its [Experiments Hub interview](https://www.commarts.com/webpicks/experiments-hub) describes a functional catalog whose experiments receive room to stand on their own.
+
+**THAKSA integration:** keep navigation conventional but give the active marker slight velocity-aware easing; let the hero light and sculpture directly reflect a pointer or tap; make each section have one memorable reaction. Avoid adding AI chat or multiplayer effects without a real product need.
+
+### Additional touch-first reference: Bruno Simon
+
+[Bruno Simon's 3D portfolio](https://bruno-simon.com/) offers a drivable scene and explicit desktop/mobile controls. This is useful proof that unusual interactions need obvious instructions and fallback controls. THAKSA should borrow the **clear touch affordance and quality-conscious approach**, not the game-like whole-site navigation: visitors still need to quickly find workshops, CRT, internships, final-year projects and studio services.
+
+### Deeper section integrations
+
+- **Hero:** use the hero sculpture as a responsive cover-art composition. Keep the headline left on desktop; on narrow screens position the art high/back with a darker gradient behind text. Touch-down should trigger a short highlight pulse—not long camera movement—and must not disable normal page scrolling.
+- **Capability Reactor:** let one active node create a luminance/geometry response and update the explanatory panel. The SVG fallback must keep all four choices visible.
+- **Proof strip:** prioritize a single strong manifesto with scroll-linked word emphasis; make a looped technology ribbon visually secondary. Facts and counts remain editorial proof only when verified.
+- **Audience routing:** make student / college / studio choices explicit, then reveal a tactile detail surface. Keep selected state, route/query state and content legible if all animation is disabled.
+- **Methodology:** the four stages become one connecting thread with a single active milestone; avoid four concurrent WebGL renderers or scroll-jacking.
+- **Gallery:** make the photography feel like an edited magazine spread, not an infinite ticker. Use real event/build imagery, different but controlled crop ratios, captions, lazy-loading and touch-scrolling.
+- **Founder/vision:** keep this as the human pause—authentic portrait or restrained monogram and one attributable statement. Avoid fake results, unverifiable customer claims or additional 3D just to fill space.
+- **Software Studio:** show real project/process proof where available, with capability demos explicitly labeled as demos. Use screenshots/device frames and problem → approach → outcome, not three identical cards.
+- **Closing CTA:** echo the hero's filament/light motif to close the story. Give separate and obvious next steps for training and software studio. No forced scroll, autoplay audio or animation-dependent controls.
+
+### Source notes and technical guardrails
+
+- [Lusion — official current homepage](https://lusion.co/): interactive 3D storytelling, approach, featured work and closing call to action.
+- [Lusion — historical homepage description on mesh3d](https://mesh3d.gallery/website/lusion-realise-your-creative-ideas): glossy cursor-reactive sculpture and scroll-connected visual journey; useful as a past-version case study.
+- [Active Theory — official site](https://activetheory.net/): live scene should be examined in a real browser; text scraping alone is incomplete.
+- [Active Theory — Communication Arts interview](https://www.commarts.com/webpicks/active-theory-2): scroll-velocity navigation and mouse/touch-driven WebGL effects were described for the portfolio version discussed in the article.
+- [Active Theory Experiments Hub](https://www.commarts.com/webpicks/experiments-hub): experiments grouped into a discoverable catalog.
+- [Bruno Simon](https://bruno-simon.com/): interactive 3D navigation with explicit mobile controls.
+- [mesh3d's current Three.js gallery](https://www.mesh3d.gallery/): use as a live moodboard for current projects including work attributed to Lusion and Active Theory.
+- [Three.js WebGLRenderer](https://threejs.org/docs/pages/WebGLRenderer): renderer pixel ratio, sizing, lifecycle and resource disposal APIs; see also the [responsive-rendering guide](https://threejs.org/manual/pages/responsive.html), which warns about excessive high-DPR buffers on heavy scenes.
+- [MDN reduced motion](https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/At-rules/%40media/prefers-reduced-motion): non-essential motion should be reduced or replaced when the visitor requests it.
+
+### Integration priorities
+
+1. **First — hero reliability:** exactly one hero-scoped renderer, working light movement, touch pulse and mobile composition; verify on a real phone and not only in a desktop emulator.
+2. **Second — composition diversity:** vary section rhythms (typographic statement, interactive artifact, audience chooser, timeline, photo wall, human quote, case studies, CTA) so the page doesn't repeat the same card template.
+3. **Third — interaction polish:** shared easing and material language, purposeful hover/focus/pressed states, no canvas hit-testing over controls.
+4. **Fourth — measured validation:** lint, production build, bundle budget, Playwright smoke tests, reduced-motion check, mobile pointer test, hidden-tab/offscreen resume, resize and WebGL context-loss fallback. A READY deployment alone is not a visual or touch QA result.
+
+All section ideas beyond the changes explicitly called out as completed in the pull request remain the **design backlog**, not a claim that the whole site has already been rebuilt.
