@@ -26,7 +26,7 @@ const MANIFESTO_WORDS = [
 const HIGHLIGHTS = [
   {
     value: '3',
-    unit: 'Technology Domains',
+    unit: 'Core Courses',
     label: 'Full Stack · AWS DevOps & MLOps · Agentic AI',
     detail: 'Focused on the highest-demand skills that modern tech companies actually hire for.',
   },
@@ -43,10 +43,10 @@ const HIGHLIGHTS = [
     detail: 'Every student moves from strong fundamentals to a live project they can confidently explain.',
   },
   {
-    value: 'Lab',
-    unit: 'Practice',
-    label: 'Hands-On Engineering Sessions',
-    detail: 'Programs are structured around practical exercises, guided builds, and work students can explain.',
+    value: '100%',
+    unit: 'Hands-On',
+    label: 'Taught by Industry Professionals',
+    detail: 'Every session is led by experienced professionals who build real software in the industry.',
   },
 ];
 

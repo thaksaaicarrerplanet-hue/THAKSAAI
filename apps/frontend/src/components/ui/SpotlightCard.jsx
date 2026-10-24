@@ -1,5 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
-import { useReducedMotion } from '../../hooks/useReducedMotion';
+import React, { useRef, useState } from 'react';
 
 /**
  * SpotlightCard
@@ -20,7 +19,6 @@ export function SpotlightCard({
 }) {
   const cardRef = useRef(null);
   const [hovered, setHovered] = useState(false);
-  const reducedMotion = useReducedMotion();
 
   const isDark = tone === 'midnight' || tone === 'dark';
   const defaultSpotlight = isDark
@@ -29,7 +27,7 @@ export function SpotlightCard({
   const glowColor = spotlightColor || defaultSpotlight;
 
   const handlePointerMove = (e) => {
-    if (reducedMotion || e.pointerType !== 'mouse' || !cardRef.current) return;
+    if (!cardRef.current) return;
     const rect = cardRef.current.getBoundingClientRect();
     const x = e.clientX - rect.left;
     const y = e.clientY - rect.top;
@@ -45,8 +43,7 @@ export function SpotlightCard({
     cardRef.current.style.transform = `perspective(1000px) rotateX(${rx}deg) rotateY(${ry}deg) translateY(-3px)`;
   };
 
-  const handlePointerEnter = (event) => {
-    if (reducedMotion || event.pointerType !== 'mouse') return;
+  const handlePointerEnter = () => {
     setHovered(true);
   };
 
@@ -56,14 +53,6 @@ export function SpotlightCard({
     cardRef.current.style.transform =
       'perspective(1000px) rotateX(0deg) rotateY(0deg) translateY(0px)';
   };
-
-  useEffect(() => {
-    if (!reducedMotion || !cardRef.current) return;
-    cardRef.current.style.transform = 'none';
-    cardRef.current.style.removeProperty('--mouse-x');
-    cardRef.current.style.removeProperty('--mouse-y');
-    setHovered(false);
-  }, [reducedMotion]);
 
   const baseToneClasses = isDark
     ? 'bg-[#111A2E]/95 text-[#F7F8F4] border border-white/12 shadow-[0_24px_48px_-24px_rgba(0,0,0,0.65)]'

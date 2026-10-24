@@ -5,8 +5,7 @@ import { prefetchRoute } from '../routes/lazy';
 
 export default function Footer() {
   const scrollToTop = () => {
-    const reducedMotion = window.matchMedia?.("(prefers-reduced-motion: reduce)").matches;
-    window.scrollTo({ top: 0, behavior: reducedMotion ? "auto" : "smooth" });
+    window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
   return (
@@ -84,20 +83,6 @@ export default function Footer() {
               Domain Internships
             </Link>
             <Link
-              to="/final-year-projects"
-              onPointerEnter={() => prefetchRoute('/final-year-projects')}
-              className="text-sm text-slate-200 hover:text-[#C7F36B] transition-colors py-1"
-            >
-              Final-Year Projects
-            </Link>
-            <Link
-              to="/courses"
-              onPointerEnter={() => prefetchRoute('/courses')}
-              className="text-sm text-slate-200 hover:text-[#C7F36B] transition-colors py-1"
-            >
-              Course Catalogue
-            </Link>
-            <Link
               to="/studio"
               onPointerEnter={() => prefetchRoute('/studio')}
               className="text-sm text-slate-200 hover:text-[#C7F36B] transition-colors py-1"
@@ -157,7 +142,7 @@ export default function Footer() {
                   {SITE_BRANDING.buildingName}
                 </div>
                 <p className="text-xs text-slate-300 leading-relaxed mt-1">
-                  {SITE_BRANDING.officeAddress}
+                  Diamond Hills, Lumbini Avenue, Gachibowli, Hyderabad, Telangana 500032
                 </p>
               </div>
               <div className="h-px bg-white/10" />
@@ -231,9 +216,9 @@ export default function Footer() {
 
         {/* Bottom Attribution Bar */}
         <div className="pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-slate-400 font-mono">
-          <p>© {new Date().getFullYear()} {SITE_BRANDING.name}. Workshops · CRT · Internships · Capstone projects.</p>
+          <p>© {new Date().getFullYear()} {SITE_BRANDING.name}. All institutional syllabus frameworks verified.</p>
           <p className="text-slate-400">
-            Designed for practical engineering learning · Built for accessible delivery
+            Engineered in Gachibowli, Hyderabad · Built for 4G & Institutional Scale
           </p>
         </div>
       </div>

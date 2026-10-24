@@ -1,10 +1,8 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { VERIFIED_DOCUMENTARY_GALLERY } from '../../../data/proof';
-import { useReducedMotion } from '../../../hooks/useReducedMotion';
 
 export default function PaperGallery() {
-  const reducedMotion = useReducedMotion();
   const half = Math.ceil(VERIFIED_DOCUMENTARY_GALLERY.length / 2);
   const firstRow = VERIFIED_DOCUMENTARY_GALLERY.slice(0, half);
   const secondRow = VERIFIED_DOCUMENTARY_GALLERY.slice(half);
@@ -31,23 +29,21 @@ export default function PaperGallery() {
       </div>
 
       {/* Row 1 — Automatically Scrolls Left continuously */}
-      <div className={`relative w-full mb-4 sm:mb-6 ${reducedMotion ? "overflow-x-auto overscroll-x-contain" : "overflow-hidden"}`}>
+      <div className="relative w-full overflow-hidden mb-4 sm:mb-6">
         <motion.div
-          animate={reducedMotion ? undefined : { x: ['0%', '-50%'] }}
-          transition={reducedMotion ? undefined : { duration: 38, ease: 'linear', repeat: Infinity }}
-          className={`flex w-max items-stretch gap-4 sm:gap-6 ${reducedMotion ? "" : "will-change-transform"}`}
+          animate={{ x: ['0%', '-50%'] }}
+          transition={{ duration: 38, ease: 'linear', repeat: Infinity }}
+          className="flex w-max items-stretch gap-4 sm:gap-6 will-change-transform"
         >
           {[...firstRow, ...firstRow].map((item, idx) => (
             <div
               key={`r1-${idx}`}
-              aria-hidden={idx >= firstRow.length ? "true" : undefined}
               className="group relative w-[260px] sm:w-[370px] aspect-[16/10] shrink-0 rounded-2xl overflow-hidden border border-white/15 bg-[#0A1122] shadow-[0_18px_40px_-15px_rgba(0,0,0,0.8)]"
             >
               <img
                 src={item.src}
-                alt={idx >= firstRow.length ? "" : item.title}
+                alt={item.title}
                 loading="lazy"
-                decoding="async"
                 className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-[#050811] via-[#050811]/25 to-transparent opacity-90" />
@@ -66,23 +62,21 @@ export default function PaperGallery() {
       </div>
 
       {/* Row 2 — Automatically Scrolls Right continuously */}
-      <div className={`relative w-full ${reducedMotion ? "overflow-x-auto overscroll-x-contain" : "overflow-hidden"}`}>
+      <div className="relative w-full overflow-hidden">
         <motion.div
-          animate={reducedMotion ? undefined : { x: ['-50%', '0%'] }}
-          transition={reducedMotion ? undefined : { duration: 42, ease: 'linear', repeat: Infinity }}
-          className={`flex w-max items-stretch gap-4 sm:gap-6 ${reducedMotion ? "" : "will-change-transform"}`}
+          animate={{ x: ['-50%', '0%'] }}
+          transition={{ duration: 42, ease: 'linear', repeat: Infinity }}
+          className="flex w-max items-stretch gap-4 sm:gap-6 will-change-transform"
         >
           {[...secondRow, ...secondRow].map((item, idx) => (
             <div
               key={`r2-${idx}`}
-              aria-hidden={idx >= secondRow.length ? "true" : undefined}
               className="group relative w-[260px] sm:w-[370px] aspect-[16/10] shrink-0 rounded-2xl overflow-hidden border border-white/15 bg-[#0A1122] shadow-[0_18px_40px_-15px_rgba(0,0,0,0.8)]"
             >
               <img
                 src={item.src}
-                alt={idx >= secondRow.length ? "" : item.title}
+                alt={item.title}
                 loading="lazy"
-                decoding="async"
                 className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-[#050811] via-[#050811]/25 to-transparent opacity-90" />

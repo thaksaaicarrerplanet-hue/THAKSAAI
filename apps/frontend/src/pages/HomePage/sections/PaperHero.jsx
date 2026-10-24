@@ -1,13 +1,7 @@
 import React, { useRef } from 'react';
 import { Link } from 'react-router-dom';
 import { motion, useScroll, useSpring, useTransform } from 'framer-motion';
-import { useReducedMotion } from '../../../hooks/useReducedMotion';
 
-const SPECIALIZATIONS = [
-  { name: 'Full Stack Web Development', color: '#C7F36B' },
-  { name: 'AWS, DevOps & MLOps', color: '#38BDF8' },
-  { name: 'Agentic AI', color: '#6D8DFF' },
-];
 
 const HERO_PILLARS = [
   { label: 'On-Campus Workshops', desc: '3–5 Day Practical Bootcamps', href: '/workshops' },
@@ -17,7 +11,6 @@ const HERO_PILLARS = [
 
 export default function PaperHero() {
   const heroRef = useRef(null);
-  const prefersReducedMotion = useReducedMotion();
   const { scrollYProgress } = useScroll({
     target: heroRef,
     offset: ['start start', 'end start'],
@@ -29,16 +22,12 @@ export default function PaperHero() {
     mass: 0.4,
   });
 
-  const headlineY = useTransform(smoothProgress, [0, 1], [0, prefersReducedMotion ? 0 : -90]);
-  const headlineOpacity = useTransform(smoothProgress, [0, 0.85], [1, prefersReducedMotion ? 1 : 0]);
+  const headlineY = useTransform(smoothProgress, [0, 1], [0, -90]);
+  const headlineOpacity = useTransform(smoothProgress, [0, 0.85], [1, 0]);
 
   const scrollToStory = () => {
     const el = document.getElementById('course-storytelling');
-    if (!el) return;
-    el.scrollIntoView({
-      behavior: prefersReducedMotion ? 'auto' : 'smooth',
-      block: 'start',
-    });
+    if (el) el.scrollIntoView({ behavior: 'smooth' });
   };
 
   return (
@@ -47,11 +36,24 @@ export default function PaperHero() {
       aria-label="THAKSA.AI Hero"
       className="relative w-full min-h-[calc(100vh-76px)] bg-transparent text-white flex flex-col justify-between py-6 sm:py-10"
     >
-      {/* Center Stage: Executive Typography & Rearranged Domain Specializations */}
+      {/* Center Stage: Executive Typography */}
       <motion.div
         style={{ y: headlineY, opacity: headlineOpacity }}
         className="relative z-10 max-w-[1140px] w-full mx-auto px-4 sm:px-8 my-auto py-6 sm:py-10 flex flex-col items-center text-center"
       >
+        {/* Top Institutional Eyebrow */}
+        <motion.div
+          initial={{ opacity: 0, y: 14 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.45 }}
+          className="inline-flex items-center gap-2.5 px-4 py-1.5 rounded-full bg-white/[0.05] border border-white/15 mb-6"
+        >
+          <span className="w-1.5 h-1.5 rounded-full bg-[#C7F36B]" />
+          <span className="text-[11px] sm:text-xs font-semibold uppercase tracking-[0.16em] text-slate-200">
+            Industry–Academia Engineering Institution
+          </span>
+        </motion.div>
+
         <motion.h1
           initial={{ opacity: 0, y: 24 }}
           animate={{ opacity: 1, y: 0 }}
@@ -76,29 +78,6 @@ export default function PaperHero() {
           <strong className="text-white">CRT Training</strong>, and{' '}
           <strong className="text-white">Internships</strong>.
         </motion.p>
-
-        {/* Rearranged Domain Mastery Strip: 3 Distinct Architectural Badges */}
-        <motion.div
-          initial={{ opacity: 0, y: 16 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.55, delay: 0.14 }}
-          className="flex flex-wrap items-center justify-center gap-2.5 sm:gap-3 mb-9"
-        >
-          {SPECIALIZATIONS.map((spec) => (
-            <button
-              key={spec.name}
-              type="button"
-              onClick={scrollToStory}
-              className="px-4 py-2 rounded-full bg-[#091124]/85 hover:bg-[#101C38] border border-white/15 hover:border-white/30 backdrop-blur-md inline-flex items-center gap-2.5 text-xs sm:text-sm font-display font-semibold text-white transition-all cursor-pointer shadow-sm"
-            >
-              <span
-                className="w-2 h-2 rounded-full shrink-0"
-                style={{ backgroundColor: spec.color, boxShadow: `0 0 10px ${spec.color}` }}
-              />
-              <span>{spec.name}</span>
-            </button>
-          ))}
-        </motion.div>
 
         {/* Action Buttons */}
         <motion.div

@@ -10,7 +10,7 @@ const CORE_PROGRAMS = [
     description:
       'Industry practitioners lead intensive, hands-on engineering bootcamps directly inside campus computer labs—building and deploying live applications from scratch.',
     points: [
-      'Live coding and practical execution inside departmental labs',
+      '100% live coding execution inside departmental labs',
       'Focused tracks in Full Stack, Cloud/MLOps, and Agentic AI',
       'Every participant completes a version-controlled GitHub build',
     ],

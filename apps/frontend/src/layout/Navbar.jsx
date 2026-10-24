@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link, NavLink, useLocation } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import { prefetchRoute } from '../routes/lazy';
@@ -8,8 +8,6 @@ const NAV_ITEMS = [
   { label: 'Workshops', path: '/workshops' },
   { label: 'CRT Training', path: '/crt' },
   { label: 'Internships', path: '/internships' },
-  { label: 'Projects', path: '/final-year-projects' },
-  { label: 'Courses', path: '/courses' },
   { label: 'Studio', path: '/studio' },
   { label: 'About', path: '/about' },
 ];
@@ -17,8 +15,6 @@ const NAV_ITEMS = [
 export default function Navbar() {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
-  const mobileMenuRef = useRef(null);
-  const mobileTriggerRef = useRef(null);
   const location = useLocation();
 
   useEffect(() => {
@@ -36,38 +32,11 @@ export default function Navbar() {
 
   useEffect(() => {
     if (!mobileOpen) return undefined;
-
-    const previousOverflow = document.body.style.overflow;
-    document.body.style.overflow = 'hidden';
-    mobileMenuRef.current?.querySelector('a[href]')?.focus();
-
-    const handleKeyDown = (event) => {
-      if (event.key === 'Escape') {
-        setMobileOpen(false);
-        return;
-      }
-      if (event.key !== 'Tab') return;
-
-      const focusable = mobileMenuRef.current?.querySelectorAll('a[href], button:not([disabled])');
-      if (!focusable?.length) return;
-      const first = focusable[0];
-      const last = focusable[focusable.length - 1];
-
-      if (event.shiftKey && document.activeElement === first) {
-        event.preventDefault();
-        last.focus();
-      } else if (!event.shiftKey && document.activeElement === last) {
-        event.preventDefault();
-        first.focus();
-      }
+    const handleKeyDown = (e) => {
+      if (e.key === 'Escape') setMobileOpen(false);
     };
-
     window.addEventListener('keydown', handleKeyDown);
-    return () => {
-      document.body.style.overflow = previousOverflow;
-      window.removeEventListener('keydown', handleKeyDown);
-      mobileTriggerRef.current?.focus();
-    };
+    return () => window.removeEventListener('keydown', handleKeyDown);
   }, [mobileOpen]);
 
   return (
@@ -142,7 +111,6 @@ export default function Navbar() {
             aria-label={mobileOpen ? 'Close navigation menu' : 'Open navigation menu'}
             aria-expanded={mobileOpen}
             aria-controls="mobile-nav-sheet"
-            ref={mobileTriggerRef}
             className="lg:hidden inline-flex flex-col items-center justify-center w-11 h-11 rounded-xl border border-white/15 bg-white/[0.06] text-white"
           >
             <span
@@ -164,27 +132,15 @@ export default function Navbar() {
         {mobileOpen && (
           <motion.div
             id="mobile-nav-sheet"
-            ref={mobileMenuRef}
             role="dialog"
-            aria-modal="true"
             aria-label="Mobile navigation"
             initial={{ opacity: 0, y: -8 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -8 }}
             transition={{ duration: 0.2 }}
-            className="lg:hidden fixed top-[76px] inset-x-0 bottom-0 z-50 bg-[#050811]/95 backdrop-blur-xl border-b border-white/15 overflow-y-auto"
+            className="lg:hidden bg-[#050811]/95 backdrop-blur-xl border-b border-white/15 max-h-[calc(100vh-76px)] overflow-y-auto"
           >
             <div className="max-w-[1280px] mx-auto px-4 sm:px-6 py-5 flex flex-col gap-1.5">
-              <div className="mb-2 flex items-center justify-between border-b border-white/10 pb-3">
-                <span className="font-mono text-[10px] uppercase tracking-[0.14em] text-slate-400">Navigate THAKSA.AI</span>
-                <button
-                  type="button"
-                  onClick={() => setMobileOpen(false)}
-                  className="inline-flex min-h-10 items-center gap-2 rounded-lg border border-white/15 px-3 text-xs font-semibold text-white hover:bg-white/10 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#C7F36B]"
-                >
-                  Close <span aria-hidden="true">×</span>
-                </button>
-              </div>
               {NAV_ITEMS.map((item) => (
                 <NavLink
                   key={item.path}
