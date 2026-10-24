@@ -42,7 +42,8 @@ export default function HeroBackgroundCanvas({ className = "" }) {
     let particleMaterial;
     let three;
 
-    const pointer = { x: 0, y: 0, targetX: 0, targetY: 0 };
+    const pointer = { x: 0, y: 0, targetX: 0, targetY: 0, pulse: 0 };
+    let sculptureBaseScale = 1;
     const setFallback = () => {
       if (!disposed) setRenderState("fallback");
     };
@@ -50,20 +51,25 @@ export default function HeroBackgroundCanvas({ className = "" }) {
     const onPointer = (event) => {
       if (reducedMotion || !visible) return;
       const bounds = host.getBoundingClientRect();
-      if (
-        bounds.width <= 0 ||
-        bounds.height <= 0 ||
-        event.clientX < bounds.left ||
-        event.clientX > bounds.right ||
-        event.clientY < bounds.top ||
-        event.clientY > bounds.bottom
-      ) {
+      if (bounds.width <= 0 || bounds.height <= 0) return;
+
+      const withinHero =
+        event.clientX >= bounds.left &&
+        event.clientX <= bounds.right &&
+        event.clientY >= bounds.top &&
+        event.clientY <= bounds.bottom;
+
+      if (!withinHero) {
+        pointer.targetX = 0;
+        pointer.targetY = 0;
         return;
       }
 
       // Pointer events include mouse, stylus, and one-finger touch on modern mobile browsers.
+      // A tap adds a brief light pulse so touch feels intentional, not merely like a cursor.
       pointer.targetX = ((event.clientX - bounds.left) / bounds.width) * 2 - 1;
       pointer.targetY = 1 - ((event.clientY - bounds.top) / bounds.height) * 2;
+      if (event.type === "pointerdown") pointer.pulse = event.pointerType === "touch" ? 1 : 0.72;
       if (renderer && reducedMotion === false) scheduleFrame();
     };
 
@@ -96,23 +102,28 @@ export default function HeroBackgroundCanvas({ className = "" }) {
         const easing = 1 - Math.exp(-delta * 8.5);
         pointer.x += (pointer.targetX - pointer.x) * easing;
         pointer.y += (pointer.targetY - pointer.y) * easing;
+        pointer.pulse = Math.max(0, pointer.pulse - delta * 1.7);
 
         if (ribbonMaterial) {
           ribbonMaterial.uniforms.uTime.value = elapsed;
           ribbonMaterial.uniforms.uPointer.value.set(pointer.x, pointer.y);
+          ribbonMaterial.uniforms.uPulse.value = pointer.pulse;
         }
         if (particleMaterial) {
           particleMaterial.uniforms.uTime.value = elapsed;
           particleMaterial.uniforms.uPointer.value.set(pointer.x, pointer.y);
+          particleMaterial.uniforms.uPulse.value = pointer.pulse;
         }
         if (sculpture) {
           sculpture.rotation.y += (0.13 + pointer.x * 0.12) * delta;
           sculpture.rotation.x += ((pointer.y * 0.14) - sculpture.rotation.x) * easing;
           sculpture.rotation.z += ((pointer.x * -0.07) - sculpture.rotation.z) * easing;
+          sculpture.scale.setScalar(sculptureBaseScale * (1 + pointer.pulse * 0.045));
         }
         if (pointerLight) {
           pointerLight.position.x += (pointer.x * 4.8 - pointerLight.position.x) * easing;
           pointerLight.position.y += (pointer.y * 3.2 - pointerLight.position.y) * easing;
+          pointerLight.intensity = 42 + pointer.pulse * 44;
         }
       }
 
@@ -158,6 +169,7 @@ export default function HeroBackgroundCanvas({ className = "" }) {
       if (sculpture) {
         sculpture.position.set(mobile ? 1.15 : 3.15, mobile ? -1.45 : -0.05, 0);
         const scale = mobile ? 0.68 : width < 1100 ? 0.82 : 1;
+        sculptureBaseScale = scale;
         sculpture.scale.setScalar(scale);
       }
       scheduleFrame();
@@ -213,17 +225,19 @@ export default function HeroBackgroundCanvas({ className = "" }) {
           uniforms: {
             uTime: { value: 0 },
             uPointer: { value: new three.Vector2(0, 0) },
+            uPulse: { value: 0 },
           },
           vertexShader: `
             uniform float uTime;
             uniform vec2 uPointer;
+            uniform float uPulse;
             varying vec2 vUv;
             void main() {
               vUv = uv;
               vec3 p = position;
               float wideWave = sin(uv.x * 9.0 + uTime * 0.38) * 0.20;
               float fineWave = cos(uv.y * 8.0 - uTime * 0.29) * 0.10;
-              float pointerGlow = exp(-length(vec2(uv.x - (0.5 + uPointer.x * 0.22), uv.y - (0.5 - uPointer.y * 0.20))) * 8.0);
+              float pointerGlow = exp(-length(vec2(uv.x - (0.5 + uPointer.x * 0.22), uv.y - (0.5 - uPointer.y * 0.20))) * 8.0) * (0.35 + uPulse * 0.8);
               p.z += wideWave + fineWave + pointerGlow * 0.35;
               p.y += sin(uv.x * 7.0 - uTime * 0.22) * 0.10;
               gl_Position = projectionMatrix * modelViewMatrix * vec4(p, 1.0);
@@ -232,18 +246,19 @@ export default function HeroBackgroundCanvas({ className = "" }) {
           fragmentShader: `
             uniform float uTime;
             uniform vec2 uPointer;
+            uniform float uPulse;
             varying vec2 vUv;
             void main() {
               float curve = sin(vUv.x * 8.0 + uTime * 0.22) * 0.075;
               float pointerLine = uPointer.y * 0.018;
               float ridge = exp(-pow((vUv.y - 0.52 - curve - pointerLine) * 10.0, 2.0));
-              float arc = exp(-length((vUv - vec2(0.5 + uPointer.x * 0.12, 0.5 - uPointer.y * 0.08)) * vec2(1.0, 1.6)) * 5.0);
+              float arc = exp(-length((vUv - vec2(0.5 + uPointer.x * 0.12, 0.5 - uPointer.y * 0.08)) * vec2(1.0, 1.6)) * (5.0 - uPulse * 0.8));
               vec3 deep = vec3(0.008, 0.017, 0.052);
               vec3 blue = vec3(0.055, 0.15, 0.42);
               vec3 lime = vec3(0.58, 0.91, 0.31);
               vec3 color = mix(deep, blue, smoothstep(0.0, 0.8, ridge + arc * 0.25));
               color = mix(color, lime, pow(max(arc, 0.0), 3.0) * 0.5);
-              float alpha = 0.035 + ridge * 0.12 + arc * 0.05;
+              float alpha = 0.035 + ridge * 0.12 + arc * (0.05 + uPulse * 0.11);
               gl_FragColor = vec4(color, alpha);
             }
           `,
@@ -337,11 +352,13 @@ export default function HeroBackgroundCanvas({ className = "" }) {
           uniforms: {
             uTime: { value: 0 },
             uPointer: { value: new three.Vector2(0, 0) },
+            uPulse: { value: 0 },
           },
           vertexShader: `
             attribute float aPhase;
             uniform float uTime;
             uniform vec2 uPointer;
+            uniform float uPulse;
             varying float vAlpha;
             varying vec3 vColor;
             void main() {
@@ -351,8 +368,8 @@ export default function HeroBackgroundCanvas({ className = "" }) {
               p.y += uPointer.y * 0.025 * (0.35 + aPhase);
               vec4 mvPosition = modelViewMatrix * vec4(p, 1.0);
               gl_Position = projectionMatrix * mvPosition;
-              gl_PointSize = (1.2 + 2.0 * abs(sin(uTime * 0.9 + aPhase * 6.283))) * (18.0 / max(1.0, -mvPosition.z));
-              vAlpha = 0.20 + 0.42 * abs(sin(uTime + aPhase * 6.283));
+              gl_PointSize = (1.2 + 2.0 * abs(sin(uTime * 0.9 + aPhase * 6.283))) * (18.0 / max(1.0, -mvPosition.z)) * (1.0 + uPulse * 0.45);
+              vAlpha = (0.20 + 0.42 * abs(sin(uTime + aPhase * 6.283))) * (1.0 + uPulse * 0.35);
               vColor = mix(vec3(0.30, 0.48, 1.0), vec3(0.76, 0.96, 0.45), step(0.84, aPhase));
             }
           `,
@@ -373,19 +390,25 @@ export default function HeroBackgroundCanvas({ className = "" }) {
         window.addEventListener("pointermove", onPointer, { passive: true });
         window.addEventListener("pointerdown", onPointer, { passive: true });
         document.addEventListener("visibilitychange", onVisibilityChange);
-        resizeObserver = new ResizeObserver(resizeScene);
-        resizeObserver.observe(host);
-        intersectionObserver = new IntersectionObserver(([entry]) => {
-          visible = entry.isIntersecting;
-          if (!visible && frameId !== null) {
-            window.cancelAnimationFrame(frameId);
-            frameId = null;
-          } else {
-            lastFrame = 0;
-            scheduleFrame();
-          }
-        }, { threshold: 0.01 });
-        intersectionObserver.observe(host);
+        if (typeof ResizeObserver !== "undefined") {
+          resizeObserver = new ResizeObserver(resizeScene);
+          resizeObserver.observe(host);
+        } else {
+          window.addEventListener("resize", resizeScene, { passive: true });
+        }
+        if (typeof IntersectionObserver !== "undefined") {
+          intersectionObserver = new IntersectionObserver(([entry]) => {
+            visible = entry.isIntersecting;
+            if (!visible && frameId !== null) {
+              window.cancelAnimationFrame(frameId);
+              frameId = null;
+            } else {
+              lastFrame = 0;
+              scheduleFrame();
+            }
+          }, { threshold: 0.01 });
+          intersectionObserver.observe(host);
+        }
 
         resizeScene();
       } catch {
@@ -401,6 +424,7 @@ export default function HeroBackgroundCanvas({ className = "" }) {
       if (frameId !== null) window.cancelAnimationFrame(frameId);
       if (resizeObserver) resizeObserver.disconnect();
       if (intersectionObserver) intersectionObserver.disconnect();
+      window.removeEventListener("resize", resizeScene);
       window.removeEventListener("pointermove", onPointer);
       window.removeEventListener("pointerdown", onPointer);
       document.removeEventListener("visibilitychange", onVisibilityChange);
