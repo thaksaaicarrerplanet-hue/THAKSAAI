@@ -10,7 +10,6 @@ import PaperGallery from './sections/PaperGallery';
 import PaperFounderQuote from './sections/PaperFounderQuote';
 import PaperClosingCTA from './sections/PaperClosingCTA';
 import { SITE_BRANDING } from '../../theme/masterThemeConfig';
-import HeroBackgroundCanvas from '../../components/ui/HeroBackgroundCanvas';
 
 const EDUCATIONAL_ORG_JSON_LD = {
   '@context': 'https://schema.org',
@@ -44,33 +43,31 @@ export default function HomePage() {
         <script type="application/ld+json">{JSON.stringify(EDUCATIONAL_ORG_JSON_LD)}</script>
       </Helmet>
 
-      <HeroBackgroundCanvas />
-
-      {/* 1. Editorial hero with clear program pathways */}
+      {/* Art direction and WebGL renderer live inside the hero for predictable layering. */}
       <PaperHero />
 
-      {/* 2. Interactive, adaptive 3D capability architecture */}
+      {/* Interactive, adaptive 3D capability architecture */}
       <CapabilityReactor />
 
-      {/* 3. Scroll-scrubbed manifesto, program context, and proof ledger */}
+      {/* Scroll-scrubbed manifesto, program context, and proof ledger */}
       <PaperProofStrip />
 
-      {/* 4. Program discovery and audience-specific pathways */}
+      {/* Program discovery and audience-specific pathways */}
       <PaperAudienceRouting />
 
-      {/* 5. Assess → Train → Build → Demonstrate methodology */}
+      {/* Assess → Train → Build → Demonstrate methodology */}
       <PaperMethodology />
 
-      {/* 6. Documentary gallery with reduced-motion support */}
+      {/* Documentary gallery with reduced-motion support */}
       <PaperGallery />
 
-      {/* 7. Leadership and vision */}
+      {/* Leadership and vision */}
       <PaperFounderQuote />
 
-      {/* 8. Software Studio showcase */}
+      {/* Software Studio showcase */}
       <PaperStudioHighlight />
 
-      {/* 9. Training and Studio conversion paths */}
+      {/* Training and Studio conversion paths */}
       <PaperClosingCTA />
     </>
   );
