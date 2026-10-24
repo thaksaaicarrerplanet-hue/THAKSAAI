@@ -41,6 +41,7 @@ export default function HeroBackgroundCanvas({ className = "" }) {
     let ribbonMaterial;
     let particleMaterial;
     let three;
+    let hasRendered = false;
 
     const pointer = { x: 0, y: 0, targetX: 0, targetY: 0, pulse: 0 };
     let sculptureBaseScale = 1;
@@ -128,7 +129,7 @@ export default function HeroBackgroundCanvas({ className = "" }) {
       }
 
       renderer.render(scene, camera);
-      if (!disposed) setRenderState("active");
+      if (!disposed && !hasRendered) {\n        hasRendered = true;\n        setRenderState("active");\n      }
       if (!reducedMotion) scheduleFrame();
     };
 
