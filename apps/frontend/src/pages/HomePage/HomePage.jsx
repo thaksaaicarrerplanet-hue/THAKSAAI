@@ -10,6 +10,7 @@ import PaperGallery from './sections/PaperGallery';
 import PaperFounderQuote from './sections/PaperFounderQuote';
 import PaperClosingCTA from './sections/PaperClosingCTA';
 import { SITE_BRANDING } from '../../theme/masterThemeConfig';
+import HeroBackgroundCanvas from '../../components/ui/HeroBackgroundCanvas';
 
 const EDUCATIONAL_ORG_JSON_LD = {
   '@context': 'https://schema.org',
@@ -42,6 +43,8 @@ export default function HomePage() {
         />
         <script type="application/ld+json">{JSON.stringify(EDUCATIONAL_ORG_JSON_LD)}</script>
       </Helmet>
+
+      <HeroBackgroundCanvas />
 
       {/* 1. Editorial hero with clear program pathways */}
       <PaperHero />
