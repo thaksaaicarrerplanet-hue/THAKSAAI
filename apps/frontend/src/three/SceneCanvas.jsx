@@ -37,7 +37,6 @@ export const SceneCanvas = ({
         onSelect: (id) => onSelectRef.current?.(id),
         tier,
         reducedMotion,
-        reducedMotion,
       });
       controllerRef.current = controller;
       readyFrame = window.requestAnimationFrame(() => {
