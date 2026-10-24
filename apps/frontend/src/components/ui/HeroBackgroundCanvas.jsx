@@ -27,6 +27,7 @@ export default function HeroBackgroundCanvas({ className = "" }) {
     let frameId = null;
     let resizeObserver;
     let intersectionObserver;
+    let resizeFallbackListener = null;
     let visible = true;
     let width = 1;
     let height = 1;
@@ -398,7 +399,8 @@ export default function HeroBackgroundCanvas({ className = "" }) {
           resizeObserver = new ResizeObserver(resizeScene);
           resizeObserver.observe(host);
         } else {
-          window.addEventListener("resize", resizeScene, { passive: true });
+          resizeFallbackListener = resizeScene;
+          window.addEventListener("resize", resizeFallbackListener, { passive: true });
         }
         if (typeof IntersectionObserver !== "undefined") {
           intersectionObserver = new IntersectionObserver(([entry]) => {
@@ -428,7 +430,9 @@ export default function HeroBackgroundCanvas({ className = "" }) {
       if (frameId !== null) window.cancelAnimationFrame(frameId);
       if (resizeObserver) resizeObserver.disconnect();
       if (intersectionObserver) intersectionObserver.disconnect();
-      window.removeEventListener("resize", resizeScene);
+      if (resizeFallbackListener) {
+        window.removeEventListener("resize", resizeFallbackListener);
+      }
       window.removeEventListener("pointermove", onPointer);
       window.removeEventListener("pointerdown", onPointer);
       document.removeEventListener("visibilitychange", onVisibilityChange);
