@@ -41,19 +41,6 @@ export default function PaperHero() {
         style={{ y: headlineY, opacity: headlineOpacity }}
         className="relative z-10 max-w-[1140px] w-full mx-auto px-4 sm:px-8 my-auto py-6 sm:py-10 flex flex-col items-center text-center"
       >
-        {/* Top Institutional Eyebrow */}
-        <motion.div
-          initial={{ opacity: 0, y: 14 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.45 }}
-          className="inline-flex items-center gap-2.5 px-4 py-1.5 rounded-full bg-white/[0.05] border border-white/15 mb-6"
-        >
-          <span className="w-1.5 h-1.5 rounded-full bg-[#C7F36B]" />
-          <span className="text-[11px] sm:text-xs font-semibold uppercase tracking-[0.16em] text-slate-200">
-            Industry–Academia Engineering Institution
-          </span>
-        </motion.div>
-
         <motion.h1
           initial={{ opacity: 0, y: 24 }}
           animate={{ opacity: 1, y: 0 }}

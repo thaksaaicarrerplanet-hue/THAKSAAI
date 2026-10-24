@@ -51,13 +51,21 @@ const HIGHLIGHTS = [
 ];
 
 function ScrubWord({ word, highlight, progress, range }) {
-  const opacity = useTransform(progress, range, [0.2, 1]);
+  const opacity = useTransform(progress, range, [0.28, 1]);
+  const textShadow = useTransform(progress, range, [
+    '0 0 0px rgba(199, 243, 107, 0)',
+    highlight
+      ? '0 0 22px rgba(199, 243, 107, 0.55)'
+      : '0 0 15px rgba(147, 197, 253, 0.32)',
+  ]);
 
   return (
     <motion.span
-      style={{ opacity }}
-      className={`inline-block mr-[0.28em] ${
-        highlight ? 'text-[#C7F36B]' : 'text-white'
+      style={{ opacity, textShadow }}
+      className={`inline-block mr-[0.28em] transition-[filter] duration-300 ${
+        highlight
+          ? 'text-[#C7F36B] hover:drop-shadow-[0_0_12px_rgba(199,243,107,0.7)]'
+          : 'text-white hover:drop-shadow-[0_0_10px_rgba(147,197,253,0.55)]'
       }`}
     >
       {word}
@@ -73,12 +81,12 @@ export default function PaperProofStrip() {
   });
 
   const smoothProgress = useSpring(scrollYProgress, {
-    stiffness: 65,
-    damping: 22,
-    mass: 0.4,
+    stiffness: 95,
+    damping: 25,
+    mass: 0.32,
   });
 
-  const marqueeX = useTransform(smoothProgress, [0, 1], ['0%', '-25%']);
+  const marqueeX = useTransform(smoothProgress, [0, 1], ['0%', '-42%']);
 
   return (
     <section
@@ -135,7 +143,7 @@ export default function PaperProofStrip() {
           {HIGHLIGHTS.map((item) => (
             <div
               key={item.label}
-              className="rounded-2xl bg-[#0A1122]/80 backdrop-blur-md border border-white/12 hover:border-[#C7F36B]/45 p-6 sm:p-7 transition-all"
+              className="group rounded-2xl bg-[#0A1122]/80 backdrop-blur-md border border-white/12 hover:border-[#C7F36B]/65 hover:shadow-[0_0_36px_-12px_rgba(199,243,107,0.5)] hover:-translate-y-1 p-6 sm:p-7 transition-all duration-300"
             >
               <div className="flex items-baseline gap-2.5 mb-2">
                 <span className="font-display font-bold text-4xl sm:text-5xl tracking-[-0.03em] text-white">
@@ -146,7 +154,7 @@ export default function PaperProofStrip() {
                 </span>
               </div>
 
-              <h3 className="text-base sm:text-lg font-display font-bold text-white mb-2">
+              <h3 className="text-base sm:text-lg font-display font-bold text-white mb-2 transition-[color,text-shadow] duration-300 group-hover:text-[#C7F36B] group-hover:drop-shadow-[0_0_10px_rgba(199,243,107,0.45)]">
                 {item.label}
               </h3>
               <p className="text-xs sm:text-sm text-slate-300 leading-relaxed">{item.detail}</p>
