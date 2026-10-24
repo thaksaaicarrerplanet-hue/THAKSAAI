@@ -51,7 +51,7 @@ const courseDetailsDatabase = {
     ],
     schedule: "4 Intensive Days (8 Hours per day inside campus computer labs)",
     prereq: "Basic knowledge of Python scripting and internet fundamentals."
-  }
+  },
   "crt-group-c": {
     title: "Group C: Coding Fundamentals",
     badge: "15-Week Semester Campus Training",
