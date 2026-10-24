@@ -28,7 +28,7 @@ const EDUCATIONAL_ORG_JSON_LD = {
   },
   areaServed: ['Hyderabad', 'Warangal', 'Telangana'],
   description:
-    'Industry–academia technical training institution and software studio delivering Workshops, Campus Recruitment Training (CRT), Domain Internships, and Final-Year Engineering Projects across Telangana.',
+    'A hands-on technical learning studio and software engineering team delivering practical workshops, campus recruitment training, internships, and final-year engineering projects across Telangana.',
 };
 
 export default function HomePage() {
@@ -38,7 +38,7 @@ export default function HomePage() {
         <title>THAKSA.AI | Real Engineers. Real Code. Real Careers.</title>
         <meta
           name="description"
-          content="THAKSA.AI is an industry–academia engineering training institution and software studio in Hyderabad and Warangal. Practical Workshops, CRT, Internships, and Final-Year Projects."
+          content="THAKSA.AI is a hands-on engineering learning and software studio in Hyderabad and Warangal. Explore practical workshops, placement training, internships, and final-year projects."
         />
         <script type="application/ld+json">{JSON.stringify(EDUCATIONAL_ORG_JSON_LD)}</script>
       </Helmet>
