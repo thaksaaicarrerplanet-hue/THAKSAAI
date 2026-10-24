@@ -30,10 +30,15 @@ export default function PaperHero() {
   const headlineY = useTransform(smoothProgress, [0, 1], [0, -90]);
   const headlineOpacity = useTransform(smoothProgress, [0, 0.85], [1, 0]);
 
-  const scrollToStory = () => {
-    const el = document.getElementById('course-storytelling');
-    if (el) el.scrollIntoView({ behavior: 'smooth' });
+  const scrollToTarget = (id) => {
+    const target = document.getElementById(id);
+    if (!target) return;
+    const reducedMotion = window.matchMedia?.('(prefers-reduced-motion: reduce)').matches;
+    target.scrollIntoView({ behavior: reducedMotion ? 'auto' : 'smooth', block: 'start' });
   };
+
+  const scrollToStory = () => scrollToTarget('course-storytelling');
+  const scrollToArchitecture = () => scrollToTarget('capability-reactor');
 
   return (
     <section
@@ -116,7 +121,7 @@ export default function PaperHero() {
         >
           <button
             type="button"
-            onClick={scrollToStory}
+            onClick={scrollToArchitecture}
             className="min-h-[50px] px-8 py-3.5 rounded-full bg-[#C7F36B] hover:bg-[#d8fa88] text-[#050811] font-display font-bold text-sm sm:text-base transition-all cursor-pointer flex items-center justify-center gap-2 shadow-[0_0_30px_-6px_rgba(199,243,107,0.5)]"
           >
             <span>Explore Our Architecture</span>
