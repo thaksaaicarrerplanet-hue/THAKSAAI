@@ -1,4 +1,5 @@
 import React, { useRef, useState } from 'react';
+import { useReducedMotion } from '../../hooks/useReducedMotion';
 
 /**
  * SpotlightCard
@@ -19,6 +20,7 @@ export function SpotlightCard({
 }) {
   const cardRef = useRef(null);
   const [hovered, setHovered] = useState(false);
+  const reducedMotion = useReducedMotion();
 
   const isDark = tone === 'midnight' || tone === 'dark';
   const defaultSpotlight = isDark
@@ -27,7 +29,7 @@ export function SpotlightCard({
   const glowColor = spotlightColor || defaultSpotlight;
 
   const handlePointerMove = (e) => {
-    if (!cardRef.current) return;
+    if (reducedMotion || e.pointerType !== 'mouse' || !cardRef.current) return;
     const rect = cardRef.current.getBoundingClientRect();
     const x = e.clientX - rect.left;
     const y = e.clientY - rect.top;
@@ -43,7 +45,8 @@ export function SpotlightCard({
     cardRef.current.style.transform = `perspective(1000px) rotateX(${rx}deg) rotateY(${ry}deg) translateY(-3px)`;
   };
 
-  const handlePointerEnter = () => {
+  const handlePointerEnter = (event) => {
+    if (reducedMotion || event.pointerType !== 'mouse') return;
     setHovered(true);
   };
 
