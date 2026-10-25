@@ -4,7 +4,6 @@ import PaperHero from './sections/PaperHero';
 import PaperProofStrip from './sections/PaperProofStrip';
 import PaperAudienceRouting from './sections/PaperAudienceRouting';
 import PaperMethodology from './sections/PaperMethodology';
-import PaperStudioHighlight from './sections/PaperStudioHighlight';
 import PaperGallery from './sections/PaperGallery';
 import PaperFounderQuote from './sections/PaperFounderQuote';
 import PaperClosingCTA from './sections/PaperClosingCTA';
@@ -60,10 +59,7 @@ export default function HomePage() {
       {/* 6. Dynamic Scroll-Animated Leadership & Vision Stage */}
       <PaperFounderQuote />
 
-      {/* 7. Executive Software Studio Showcase (Moved to the end of the page) */}
-      <PaperStudioHighlight />
-
-      {/* 8. Closing Institutional & Studio Launchpad CTA */}
+      {/* 7. Closing Institutional & Studio Launchpad CTA */}
       <PaperClosingCTA />
     </>
   );

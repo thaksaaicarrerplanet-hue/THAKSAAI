@@ -407,6 +407,39 @@
   box-shadow: 0 0 36px rgba(199, 243, 107, 0.12);
 }
 
+.thaksa-hero--studio {
+  background:
+    radial-gradient(ellipse at 78% 30%, rgba(199, 243, 107, 0.12), transparent 28%),
+    radial-gradient(ellipse at 75% 100%, rgba(54, 89, 217, 0.23), transparent 42%),
+    linear-gradient(115deg, #080d1a 0%, #0a1223 65%, #080d1a 100%);
+}
+
+.thaksa-hero--studio::before {
+  width: clamp(18rem, 35vw, 30rem);
+  height: clamp(12rem, 24vw, 20rem);
+  right: clamp(-2rem, 6vw, 6rem);
+  top: 5%;
+  border: 1px solid rgba(199, 243, 107, 0.24);
+  border-radius: 50%;
+  transform: rotate(-32deg);
+  box-shadow:
+    0 0 0 24px rgba(199, 243, 107, 0.035),
+    0 0 0 54px rgba(54, 89, 217, 0.11);
+  animation: thaksa-orbit-drift 28s linear infinite;
+}
+
+.thaksa-hero--studio::after {
+  width: clamp(3rem, 6vw, 5rem);
+  aspect-ratio: 1;
+  right: clamp(9rem, 24vw, 23rem);
+  top: 27%;
+  border: 1px solid rgba(199, 243, 107, 0.5);
+  border-radius: 1.25rem;
+  background: radial-gradient(circle at 50% 50%, #c7f36b 0 3px, rgba(199, 243, 107, 0.13) 4px, transparent 70%);
+  transform: rotate(32deg);
+  box-shadow: 0 0 36px rgba(199, 243, 107, 0.12);
+}
+
 .thaksa-hero--about {
   background:
     radial-gradient(ellipse at 50% 100%, rgba(54, 89, 217, 0.3), transparent 46%),

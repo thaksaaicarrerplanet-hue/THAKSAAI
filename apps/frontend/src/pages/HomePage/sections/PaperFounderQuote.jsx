@@ -1,30 +1,6 @@
-import React, { useRef, useState } from 'react';
+import React, { useRef } from 'react';
 import { Link } from 'react-router-dom';
 import { motion, useScroll, useSpring, useTransform } from 'framer-motion';
-
-const STUDENT_COMMITMENTS = [
-  {
-    id: '01',
-    title: 'Production-Grade Builds',
-    metric: '100% Live Code',
-    desc: 'Every cohort engineers and deploys live systems across Full Stack, AWS/MLOps, and Agentic AI.',
-    accent: '#C7F36B',
-  },
-  {
-    id: '02',
-    title: 'Industry Practitioners',
-    metric: 'Studio Mentors',
-    desc: 'Direct mentorship from engineers actively architecting software for real business clients.',
-    accent: '#38BDF8',
-  },
-  {
-    id: '03',
-    title: 'Technical Defense Readiness',
-    metric: '1-on-1 Viva',
-    desc: 'Graduates articulate system design and defend their code with clarity in technical interviews.',
-    accent: '#6D8DFF',
-  },
-];
 
 const QUOTE_WORDS = [
   { text: 'We', highlight: false },
@@ -70,7 +46,6 @@ function QuoteWord({ word, highlight, index, total, progress }) {
 
 export default function PaperFounderQuote() {
   const sectionRef = useRef(null);
-  const [activePillar, setActivePillar] = useState(0);
 
   const { scrollYProgress } = useScroll({
     target: sectionRef,
@@ -163,7 +138,7 @@ export default function PaperFounderQuote() {
             </div>
           </motion.div>
 
-          {/* Right Side (7 Cols): Scroll-Illuminated Quote & Interactive Outcome Cards */}
+          {/* Right Side (7 Cols): Scroll-Illuminated Quote & Actions */}
           <div className="lg:col-span-7 flex flex-col justify-center text-left">
             <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-white/[0.05] border border-white/12 w-fit mb-5">
               <span className="w-2 h-2 rounded-full bg-[#C7F36B] animate-pulse" />
@@ -189,40 +164,6 @@ export default function PaperFounderQuote() {
               ))}
               <span className="text-[#C7F36B]">”</span>
             </blockquote>
-
-            {/* Interactive Animated Commitment Cards */}
-            <div className="grid grid-cols-1 sm:grid-cols-3 gap-3.5 mb-8">
-              {STUDENT_COMMITMENTS.map((item, idx) => {
-                const isActive = activePillar === idx;
-                return (
-                  <motion.div
-                    key={item.title}
-                    onMouseEnter={() => setActivePillar(idx)}
-                    onClick={() => setActivePillar(idx)}
-                    whileHover={{ y: -4 }}
-                    className={`p-4 sm:p-5 rounded-2xl cursor-pointer transition-all border ${
-                      isActive
-                        ? 'bg-[#0E172E]/95 border-[#C7F36B]/50 shadow-[0_12px_30px_-10px_rgba(199,243,107,0.25)]'
-                        : 'bg-[#050811]/80 border-white/12 hover:border-white/25'
-                    }`}
-                  >
-                    <div className="flex items-center justify-between mb-2">
-                      <span
-                        className="text-[11px] font-bold px-2.5 py-0.5 rounded-full text-[#050811]"
-                        style={{ backgroundColor: item.accent }}
-                      >
-                        {item.metric}
-                      </span>
-                      <span className="text-xs font-mono text-slate-500">{item.id}</span>
-                    </div>
-                    <h4 className="text-sm sm:text-base font-display font-bold text-white mb-1.5">
-                      {item.title}
-                    </h4>
-                    <p className="text-xs text-slate-300 leading-relaxed">{item.desc}</p>
-                  </motion.div>
-                );
-              })}
-            </div>
 
             {/* Action Buttons */}
             <div className="flex flex-wrap items-center gap-3.5">
