@@ -14,8 +14,8 @@ const PIPELINE_STEPS = [
       'Clear progression roadmap',
     ],
     accent: '#C7F36B',
-    imageSrc: '/images/journey/IMG-20260717-WA0027.jpg',
-    imageAlt: 'Faculty and training staff aligning the plan for student learning',
+    imageSrc: '/images/journey/IMG-20260619-WA0025.jpg',
+    imageAlt: 'A mentor working directly with students at their workstations to understand their current level and guide next steps',
   },
   {
     id: 'step-live-code',
@@ -29,8 +29,8 @@ const PIPELINE_STEPS = [
       'Deep focus on core engineering fundamentals',
     ],
     accent: '#38BDF8',
-    imageSrc: '/images/journey/IMG-20260619-WA0005.jpg',
-    imageAlt: 'Students practising coding in a guided campus bootcamp',
+    imageSrc: '/images/journey/IMG-20260301-WA0022.jpg',
+    imageAlt: 'Students following a live coding session in a college computer lab',
   },
   {
     id: 'step-build',
@@ -44,8 +44,8 @@ const PIPELINE_STEPS = [
       'Structured practitioner code reviews',
     ],
     accent: '#6D8DFF',
-    imageSrc: '/images/journey/IMG-20260619-WA0011.jpg',
-    imageAlt: 'Students working through a cloud and DevOps lab exercise',
+    imageSrc: '/images/journey/IMG-20260619-WA0021.jpg',
+    imageAlt: 'Students collaborating on a practical full-stack application build',
   },
   {
     id: 'step-interview',
