@@ -60,7 +60,7 @@ export default function TrainingPage() {
       </Helmet>
 
       <div className="w-full min-h-screen bg-[#F7F8F4] text-[#101828] thaksa-interior-page">
-        <section className="relative w-full bg-[#080D1A] text-white iso-grid-dark border-b border-white/10 py-16 sm:py-24 overflow-hidden">
+        <section className="relative w-full text-white thaksa-hero-scene thaksa-hero--crt border-b border-white/10 py-16 sm:py-24 overflow-hidden">
           <div aria-hidden="true" className="pointer-events-none absolute -top-28 left-1/3 w-[500px] h-[500px] rounded-full bg-[#3659D9]/20 blur-[140px]" />
           <div className="relative z-10 max-w-[1280px] mx-auto px-4 sm:px-6 md:px-10">
             <div className="max-w-3xl">
