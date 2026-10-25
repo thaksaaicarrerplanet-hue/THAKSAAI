@@ -93,7 +93,7 @@ export default function ContactPage() {
         />
       </Helmet>
 
-      <div className="w-full min-h-screen bg-[#F7F8F4] py-14 sm:py-20 px-4 sm:px-6 md:px-10 text-[#101828]">
+      <div className="w-full min-h-screen bg-[#F7F8F4] py-14 sm:py-20 px-4 sm:px-6 md:px-10 text-[#101828] thaksa-interior-page">
         <div className="max-w-[1280px] mx-auto grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-start">
           {/* Left Column: Direct Institutional & Student Channels (5 cols) */}
           <div className="lg:col-span-5 flex flex-col gap-6">

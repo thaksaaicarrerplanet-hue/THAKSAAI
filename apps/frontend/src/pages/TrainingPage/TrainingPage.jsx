@@ -85,7 +85,7 @@ export default function TrainingPage() {
         />
       </Helmet>
 
-      <div className="w-full min-h-screen bg-[#F7F8F4] text-[#101828]">
+      <div className="w-full min-h-screen bg-[#F7F8F4] text-[#101828] thaksa-interior-page">
         {/* Dark Spatial Hero */}
         <section className="relative w-full bg-[#080D1A] text-white iso-grid-dark border-b border-white/10 py-16 sm:py-24 overflow-hidden">
           <div

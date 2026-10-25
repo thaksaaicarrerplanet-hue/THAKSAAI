@@ -32,7 +32,7 @@ export default function AboutPage() {
   });
 
   return (
-    <div className="w-full bg-[#F7F8F4] min-h-screen pb-24 overflow-x-clip">
+    <div className="w-full bg-[#F7F8F4] min-h-screen pb-24 overflow-x-clip thaksa-interior-page">
       <Helmet>
         <title>About THAKSA.AI | Mission, Leadership &amp; Engineering Pedagogy</title>
         <meta

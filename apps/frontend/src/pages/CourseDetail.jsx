@@ -146,7 +146,7 @@ export default function CourseDetail() {
           <title>Course Not Found | THAKSAAI</title>
           <meta name="robots" content="noindex,follow" />
         </Helmet>
-        <main className="flex min-h-[65vh] items-center justify-center bg-[#F7F8F4] px-4 py-20 text-[#101828]">
+        <main className="flex min-h-[65vh] items-center justify-center bg-[#F7F8F4] px-4 py-20 text-[#101828] thaksa-interior-page">
           <div className="w-full max-w-xl rounded-3xl border border-[#E3E5DE] bg-white p-8 text-center shadow-xl sm:p-12">
             <p className="font-mono text-xs font-semibold uppercase tracking-[0.15em] text-[#3659D9]">Course catalogue</p>
             <h1 className="mt-3 font-display text-3xl font-bold">We couldn't find that course.</h1>
@@ -165,7 +165,7 @@ export default function CourseDetail() {
         <meta name="description" content={data.desc} />
       </Helmet>
 
-      <main className="w-full min-h-screen bg-[#F7F8F4] pt-28 sm:pt-36 pb-24 px-6 md:px-10 text-[#1a1a1a] selection:bg-[#C7F36B] selection:text-black">
+      <main className="w-full min-h-screen bg-[#F7F8F4] pt-28 sm:pt-36 pb-24 px-6 md:px-10 text-[#1a1a1a] selection:bg-[#C7F36B] selection:text-black thaksa-interior-page">
         <div className="max-w-5xl mx-auto">
           
           {/* Back Button */}

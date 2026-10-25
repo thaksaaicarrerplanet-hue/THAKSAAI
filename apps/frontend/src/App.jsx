@@ -5,6 +5,7 @@ import { MotionConfig } from "framer-motion";
 import { Analytics } from "@vercel/analytics/react";
 import { SpeedInsights } from "@vercel/speed-insights/react";
 import appTheme from "./theme/appTheme";
+import "./interiorPageSystem.css";
 import ToastProvider from "./context/ToastProvider";
 import AppRoutes from "./routes/AppRoutes";
 import ScrollToTop from "./components/ScrollToTop";

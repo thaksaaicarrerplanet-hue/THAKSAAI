@@ -2,6 +2,9 @@
 import { Helmet } from "react-helmet-async";
 import { useNavigate, Link } from "react-router-dom";
 import SupabaseImageCard from "../../components/common/SupabaseImageCard";
+import CodeRounded from "@mui/icons-material/CodeRounded";
+import CloudSyncRounded from "@mui/icons-material/CloudSyncRounded";
+import AutoAwesomeRounded from "@mui/icons-material/AutoAwesomeRounded";
 
 const courseCatalogue = [
   { id: "crt-group-a", title: "Group A: Advanced Algorithms", category: "TRAINING", imageKey: "crt-tier-a", duration: "15 Weeks (Semester Course)", level: "For Top Coders", desc: "Intensive algorithmic practice in trees, graph theory, and advanced problem-solving for students targeting top technology salaries." },
@@ -12,6 +15,36 @@ const courseCatalogue = [
   { id: "workshop-backend", title: "High-Speed Backend Systems", category: "WORKSHOPS", imageKey: "workshop-microservices", duration: "3 Days (24 Total Hours)", level: "Advanced", desc: "Build fast online server apps capable of handling thousands of actions at once using reliable messaging tools like Apache Kafka." },
   { id: "capstone-cloud-saas", title: "Final-Year Project: Cloud Web App", category: "PROJECTS", imageKey: "capstone-git", duration: "8 Weeks Guided Project", level: "Final-Year Students", desc: "Build a working cloud software application with automated testing and professional Git teamwork tools for your college project submission." },
   { id: "capstone-ai-rag", title: "Final-Year Project: AI Document Assistant", category: "PROJECTS", imageKey: "capstone-cicd", duration: "8 Weeks Guided Project", level: "Final-Year Students", desc: "Build a custom artificial intelligence web tool that reads company documents and answers questions accurately in real time." },
+];
+
+const FEATURED_TRACKS = [
+  {
+    number: "01",
+    icon: CodeRounded,
+    kicker: "PRODUCT ENGINEERING",
+    title: "Full Stack Web Development",
+    description: "Build complete web products from polished React interfaces through APIs, data models, authentication, testing, and production deployment.",
+    skills: ["React + TypeScript", "Node.js APIs", "SQL + Auth", "Testing + Deploy"],
+    accent: "blue",
+  },
+  {
+    number: "02",
+    icon: CloudSyncRounded,
+    kicker: "CLOUD & DELIVERY",
+    title: "AWS / DevOps / MLOps",
+    description: "Learn to ship reliable workloads with cloud fundamentals, Linux, Docker, CI/CD, infrastructure automation, monitoring, and ML delivery workflows.",
+    skills: ["AWS + Linux", "Docker", "CI/CD", "MLOps"],
+    accent: "lime",
+  },
+  {
+    number: "03",
+    icon: AutoAwesomeRounded,
+    kicker: "NEXT-GEN AI SYSTEMS",
+    title: "Agentic AI",
+    description: "Move beyond simple prompts to engineer tool-using AI workflows, retrieval, structured outputs, orchestration, evaluation, and practical guardrails.",
+    skills: ["LLMs + Tools", "RAG", "Orchestration", "Evaluation"],
+    accent: "violet",
+  },
 ];
 
 export default function CoursesPage() {
@@ -32,7 +65,7 @@ export default function CoursesPage() {
         />
       </Helmet>
 
-      <main className="w-full min-h-screen bg-[#F7F8F4] pt-28 sm:pt-36 pb-24 px-6 md:px-10 text-[#1a1a1a] selection:bg-[#C7F36B] selection:text-black">
+      <main className="w-full min-h-screen bg-[#F7F8F4] pt-28 sm:pt-36 pb-24 px-6 md:px-10 text-[#1a1a1a] selection:bg-[#C7F36B] selection:text-black thaksa-interior-page thaksa-course-catalogue">
         <div className="max-w-7xl mx-auto">
           
           {/* Header */}
@@ -69,6 +102,51 @@ export default function CoursesPage() {
               ))}
             </div>
           </div>
+
+          {/* Three flagship learning paths, surfaced ahead of the general catalogue. */}
+          <section className="thaksa-featured-tracks-section" aria-labelledby="featured-tracks-heading">
+            <div className="thaksa-featured-tracks-heading">
+              <div className="min-w-0">
+                <span className="thaksa-track-eyebrow">SIGNATURE LEARNING PATHS / 03</span>
+                <h2 id="featured-tracks-heading">Three courses. Real engineering depth.</h2>
+                <p>Choose a focused path built around practical work, modern tooling, and skills students can demonstrate.</p>
+              </div>
+              <span className="thaksa-track-heading-note">Hands-on · mentor-led · outcome-focused</span>
+            </div>
+
+            <div className="thaksa-featured-tracks">
+              {FEATURED_TRACKS.map((track) => {
+                const TrackIcon = track.icon;
+                const inquiry = `I'm interested in the ${track.title} course. Please share the curriculum, delivery format, and upcoming availability.`;
+                const contactHref = `/contact?track=${encodeURIComponent(track.title)}&query=${encodeURIComponent(inquiry)}`;
+
+                return (
+                  <article className={`thaksa-track-card thaksa-track-card--${track.accent}`} key={track.number}>
+                    <div className="thaksa-track-card-top">
+                      <div className="thaksa-track-icon" aria-hidden="true">
+                        <TrackIcon />
+                      </div>
+                      <span className="thaksa-track-number">TRACK {track.number}</span>
+                    </div>
+
+                    <div className="thaksa-track-card-copy">
+                      <span className="thaksa-track-kicker">{track.kicker}</span>
+                      <h3>{track.title}</h3>
+                      <p>{track.description}</p>
+                    </div>
+
+                    <ul className="thaksa-track-skills" aria-label={`${track.title} topics`}>
+                      {track.skills.map((skill) => <li key={skill}>{skill}</li>)}
+                    </ul>
+
+                    <Link className="thaksa-track-cta" to={contactHref}>
+                      Discuss this course <span aria-hidden="true">↗</span>
+                    </Link>
+                  </article>
+                );
+              })}
+            </div>
+          </section>
 
           {/* Courses Grid */}
           <section aria-label="Course Listings" className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-16">

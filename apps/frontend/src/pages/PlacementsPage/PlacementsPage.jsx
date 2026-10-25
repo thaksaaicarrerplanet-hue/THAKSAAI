@@ -46,7 +46,7 @@ export default function PlacementsPage() {
         />
       </Helmet>
 
-      <div className="w-full min-h-screen bg-[#F7F8F4] text-[#101828]">
+      <div className="w-full min-h-screen bg-[#F7F8F4] text-[#101828] thaksa-interior-page">
         {/* Section 1: Verified Institutional Proof Header */}
         <SectionShell
           tone="porcelain"
