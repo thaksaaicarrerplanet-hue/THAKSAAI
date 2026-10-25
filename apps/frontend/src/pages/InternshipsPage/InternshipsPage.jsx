@@ -94,7 +94,7 @@ export default function InternshipsPage() {
                 <DepthButton onClick={() => enquire()} variant="electric" size="lg">
                   Ask about internships <span aria-hidden="true">→</span>
                 </DepthButton>
-                <DepthButton href={SITE_BRANDING.whatsappLink} target="_blank" rel="noopener noreferrer" variant="ghostDark" size="lg">
+                <DepthButton href={SITE_BRANDING.whatsappLink || `https://wa.me/${SITE_BRANDING.contactPhone.replace(/\D/g, "")}`} target="_blank" rel="noopener noreferrer" variant="ghostDark" size="lg">
                   Contact us on WhatsApp
                 </DepthButton>
               </div>
