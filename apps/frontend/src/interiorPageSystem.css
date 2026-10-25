@@ -264,14 +264,18 @@
 
 @media (max-width: 960px) {
   .thaksa-featured-tracks { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-  .thaksa-track-card:last-child { grid-column: 1 / -1; }
+  .thaksa-track-card:last-child {
+    grid-column: 1 / -1;
+    width: calc(50% - 0.575rem);
+    justify-self: center;
+  }
 }
 
 @media (max-width: 640px) {
   .thaksa-featured-tracks-heading { align-items: flex-start; flex-direction: column; gap: 0.7rem; }
   .thaksa-featured-tracks { grid-template-columns: minmax(0, 1fr); }
   .thaksa-track-card { min-height: auto; }
-  .thaksa-track-card:last-child { grid-column: auto; }
+  .thaksa-track-card:last-child { grid-column: auto; width: 100%; justify-self: stretch; }
   .thaksa-track-heading-note { font-size: 0.62rem; }
 }
 
