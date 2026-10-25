@@ -4,7 +4,7 @@ import { motion } from "framer-motion";
 export default function AboutPage() {
 
   return (
-    <div className="w-full bg-[#EDEEF5] min-h-screen pt-28 sm:pt-36 pb-20 overflow-x-hidden">
+    <div className="w-full bg-[#EDEEF5] min-h-screen pt-28 sm:pt-36 pb-20 overflow-x-hidden thaksa-interior-page">
       <Helmet>
         <title>About Us | THAKSAAI</title>
         <meta

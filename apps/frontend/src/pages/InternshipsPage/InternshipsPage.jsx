@@ -26,11 +26,11 @@ const INTERNSHIP_TRACKS = [
     number: '02',
     title: 'AWS / DevOps / MLOps',
     duration: '8–12 weeks',
-    description: 'Learn how to put projects online and keep them easy to update. You will also see how teams organise machine-learning projects.',
+    description: 'Learn how to put projects online and update them safely. You will also learn how teams manage machine-learning projects (MLOps).',
     tasks: [
       'Learn the basics of cloud hosting with AWS',
       'Prepare a project to run online',
-      'Make repeat tasks easier to carry out',
+      'Make routine steps easier to repeat',
       'Keep project notes and check that the result works',
     ],
     result: 'A shared online project and practical experience preparing it for use.',

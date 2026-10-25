@@ -9,6 +9,7 @@ export default function NotFound() {
 
     return (
         <Box
+            className="thaksa-interior-page"
             sx={{
                 minHeight: "100vh",
                 display: "flex",

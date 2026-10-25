@@ -26,7 +26,7 @@ const WORKSHOP_COURSES = [
     number: '02',
     title: 'AWS / DevOps / MLOps',
     duration: '3–5 days',
-    description: 'Learn how teams put projects online, keep them organised, and make updates more reliable. MLOps is introduced as the process of managing machine-learning projects.',
+    description: 'Learn how to put projects online, keep them running, and make updates safely. We also explain MLOps: how teams manage machine-learning projects.',
     practice: [
       'Understand the basics of hosting a project with AWS',
       'Prepare a project to run online',

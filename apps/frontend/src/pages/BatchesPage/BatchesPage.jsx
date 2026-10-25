@@ -26,7 +26,7 @@ export default function BatchesPage() {
         />
       </Helmet>
 
-      <main className="w-full min-h-screen bg-[#EDEEF5] pt-28 sm:pt-36 pb-24 px-6 md:px-10 text-[#1a1a1a] selection:bg-[#9fff00] selection:text-black">
+      <main className="w-full min-h-screen bg-[#EDEEF5] pt-28 sm:pt-36 pb-24 px-6 md:px-10 text-[#1a1a1a] selection:bg-[#9fff00] selection:text-black thaksa-interior-page">
         <div className="max-w-7xl mx-auto">
           
           {/* Header */}

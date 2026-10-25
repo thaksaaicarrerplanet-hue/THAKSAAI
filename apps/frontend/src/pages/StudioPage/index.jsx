@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { Helmet } from "react-helmet-async";
 import { motion } from "framer-motion";
-import { useNavigate } from "react-router-dom";
 import { SITE_BRANDING, WHATSAPP_NUMBER } from "../../theme/masterThemeConfig";
 
 const studioPillars = [
@@ -23,7 +22,6 @@ const studioPillars = [
 ];
 
 export default function StudioPage() {
-  const navigate = useNavigate();
   const [submitted, setSubmitted] = useState(false);
 
   const [formData, setFormData] = useState({
@@ -63,7 +61,7 @@ export default function StudioPage() {
       </Helmet>
 
       {/* Extreme Dark Mode Theme for the B2B Studio to separate from the Academy */}
-      <main className="w-full min-h-screen bg-[#111111] pt-28 sm:pt-36 pb-24 px-6 md:px-10 text-white selection:bg-[#9fff00] selection:text-black font-sans">
+      <main className="w-full min-h-screen bg-[#111111] pt-28 sm:pt-36 pb-24 px-6 md:px-10 text-white selection:bg-[#9fff00] selection:text-black font-sans thaksa-interior-page">
         
         {/* Background Ambient Glow */}
         <div className="fixed top-0 right-0 w-[800px] h-[800px] bg-[#9fff00]/5 rounded-full blur-[120px] pointer-events-none z-0"></div>

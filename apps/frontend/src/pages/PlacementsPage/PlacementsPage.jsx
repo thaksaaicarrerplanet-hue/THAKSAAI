@@ -1,7 +1,6 @@
 ﻿import React, { useState } from "react";
 import { Helmet } from "react-helmet-async";
 import { useNavigate } from "react-router-dom";
-import { motion } from "framer-motion";
 
 const auditRecords = [
   { id: "RES-2025-01", dept: "Computer Science (CSE)", cohort: "420 Students", tierA: "84 Students", cleared: "96.4%", dreamOffers: "112 Offers (₹15 LPA+)", verification: "VERIFIED BY COLLEGE" },
@@ -24,7 +23,7 @@ export default function PlacementsPage() {
         />
       </Helmet>
 
-      <main className="w-full min-h-screen bg-[#EDEEF5] pt-28 sm:pt-36 pb-24 px-6 md:px-10 text-[#1a1a1a] selection:bg-[#9fff00] selection:text-black">
+      <main className="w-full min-h-screen bg-[#EDEEF5] pt-28 sm:pt-36 pb-24 px-6 md:px-10 text-[#1a1a1a] selection:bg-[#9fff00] selection:text-black thaksa-interior-page">
         <div className="max-w-7xl mx-auto">
           
           {/* Header */}

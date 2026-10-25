@@ -1,0 +1,61 @@
+name: Frontend production checks
+
+on:
+  push:
+    branches:
+      - main
+      - "work/**"
+  pull_request:
+    branches:
+      - main
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: frontend-production-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  frontend:
+    name: Lint and production build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out source
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Install frontend dependencies
+        working-directory: apps/frontend
+        run: npm install --no-audit --no-fund
+
+      - name: Lint updated public pages
+        working-directory: apps/frontend
+        run: >-
+          npx eslint
+          src/pages/AboutPage.jsx
+          src/pages/AccessDenied.jsx
+          src/pages/BatchesPage/BatchesPage.jsx
+          src/pages/ComplianceAndSecurityPage/index.jsx
+          src/pages/ContactPage/index.jsx
+          src/pages/CourseDetail.jsx
+          src/pages/CoursesPage/CoursesPage.jsx
+          src/pages/FinalYearProjectsPage/FinalYearProjectsPage.jsx
+          src/pages/InstitutionalCollaborationPage/index.jsx
+          src/pages/InternshipsPage/InternshipsPage.jsx
+          src/pages/NotFound.jsx
+          src/pages/PlacementsPage/PlacementsPage.jsx
+          src/pages/PricingPage/PricingPage.jsx
+          src/pages/StudioPage/index.jsx
+          src/pages/TrainingPage/TrainingPage.jsx
+          src/pages/WorkshopPage/WorkshopPage.jsx
+          --rule 'no-unused-vars: ["error", {"varsIgnorePattern": "^(motion|[A-Z_])"}]'
+
+      - name: Build production assets
+        working-directory: apps/frontend
+        run: npm run build
