@@ -14,6 +14,8 @@ const PIPELINE_STEPS = [
       'Clear progression roadmap',
     ],
     accent: '#C7F36B',
+    imageSrc: '/images/journey/IMG-20260717-WA0027.jpg',
+    imageAlt: 'Faculty and training staff aligning the plan for student learning',
   },
   {
     id: 'step-live-code',
@@ -27,6 +29,8 @@ const PIPELINE_STEPS = [
       'Deep focus on core engineering fundamentals',
     ],
     accent: '#38BDF8',
+    imageSrc: '/images/journey/IMG-20260619-WA0005.jpg',
+    imageAlt: 'Students practising coding in a guided campus bootcamp',
   },
   {
     id: 'step-build',
@@ -40,6 +44,8 @@ const PIPELINE_STEPS = [
       'Structured practitioner code reviews',
     ],
     accent: '#6D8DFF',
+    imageSrc: '/images/journey/IMG-20260619-WA0011.jpg',
+    imageAlt: 'Students working through a cloud and DevOps lab exercise',
   },
   {
     id: 'step-interview',
@@ -53,129 +59,38 @@ const PIPELINE_STEPS = [
       'Confidence to articulate every line of code',
     ],
     accent: '#C7F36B',
+    imageSrc: '/images/journey/IMG-20260717-WA0025.jpg',
+    imageAlt: 'Students preparing to explain their work during a technical review',
   },
 ];
 
-function StageArchitecturalEmblem({ id, step, accent }) {
+function StagePhoto({ imageSrc, imageAlt, step, accent }) {
   return (
-    <div className="relative h-48 sm:h-52 w-full overflow-hidden bg-gradient-to-b from-[#091226] via-[#060B17] to-[#0A1122] flex items-center justify-center border-b border-white/10">
-      <div
-        aria-hidden="true"
-        className="absolute inset-0 opacity-20 pointer-events-none"
-        style={{
-          backgroundImage:
-            'linear-gradient(to right, rgba(255,255,255,0.06) 1px, transparent 1px), linear-gradient(to bottom, rgba(255,255,255,0.06) 1px, transparent 1px)',
-          backgroundSize: '26px 26px',
-        }}
+    <div className="relative h-48 sm:h-52 w-full overflow-hidden border-b border-white/10 bg-[#091226]">
+      <img
+        src={imageSrc}
+        alt={imageAlt}
+        width="960"
+        height="520"
+        loading="lazy"
+        decoding="async"
+        className="absolute inset-0 h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
       />
       <div
         aria-hidden="true"
-        className="absolute w-36 h-36 rounded-full blur-3xl opacity-25 pointer-events-none"
-        style={{ backgroundColor: accent }}
+        className="absolute inset-0 bg-gradient-to-t from-[#050811]/85 via-[#050811]/20 to-[#050811]/10"
       />
-
       <span
-        className="absolute top-4 left-4 z-10 px-3.5 py-1 rounded-full text-xs font-bold text-[#050811]"
+        className="absolute top-4 left-4 z-10 px-3.5 py-1 rounded-full text-xs font-bold text-[#050811] shadow-sm"
         style={{ backgroundColor: accent }}
       >
         {step}
       </span>
-
-      {/* Single Professional Emblem Per Stage */}
-      <div className="relative z-10 mt-2">
-        {id === 'step-assess' && (
-          <svg viewBox="0 0 140 140" className="w-28 h-28 sm:w-32 sm:h-32" fill="none">
-            <circle cx="70" cy="70" r="54" stroke="rgba(199,243,107,0.25)" strokeWidth="1.4" strokeDasharray="4 4" />
-            <circle cx="70" cy="70" r="38" stroke="#C7F36B" strokeOpacity="0.45" strokeWidth="1.5" />
-            <polygon
-              points="70,22 112,70 70,118 28,70"
-              fill="rgba(199,243,107,0.12)"
-              stroke="#C7F36B"
-              strokeWidth="2"
-            />
-            <line x1="70" y1="16" x2="70" y2="124" stroke="#C7F36B" strokeOpacity="0.4" />
-            <line x1="16" y1="70" x2="124" y2="70" stroke="#C7F36B" strokeOpacity="0.4" />
-            <circle cx="70" cy="70" r="10" fill="#050811" stroke="#C7F36B" strokeWidth="2.5" />
-            <circle cx="70" cy="70" r="4" fill="#C7F36B" />
-          </svg>
-        )}
-
-        {id === 'step-live-code' && (
-          <svg viewBox="0 0 140 140" className="w-28 h-28 sm:w-32 sm:h-32" fill="none">
-            <circle cx="70" cy="70" r="54" stroke="rgba(56,189,248,0.22)" strokeWidth="1.4" />
-            <rect
-              x="28"
-              y="36"
-              width="84"
-              height="68"
-              rx="12"
-              fill="rgba(56,189,248,0.1)"
-              stroke="#38BDF8"
-              strokeWidth="2"
-            />
-            <polyline
-              points="54,58 42,70 54,82"
-              stroke="#C7F36B"
-              strokeWidth="3"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            />
-            <polyline
-              points="86,58 98,70 86,82"
-              stroke="#C7F36B"
-              strokeWidth="3"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            />
-            <line x1="75" y1="54" x2="65" y2="86" stroke="#38BDF8" strokeWidth="2.5" strokeLinecap="round" />
-          </svg>
-        )}
-
-        {id === 'step-build' && (
-          <svg viewBox="0 0 140 140" className="w-28 h-28 sm:w-32 sm:h-32" fill="none">
-            <circle cx="70" cy="70" r="54" stroke="rgba(109,141,255,0.25)" strokeWidth="1.4" strokeDasharray="5 4" />
-            <polygon
-              points="70,26 110,49 110,91 70,114 30,91 30,49"
-              fill="rgba(109,141,255,0.14)"
-              stroke="#6D8DFF"
-              strokeWidth="2.2"
-            />
-            <polygon
-              points="70,44 94,58 94,82 70,96 46,82 46,58"
-              fill="#050811"
-              stroke="#C7F36B"
-              strokeWidth="1.8"
-            />
-            <path
-              d="M70,84 L70,56 M70,56 L60,66 M70,56 L80,66"
-              stroke="#C7F36B"
-              strokeWidth="2.5"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            />
-          </svg>
-        )}
-
-        {id === 'step-interview' && (
-          <svg viewBox="0 0 140 140" className="w-28 h-28 sm:w-32 sm:h-32" fill="none">
-            <circle cx="70" cy="70" r="54" stroke="rgba(199,243,107,0.28)" strokeWidth="1.5" />
-            <polygon
-              points="70,22 112,44 112,82 70,118 28,82 28,44"
-              fill="rgba(199,243,107,0.12)"
-              stroke="#C7F36B"
-              strokeWidth="2.2"
-            />
-            <circle cx="70" cy="68" r="22" fill="#050811" stroke="#38BDF8" strokeWidth="2" />
-            <polyline
-              points="60,68 67,75 82,60"
-              stroke="#C7F36B"
-              strokeWidth="3"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            />
-          </svg>
-        )}
-      </div>
+      <div
+        aria-hidden="true"
+        className="absolute inset-x-0 bottom-0 h-1"
+        style={{ backgroundColor: accent }}
+      />
     </div>
   );
 }
@@ -262,7 +177,7 @@ export default function PaperMethodology() {
                     }
                   >
                     <div className="rounded-3xl bg-[#0A1122]/85 backdrop-blur-md border border-white/15 hover:border-[#C7F36B]/50 overflow-hidden shadow-[0_24px_60px_-20px_rgba(0,0,0,0.85)] transition-all">
-                      <StageArchitecturalEmblem id={item.id} step={item.step} accent={item.accent} />
+                      <StagePhoto imageSrc={item.imageSrc} imageAlt={item.imageAlt} step={item.step} accent={item.accent} />
 
                       <div className="p-6 sm:p-7">
                         <h3 className="text-xl sm:text-2xl font-display font-bold text-white mb-2.5">
