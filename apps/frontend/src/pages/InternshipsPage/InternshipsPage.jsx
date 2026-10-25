@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import { SITE_BRANDING } from '../../theme/masterThemeConfig';
 import { SpotlightCard } from '../../components/ui/SpotlightCard';
 import { DepthButton } from '../../components/ui/DepthButton';
+import { useTextScramble } from '../../hooks/useTextScramble';
 
 const INTERNSHIP_TRACKS = [
   {
@@ -58,6 +59,7 @@ const INTERNSHIP_STEPS = [
 
 export default function InternshipsPage() {
   const navigate = useNavigate();
+  const focusedCoursesLabel = useTextScramble('THREE FOCUSED COURSES', { duration: 720, trigger: true });
 
   const enquire = (courseTitle = '') => {
     const query = courseTitle
@@ -81,7 +83,7 @@ export default function InternshipsPage() {
           <div aria-hidden="true" className="pointer-events-none absolute -top-28 right-1/4 w-[500px] h-[500px] rounded-full bg-[#C7F36B]/10 blur-[140px]" />
           <div className="relative z-10 max-w-[1280px] mx-auto px-4 sm:px-6 md:px-10">
             <div className="max-w-3xl">
-              <p className="font-mono text-xs uppercase tracking-[0.16em] text-[#C7F36B] mb-5">GUIDED INTERNSHIP PATHS / THREE COURSES</p>
+              <p className="font-mono text-xs uppercase tracking-[0.16em] text-[#C7F36B] mb-5"><>GUIDED INTERNSHIPS / {focusedCoursesLabel}</></p>
               <h1 className="font-display font-bold text-white tracking-[-0.03em] leading-[1.06] mb-6 text-4xl sm:text-5xl lg:text-6xl">
                 Build skills by doing the work.
               </h1>

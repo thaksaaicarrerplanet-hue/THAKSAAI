@@ -3,6 +3,7 @@ import { Helmet } from 'react-helmet-async';
 import { useNavigate } from 'react-router-dom';
 import { SpotlightCard } from '../../components/ui/SpotlightCard';
 import { DepthButton } from '../../components/ui/DepthButton';
+import { useTextScramble } from '../../hooks/useTextScramble';
 
 const CRT_COURSES = [
   {
@@ -39,6 +40,7 @@ const SEMESTER_STEPS = [
 
 export default function TrainingPage() {
   const navigate = useNavigate();
+  const focusedCoursesLabel = useTextScramble('THREE FOCUSED COURSES', { duration: 720, trigger: true });
 
   const enquire = (courseTitle = '') => {
     const query = courseTitle
@@ -62,7 +64,7 @@ export default function TrainingPage() {
           <div aria-hidden="true" className="pointer-events-none absolute -top-28 left-1/3 w-[500px] h-[500px] rounded-full bg-[#3659D9]/20 blur-[140px]" />
           <div className="relative z-10 max-w-[1280px] mx-auto px-4 sm:px-6 md:px-10">
             <div className="max-w-3xl">
-              <p className="font-mono text-xs uppercase tracking-[0.16em] text-[#C7F36B] mb-5">CAMPUS RECRUITMENT TRAINING</p>
+              <p className="font-mono text-xs uppercase tracking-[0.16em] text-[#C7F36B] mb-5"><>CAMPUS RECRUITMENT TRAINING / {focusedCoursesLabel}</></p>
               <h1 className="font-display font-bold text-white tracking-[-0.03em] leading-[1.06] mb-6 text-4xl sm:text-5xl lg:text-6xl">
                 Help students build skills they can show.
               </h1>

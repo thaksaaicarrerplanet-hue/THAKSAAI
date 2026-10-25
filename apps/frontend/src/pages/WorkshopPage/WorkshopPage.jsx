@@ -3,6 +3,7 @@ import { Helmet } from 'react-helmet-async';
 import { useNavigate } from 'react-router-dom';
 import { SpotlightCard } from '../../components/ui/SpotlightCard';
 import { DepthButton } from '../../components/ui/DepthButton';
+import { useTextScramble } from '../../hooks/useTextScramble';
 
 const WORKSHOP_COURSES = [
   {
@@ -60,6 +61,7 @@ const WORKSHOP_STEPS = [
 
 export default function WorkshopPage() {
   const navigate = useNavigate();
+  const focusedCoursesLabel = useTextScramble('THREE FOCUSED COURSES', { duration: 720, trigger: true });
 
   const enquire = (courseTitle = '') => {
     const query = courseTitle
@@ -84,7 +86,7 @@ export default function WorkshopPage() {
           <div className="relative z-10 max-w-[1280px] mx-auto px-4 sm:px-6 md:px-10">
             <div className="max-w-3xl">
               <p className="font-mono text-xs uppercase tracking-[0.16em] text-[#C7F36B] mb-5">
-                PRACTICAL WORKSHOPS / THREE FOCUSED COURSES
+                <>PRACTICAL WORKSHOPS / {focusedCoursesLabel}</>
               </p>
               <h1 className="font-display font-bold text-white tracking-[-0.03em] leading-[1.06] mb-6 text-4xl sm:text-5xl lg:text-6xl">
                 Learn by building something real.
