@@ -83,7 +83,7 @@ export default function InternshipsPage() {
           <div aria-hidden="true" className="pointer-events-none absolute -top-28 right-1/4 w-[500px] h-[500px] rounded-full bg-[#C7F36B]/10 blur-[140px]" />
           <div className="relative z-10 max-w-[1280px] mx-auto px-4 sm:px-6 md:px-10">
             <div className="max-w-3xl">
-              <p className="font-mono text-xs uppercase tracking-[0.16em] text-[#C7F36B] mb-5"><>GUIDED INTERNSHIPS / {focusedCoursesLabel}</></p>
+              <p className="font-mono text-xs uppercase tracking-[0.16em] text-[#C7F36B] mb-5 thaksa-coded-label"><>GUIDED INTERNSHIPS / {focusedCoursesLabel}</></p>
               <h1 className="font-display font-bold text-white tracking-[-0.03em] leading-[1.06] mb-6 text-4xl sm:text-5xl lg:text-6xl">
                 Build skills by doing the work.
               </h1>

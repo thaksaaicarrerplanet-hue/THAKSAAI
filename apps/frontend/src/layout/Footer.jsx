@@ -9,9 +9,18 @@ export default function Footer() {
   };
 
   return (
-    <footer className="relative w-full bg-[#101828] text-[#F7F8F4] border-t border-white/10 overflow-hidden select-text">
-      {/* Subtle Isometric Architectural Grid Backdrop */}
-      <div className="absolute inset-0 iso-grid-dark opacity-40 pointer-events-none" aria-hidden="true" />
+    <footer className="relative w-full bg-[#101828] text-[#F7F8F4] border-t border-white/10 overflow-hidden select-text thaksa-footer">
+      {/* Abstract signal-ribbon artwork — deliberately no repeating grid. */}
+      <div className="thaksa-footer-art" aria-hidden="true">
+        <span className="thaksa-footer-art__orbit thaksa-footer-art__orbit--outer" />
+        <span className="thaksa-footer-art__orbit thaksa-footer-art__orbit--inner" />
+        <svg className="thaksa-footer-art__flow" viewBox="0 0 1200 360" preserveAspectRatio="none">
+          <path d="M-30 270 C150 120 270 330 430 210 S710 70 870 170 1060 270 1230 105" />
+          <path d="M-30 315 C150 165 275 360 450 255 S710 125 870 220 1060 310 1230 150" />
+          <circle cx="870" cy="170" r="4" />
+          <circle cx="430" cy="210" r="3" />
+        </svg>
+      </div>
 
       <div className="relative z-10 max-w-[1280px] mx-auto px-4 sm:px-6 md:px-10 pt-16 sm:pt-20 pb-12">
         {/* Top Header Strip */}

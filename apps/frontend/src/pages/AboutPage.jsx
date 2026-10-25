@@ -43,7 +43,7 @@ export default function AboutPage() {
       </Helmet>
 
       {/* Dark Spatial Hero Section */}
-      <section className="relative w-full bg-[#080D1A] text-white iso-grid-dark border-b border-white/10 py-16 sm:py-24 mb-20 overflow-hidden">
+      <section className="relative w-full bg-[#080D1A] text-white thaksa-hero-scene thaksa-hero--about border-b border-white/10 py-16 sm:py-24 mb-20 overflow-hidden">
         <div
           aria-hidden="true"
           className="pointer-events-none absolute -top-28 left-1/3 w-[500px] h-[500px] rounded-full bg-[#3659D9]/20 blur-[140px]"

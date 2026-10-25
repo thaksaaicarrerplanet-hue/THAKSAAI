@@ -68,7 +68,7 @@ export default function StudioPage() {
         />
       </Helmet>
 
-      <div className="w-full min-h-screen bg-[#070B14] text-white iso-grid-dark py-16 sm:py-24 px-4 sm:px-6 md:px-10 relative overflow-hidden thaksa-interior-page">
+      <div className="w-full min-h-screen bg-[#070B14] text-white thaksa-studio-page py-16 sm:py-24 px-4 sm:px-6 md:px-10 relative overflow-hidden thaksa-interior-page">
         <div
           aria-hidden="true"
           className="pointer-events-none fixed top-0 right-0 w-[640px] h-[640px] bg-[#3659D9]/15 rounded-full blur-[150px] z-0"
