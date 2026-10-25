@@ -1,331 +1,188 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Helmet } from 'react-helmet-async';
 import { useNavigate } from 'react-router-dom';
-import SupabaseImageCard from '../../components/common/SupabaseImageCard';
 import { SpotlightCard } from '../../components/ui/SpotlightCard';
 import { DepthButton } from '../../components/ui/DepthButton';
-import { useTextScramble } from '../../hooks/useTextScramble';
 
-const WORKSHOP_TRACKS = [
+const WORKSHOP_COURSES = [
   {
-    id: 'ai-genai',
-    category: 'AI & LLM',
-    imageKey: 'workshop-genai',
-    badge: '4-Day Lab Bootcamp',
-    subtitle: 'Artificial Intelligence & RAG',
-    title: 'Applied Generative AI & Smart Assistants',
-    desc: 'Students move beyond basic prompting to engineer real AI applications—document-reading RAG assistants, vector search pipelines, and structured API microservices.',
-    duration: '4 Days (32 Hands-On Lab Hours)',
-    level: 'All Engineering Branches',
-    track: 'AI & GenAI Applications',
-    dayByDay: [
-      {
-        day: 'Day 01',
-        focus: 'Python APIs, Prompt Engineering & LLM Fundamentals',
-        output: 'Working CLI & REST assistant connected to live LLM endpoints.',
-      },
-      {
-        day: 'Day 02',
-        focus: 'Embeddings, Vector Databases & Document Chunking',
-        output: 'Custom knowledge base indexing college PDFs & technical docs.',
-      },
-      {
-        day: 'Day 03–04',
-        focus: 'Full-Stack RAG Web App, Guardrails & Cloud Deployment',
-        output: 'Live deployed AI web app + individual GitHub repository.',
-      },
+    id: 'full-stack',
+    number: '01',
+    title: 'Full Stack Web Development',
+    duration: '3–5 days',
+    description: 'Plan and build a working website or web app, from the pages people see to the information the app stores.',
+    practice: [
+      'Create clear pages that work on phones and laptops',
+      'Build forms and useful features',
+      'Store and display information',
+      'Test the project and show how it works',
     ],
-  },
-  {
-    id: 'cloud-docker',
-    category: 'Cloud & DevOps',
-    imageKey: 'workshop-devops',
-    badge: '5-Day Lab Bootcamp',
-    subtitle: 'Cloud Native & Containers',
-    title: 'Cloud Computing, Docker & CI/CD Pipelines',
-    desc: 'Students learn how modern engineering teams package software inside Docker containers, automate testing with GitHub Actions, and deploy resilient cloud servers.',
-    duration: '5 Days (40 Hands-On Lab Hours)',
-    level: 'All Engineering Branches',
-    track: 'Cloud & Docker Containers',
-    dayByDay: [
-      {
-        day: 'Day 01',
-        focus: 'Linux Command Line, Git Branching & Server Basics',
-        output: 'Configured Linux environment & multi-branch team repository.',
-      },
-      {
-        day: 'Day 02–03',
-        focus: 'Dockerfiles, Multi-Container Compose & Microservices',
-        output: 'Containerized full-stack app + database running in isolation.',
-      },
-      {
-        day: 'Day 04–05',
-        focus: 'Automated CI/CD Workflows & Live Cloud Hosting',
-        output: 'Zero-downtime automated deployment pipeline on cloud infrastructure.',
-      },
-    ],
-  },
-  {
-    id: 'high-traffic',
-    category: 'Backend Systems',
+    outcome: 'A small web project students can open, explain, and improve.',
     imageKey: 'workshop-microservices',
-    badge: '3-Day Lab Bootcamp',
-    subtitle: 'Scalable Web Architecture',
-    title: 'High-Traffic Backend Systems & Event Messaging',
-    desc: 'An intensive systems workshop where student teams build high-concurrency backend APIs capable of handling thousands of requests using caching and event queues.',
-    duration: '3 Days (24 Hands-On Lab Hours)',
-    level: 'CSE / IT / AIML Cohorts',
-    track: 'High-Traffic Backend Systems',
-    dayByDay: [
-      {
-        day: 'Day 01',
-        focus: 'REST API Design, PostgreSQL Indexing & Bottleneck Analysis',
-        output: 'Benchmarked API server with structured relational schema.',
-      },
-      {
-        day: 'Day 02',
-        focus: 'In-Memory Caching (Redis) & Rate Limiting',
-        output: 'Sub-20ms cached API responses under simulated load.',
-      },
-      {
-        day: 'Day 03',
-        focus: 'Asynchronous Event Queues & System Defense Viva',
-        output: 'Complete distributed backend architecture + load-test report.',
-      },
-    ],
   },
   {
-    id: 'big-data',
-    category: 'Data Engineering',
-    imageKey: 'workshop-data',
-    badge: '4-Day Lab Bootcamp',
-    subtitle: 'Data Pipelines & Analytics',
-    title: 'Big Data Processing with Python, SQL & Apache Spark',
-    desc: 'Students engineer end-to-end data pipelines that ingest raw messy datasets, clean and transform millions of rows with Spark, and publish executive analytics.',
-    duration: '4 Days (32 Hands-On Lab Hours)',
-    level: 'CSE / IT / Data Science',
-    track: 'Big Data & Apache Spark',
-    dayByDay: [
-      {
-        day: 'Day 01',
-        focus: 'Advanced Analytical SQL, Window Functions & Data Modeling',
-        output: 'Normalized analytical warehouse schema.',
-      },
-      {
-        day: 'Day 02–03',
-        focus: 'PySpark Distributed Transformations & ETL Pipelines',
-        output: 'Automated batch data-cleaning and aggregation pipeline.',
-      },
-      {
-        day: 'Day 04',
-        focus: 'Predictive Modeling & Interactive Stakeholder Dashboard',
-        output: 'Live analytics dashboard + documented data engineering repo.',
-      },
+    id: 'cloud-devops-mlops',
+    number: '02',
+    title: 'AWS / DevOps / MLOps',
+    duration: '3–5 days',
+    description: 'Learn how teams put projects online, keep them organised, and make updates more reliable. MLOps is introduced as the process of managing machine-learning projects.',
+    practice: [
+      'Understand the basics of hosting a project with AWS',
+      'Prepare a project to run online',
+      'Make common checks and updates easier to repeat',
+      'See how teams organise machine-learning work',
     ],
+    outcome: 'A project shared online and a clear view of how it gets there.',
+    imageKey: 'workshop-devops',
+  },
+  {
+    id: 'agentic-ai',
+    number: '03',
+    title: 'Agentic AI',
+    duration: '3–5 days',
+    description: 'Build an AI helper that can follow instructions, use selected tools, and work through a useful task instead of only answering a question.',
+    practice: [
+      'Give an AI helper clear goals and instructions',
+      'Let it work with selected documents or information',
+      'Connect it to a small set of approved tools',
+      'Check its results and decide what it should not do',
+    ],
+    outcome: 'A simple AI helper that completes a task and shows its work.',
+    imageKey: 'workshop-genai',
   },
 ];
 
-const CATEGORIES = ['All Tracks', 'AI & LLM', 'Cloud & DevOps', 'Backend Systems', 'Data Engineering'];
+const WORKSHOP_STEPS = [
+  { number: '01', title: 'Choose one course', description: 'Select the learning path that matches your students and goals.' },
+  { number: '02', title: 'Build with guidance', description: 'Spend the workshop working through small tasks and a guided project.' },
+  { number: '03', title: 'Show what you made', description: 'Finish with a working example that students can explain in their own words.' },
+];
 
 export default function WorkshopPage() {
   const navigate = useNavigate();
-  const [selectedCategory, setSelectedCategory] = useState('All Tracks');
-  const [expandedId, setExpandedId] = useState('ai-genai');
 
-  const eyebrow = useTextScramble('PILLAR 01 // 3 TO 5 DAY ON-CAMPUS LAB WORKSHOPS', {
-    duration: 600,
-    trigger: true,
-  });
-
-  const filteredWorkshops =
-    selectedCategory === 'All Tracks'
-      ? WORKSHOP_TRACKS
-      : WORKSHOP_TRACKS.filter((w) => w.category === selectedCategory);
+  const enquire = (courseTitle = '') => {
+    const query = courseTitle
+      ? `I would like to discuss the ${courseTitle} workshop for our college.`
+      : 'I would like to discuss a practical workshop for our college.';
+    navigate(`/contact?track=workshops&query=${encodeURIComponent(query)}`);
+  };
 
   return (
     <>
       <Helmet>
-        <title>3 to 5 Day Practical Engineering Workshops | THAKSA.AI</title>
+        <title>Practical Workshops | THAKSA.AI</title>
         <meta
           name="description"
-          content="Practitioner-led 3 to 5 day college coding bootcamps covering Applied GenAI, Cloud & Docker, High-Traffic Backends, and Data Engineering across Telangana."
+          content="Explore three practical THAKSA.AI workshop courses: Full Stack Web Development, AWS / DevOps / MLOps, and Agentic AI. Each focuses on learning by building."
         />
       </Helmet>
 
       <div className="w-full min-h-screen bg-[#F7F8F4] text-[#101828] thaksa-interior-page">
-        {/* Dark Spatial Hero Header */}
         <section className="relative w-full bg-[#080D1A] text-white iso-grid-dark border-b border-white/10 py-16 sm:py-24 overflow-hidden">
-          <div
-            aria-hidden="true"
-            className="pointer-events-none absolute -top-28 right-1/4 w-[480px] h-[480px] rounded-full bg-[#3659D9]/20 blur-[140px]"
-          />
-
+          <div aria-hidden="true" className="pointer-events-none absolute -top-28 right-1/4 w-[480px] h-[480px] rounded-full bg-[#3659D9]/20 blur-[140px]" />
           <div className="relative z-10 max-w-[1280px] mx-auto px-4 sm:px-6 md:px-10">
             <div className="max-w-3xl">
-              <div className="inline-flex items-center gap-2.5 px-3.5 py-1.5 rounded-full bg-white/[0.06] border border-white/15 mb-6">
-                <span className="w-2 h-2 rounded-full bg-[#C7F36B] animate-pulse" />
-                <span className="font-mono text-[11px] uppercase tracking-[0.16em] text-[#C7F36B]">
-                  {eyebrow}
-                </span>
-              </div>
-
-              <h1
-                className="font-display font-bold text-white tracking-[-0.03em] leading-[1.06] mb-6"
-                style={{ fontSize: 'clamp(2.25rem, 4.5vw + 1rem, 4.25rem)' }}
-              >
-                Zero slide decks.{' '}
-                <span className="text-[#C7F36B]">3 to 5 days of pure lab building.</span>
-              </h1>
-
-              <p className="text-base sm:text-lg text-slate-300 leading-relaxed mb-8">
-                Practicing software engineers from our Gachibowli studio conduct hands-on bootcamps
-                directly inside your college computer labs. Every student builds, tests, and deploys
-                a working software project on their own GitHub account.
+              <p className="font-mono text-xs uppercase tracking-[0.16em] text-[#C7F36B] mb-5">
+                PRACTICAL WORKSHOPS / THREE FOCUSED COURSES
               </p>
-
-              {/* Interactive Track Filter Pills */}
-              <div
-                role="tablist"
-                aria-label="Filter workshop tracks by engineering domain"
-                className="flex flex-wrap items-center gap-2"
-              >
-                {CATEGORIES.map((cat) => {
-                  const active = cat === selectedCategory;
-                  return (
-                    <button
-                      key={cat}
-                      type="button"
-                      role="tab"
-                      aria-selected={active}
-                      onClick={() => setSelectedCategory(cat)}
-                      className={`min-h-[42px] px-4 py-2 rounded-xl font-mono text-xs uppercase tracking-wider border transition-all cursor-pointer ${
-                        active
-                          ? 'bg-[#C7F36B] text-[#101828] border-[#C7F36B] font-bold shadow-[0_0_20px_rgba(199,243,107,0.3)]'
-                          : 'bg-white/[0.05] text-slate-300 border-white/10 hover:border-white/30 hover:text-white'
-                      }`}
-                    >
-                      {cat}
-                    </button>
-                  );
-                })}
+              <h1 className="font-display font-bold text-white tracking-[-0.03em] leading-[1.06] mb-6 text-4xl sm:text-5xl lg:text-6xl">
+                Learn by building something real.
+              </h1>
+              <p className="text-base sm:text-lg text-slate-300 leading-relaxed max-w-2xl mb-8">
+                Choose one of three focused courses. Students spend their time making, testing, and presenting a project—not just watching slides.
+              </p>
+              <div className="flex flex-wrap gap-3">
+                <DepthButton to="/contact?track=workshops" variant="electric" size="lg">
+                  Plan a campus workshop <span aria-hidden="true">→</span>
+                </DepthButton>
+                <a href="#workshop-courses" className="inline-flex min-h-[48px] items-center justify-center rounded-xl border border-white/20 px-5 py-3 text-sm font-semibold text-white hover:bg-white/10 transition-colors">
+                  Explore the three courses
+                </a>
               </div>
             </div>
           </div>
         </section>
 
-        {/* Workshop Tracks + Interactive Day-by-Day Teaching Syllabus */}
-        <section
-          aria-label="Available workshop tracks and day-by-day syllabus"
-          className="max-w-[1280px] mx-auto px-4 sm:px-6 md:px-10 py-16 sm:py-24"
-        >
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-20">
-            {filteredWorkshops.map((lab) => {
-              const isExpanded = expandedId === lab.id;
-              return (
-                <SpotlightCard
-                  key={lab.id}
-                  tone="light"
-                  className="p-6 sm:p-8 flex flex-col justify-between gap-6"
-                >
+        <main className="max-w-[1280px] mx-auto px-4 sm:px-6 md:px-10 py-14 sm:py-20">
+          <section id="workshop-courses" aria-labelledby="workshop-courses-heading" className="scroll-mt-28">
+            <div className="max-w-3xl mb-10">
+              <p className="font-mono text-xs uppercase tracking-[0.16em] text-[#3659D9] mb-2">THE THREE COURSES</p>
+              <h2 id="workshop-courses-heading" className="text-3xl sm:text-4xl font-display font-bold tracking-[-0.03em] text-[#101828]">
+                Pick the skill you want to build.
+              </h2>
+              <p className="mt-3 text-base text-[#5B6475] leading-relaxed">
+                Workshops usually run for 3–5 days. We agree on the final schedule and project with your college before the workshop starts.
+              </p>
+            </div>
+
+            <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 sm:gap-7 items-stretch">
+              {WORKSHOP_COURSES.map((course) => (
+                <SpotlightCard key={course.id} tone="light" className="h-full p-6 sm:p-7 flex flex-col gap-5">
+                  <div className="flex items-center justify-between gap-3">
+                    <span className="inline-flex min-h-8 items-center rounded-full bg-[#101828] px-3 py-1 text-[11px] font-mono uppercase tracking-wider text-[#C7F36B]">
+                      COURSE {course.number}
+                    </span>
+                    <span className="text-xs font-semibold text-[#5B6475]">{course.duration}</span>
+                  </div>
                   <div>
-                    <SupabaseImageCard
-                      imageKey={lab.imageKey}
-                      badgeText={lab.badge}
-                      subtitle={lab.subtitle}
-                      title={lab.title}
-                      description={lab.desc}
-                      aspectRatio="aspect-[16/9]"
-                    />
-
-                    {/* Metadata Bar */}
-                    <div className="mt-5 flex flex-wrap items-center justify-between gap-2 px-4 py-3 rounded-xl bg-[#F7F8F4] border border-[#E3E5DE] font-mono text-xs">
-                      <span className="text-[#101828] font-semibold">⏱ {lab.duration}</span>
-                      <span className="px-2.5 py-0.5 rounded bg-[#101828] text-[#C7F36B]">
-                        {lab.level}
-                      </span>
-                    </div>
-
-                    {/* Interactive Day-by-Day Teaching Breakdown */}
-                    <div className="mt-5 pt-5 border-t border-[#E3E5DE]">
-                      <button
-                        type="button"
-                        onClick={() => setExpandedId(isExpanded ? null : lab.id)}
-                        aria-expanded={isExpanded}
-                        className="w-full flex items-center justify-between text-left font-mono text-xs uppercase tracking-[0.14em] text-[#3659D9] font-bold py-1 cursor-pointer"
-                      >
-                        <span>HOW WE TEACH THIS TRACK (DAY-BY-DAY SYLLABUS)</span>
-                        <span>{isExpanded ? '− HIDE' : '+ EXPAND'}</span>
-                      </button>
-
-                      {isExpanded && (
-                        <div className="mt-4 space-y-2.5">
-                          {lab.dayByDay.map((d) => (
-                            <div
-                              key={d.day}
-                              className="p-3.5 rounded-xl bg-[#F7F8F4] border border-[#E3E5DE]"
-                            >
-                              <div className="flex items-center justify-between gap-2 mb-1">
-                                <span className="font-mono text-xs font-bold text-[#3659D9]">
-                                  {d.day}
-                                </span>
-                                <span className="font-display font-bold text-xs text-[#101828]">
-                                  {d.focus}
-                                </span>
-                              </div>
-                              <p className="text-xs text-[#5B6475] font-mono">
-                                <strong className="text-[#101828]">Lab Output:</strong> {d.output}
-                              </p>
-                            </div>
-                          ))}
-                        </div>
-                      )}
-                    </div>
+                    <h3 className="text-xl sm:text-2xl font-display font-bold leading-tight tracking-[-0.02em] text-[#101828]">{course.title}</h3>
+                    <p className="mt-3 text-sm text-[#5B6475] leading-relaxed">{course.description}</p>
                   </div>
-
-                  <div className="pt-4 border-t border-[#E3E5DE] flex flex-wrap items-center justify-between gap-3">
-                    <DepthButton
-                      onClick={() =>
-                        navigate(`/contact?track=workshops&query=${encodeURIComponent(lab.track)}`)
-                      }
-                      variant="precision"
-                      size="md"
-                      className="w-full sm:w-auto"
-                    >
-                      <span>Schedule This Workshop for Campus</span>
-                      <span aria-hidden="true">→</span>
-                    </DepthButton>
+                  <div className="border-t border-[#E3E5DE] pt-4">
+                    <h4 className="text-sm font-bold text-[#101828] mb-3">What students will practice</h4>
+                    <ul className="space-y-2.5">
+                      {course.practice.map((item) => (
+                        <li key={item} className="flex items-start gap-2.5 text-sm leading-relaxed text-[#5B6475]">
+                          <span aria-hidden="true" className="mt-0.5 text-[#3659D9] font-bold">✓</span>
+                          <span>{item}</span>
+                        </li>
+                      ))}
+                    </ul>
                   </div>
+                  <div className="mt-auto rounded-xl border border-[#E3E5DE] bg-[#F7F8F4] p-4">
+                    <p className="text-[11px] font-mono uppercase tracking-wider text-[#3659D9] mb-1">Take-home result</p>
+                    <p className="text-sm leading-relaxed text-[#101828]">{course.outcome}</p>
+                  </div>
+                  <DepthButton onClick={() => enquire(course.title)} variant="precision" size="md" className="w-full">
+                    Discuss this workshop <span aria-hidden="true">→</span>
+                  </DepthButton>
                 </SpotlightCard>
-              );
-            })}
-          </div>
+              ))}
+            </div>
+          </section>
 
-          {/* Zero Cloud License Cost Institutional Guarantee */}
-          <SpotlightCard tone="dark" className="p-8 sm:p-12">
-            <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-8">
+          <section aria-labelledby="workshop-steps-heading" className="mt-16 sm:mt-24">
+            <div className="max-w-3xl mb-8">
+              <p className="font-mono text-xs uppercase tracking-[0.16em] text-[#3659D9] mb-2">A CLEAR PLAN</p>
+              <h2 id="workshop-steps-heading" className="text-2xl sm:text-3xl font-display font-bold text-[#101828]">Simple, practical, and guided.</h2>
+            </div>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+              {WORKSHOP_STEPS.map((step) => (
+                <div key={step.number} className="rounded-2xl border border-[#E3E5DE] bg-white p-6 sm:p-7">
+                  <span className="font-mono text-sm font-bold text-[#3659D9]">{step.number}</span>
+                  <h3 className="mt-3 text-lg font-display font-bold text-[#101828]">{step.title}</h3>
+                  <p className="mt-2 text-sm leading-relaxed text-[#5B6475]">{step.description}</p>
+                </div>
+              ))}
+            </div>
+          </section>
+
+          <SpotlightCard tone="dark" className="mt-16 p-7 sm:p-10">
+            <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-6">
               <div className="max-w-2xl">
-                <span className="font-mono text-xs uppercase tracking-[0.16em] text-[#C7F36B] block mb-2">
-                  ZERO INFRASTRUCTURE BURDEN FOR COLLEGES
-                </span>
-                <h2 className="text-2xl sm:text-3xl font-display font-bold text-white tracking-[-0.02em] mb-3">
-                  We provide all cloud sandboxes, AI API keys, and lab repositories.
-                </h2>
-                <p className="text-sm sm:text-base text-slate-300 leading-relaxed">
-                  Your institution does not need to purchase paid cloud subscriptions or LLM API
-                  credits. THAKSA provisions ready-to-code cloud environments for every student—we
-                  only require your standard campus computer lab and internet access.
+                <p className="font-mono text-xs uppercase tracking-[0.16em] text-[#C7F36B] mb-2">FOR COLLEGES</p>
+                <h2 className="text-2xl sm:text-3xl font-display font-bold text-white">Let's plan the right workshop for your students.</h2>
+                <p className="mt-3 text-sm sm:text-base leading-relaxed text-slate-300">
+                  Tell us the course, student level, and dates you have in mind. We will discuss a suitable plan with your college.
                 </p>
               </div>
-
-              <div className="shrink-0">
-                <DepthButton to="/contact?track=workshops" variant="electric" size="lg">
-                  <span>Request Department Syllabus PDF</span>
-                  <span aria-hidden="true">→</span>
-                </DepthButton>
-              </div>
+              <DepthButton onClick={() => enquire()} variant="electric" size="lg">
+                Contact the team <span aria-hidden="true">→</span>
+              </DepthButton>
             </div>
           </SpotlightCard>
-        </section>
+        </main>
       </div>
     </>
   );

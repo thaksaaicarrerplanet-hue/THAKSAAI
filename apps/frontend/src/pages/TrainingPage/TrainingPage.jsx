@@ -1,289 +1,162 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Helmet } from 'react-helmet-async';
 import { useNavigate } from 'react-router-dom';
-import SupabaseImageCard from '../../components/common/SupabaseImageCard';
 import { SpotlightCard } from '../../components/ui/SpotlightCard';
 import { DepthButton } from '../../components/ui/DepthButton';
-import { CRT_MODULES } from '../../data/programs';
-import { useTextScramble } from '../../hooks/useTextScramble';
 
-const SKILL_TIERS = [
+const CRT_COURSES = [
   {
-    id: 'tier-a',
-    imageKey: 'crt-tier-a',
-    badge: 'GROUP A // PRODUCT & ADVANCED DSA',
-    subtitle: 'For High-Velocity Coders',
-    title: 'Group A: Advanced Algorithms & System Design',
-    desc: 'Engineered for students targeting product companies and top engineering roles. Intensive practice on Graphs, Dynamic Programming, Low-Level Design, and timed competitive coding.',
-    weeklyDrill: 'Hard LeetCode/Codeforces-style proctored contests + architecture whiteboard defense.',
-    trackParam: 'Group A CRT (Advanced Product)',
+    id: 'full-stack',
+    number: '01',
+    title: 'Full Stack Web Development',
+    summary: 'Learn to build a complete website or web app, from the pages people use to the information saved behind them.',
+    topics: ['Page design and forms', 'Useful features and user accounts', 'Saving and showing information', 'Testing and presenting a working project'],
+    goal: 'Students finish with a web project they can explain clearly in an interview.',
   },
   {
-    id: 'tier-b',
-    imageKey: 'crt-tier-b',
-    badge: 'GROUP B // CORE SOFTWARE & DBMS',
-    subtitle: 'For Core Development Cohorts',
-    title: 'Group B: Data Structures, SQL & Full-Stack Logic',
-    desc: 'Designed for the core majority of engineering cohorts preparing for software developer evaluations. Focuses on clean problem-solving, relational database queries, OOPs, and APIs.',
-    weeklyDrill: 'Medium-level algorithmic coding + SQL schema writing + technical interview simulations.',
-    trackParam: 'Group B CRT (Core Software)',
+    id: 'cloud-devops-mlops',
+    number: '02',
+    title: 'AWS / DevOps / MLOps',
+    summary: 'Learn how software is put online, how updates are managed, and how teams keep their work organised.',
+    topics: ['Cloud basics using AWS', 'Getting a project ready to run online', 'Making common checks and updates repeatable', 'Understanding how machine-learning projects are managed'],
+    goal: 'Students understand how a project goes from a computer to a place where people can use it.',
   },
   {
-    id: 'tier-c',
-    imageKey: 'crt-tier-c',
-    badge: 'GROUP C // FOUNDATIONS & CONFIDENCE',
-    subtitle: 'For Beginners & Non-CS Branches',
-    title: 'Group C: Step-by-Step Coding Foundations & Aptitude',
-    desc: 'Built for students who need patient, first-principles instruction to overcome coding fear. Masters arrays, strings, loops, debugging, quantitative aptitude, and clear communication.',
-    weeklyDrill: 'Guided syntax-to-logic labs + quantitative aptitude shortcuts + mock GD & HR rounds.',
-    trackParam: 'Group C CRT (Coding Foundations)',
+    id: 'agentic-ai',
+    number: '03',
+    title: 'Agentic AI',
+    summary: 'Learn to create an AI helper that follows clear instructions and uses selected tools to complete a task.',
+    topics: ['Writing clear instructions', 'Working with supplied information', 'Connecting approved tools', 'Checking answers and setting limits'],
+    goal: 'Students finish with a small AI helper and can explain how they checked its work.',
   },
 ];
 
-const SEMESTER_WEEKS = [
-  {
-    phase: 'WEEKS 01–03',
-    title: 'Diagnostic Baseline & Skill-Tier Mapping',
-    tag: 'STATION 01 // ASSESS',
-    detail: 'Every student takes our baseline coding and aptitude diagnostic so we group the batch into Tier A, Tier B, and Tier C without stigma.',
-  },
-  {
-    phase: 'WEEKS 04–07',
-    title: 'Data Structures, Core CS & Quantitative Drills',
-    tag: 'STATION 02 // TRAIN',
-    detail: 'Hands-on problem solving in Arrays, Strings, Trees, DBMS, SQL, and high-speed quantitative reasoning led by practitioners.',
-  },
-  {
-    phase: 'WEEKS 08–11',
-    title: 'Every-Friday Proctored Assessment Loop',
-    tag: 'STATION 03 // BENCHMARK',
-    detail: 'Timed Friday tests replicate exact corporate hiring platforms. Department-wise progress matrices are shared directly with the TPO.',
-  },
-  {
-    phase: 'WEEKS 12–15',
-    title: '1-on-1 Mock Technical, GD & HR Sign-Off',
-    tag: 'STATION 04 // DEMONSTRATE',
-    detail: 'Individual resume engineering, group discussion moderation, and live code-defense panels before campus drives begin.',
-  },
+const SEMESTER_STEPS = [
+  { number: '01', title: 'Learn the basics', description: 'Start with short lessons and guided examples, with time to ask questions.' },
+  { number: '02', title: 'Practice each week', description: 'Build in small steps, review mistakes, and improve with help from the trainer.' },
+  { number: '03', title: 'Show your work', description: 'Complete a project, explain the choices you made, and practise talking about it clearly.' },
 ];
 
 export default function TrainingPage() {
   const navigate = useNavigate();
-  const [selectedTier, setSelectedTier] = useState('tier-a');
-  const eyebrow = useTextScramble('PILLAR 02 // 3-TIER CAMPUS RECRUITMENT TRAINING (CRT)', {
-    duration: 600,
-    trigger: true,
-  });
+
+  const enquire = (courseTitle = '') => {
+    const query = courseTitle
+      ? `I would like to discuss Campus Recruitment Training in ${courseTitle}.`
+      : 'I would like to discuss Campus Recruitment Training for our college.';
+    navigate(`/contact?track=crt&query=${encodeURIComponent(query)}`);
+  };
 
   return (
     <>
       <Helmet>
-        <title>Campus Recruitment Training (CRT) · 3-Tier Pedagogy | THAKSA.AI</title>
+        <title>Campus Recruitment Training | THAKSA.AI</title>
         <meta
           name="description"
-          content="THAKSA.AI's 3-Tier Campus Recruitment Training (CRT) groups students by diagnostic baseline into Group A, Group B, and Group C with weekly Friday proctored coding tests."
+          content="Explore THAKSA.AI Campus Recruitment Training in three practical areas: Full Stack Web Development, AWS / DevOps / MLOps, and Agentic AI."
         />
       </Helmet>
 
       <div className="w-full min-h-screen bg-[#F7F8F4] text-[#101828] thaksa-interior-page">
-        {/* Dark Spatial Hero */}
         <section className="relative w-full bg-[#080D1A] text-white iso-grid-dark border-b border-white/10 py-16 sm:py-24 overflow-hidden">
-          <div
-            aria-hidden="true"
-            className="pointer-events-none absolute -top-28 left-1/3 w-[500px] h-[500px] rounded-full bg-[#3659D9]/20 blur-[140px]"
-          />
-
+          <div aria-hidden="true" className="pointer-events-none absolute -top-28 left-1/3 w-[500px] h-[500px] rounded-full bg-[#3659D9]/20 blur-[140px]" />
           <div className="relative z-10 max-w-[1280px] mx-auto px-4 sm:px-6 md:px-10">
             <div className="max-w-3xl">
-              <div className="inline-flex items-center gap-2.5 px-3.5 py-1.5 rounded-full bg-white/[0.06] border border-white/15 mb-6">
-                <span className="w-2 h-2 rounded-full bg-[#C7F36B] animate-pulse" />
-                <span className="font-mono text-[11px] uppercase tracking-[0.16em] text-[#C7F36B]">
-                  {eyebrow}
-                </span>
-              </div>
-
-              <h1
-                className="font-display font-bold text-white tracking-[-0.03em] leading-[1.06] mb-6"
-                style={{ fontSize: 'clamp(2.25rem, 4.5vw + 1rem, 4.25rem)' }}
-              >
-                Why put 400 students in one hall?{' '}
-                <span className="text-[#C7F36B]">We teach in 3 skill-matched tiers.</span>
+              <p className="font-mono text-xs uppercase tracking-[0.16em] text-[#C7F36B] mb-5">CAMPUS RECRUITMENT TRAINING</p>
+              <h1 className="font-display font-bold text-white tracking-[-0.03em] leading-[1.06] mb-6 text-4xl sm:text-5xl lg:text-6xl">
+                Help students build skills they can show.
               </h1>
-
               <p className="text-base sm:text-lg text-slate-300 leading-relaxed mb-8">
-                Traditional CRT programs fail because advanced coders get bored while beginners feel
-                intimidated. THAKSA begins every semester with a friendly diagnostic check and
-                splits the cohort into <strong className="text-white">Group A, Group B, and Group C</strong>—so
-                every student learns at the right pace and clears technical interviews.
+                Our campus training focuses on three practical courses. Students learn step by step, practise regularly, and finish work they can explain in their own words.
               </p>
-
-              <div className="flex flex-wrap items-center gap-3.5">
-                <DepthButton to="/contact?track=crt" variant="electric" size="lg">
-                  <span>Schedule Campus CRT Diagnostic</span>
-                  <span aria-hidden="true">→</span>
+              <div className="flex flex-wrap gap-3">
+                <DepthButton onClick={() => enquire()} variant="electric" size="lg">
+                  Discuss training for your college <span aria-hidden="true">→</span>
                 </DepthButton>
-                <DepthButton to="/placements" variant="ghostDark" size="lg">
-                  <span>Inspect 4-Stage Assessment Rubric</span>
-                </DepthButton>
+                <a href="#crt-courses" className="inline-flex min-h-[48px] items-center justify-center rounded-xl border border-white/20 px-5 py-3 text-sm font-semibold text-white hover:bg-white/10 transition-colors">
+                  Explore the three courses
+                </a>
               </div>
             </div>
           </div>
         </section>
 
-        {/* Section 1: 3-Tier Competency Architecture */}
-        <section
-          aria-label="Three Student Learning Groups"
-          className="max-w-[1280px] mx-auto px-4 sm:px-6 md:px-10 py-16 sm:py-24"
-        >
-          <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-12">
-            <div>
-              <span className="font-mono text-xs uppercase tracking-[0.16em] text-[#3659D9] block mb-2">
-                DIAGNOSTIC COHORT ARCHITECTURE // 01
-              </span>
-              <h2 className="text-3xl sm:text-4xl font-display font-bold text-[#101828] tracking-[-0.02em]">
-                Our 3 Student Learning Groups
-              </h2>
-            </div>
-
-            <div className="flex items-center gap-2">
-              {SKILL_TIERS.map((t) => (
-                <button
-                  key={t.id}
-                  type="button"
-                  onClick={() => setSelectedTier(t.id)}
-                  className={`px-3.5 py-2 rounded-xl font-mono text-xs uppercase tracking-wider border transition-all cursor-pointer ${
-                    selectedTier === t.id
-                      ? 'bg-[#101828] text-[#C7F36B] border-[#101828] font-bold'
-                      : 'bg-white text-[#5B6475] border-[#E3E5DE] hover:text-[#101828]'
-                  }`}
-                >
-                  {t.id.replace('-', ' ')}
-                </button>
-              ))}
-            </div>
-          </div>
-
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 sm:gap-8 mb-20">
-            {SKILL_TIERS.map((tier) => {
-              const isHighlighted = selectedTier === tier.id;
-              return (
-                <SpotlightCard
-                  key={tier.id}
-                  tone="light"
-                  onClick={() => setSelectedTier(tier.id)}
-                  className={`p-6 flex flex-col justify-between gap-5 cursor-pointer transition-all ${
-                    isHighlighted ? 'ring-2 ring-[#3659D9]' : ''
-                  }`}
-                >
-                  <div>
-                    <SupabaseImageCard
-                      imageKey={tier.imageKey}
-                      badgeText={tier.badge}
-                      subtitle={tier.subtitle}
-                      title={tier.title}
-                      description={tier.desc}
-                      aspectRatio="aspect-[16/10]"
-                    />
-                    <div className="mt-4 p-4 rounded-xl bg-[#F7F8F4] border border-[#E3E5DE]">
-                      <span className="font-mono text-[10px] uppercase tracking-[0.14em] text-[#3659D9] block mb-1">
-                        FRIDAY PROCTORED DRILL:
-                      </span>
-                      <p className="text-xs text-[#101828] font-medium leading-relaxed">
-                        {tier.weeklyDrill}
-                      </p>
-                    </div>
-                  </div>
-
-                  <DepthButton
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      navigate(`/contact?track=crt&query=${encodeURIComponent(tier.trackParam)}`);
-                    }}
-                    variant={isHighlighted ? 'precision' : 'secondary'}
-                    size="md"
-                    className="w-full"
-                  >
-                    <span>Request {tier.id.toUpperCase()} Syllabus</span>
-                    <span aria-hidden="true">→</span>
-                  </DepthButton>
-                </SpotlightCard>
-              );
-            })}
-          </div>
-
-          {/* Section 2: 15-Week Semester Execution Loop */}
-          <SpotlightCard tone="dark" className="p-7 sm:p-12 mb-20">
+        <main className="max-w-[1280px] mx-auto px-4 sm:px-6 md:px-10 py-14 sm:py-20">
+          <section id="crt-courses" aria-labelledby="crt-courses-heading" className="scroll-mt-28">
             <div className="max-w-3xl mb-10">
-              <span className="font-mono text-xs uppercase tracking-[0.16em] text-[#C7F36B] block mb-2">
-                15-WEEK SEMESTER RHYTHM // 02
-              </span>
-              <h3 className="text-2xl sm:text-4xl font-display font-bold text-white tracking-[-0.02em] mb-3">
-                Every Friday is a simulated corporate hiring round.
-              </h3>
-              <p className="text-sm sm:text-base text-slate-300 leading-relaxed">
-                Students don’t wait until final exams to test their readiness. Every Friday, cohorts
-                take timed proctored coding and aptitude assessments—building speed, accuracy, and
-                interview composure week after week.
+              <p className="font-mono text-xs uppercase tracking-[0.16em] text-[#3659D9] mb-2">THE THREE COURSE OPTIONS</p>
+              <h2 id="crt-courses-heading" className="text-3xl sm:text-4xl font-display font-bold tracking-[-0.03em] text-[#101828]">
+                A clear path from practice to a finished project.
+              </h2>
+              <p className="mt-3 text-base leading-relaxed text-[#5B6475]">
+                We plan the course with your college and adjust the level to suit the students. The usual semester format runs over 15 weeks; final dates and weekly hours are agreed before training begins.
               </p>
             </div>
 
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
-              {SEMESTER_WEEKS.map((w) => (
-                <div
-                  key={w.phase}
-                  className="p-5 rounded-2xl bg-white/[0.04] border border-white/10 flex flex-col justify-between gap-4"
-                >
-                  <div>
-                    <div className="flex items-center justify-between gap-2 mb-3">
-                      <span className="font-mono text-xs font-bold text-[#C7F36B]">{w.phase}</span>
-                    </div>
-                    <h4 className="text-lg font-display font-bold text-white mb-2">{w.title}</h4>
-                    <p className="text-xs text-slate-300 leading-relaxed">{w.detail}</p>
+            <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 sm:gap-7 items-stretch">
+              {CRT_COURSES.map((course) => (
+                <SpotlightCard key={course.id} tone="light" className="h-full p-6 sm:p-7 flex flex-col gap-5">
+                  <div className="flex items-center gap-3">
+                    <span className="grid h-10 w-10 shrink-0 place-items-center rounded-xl bg-[#101828] text-sm font-mono font-bold text-[#C7F36B]">{course.number}</span>
+                    <span className="font-mono text-[11px] uppercase tracking-[0.12em] text-[#3659D9]">PRACTICAL COURSE</span>
                   </div>
-                  <div className="pt-3 border-t border-white/10 font-mono text-[10px] text-[#6D8DFF] uppercase tracking-wider">
-                    {w.tag}
-                  </div>
-                </div>
-              ))}
-            </div>
-          </SpotlightCard>
-
-          {/* Section 3: Core Curriculum Pillars */}
-          <div>
-            <div className="mb-10">
-              <span className="font-mono text-xs uppercase tracking-[0.16em] text-[#3659D9] block mb-2">
-                COMPLETE CRT SYLLABUS COVERAGE // 03
-              </span>
-              <h3 className="text-2xl sm:text-3xl font-display font-bold text-[#101828]">
-                What We Teach Inside Every Cohort
-              </h3>
-            </div>
-
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-              {CRT_MODULES.map((mod) => (
-                <SpotlightCard key={mod.id} tone="light" className="p-6 sm:p-7 flex flex-col justify-between gap-4">
                   <div>
-                    <span className="font-mono text-xs font-bold text-[#3659D9]">{mod.code}</span>
-                    <h4 className="text-xl font-display font-bold text-[#101828] mt-1 mb-3">
-                      {mod.title}
-                    </h4>
-                    <ul className="space-y-2 text-sm text-[#5B6475]">
-                      {mod.topics.map((t) => (
-                        <li key={t} className="flex items-start gap-2">
-                          <span className="text-[#3659D9] font-mono font-bold">✓</span>
-                          <span>{t}</span>
+                    <h3 className="text-xl sm:text-2xl font-display font-bold leading-tight tracking-[-0.02em] text-[#101828]">{course.title}</h3>
+                    <p className="mt-3 text-sm leading-relaxed text-[#5B6475]">{course.summary}</p>
+                  </div>
+                  <div className="border-t border-[#E3E5DE] pt-4">
+                    <h4 className="mb-3 text-sm font-bold text-[#101828]">Students will practise</h4>
+                    <ul className="space-y-2.5">
+                      {course.topics.map((topic) => (
+                        <li key={topic} className="flex items-start gap-2.5 text-sm leading-relaxed text-[#5B6475]">
+                          <span aria-hidden="true" className="mt-0.5 font-bold text-[#3659D9]">✓</span><span>{topic}</span>
                         </li>
                       ))}
                     </ul>
                   </div>
-                  <div className="pt-3 border-t border-[#E3E5DE] font-mono text-[11px] text-[#101828]">
-                    <strong>Evaluation:</strong> {mod.benchmark}
+                  <div className="mt-auto rounded-xl border border-[#E3E5DE] bg-[#F7F8F4] p-4">
+                    <p className="mb-1 font-mono text-[11px] uppercase tracking-wider text-[#3659D9]">Course goal</p>
+                    <p className="text-sm leading-relaxed text-[#101828]">{course.goal}</p>
                   </div>
+                  <DepthButton onClick={() => enquire(course.title)} variant="precision" size="md" className="w-full">
+                    Ask about this course <span aria-hidden="true">→</span>
+                  </DepthButton>
                 </SpotlightCard>
               ))}
             </div>
-          </div>
-        </section>
+          </section>
+
+          <section aria-labelledby="crt-steps-heading" className="mt-16 sm:mt-24">
+            <div className="max-w-3xl mb-8">
+              <p className="font-mono text-xs uppercase tracking-[0.16em] text-[#3659D9] mb-2">HOW THE TRAINING WORKS</p>
+              <h2 id="crt-steps-heading" className="text-2xl sm:text-3xl font-display font-bold text-[#101828]">Learn, practise, and present.</h2>
+            </div>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+              {SEMESTER_STEPS.map((step) => (
+                <div key={step.number} className="rounded-2xl border border-[#E3E5DE] bg-white p-6 sm:p-7">
+                  <span className="font-mono text-sm font-bold text-[#3659D9]">{step.number}</span>
+                  <h3 className="mt-3 text-lg font-display font-bold text-[#101828]">{step.title}</h3>
+                  <p className="mt-2 text-sm leading-relaxed text-[#5B6475]">{step.description}</p>
+                </div>
+              ))}
+            </div>
+          </section>
+
+          <SpotlightCard tone="dark" className="mt-16 p-7 sm:p-10">
+            <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-6">
+              <div className="max-w-2xl">
+                <p className="font-mono text-xs uppercase tracking-[0.16em] text-[#C7F36B] mb-2">FOR COLLEGES AND PLACEMENT TEAMS</p>
+                <h2 className="text-2xl sm:text-3xl font-display font-bold text-white">Let's agree on the right plan for your students.</h2>
+                <p className="mt-3 text-sm sm:text-base leading-relaxed text-slate-300">
+                  Share the student group, preferred course, and academic dates. We will discuss the schedule and practical work with your team.
+                </p>
+              </div>
+              <DepthButton onClick={() => enquire()} variant="electric" size="lg">
+                Contact the team <span aria-hidden="true">→</span>
+              </DepthButton>
+            </div>
+          </SpotlightCard>
+        </main>
       </div>
     </>
   );
