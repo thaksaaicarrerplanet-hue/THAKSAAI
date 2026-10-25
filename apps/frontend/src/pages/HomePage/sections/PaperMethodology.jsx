@@ -14,8 +14,8 @@ const PIPELINE_STEPS = [
       'Clear progression roadmap',
     ],
     accent: '#C7F36B',
-    imageSrc: '/images/journey/IMG-20260619-WA0025.jpg',
-    imageAlt: 'A mentor working directly with students at their workstations to understand their current level and guide next steps',
+    imageSrc: '/images/journey/IMG-20260619-WA0004.jpg',
+    imageAlt: 'A mentor reviewing a student’s code and giving one-to-one feedback',
   },
   {
     id: 'step-live-code',
@@ -44,8 +44,8 @@ const PIPELINE_STEPS = [
       'Structured practitioner code reviews',
     ],
     accent: '#6D8DFF',
-    imageSrc: '/images/journey/IMG-20260619-WA0021.jpg',
-    imageAlt: 'Students collaborating on a practical full-stack application build',
+    imageSrc: '/images/journey/IMG-20260619-WA0011.jpg',
+    imageAlt: 'Students working through a cloud and DevOps lab exercise',
   },
   {
     id: 'step-interview',
@@ -66,7 +66,7 @@ const PIPELINE_STEPS = [
 
 function StagePhoto({ imageSrc, imageAlt, step, accent }) {
   return (
-    <div className="relative h-48 sm:h-52 w-full overflow-hidden border-b border-white/10 bg-[#091226]">
+    <div className="group relative h-48 sm:h-52 w-full overflow-hidden border-b border-white/10 bg-[#091226]">
       <img
         src={imageSrc}
         alt={imageAlt}

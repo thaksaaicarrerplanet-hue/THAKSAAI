@@ -51,8 +51,8 @@ const CORE_PROGRAMS = [
     href: '/internships',
     cta: 'Explore Internships',
     accent: '#6D8DFF',
-    imageSrc: '/images/journey/IMG-20260619-WA0024.jpg',
-    imageAlt: 'Students collaborating on a guided engineering project sprint',
+    imageSrc: '/images/journey/IMG-20260619-WA0021.jpg',
+    imageAlt: 'Students building and testing a web project during a guided lab',
   },
 ];
 
