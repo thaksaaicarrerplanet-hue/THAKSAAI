@@ -1,0 +1,564 @@
+/*
+ * THAKSA.AI interior-page visual system.
+ * Scoped to secondary page roots; HomePage and home-specific components are untouched.
+ */
+.thaksa-interior-page {
+  position: relative;
+  isolation: isolate;
+}
+
+.thaksa-interior-page::before {
+  content: "";
+  position: absolute;
+  inset: 0 0 auto;
+  height: clamp(20rem, 48vw, 38rem);
+  pointer-events: none;
+  z-index: 0;
+  background-image:
+    radial-gradient(ellipse at 12% 3%, rgba(54, 89, 217, 0.085), transparent 56%),
+    radial-gradient(ellipse at 91% 8%, rgba(199, 243, 107, 0.085), transparent 44%);
+  -webkit-mask-image: linear-gradient(to bottom, #000 0%, rgba(0, 0, 0, 0.68) 56%, transparent 100%);
+  mask-image: linear-gradient(to bottom, #000 0%, rgba(0, 0, 0, 0.68) 56%, transparent 100%);
+}
+
+.thaksa-interior-page > * {
+  position: relative;
+  z-index: 1;
+}
+
+.thaksa-interior-page :where(h1, h2, h3, h4) {
+  text-wrap: balance;
+}
+
+.thaksa-interior-page :where(.grid, [class*="grid-cols-"]) > * {
+  min-width: 0;
+}
+
+.thaksa-interior-page :where(section[id], [id] > section) {
+  scroll-margin-top: 6.5rem;
+}
+
+.thaksa-interior-page :where(a, button, [role="button"]) {
+  -webkit-tap-highlight-color: transparent;
+}
+
+.thaksa-interior-page :where(img, video, canvas) {
+  max-width: 100%;
+}
+
+.thaksa-interior-page :where(.neo-glass, .neo-glass-dark) {
+  transition: border-color 220ms ease, box-shadow 220ms ease;
+}
+
+.thaksa-interior-page :where(.neo-glass, .neo-glass-dark):hover {
+  border-color: rgba(54, 89, 217, 0.22);
+}
+
+/* Featured courses on the catalogue page */
+.thaksa-featured-tracks-section {
+  margin: 0 0 clamp(3rem, 6vw, 5.25rem);
+}
+
+.thaksa-featured-tracks-heading {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 1.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.thaksa-featured-tracks-heading h2 {
+  margin: 0.4rem 0 0.55rem;
+  color: #101828;
+  font-family: var(--font-display);
+  font-size: clamp(1.8rem, 3vw, 2.55rem);
+  font-weight: 750;
+  letter-spacing: -0.04em;
+  line-height: 1.12;
+}
+
+.thaksa-featured-tracks-heading p {
+  max-width: 46rem;
+  margin: 0;
+  color: #5b6475;
+  font-size: 0.98rem;
+  line-height: 1.7;
+}
+
+.thaksa-track-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55rem;
+  color: #3659d9;
+  font: 700 0.7rem/1.4 var(--font-mono);
+  letter-spacing: 0.14em;
+}
+
+.thaksa-track-eyebrow::before {
+  content: "";
+  width: 0.45rem;
+  height: 0.45rem;
+  border-radius: 999px;
+  background: #c7f36b;
+  box-shadow: 0 0 0 4px rgba(199, 243, 107, 0.18);
+}
+
+.thaksa-track-heading-note {
+  flex: 0 0 auto;
+  margin-bottom: 0.2rem;
+  color: #5b6475;
+  font: 600 0.68rem/1.5 var(--font-mono);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.thaksa-featured-tracks {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  align-items: stretch;
+  gap: 1.15rem;
+}
+
+.thaksa-track-card {
+  --track-rgb: 54, 89, 217;
+  position: relative;
+  display: flex;
+  min-width: 0;
+  min-height: 24rem;
+  flex-direction: column;
+  overflow: hidden;
+  isolation: isolate;
+  padding: clamp(1.25rem, 2.2vw, 1.8rem);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 1.5rem;
+  color: #f7f8f4;
+  background:
+    radial-gradient(ellipse at 90% 0%, rgba(var(--track-rgb), 0.2), transparent 45%),
+    linear-gradient(145deg, #141f33 0%, #090e1a 72%);
+  box-shadow: 0 18px 40px -28px rgba(5, 8, 17, 0.6);
+  transition: transform 240ms ease, border-color 240ms ease, box-shadow 240ms ease;
+}
+
+.thaksa-track-card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  opacity: 0.35;
+  background-image:
+    linear-gradient(rgba(255, 255, 255, 0.045) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.045) 1px, transparent 1px);
+  background-size: 28px 28px;
+  -webkit-mask-image: linear-gradient(to bottom right, black, transparent 80%);
+  mask-image: linear-gradient(to bottom right, black, transparent 80%);
+}
+
+.thaksa-track-card--lime { --track-rgb: 199, 243, 107; }
+.thaksa-track-card--violet { --track-rgb: 125, 111, 255; }
+
+.thaksa-track-card:hover {
+  transform: translateY(-4px);
+  border-color: rgba(var(--track-rgb), 0.58);
+  box-shadow: 0 24px 48px -28px rgba(5, 8, 17, 0.76);
+}
+
+.thaksa-track-card-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 1.8rem;
+}
+
+.thaksa-track-icon {
+  display: grid;
+  width: 3.25rem;
+  height: 3.25rem;
+  place-items: center;
+  flex: 0 0 auto;
+  border: 1px solid rgba(var(--track-rgb), 0.36);
+  border-radius: 1.05rem;
+  color: #c7f36b;
+  background: rgba(var(--track-rgb), 0.13);
+}
+
+.thaksa-track-icon svg { width: 1.55rem; height: 1.55rem; }
+
+.thaksa-track-number {
+  color: rgba(247, 248, 244, 0.68);
+  font: 600 0.68rem/1.4 var(--font-mono);
+  letter-spacing: 0.13em;
+}
+
+.thaksa-track-card-copy { flex: 1 1 auto; }
+
+.thaksa-track-kicker {
+  display: block;
+  margin-bottom: 0.6rem;
+  color: #c7f36b;
+  font: 700 0.65rem/1.5 var(--font-mono);
+  letter-spacing: 0.12em;
+}
+
+.thaksa-track-card h3 {
+  margin: 0 0 0.8rem;
+  color: #fff;
+  font-family: var(--font-display);
+  font-size: clamp(1.25rem, 1.5vw, 1.55rem);
+  font-weight: 750;
+  letter-spacing: -0.035em;
+  line-height: 1.18;
+}
+
+.thaksa-track-card p {
+  margin: 0;
+  color: #c7d0df;
+  font-size: 0.89rem;
+  line-height: 1.7;
+}
+
+.thaksa-track-skills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.45rem;
+  margin: 1.3rem 0 1.4rem;
+  padding: 0;
+  list-style: none;
+}
+
+.thaksa-track-skills li {
+  padding: 0.38rem 0.58rem;
+  border: 1px solid rgba(255, 255, 255, 0.13);
+  border-radius: 0.55rem;
+  color: #e6ebf4;
+  background: rgba(255, 255, 255, 0.045);
+  font: 500 0.67rem/1.4 var(--font-mono);
+}
+
+.thaksa-track-cta {
+  display: flex;
+  min-height: 2.9rem;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  margin-top: auto;
+  padding: 0.75rem 0.95rem;
+  border: 1px solid rgba(199, 243, 107, 0.28);
+  border-radius: 0.85rem;
+  color: #101828;
+  background: #c7f36b;
+  font-size: 0.82rem;
+  font-weight: 750;
+  text-decoration: none;
+  transition: background 180ms ease, transform 180ms ease;
+}
+
+.thaksa-track-cta span { font-size: 1rem; transition: transform 180ms ease; }
+.thaksa-track-cta:hover { color: #101828; background: #d5fa8a; }
+.thaksa-track-cta:hover span { transform: translate(2px, -2px); }
+.thaksa-track-cta:focus-visible { outline: 3px solid #3659d9; outline-offset: 3px; }
+
+@media (max-width: 960px) {
+  .thaksa-featured-tracks { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .thaksa-track-card:last-child {
+    grid-column: 1 / -1;
+    width: calc(50% - 0.575rem);
+    justify-self: center;
+  }
+}
+
+@media (max-width: 640px) {
+  .thaksa-featured-tracks-heading { align-items: flex-start; flex-direction: column; gap: 0.7rem; }
+  .thaksa-featured-tracks { grid-template-columns: minmax(0, 1fr); }
+  .thaksa-track-card { min-height: auto; }
+  .thaksa-track-card:last-child { grid-column: auto; width: 100%; justify-self: stretch; }
+  .thaksa-track-heading-note { font-size: 0.62rem; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .thaksa-track-card, .thaksa-track-cta, .thaksa-track-cta span { transition: none; }
+  .thaksa-track-card:hover { transform: none; }
+}
+
+
+/* Distinct THAKSA background art — no generic repeating grid on these surfaces. */
+.thaksa-coded-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+}
+
+.thaksa-coded-label::after {
+  content: "▍";
+  color: #c7f36b;
+  animation: thaksa-caret-pulse 1s steps(2, jump-none) infinite;
+}
+
+@keyframes thaksa-caret-pulse {
+  50% { opacity: 0; }
+}
+
+.thaksa-hero-scene {
+  isolation: isolate;
+  background:
+    radial-gradient(ellipse at 82% 18%, rgba(54, 89, 217, 0.23), transparent 36%),
+    radial-gradient(ellipse at 68% 100%, rgba(199, 243, 107, 0.055), transparent 35%),
+    linear-gradient(115deg, #080d1a 0%, #0b1428 55%, #080d1a 100%);
+}
+
+.thaksa-hero-scene::before,
+.thaksa-hero-scene::after {
+  content: "";
+  position: absolute;
+  z-index: 0;
+  pointer-events: none;
+}
+
+.thaksa-hero--workshops::before {
+  width: clamp(19rem, 37vw, 32rem);
+  aspect-ratio: 1;
+  right: clamp(-7rem, 3vw, 3rem);
+  top: -35%;
+  border: 1px solid rgba(199, 243, 107, 0.32);
+  border-radius: 50%;
+  box-shadow:
+    0 0 0 26px rgba(199, 243, 107, 0.035),
+    0 0 0 54px rgba(54, 89, 217, 0.12),
+    0 0 0 86px rgba(54, 89, 217, 0.06),
+    inset 0 0 90px rgba(54, 89, 217, 0.14);
+  transform: rotate(-22deg);
+}
+
+.thaksa-hero--workshops::after {
+  width: clamp(8rem, 16vw, 14rem);
+  aspect-ratio: 1;
+  right: clamp(3rem, 13vw, 12rem);
+  top: 21%;
+  border-radius: 50%;
+  background:
+    radial-gradient(circle, #c7f36b 0 3px, transparent 4px),
+    radial-gradient(circle, rgba(54, 89, 217, 0.35), transparent 68%);
+  box-shadow: 0 0 55px rgba(54, 89, 217, 0.2);
+  animation: thaksa-art-float 8s ease-in-out infinite;
+}
+
+.thaksa-hero--crt {
+  background:
+    radial-gradient(ellipse at 84% 24%, rgba(199, 243, 107, 0.12), transparent 30%),
+    radial-gradient(ellipse at 68% 95%, rgba(54, 89, 217, 0.2), transparent 38%),
+    linear-gradient(120deg, #080d1a, #0c1728 60%, #080d1a);
+}
+
+.thaksa-hero--crt::before {
+  right: 0;
+  bottom: 0;
+  width: min(50%, 42rem);
+  height: 88%;
+  opacity: 0.82;
+  background: linear-gradient(135deg, rgba(199, 243, 107, 0.14), rgba(54, 89, 217, 0.035));
+  clip-path: polygon(10% 100%, 10% 82%, 29% 82%, 29% 64%, 48% 64%, 48% 46%, 67% 46%, 67% 28%, 86% 28%, 86% 11%, 100% 11%, 100% 100%);
+  border-top: 1px solid rgba(199, 243, 107, 0.18);
+}
+
+.thaksa-hero--crt::after {
+  right: 8%;
+  top: 19%;
+  width: min(36vw, 27rem);
+  height: 65%;
+  opacity: 0.62;
+  background:
+    radial-gradient(circle at 18% 78%, #c7f36b 0 4px, transparent 5px),
+    radial-gradient(circle at 39% 58%, #c7f36b 0 4px, transparent 5px),
+    radial-gradient(circle at 60% 38%, #c7f36b 0 4px, transparent 5px),
+    radial-gradient(circle at 81% 18%, #c7f36b 0 4px, transparent 5px);
+}
+
+.thaksa-hero--internships {
+  background:
+    radial-gradient(ellipse at 78% 30%, rgba(199, 243, 107, 0.12), transparent 28%),
+    radial-gradient(ellipse at 75% 100%, rgba(54, 89, 217, 0.23), transparent 42%),
+    linear-gradient(115deg, #080d1a 0%, #0a1223 65%, #080d1a 100%);
+}
+
+.thaksa-hero--internships::before {
+  width: clamp(18rem, 35vw, 30rem);
+  height: clamp(12rem, 24vw, 20rem);
+  right: clamp(-2rem, 6vw, 6rem);
+  top: 5%;
+  border: 1px solid rgba(199, 243, 107, 0.24);
+  border-radius: 50%;
+  transform: rotate(-32deg);
+  box-shadow:
+    0 0 0 24px rgba(199, 243, 107, 0.035),
+    0 0 0 54px rgba(54, 89, 217, 0.11);
+  animation: thaksa-orbit-drift 28s linear infinite;
+}
+
+.thaksa-hero--internships::after {
+  width: clamp(3rem, 6vw, 5rem);
+  aspect-ratio: 1;
+  right: clamp(9rem, 24vw, 23rem);
+  top: 27%;
+  border: 1px solid rgba(199, 243, 107, 0.5);
+  border-radius: 1.25rem;
+  background: radial-gradient(circle at 50% 50%, #c7f36b 0 3px, rgba(199, 243, 107, 0.13) 4px, transparent 70%);
+  transform: rotate(32deg);
+  box-shadow: 0 0 36px rgba(199, 243, 107, 0.12);
+}
+
+.thaksa-hero--about {
+  background:
+    radial-gradient(ellipse at 50% 100%, rgba(54, 89, 217, 0.3), transparent 46%),
+    radial-gradient(ellipse at 15% 0%, rgba(199, 243, 107, 0.065), transparent 38%),
+    linear-gradient(180deg, #080d1a, #0b1428 72%, #080d1a);
+}
+
+.thaksa-hero--about::before {
+  width: min(68rem, 110vw);
+  height: 14rem;
+  left: 50%;
+  bottom: -8.8rem;
+  border: 1px solid rgba(199, 243, 107, 0.2);
+  border-bottom: 0;
+  border-radius: 50% 50% 0 0;
+  transform: translateX(-50%);
+  box-shadow:
+    0 -10px 65px rgba(54, 89, 217, 0.1),
+    inset 0 16px 50px rgba(54, 89, 217, 0.08);
+}
+
+.thaksa-hero--about::after {
+  width: min(38rem, 75vw);
+  aspect-ratio: 1;
+  left: 50%;
+  top: -68%;
+  border-radius: 50%;
+  border: 1px solid rgba(255, 255, 255, 0.075);
+  transform: translateX(-50%);
+  box-shadow:
+    0 0 0 22px rgba(54, 89, 217, 0.045),
+    0 0 0 50px rgba(199, 243, 107, 0.025);
+}
+
+.thaksa-studio-page {
+  background:
+    radial-gradient(ellipse at 95% 12%, rgba(54, 89, 217, 0.18), transparent 34%),
+    radial-gradient(ellipse at 72% 75%, rgba(199, 243, 107, 0.045), transparent 28%),
+    linear-gradient(145deg, #070b14, #0b1324 62%, #070b14);
+}
+
+.thaksa-studio-page::after {
+  content: "";
+  position: absolute;
+  pointer-events: none;
+  z-index: 0;
+  top: 3rem;
+  right: -13rem;
+  width: clamp(24rem, 46vw, 42rem);
+  aspect-ratio: 1;
+  border-radius: 50%;
+  border: 1px solid rgba(54, 89, 217, 0.22);
+  background: radial-gradient(circle at center, rgba(54, 89, 217, 0.12), transparent 62%);
+  box-shadow:
+    0 0 0 30px rgba(54, 89, 217, 0.045),
+    0 0 0 62px rgba(199, 243, 107, 0.025),
+    inset 0 0 70px rgba(54, 89, 217, 0.11);
+}
+
+.thaksa-footer {
+  background:
+    radial-gradient(ellipse at 85% 0%, rgba(54, 89, 217, 0.22), transparent 36%),
+    radial-gradient(ellipse at 6% 100%, rgba(199, 243, 107, 0.055), transparent 32%),
+    #101828;
+}
+
+.thaksa-footer-art {
+  position: absolute;
+  z-index: 0;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+  background: radial-gradient(ellipse at 72% 6%, rgba(255, 255, 255, 0.025), transparent 44%);
+}
+
+.thaksa-footer-art__orbit {
+  position: absolute;
+  display: block;
+  border: 1px solid rgba(199, 243, 107, 0.13);
+  border-radius: 50%;
+  pointer-events: none;
+}
+
+.thaksa-footer-art__orbit--outer {
+  width: min(54vw, 46rem);
+  aspect-ratio: 1;
+  right: -5rem;
+  top: -72%;
+  transform: rotate(-25deg);
+  box-shadow: 0 0 0 28px rgba(54, 89, 217, 0.06), 0 0 0 58px rgba(54, 89, 217, 0.035);
+}
+
+.thaksa-footer-art__orbit--inner {
+  width: min(32vw, 27rem);
+  aspect-ratio: 1;
+  right: 5rem;
+  top: -47%;
+  border-color: rgba(199, 243, 107, 0.2);
+}
+
+.thaksa-footer-art__flow {
+  position: absolute;
+  width: 100%;
+  height: 90%;
+  inset: auto 0 0;
+  opacity: 0.62;
+}
+
+.thaksa-footer-art__flow path {
+  fill: none;
+  stroke: rgba(108, 135, 255, 0.36);
+  stroke-width: 1.2;
+  vector-effect: non-scaling-stroke;
+}
+
+.thaksa-footer-art__flow path:nth-child(2) {
+  stroke: rgba(199, 243, 107, 0.2);
+  stroke-width: 1;
+}
+
+.thaksa-footer-art__flow circle {
+  fill: #c7f36b;
+  filter: drop-shadow(0 0 5px rgba(199, 243, 107, 0.65));
+}
+
+@keyframes thaksa-art-float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+}
+
+@keyframes thaksa-orbit-drift {
+  from { transform: rotate(-32deg); }
+  to { transform: rotate(328deg); }
+}
+
+@media (max-width: 768px) {
+  .thaksa-hero-scene::before,
+  .thaksa-hero-scene::after,
+  .thaksa-studio-page::after,
+  .thaksa-footer-art__orbit--inner {
+    opacity: 0.35;
+  }
+
+  .thaksa-hero--crt::before { width: 64%; }
+  .thaksa-hero--crt::after { right: -3rem; width: 45vw; }
+  .thaksa-footer-art__flow { width: 145%; left: -20%; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .thaksa-coded-label::after,
+  .thaksa-hero--workshops::after,
+  .thaksa-hero--internships::before {
+    animation: none;
+  }
+}
