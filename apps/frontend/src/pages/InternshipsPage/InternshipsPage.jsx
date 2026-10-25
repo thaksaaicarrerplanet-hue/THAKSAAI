@@ -26,11 +26,11 @@ const INTERNSHIP_TRACKS = [
     number: '02',
     title: 'AWS / DevOps / MLOps',
     duration: '8–12 weeks',
-    description: 'Learn how to put projects online and update them safely. You will also learn how teams manage machine-learning projects (MLOps).',
+    description: 'Learn how to put projects online and keep them easy to update. You will also see how teams organise machine-learning projects.',
     tasks: [
       'Learn the basics of cloud hosting with AWS',
       'Prepare a project to run online',
-      'Make routine steps easier to repeat',
+      'Make repeat tasks easier to carry out',
       'Keep project notes and check that the result works',
     ],
     result: 'A shared online project and practical experience preparing it for use.',
@@ -94,7 +94,7 @@ export default function InternshipsPage() {
                 <DepthButton onClick={() => enquire()} variant="electric" size="lg">
                   Ask about internships <span aria-hidden="true">→</span>
                 </DepthButton>
-                <DepthButton href={SITE_BRANDING.whatsappLink || `https://wa.me/${SITE_BRANDING.contactPhone.replace(/\D/g, "")}`} target="_blank" rel="noopener noreferrer" variant="ghostDark" size="lg">
+                <DepthButton href={SITE_BRANDING.whatsappLink} target="_blank" rel="noopener noreferrer" variant="ghostDark" size="lg">
                   Contact us on WhatsApp
                 </DepthButton>
               </div>

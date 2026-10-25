@@ -1,236 +1,329 @@
-import React, { useState } from "react";
-import { Helmet } from "react-helmet-async";
-import { motion } from "framer-motion";
-import { SITE_BRANDING, WHATSAPP_NUMBER } from "../../theme/masterThemeConfig";
+import React, { useState } from 'react';
+import { Helmet } from 'react-helmet-async';
+import { SITE_BRANDING, WHATSAPP_NUMBER } from '../../theme/masterThemeConfig';
+import { SpotlightCard } from '../../components/ui/SpotlightCard';
+import { DepthButton } from '../../components/ui/DepthButton';
+import { STUDIO_PILLARS } from '../../data/programs';
+import { useTextScramble } from '../../hooks/useTextScramble';
 
-const studioPillars = [
-  {
-    num: "01",
-    title: "Custom Web & App Development",
-    desc: "We build fast, secure, and easy-to-use websites and applications tailored to your exact business needs. Whether it's an internal tool or a customer-facing app, we make sure it works flawlessly."
-  },
-  {
-    num: "02",
-    title: "AI Tools & Automation",
-    desc: "Save time and money by letting AI handle the repetitive tasks. We build smart chatbots, automate your daily workflows, and integrate AI seamlessly into your business."
-  },
-  {
-    num: "03",
-    title: "Growing Your Online Business",
-    desc: "We help you build a strong online presence that actually brings in customers. From great websites to smart marketing tools, we set you up for long-term growth."
-  }
+const CONFIGURATOR_MODULES = [
+  'Custom Web & SaaS Platform',
+  'Applied AI & RAG Assistant',
+  'Workflow & CRM Automation',
+  'Cloud API & Database Architecture',
+  'Rapid Founder MVP',
 ];
 
 export default function StudioPage() {
   const [submitted, setSubmitted] = useState(false);
-
+  const [draftUrl, setDraftUrl] = useState('');
+  const [selectedModules, setSelectedModules] = useState(['Custom Web & SaaS Platform']);
   const [formData, setFormData] = useState({
-    company: "",
-    name: "",
-    email: "",
-    timeline: "",
-    scope: ""
+    company: '',
+    name: '',
+    email: '',
+    timeline: '1–3 Months',
+    scope: '',
   });
 
-  const handleChange = (e) => setFormData(prev => ({ ...prev, [e.target.name]: e.target.value }));
+  const eyebrow = useTextScramble('THAKSA SOFTWARE STUDIO // B2B ENGINEERING & AI DELIVERY', {
+    duration: 600,
+    trigger: true,
+  });
+
+  const toggleModule = (mod) => {
+    setSelectedModules((prev) =>
+      prev.includes(mod) ? prev.filter((m) => m !== mod) : [...prev, mod]
+    );
+  };
+
+  const handleChange = (e) =>
+    setFormData((prev) => ({ ...prev, [e.target.name]: e.target.value }));
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    const msg =
-`*New Studio Inquiry — THAKSAAI*
+    const msg = `*New Studio Engineering Inquiry — THAKSA.AI*
 
 *Company:* ${formData.company}
 *Contact:* ${formData.name}
 *Email:* ${formData.email}
+*Selected Modules:* ${selectedModules.join(', ')}
 *Timeline:* ${formData.timeline}
 *Project Scope:* ${formData.scope}`;
 
     const url = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(msg)}`;
-    window.open(url, "_blank");
+    setDraftUrl(url);
+    // Opening WhatsApp prepares a draft; the visitor still needs to send it.
+    window.open(url, '_blank', 'noopener,noreferrer');
     setSubmitted(true);
   };
 
   return (
     <>
       <Helmet>
-        <title>Enterprise Studio | THAKSAAI</title>
+        <title>THAKSA Software Studio · Web, AI &amp; Cloud Engineering | THAKSA.AI</title>
         <meta
           name="description"
-          content="Get high-quality software and websites built for your business without the massive agency price tag."
+          content="Partner with THAKSA Software Studio in Gachibowli, Hyderabad for custom web platforms, AI workflow automation, and rapid product MVPs with 100% source code handover."
         />
       </Helmet>
 
-      {/* Extreme Dark Mode Theme for the B2B Studio to separate from the Academy */}
-      <main className="w-full min-h-screen bg-[#111111] pt-28 sm:pt-36 pb-24 px-6 md:px-10 text-white selection:bg-[#9fff00] selection:text-black font-sans thaksa-interior-page">
-        
-        {/* Background Ambient Glow */}
-        <div className="fixed top-0 right-0 w-[800px] h-[800px] bg-[#9fff00]/5 rounded-full blur-[120px] pointer-events-none z-0"></div>
+      <div className="w-full min-h-screen bg-[#070B14] text-white thaksa-studio-page py-16 sm:py-24 px-4 sm:px-6 md:px-10 relative overflow-hidden thaksa-interior-page">
+        <div
+          aria-hidden="true"
+          className="pointer-events-none fixed top-0 right-0 w-[640px] h-[640px] bg-[#3659D9]/15 rounded-full blur-[150px] z-0"
+        />
 
-        <div className="max-w-7xl mx-auto relative z-10">
-          
-          {/* Executive Hero */}
-          <header className="max-w-4xl mb-24 pb-16 border-b border-white/10">
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, ease: "easeOut" }}
-            >
-              <div className="inline-flex items-center gap-2 bg-[#1a1a1a] border border-white/10 text-[#9fff00] px-4 py-1.5 rounded-full text-xs font-bold uppercase tracking-widest shadow-lg mb-8">
-                <span className="w-2 h-2 rounded-full bg-[#9fff00] block animate-pulse"></span>
-                THAKSAAI Software Studio
-              </div>
-              <h1 className="text-4xl sm:text-6xl lg:text-[4.5rem] font-display font-bold text-white tracking-tighter leading-[1.05] mb-8">
-                Great software built for your business. <br className="hidden md:block" />
-                <span className="text-zinc-500">Without the massive price tag.</span>
-              </h1>
-              <p className="text-lg sm:text-xl font-sans text-zinc-400 leading-relaxed mb-10 max-w-2xl">
-                We use the best talent from our own training academy to build your websites, apps, and AI tools. No confusing tech jargon. Just high-quality software delivered on time.
-              </p>
-              
-              <button
-                type="button"
-                onClick={() => document.getElementById('intake-docket').scrollIntoView({ behavior: 'smooth' })}
-                className="inline-flex items-center justify-center gap-3 bg-[#9fff00] text-[#111111] px-8 py-4 rounded-full text-sm font-bold tracking-wide hover:bg-white hover:scale-105 active:scale-95 transition-all shadow-xl focus:outline-none focus:ring-2 focus:ring-white"
-              >
-                Tell Us About Your Project 
-                <span className="text-lg leading-none">↓</span>
-              </button>
-            </motion.div>
-          </header>
-
-          {/* Core Solutions Grid */}
-          <section aria-label="Core Engineering Solutions" className="mb-32">
-            <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-6 mb-16">
-              <div>
-                <span className="text-xs font-bold uppercase tracking-widest text-[#9fff00] font-sans block mb-3">
-                  What We Do
-                </span>
-                <h2 className="text-3xl sm:text-5xl font-display font-bold text-white tracking-tight">
-                  How We Can Help You
-                </h2>
-              </div>
+        <div className="max-w-[1280px] mx-auto relative z-10">
+          {/* Studio Hero */}
+          <header className="max-w-4xl mb-20 pb-14 border-b border-white/10">
+            <div className="inline-flex items-center gap-2.5 px-3.5 py-1.5 rounded-full bg-white/[0.06] border border-white/15 mb-6">
+              <span className="w-2 h-2 rounded-full bg-[#C7F36B] animate-pulse" />
+              <span className="font-mono text-[11px] uppercase tracking-[0.16em] text-[#C7F36B]">
+                {eyebrow}
+              </span>
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 sm:gap-8">
-              {studioPillars.map((p, idx) => (
-                <motion.div
-                  key={idx}
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.5, delay: idx * 0.15 }}
-                  className="bg-[#1a1a1a] p-8 sm:p-10 rounded-3xl border border-white/[0.05] flex flex-col justify-start shadow-xl hover:-translate-y-2 transition-transform duration-300 group"
+            <h1
+              className="font-display font-bold text-white tracking-[-0.03em] leading-[1.05] mb-6"
+              style={{ fontSize: 'clamp(2.5rem, 5vw + 1rem, 4.5rem)' }}
+            >
+              Production software engineered for your business.{' '}
+              <span className="text-[#C7F36B]">Zero agency bloat.</span>
+            </h1>
+
+            <p className="text-base sm:text-xl text-slate-300 leading-relaxed mb-8 max-w-2xl">
+              Led by our senior architects in Gachibowli, Hyderabad, THAKSA Software Studio builds
+              custom web platforms, AI automation pipelines, and cloud architectures—delivering
+              100% version-controlled source code on schedule.
+            </p>
+
+            <DepthButton
+              onClick={() =>
+                document.getElementById('studio-intake-docket')?.scrollIntoView({ behavior: 'smooth' })
+              }
+              variant="electric"
+              size="lg"
+            >
+              <span>Configure Your Project Scope</span>
+              <span aria-hidden="true">↓</span>
+            </DepthButton>
+          </header>
+
+          {/* 3 Studio Pillars */}
+          <section aria-label="Core Studio Capabilities" className="mb-24">
+            <div className="mb-10">
+              <span className="font-mono text-xs uppercase tracking-[0.16em] text-[#C7F36B] block mb-2">
+                ENGINEERING CAPABILITIES // 01
+              </span>
+              <h2 className="text-3xl sm:text-4xl font-display font-bold text-white">
+                What Our Studio Ships
+              </h2>
+            </div>
+
+            <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+              {STUDIO_PILLARS.map((p) => (
+                <SpotlightCard
+                  key={p.id}
+                  tone="dark"
+                  tilt
+                  maxTilt={3.5}
+                  className="p-7 sm:p-8 flex flex-col justify-between gap-6"
                 >
-                  <span className="text-5xl font-display font-black text-transparent bg-clip-text bg-gradient-to-br from-zinc-600 to-zinc-800 mb-8 group-hover:from-[#9fff00] group-hover:to-emerald-600 transition-colors duration-500">
-                    {p.num}
-                  </span>
-                  <h3 className="text-2xl font-display font-bold text-white tracking-tight mb-4 group-hover:text-[#9fff00] transition-colors">
-                    {p.title}
-                  </h3>
-                  <p className="text-sm sm:text-base font-sans text-zinc-400 leading-relaxed font-normal">
-                    {p.desc}
-                  </p>
-                  <div className="mt-8 w-12 h-1 bg-white/10 rounded-full group-hover:bg-[#9fff00]/50 transition-colors duration-300"></div>
-                </motion.div>
+                  <div>
+                    <div className="flex items-center justify-between mb-4">
+                      <span className="font-mono text-xs text-[#C7F36B]">{p.code}</span>
+                      <span className="font-mono text-xs text-slate-400">//{p.num}</span>
+                    </div>
+                    <h3 className="text-2xl font-display font-bold text-white mb-3">{p.title}</h3>
+                    <p className="text-sm text-slate-300 leading-relaxed mb-6">{p.desc}</p>
+                  </div>
+
+                  <div className="pt-4 border-t border-white/10 space-y-2">
+                    {p.deliverables.map((d) => (
+                      <div key={d} className="flex items-center gap-2 font-mono text-xs text-slate-200">
+                        <span className="text-[#C7F36B]">✓</span>
+                        <span>{d}</span>
+                      </div>
+                    ))}
+                  </div>
+                </SpotlightCard>
               ))}
             </div>
           </section>
 
-          {/* The Structural Advantage */}
-          <section className="mb-32">
-             <div className="bg-gradient-to-br from-[#1a1a1a] to-[#0a0a0a] border border-white/5 p-8 sm:p-16 rounded-[2rem] shadow-2xl">
-               <div className="max-w-3xl">
-                  <span className="text-xs font-bold uppercase tracking-widest text-[#9fff00] font-sans block mb-4">
-                    Why Choose Us
-                  </span>
-                  <h3 className="text-3xl sm:text-4xl lg:text-5xl font-display font-bold text-white tracking-tight leading-tight mb-8">
-                    Why we can build great software at a fraction of the cost.
-                  </h3>
-                  <p className="text-lg font-sans text-zinc-300 leading-relaxed font-normal mb-6">
-                    Most software agencies charge you a lot of money because they have high overhead costs and pay recruiters to find their developers.
-                  </p>
-                  <p className="text-lg font-sans text-zinc-300 leading-relaxed font-normal">
-                    Because we run a training academy, we already have direct access to the most passionate, hard-working developers before anyone else does. We use this direct connection to build a team for your project quickly and affordably, without the extra markup.
-                  </p>
-               </div>
-             </div>
-          </section>
+          {/* Interactive Project Scope Configurator + Intake Form */}
+          <section id="studio-intake-docket" className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-start">
+            <div className="lg:col-span-5 flex flex-col gap-5">
+              <span className="font-mono text-xs uppercase tracking-[0.16em] text-[#C7F36B]">
+                DIRECT ARCHITECT INTAKE // 02
+              </span>
+              <h2 className="text-3xl font-display font-bold text-white">
+                Scope your build with our Gachibowli team.
+              </h2>
+              <p className="text-sm sm:text-base text-slate-300 leading-relaxed">
+                Select the capability modules you need and share your target timeline. You will
+                speak directly with an engineering lead—never a commission salesperson.
+              </p>
 
-          {/* B2B Intake Docket */}
-          <section id="intake-docket" className="max-w-4xl mx-auto">
-             <div className="bg-[#1a1a1a] p-8 sm:p-12 lg:p-16 rounded-[2rem] border border-white/[0.08] shadow-2xl relative overflow-hidden">
-                <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-[#9fff00]/5 rounded-full blur-[100px] pointer-events-none"></div>
-                
-                <div className="relative z-10 mb-12">
-                  <h3 className="text-3xl sm:text-4xl font-display font-bold text-white tracking-tight mb-4">
-                    Let's Build Together
-                  </h3>
-                  <p className="text-zinc-400 font-sans text-base">
-                    Fill out this short form with some details about what you need. Our team will get back to you quickly to discuss the next steps in plain English.
-                  </p>
+              <SpotlightCard tone="dark" className="p-6 flex flex-col gap-3">
+                <div className="font-mono text-xs text-[#C7F36B] uppercase tracking-wider">
+                  STUDIO HEADQUARTERS
                 </div>
+                <div className="text-sm font-semibold text-white">{SITE_BRANDING.buildingName}</div>
+                <p className="text-xs text-slate-300 leading-relaxed">
+                  {SITE_BRANDING.officeAddress}
+                </p>
+                <div className="pt-3 border-t border-white/10 font-mono text-xs text-slate-300">
+                  Direct Line: {SITE_BRANDING.supportPhone}
+                </div>
+              </SpotlightCard>
+            </div>
 
+            <div className="lg:col-span-7">
+              <SpotlightCard tone="dark" className="p-7 sm:p-10">
                 {submitted ? (
-                  <motion.div 
-                    initial={{ opacity: 0, scale: 0.95 }}
-                    animate={{ opacity: 1, scale: 1 }}
-                    className="relative z-10 bg-[#111111] p-10 rounded-2xl border border-[#9fff00]/30 text-center flex flex-col items-center"
-                  >
-                    <div className="w-16 h-16 bg-[#9fff00]/20 text-[#9fff00] rounded-full flex items-center justify-center mb-6">
-                      <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="3" d="M5 13l4 4L19 7" />
-                      </svg>
+                  <div className="py-12 text-center flex flex-col items-center gap-4">
+                    <div className="w-14 h-14 rounded-2xl bg-[#C7F36B] text-[#101828] font-mono text-2xl font-bold flex items-center justify-center">
+                      ✓
                     </div>
-                    <h4 className="text-2xl font-display font-bold text-white mb-3">Message Ready to Send!</h4>
-                    <p className="text-zinc-400 max-w-sm font-sans">
-                      Please hit send in WhatsApp to complete your inquiry. We'll be in touch soon!
+                    <h3 className="text-2xl font-display font-bold text-white">
+                      Studio WhatsApp Draft Prepared
+                    </h3>
+                    <p className="text-sm text-slate-300 max-w-md">
+                      Your project details are ready in a WhatsApp draft. Review the message in WhatsApp and tap Send to submit it to our team.
                     </p>
-                  </motion.div>
+                    <a
+                      href={draftUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex min-h-11 items-center justify-center rounded-xl border border-white/20 px-5 py-3 text-sm font-semibold text-white hover:bg-white/10 focus-visible:outline-2 focus-visible:outline-offset-3 focus-visible:outline-[#C7F36B]"
+                    >
+                      Reopen WhatsApp draft ↗
+                    </a>
+                    <DepthButton onClick={() => setSubmitted(false)} variant="ghostDark" size="md">
+                      <span>Configure Another Scope</span>
+                    </DepthButton>
+                  </div>
                 ) : (
-                  <form onSubmit={handleSubmit} className="relative z-10 flex flex-col gap-6">
-                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-                      <div className="flex flex-col gap-2">
-                        <label className="text-xs font-bold uppercase tracking-wider text-zinc-500 font-sans">Company / Startup Name *</label>
-                        <input name="company" value={formData.company} onChange={handleChange} required type="text" className="w-full px-4 py-3.5 bg-[#111111] text-white border border-white/10 rounded-xl focus:outline-none focus:border-[#9fff00] focus:ring-1 focus:ring-[#9fff00] transition-all font-sans" placeholder="e.g. Acme Corp" />
+                  <form onSubmit={handleSubmit} className="flex flex-col gap-6">
+                    <div>
+                      <span className="font-mono text-xs uppercase tracking-wider text-[#C7F36B] block mb-2.5">
+                        1. Select Required Capability Modules
+                      </span>
+                      <div className="flex flex-wrap gap-2">
+                        {CONFIGURATOR_MODULES.map((mod) => {
+                          const active = selectedModules.includes(mod);
+                          return (
+                            <button
+                              key={mod}
+                              type="button"
+                              onClick={() => toggleModule(mod)}
+                              className={`px-3.5 py-2 rounded-xl font-mono text-xs border transition-all cursor-pointer ${
+                                active
+                                  ? 'bg-[#C7F36B] text-[#101828] border-[#C7F36B] font-bold'
+                                  : 'bg-white/[0.04] text-slate-300 border-white/15 hover:text-white'
+                              }`}
+                            >
+                              {active ? `✓ ${mod}` : `+ ${mod}`}
+                            </button>
+                          );
+                        })}
                       </div>
-                      <div className="flex flex-col gap-2">
-                        <label className="text-xs font-bold uppercase tracking-wider text-zinc-500 font-sans">Founder / Contact Name *</label>
-                        <input name="name" value={formData.name} onChange={handleChange} required type="text" className="w-full px-4 py-3.5 bg-[#111111] text-white border border-white/10 rounded-xl focus:outline-none focus:border-[#9fff00] focus:ring-1 focus:ring-[#9fff00] transition-all font-sans" placeholder="John Doe" />
+                    </div>
+
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
+                      <div className="flex flex-col gap-1.5">
+                        <label htmlFor="studio-company" className="font-mono text-xs uppercase text-slate-300">
+                          Company / Startup Name *
+                        </label>
+                        <input
+                          id="studio-company"
+                          name="company"
+                          required
+                          value={formData.company}
+                          onChange={handleChange}
+                          placeholder="Acme Technologies"
+                          className="min-h-[46px] px-4 py-2.5 rounded-xl bg-[#070B14] border border-white/15 text-[16px] text-white focus:outline-2 focus:outline-[#C7F36B]"
+                        />
                       </div>
-                      <div className="flex flex-col gap-2">
-                        <label className="text-xs font-bold uppercase tracking-wider text-zinc-500 font-sans">Corporate Email *</label>
-                        <input name="email" value={formData.email} onChange={handleChange} required type="email" className="w-full px-4 py-3.5 bg-[#111111] text-white border border-white/10 rounded-xl focus:outline-none focus:border-[#9fff00] focus:ring-1 focus:ring-[#9fff00] transition-all font-sans" placeholder="founder@startup.com" />
+
+                      <div className="flex flex-col gap-1.5">
+                        <label htmlFor="studio-name" className="font-mono text-xs uppercase text-slate-300">
+                          Your Name &amp; Role *
+                        </label>
+                        <input
+                          id="studio-name"
+                          name="name"
+                          required
+                          value={formData.name}
+                          onChange={handleChange}
+                          placeholder="Founder / CTO / Product Lead"
+                          className="min-h-[46px] px-4 py-2.5 rounded-xl bg-[#070B14] border border-white/15 text-[16px] text-white focus:outline-2 focus:outline-[#C7F36B]"
+                        />
                       </div>
-                      <div className="flex flex-col gap-2">
-                        <label className="text-xs font-bold uppercase tracking-wider text-zinc-500 font-sans">When do you need this done? *</label>
-                        <select name="timeline" value={formData.timeline} onChange={handleChange} required className="w-full px-4 py-3.5 bg-[#111111] text-white border border-white/10 rounded-xl focus:outline-none focus:border-[#9fff00] focus:ring-1 focus:ring-[#9fff00] transition-all font-sans appearance-none cursor-pointer">
-                          <option value="" disabled>Select timeline</option>
-                          <option value="urgent">Immediate (1-2 weeks)</option>
-                          <option value="1month">Within 1 Month</option>
-                          <option value="3months">Within 3 Months</option>
-                          <option value="discovery">Just exploring options</option>
+
+                      <div className="flex flex-col gap-1.5">
+                        <label htmlFor="studio-email" className="font-mono text-xs uppercase text-slate-300">
+                          Work Email *
+                        </label>
+                        <input
+                          id="studio-email"
+                          name="email"
+                          type="email"
+                          required
+                          value={formData.email}
+                          onChange={handleChange}
+                          placeholder="you@company.com"
+                          className="min-h-[46px] px-4 py-2.5 rounded-xl bg-[#070B14] border border-white/15 text-[16px] text-white focus:outline-2 focus:outline-[#C7F36B]"
+                        />
+                      </div>
+
+                      <div className="flex flex-col gap-1.5">
+                        <label htmlFor="studio-timeline" className="font-mono text-xs uppercase text-slate-300">
+                          Target Delivery Window
+                        </label>
+                        <select
+                          id="studio-timeline"
+                          name="timeline"
+                          value={formData.timeline}
+                          onChange={handleChange}
+                          className="min-h-[46px] px-4 py-2.5 rounded-xl bg-[#070B14] border border-white/15 text-[16px] text-white focus:outline-2 focus:outline-[#C7F36B]"
+                        >
+                          <option value="Immediate (Under 4 Weeks)">Immediate (Under 4 Weeks)</option>
+                          <option value="1–3 Months">1–3 Months</option>
+                          <option value="3–6 Months">3–6 Months</option>
                         </select>
                       </div>
                     </div>
 
-                    <div className="flex flex-col gap-2">
-                      <label className="text-xs font-bold uppercase tracking-wider text-zinc-500 font-sans">Tell us about your project *</label>
-                      <textarea name="scope" value={formData.scope} onChange={handleChange} required rows="5" className="w-full px-4 py-3.5 bg-[#111111] text-white border border-white/10 rounded-xl focus:outline-none focus:border-[#9fff00] focus:ring-1 focus:ring-[#9fff00] transition-all font-sans resize-none" placeholder="Briefly describe what you need built, any ideas you have, or problems you're trying to solve..."></textarea>
+                    <div className="flex flex-col gap-1.5">
+                      <label htmlFor="studio-scope" className="font-mono text-xs uppercase text-slate-300">
+                        Project Summary &amp; Core Goals *
+                      </label>
+                      <textarea
+                        id="studio-scope"
+                        name="scope"
+                        rows={4}
+                        required
+                        value={formData.scope}
+                        onChange={handleChange}
+                        placeholder="Describe what you want to build, key integrations, or target users..."
+                        className="p-4 rounded-xl bg-[#070B14] border border-white/15 text-[16px] text-white focus:outline-2 focus:outline-[#C7F36B]"
+                      />
                     </div>
 
-                    <button
-                      type="submit"
-                      className="mt-6 w-full sm:w-auto self-end inline-flex items-center justify-center gap-3 bg-[#9fff00] text-[#111111] px-10 py-4 rounded-xl text-sm font-bold tracking-wide hover:bg-white hover:-translate-y-1 transition-all shadow-[0_0_20px_rgba(159,255,0,0.15)] focus:outline-none focus:ring-2 focus:ring-white disabled:opacity-70 disabled:cursor-not-allowed disabled:hover:translate-y-0"
-                    >
-                      Send Your Details →
-                    </button>
+                    <DepthButton type="submit" variant="electric" size="lg" className="w-full sm:w-auto">
+                      <span>Transmit Scope to Studio Lead</span>
+                      <span aria-hidden="true">→</span>
+                    </DepthButton>
                   </form>
                 )}
-             </div>
+              </SpotlightCard>
+            </div>
           </section>
-
         </div>
-      </main>
+      </div>
     </>
   );
 }

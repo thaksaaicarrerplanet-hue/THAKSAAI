@@ -1,39 +1,36 @@
 import { Navigate, Outlet } from "react-router-dom";
+import {
+  clearStoredSession,
+  dashboardPathForRole,
+  normalizeUserRole,
+  readStoredSession,
+} from "../services/authSession";
 
 export default function ProtectedRoute({ children, role, allowedRoles }) {
-  const token = localStorage.getItem("token");
-  let user = null;
-
-  try {
-    user = JSON.parse(localStorage.getItem("user") || "null");
-  } catch {
-    user = null;
-  }
-
-  const dashboardPath =
-    user?.role === "admin"
-      ? "/admin"
-      : user?.role === "instructor"
-      ? "/instructor"
-      : "/dashboard";
-
-  if (!token) {
+  const session = readStoredSession();
+  if (!session) {
+    clearStoredSession();
     return <Navigate to="/login" replace />;
   }
 
-  if (!user?.role) {
-    localStorage.removeItem("token");
-    localStorage.removeItem("user");
+  const userRole = normalizeUserRole(session.user.role);
+  const expectedRole = role ? normalizeUserRole(role) : null;
+  const normalizedAllowed = Array.isArray(allowedRoles)
+    ? allowedRoles.map(normalizeUserRole).filter(Boolean)
+    : null;
+
+  if (!userRole) {
+    clearStoredSession();
     return <Navigate to="/login" replace />;
   }
 
-  if (role && user?.role !== role) {
-    return <Navigate to={dashboardPath} replace />;
+  const destination = dashboardPathForRole(userRole);
+  if (expectedRole && userRole !== expectedRole) {
+    return <Navigate to={destination} replace />;
+  }
+  if (normalizedAllowed && !normalizedAllowed.includes(userRole)) {
+    return <Navigate to={destination} replace />;
   }
 
-  if (allowedRoles && Array.isArray(allowedRoles) && !allowedRoles.includes(user?.role)) {
-    return <Navigate to={dashboardPath} replace />;
-  }
-
-  return children ? children : <Outlet />;
+  return children || <Outlet />;
 }

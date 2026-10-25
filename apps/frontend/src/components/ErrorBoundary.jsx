@@ -1,4 +1,4 @@
-import React from "react";
+﻿import React from "react";
 
 /**
  * Global Error Boundary for THAKSAAI Platform.
@@ -16,6 +16,7 @@ export default class ErrorBoundary extends React.Component {
   }
 
   componentDidCatch(error, info) {
+    // Keep diagnostics in the browser console; no remote error-reporting service is configured here.
     console.error("[THAKSAAI ErrorBoundary]", error, info.componentStack);
   }
 
@@ -25,7 +26,7 @@ export default class ErrorBoundary extends React.Component {
         <div
           style={{
             minHeight: "100vh",
-            background: "#EDEEF5",
+            background: "#F7F8F4",
             display: "flex",
             flexDirection: "column",
             alignItems: "center",
@@ -48,7 +49,7 @@ export default class ErrorBoundary extends React.Component {
             <span
               style={{
                 display: "inline-block",
-                background: "#9fff00",
+                background: "#C7F36B",
                 color: "#1a1a1a",
                 borderRadius: "999px",
                 padding: "0.25rem 1rem",
@@ -65,12 +66,12 @@ export default class ErrorBoundary extends React.Component {
               We hit an unexpected error.
             </h1>
             <p style={{ color: "#9ca3af", lineHeight: 1.6, marginBottom: "2rem" }}>
-              Our team has been notified. Please refresh the page to continue — your data is safe.
+              The page couldn't finish rendering. Refresh to try again. Unsaved changes may need to be entered again.
             </p>
             <button
               onClick={() => window.location.reload()}
               style={{
-                background: "#9fff00",
+                background: "#C7F36B",
                 color: "#1a1a1a",
                 border: "none",
                 borderRadius: "999px",

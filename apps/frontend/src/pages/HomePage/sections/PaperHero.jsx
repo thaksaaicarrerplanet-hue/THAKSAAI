@@ -1,13 +1,7 @@
 import React, { useRef } from 'react';
 import { Link } from 'react-router-dom';
-import {
-  motion,
-  useReducedMotion,
-  useScroll,
-  useSpring,
-  useTransform,
-} from 'framer-motion';
-import HeroBackgroundCanvas from '../../../components/ui/HeroBackgroundCanvas';
+import { motion, useScroll, useSpring, useTransform } from 'framer-motion';
+
 
 const HERO_PILLARS = [
   { label: 'On-Campus Workshops', desc: '3–5 Day Practical Bootcamps', href: '/workshops' },
@@ -17,8 +11,6 @@ const HERO_PILLARS = [
 
 export default function PaperHero() {
   const heroRef = useRef(null);
-  const reduceMotion = useReducedMotion();
-
   const { scrollYProgress } = useScroll({
     target: heroRef,
     offset: ['start start', 'end start'],
@@ -30,57 +22,43 @@ export default function PaperHero() {
     mass: 0.4,
   });
 
-  const animatedHeadlineY = useTransform(smoothProgress, [0, 1], [0, -90]);
-  const animatedHeadlineOpacity = useTransform(smoothProgress, [0, 0.85], [1, 0]);
-  const headlineY = reduceMotion ? 0 : animatedHeadlineY;
-  const headlineOpacity = reduceMotion ? 1 : animatedHeadlineOpacity;
+  const headlineY = useTransform(smoothProgress, [0, 1], [0, -90]);
+  const headlineOpacity = useTransform(smoothProgress, [0, 0.85], [1, 0]);
 
   const scrollToStory = () => {
-    const target =
-      document.getElementById('course-storytelling') ||
-      heroRef.current?.nextElementSibling;
-
-    target?.scrollIntoView({
-      behavior: reduceMotion ? 'auto' : 'smooth',
-      block: 'start',
-    });
+    const el = document.getElementById('course-storytelling');
+    if (el) el.scrollIntoView({ behavior: 'smooth' });
   };
 
   return (
     <section
       ref={heroRef}
-      aria-label="THAKSA.AI home"
-      className="relative isolate flex min-h-[100svh] w-full flex-col justify-between overflow-hidden bg-[#050811] pt-20 pb-6 text-white sm:pt-24 sm:pb-10"
+      aria-label="THAKSA.AI Hero"
+      className="relative w-full min-h-[calc(100vh-76px)] bg-transparent text-white flex flex-col justify-between py-6 sm:py-10"
     >
-      {/* This background is deliberately local to the hero, not the whole site. */}
-      <HeroBackgroundCanvas />
-      <div
-        aria-hidden="true"
-        className="pointer-events-none absolute inset-0 z-[1] bg-gradient-to-b from-[#050811]/25 via-[#050811]/20 to-[#050811]/85"
-      />
-
-      {/* Center Stage */}
+      {/* Center Stage: Executive Typography */}
       <motion.div
         style={{ y: headlineY, opacity: headlineOpacity }}
-        className="relative z-10 my-auto flex w-full flex-col items-center px-4 py-8 text-center sm:px-8 sm:py-10"
+        className="relative z-10 max-w-[1140px] w-full mx-auto px-4 sm:px-8 my-auto py-6 sm:py-10 flex flex-col items-center text-center"
       >
         <motion.h1
-          initial={reduceMotion ? false : { opacity: 0, y: 24 }}
+          initial={{ opacity: 0, y: 24 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: reduceMotion ? 0 : 0.65, delay: reduceMotion ? 0 : 0.05 }}
-          className="mb-6 max-w-5xl font-display text-4xl font-bold leading-[1.02] tracking-[-0.04em] text-white sm:text-5xl md:text-6xl lg:text-[6.6rem]"
+          transition={{ duration: 0.65, delay: 0.05 }}
+          className="font-display font-bold tracking-[-0.04em] leading-[1.02] text-white mb-6"
+          style={{ fontSize: 'clamp(2.5rem, 7.4vw, 6.6rem)' }}
         >
           Real Engineers.{' '}
-          <span className="block bg-gradient-to-r from-[#C7F36B] via-white to-[#6D8DFF] bg-clip-text text-transparent">
+          <span className="block text-transparent bg-clip-text bg-gradient-to-r from-[#C7F36B] via-white to-[#6D8DFF]">
             Real Code. Real Careers.
           </span>
         </motion.h1>
 
         <motion.p
-          initial={reduceMotion ? false : { opacity: 0, y: 18 }}
+          initial={{ opacity: 0, y: 18 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: reduceMotion ? 0 : 0.6, delay: reduceMotion ? 0 : 0.1 }}
-          className="mb-7 max-w-[52ch] px-2 text-base font-normal leading-[1.55] text-slate-300 sm:text-xl md:text-2xl"
+          transition={{ duration: 0.6, delay: 0.1 }}
+          className="text-base sm:text-xl md:text-2xl text-slate-300 font-normal max-w-[52ch] leading-[1.55] mb-7 px-2"
         >
           Experienced industry professionals empowering engineering talent to build and ship
           production software through <strong className="text-white">Workshops</strong>,{' '}
@@ -88,16 +66,17 @@ export default function PaperHero() {
           <strong className="text-white">Internships</strong>.
         </motion.p>
 
+        {/* Action Buttons */}
         <motion.div
-          initial={reduceMotion ? false : { opacity: 0, y: 18 }}
+          initial={{ opacity: 0, y: 18 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: reduceMotion ? 0 : 0.6, delay: reduceMotion ? 0 : 0.18 }}
-          className="flex w-full flex-col items-stretch justify-center gap-3.5 px-4 sm:w-auto sm:flex-row sm:items-center sm:px-0"
+          transition={{ duration: 0.6, delay: 0.18 }}
+          className="flex flex-col sm:flex-row items-stretch sm:items-center justify-center gap-3.5 w-full sm:w-auto px-4 sm:px-0"
         >
           <button
             type="button"
             onClick={scrollToStory}
-            className="flex min-h-[50px] cursor-pointer items-center justify-center gap-2 rounded-full bg-[#C7F36B] px-8 py-3.5 text-sm font-bold text-[#050811] shadow-[0_0_30px_-6px_rgba(199,243,107,0.5)] transition-colors hover:bg-[#d8fa88] focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#C7F36B] sm:text-base"
+            className="min-h-[50px] px-8 py-3.5 rounded-full bg-[#C7F36B] hover:bg-[#d8fa88] text-[#050811] font-display font-bold text-sm sm:text-base transition-all cursor-pointer flex items-center justify-center gap-2 shadow-[0_0_30px_-6px_rgba(199,243,107,0.5)]"
           >
             <span>Explore Our Architecture</span>
             <span aria-hidden="true">↓</span>
@@ -105,7 +84,7 @@ export default function PaperHero() {
 
           <Link
             to="/contact"
-            className="flex min-h-[50px] items-center justify-center gap-2 rounded-full border border-white/20 bg-white/[0.08] px-8 py-3.5 text-sm font-semibold text-white transition-colors hover:bg-white/[0.14] focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#C7F36B] sm:text-base"
+            className="min-h-[50px] px-8 py-3.5 rounded-full bg-white/[0.08] hover:bg-white/[0.14] text-white border border-white/20 font-display font-semibold text-sm sm:text-base transition-all flex items-center justify-center gap-2"
           >
             <span>Talk to Our Team</span>
             <span aria-hidden="true" className="text-[#C7F36B]">→</span>
@@ -113,24 +92,24 @@ export default function PaperHero() {
         </motion.div>
       </motion.div>
 
-      {/* Three entry points retained from the current working-branch hero. */}
-      <div className="relative z-10 mx-auto w-full max-w-[1120px] px-4 sm:px-8">
-        <div className="grid grid-cols-1 gap-3 rounded-2xl border border-white/12 bg-[#090F1E]/80 p-2.5 backdrop-blur-md sm:grid-cols-3">
+      {/* Bottom Floating Dock: 3 Core Institutional Pillars */}
+      <div className="relative z-10 max-w-[1120px] w-full mx-auto px-4 sm:px-8">
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 p-2.5 rounded-2xl bg-[#090F1E]/80 backdrop-blur-md border border-white/12">
           {HERO_PILLARS.map((item) => (
             <Link
               key={item.label}
               to={item.href}
-              className="group flex items-center justify-between gap-3 rounded-xl border border-transparent px-5 py-3.5 transition-colors hover:border-[#C7F36B]/40 hover:bg-white/[0.06] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#C7F36B]"
+              className="group px-5 py-3.5 rounded-xl hover:bg-white/[0.06] transition-all flex items-center justify-between gap-3 border border-transparent hover:border-[#C7F36B]/40"
             >
-              <span>
-                <span className="block font-display text-sm font-bold text-white transition-colors group-hover:text-[#C7F36B] sm:text-base">
+              <div>
+                <span className="font-display font-bold text-sm sm:text-base text-white group-hover:text-[#C7F36B] transition-colors block">
                   {item.label}
                 </span>
-                <span className="mt-0.5 block text-xs text-slate-400">{item.desc}</span>
-              </span>
+                <span className="text-xs text-slate-400 block mt-0.5">{item.desc}</span>
+              </div>
               <span
                 aria-hidden="true"
-                className="text-sm text-slate-400 transition-all group-hover:translate-x-1 group-hover:text-[#C7F36B]"
+                className="text-sm text-slate-400 group-hover:text-[#C7F36B] group-hover:translate-x-1 transition-all"
               >
                 →
               </span>

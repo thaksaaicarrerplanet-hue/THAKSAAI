@@ -1,90 +1,156 @@
-import React from "react";
-import { motion } from "framer-motion";
-import { useNavigate } from "react-router-dom";
+import React from 'react';
+import { Link } from 'react-router-dom';
+import { motion } from 'framer-motion';
+
+const STUDIO_CAPABILITIES = [
+  {
+    id: 'web',
+    title: 'Full Stack Web Platforms',
+    desc: 'High-concurrency web applications, enterprise dashboards, and APIs architected with React, Next.js, Node.js, and PostgreSQL.',
+    tags: ['React & Next.js', 'Node.js', 'PostgreSQL'],
+    accent: '#C7F36B',
+  },
+  {
+    id: 'cloud',
+    title: 'AWS, DevOps & MLOps',
+    desc: 'Resilient cloud infrastructure, Docker/Kubernetes orchestration, and automated machine learning deployment pipelines.',
+    tags: ['AWS Cloud', 'Docker & K8s', 'MLOps'],
+    accent: '#38BDF8',
+  },
+  {
+    id: 'ai',
+    title: 'Agentic AI & Automation',
+    desc: 'Autonomous AI agents, semantic document retrieval (RAG), and intelligent business workflow automation.',
+    tags: ['AI Agents', 'RAG Systems', 'Python'],
+    accent: '#6D8DFF',
+  },
+];
+
+function StudioMiniEmblem({ id, accent }) {
+  return (
+    <div className="w-11 h-11 rounded-xl bg-[#091226] border border-white/15 flex items-center justify-center shrink-0">
+      {id === 'web' && (
+        <svg viewBox="0 0 36 36" className="w-6 h-6" fill="none">
+          <polygon points="18,5 31,12 18,19 5,12" stroke={accent} strokeWidth="2" fill="rgba(199,243,107,0.18)" />
+          <polyline points="5,18 18,25 31,18" stroke="#38BDF8" strokeWidth="2" />
+          <polyline points="5,24 18,31 31,24" stroke="#6D8DFF" strokeWidth="2" />
+        </svg>
+      )}
+      {id === 'cloud' && (
+        <svg viewBox="0 0 36 36" className="w-6 h-6" fill="none">
+          <circle cx="18" cy="18" r="12" stroke={accent} strokeWidth="2" strokeDasharray="3 3" />
+          <polygon points="18,9 26,14 26,22 18,27 10,22 10,14" stroke="#C7F36B" strokeWidth="1.8" fill="rgba(56,189,248,0.15)" />
+          <circle cx="18" cy="18" r="3" fill={accent} />
+        </svg>
+      )}
+      {id === 'ai' && (
+        <svg viewBox="0 0 36 36" className="w-6 h-6" fill="none">
+          <polygon points="18,5 30,12 30,24 18,31 6,24 6,12" stroke={accent} strokeWidth="2" fill="rgba(109,141,255,0.16)" />
+          <circle cx="18" cy="18" r="4" fill="#C7F36B" />
+          <line x1="18" y1="5" x2="18" y2="14" stroke="#C7F36B" strokeWidth="1.6" />
+          <line x1="30" y1="24" x2="21.5" y2="19.5" stroke="#38BDF8" strokeWidth="1.6" />
+          <line x1="6" y1="24" x2="14.5" y2="19.5" stroke="#38BDF8" strokeWidth="1.6" />
+        </svg>
+      )}
+    </div>
+  );
+}
 
 export default function PaperStudioHighlight() {
-  const navigate = useNavigate();
-
   return (
-    <section aria-label="Software Studio Highlight" className="py-20 sm:py-24 max-w-7xl mx-auto px-4 sm:px-6 md:px-10">
-      <div className="bg-[#111111] p-8 sm:p-14 md:p-16 rounded-[2rem] border border-white/10 shadow-2xl relative overflow-hidden group">
-        
-        {/* Background Ambient FX */}
-        <div className="absolute -top-40 -left-40 w-[500px] h-[500px] bg-[#9fff00]/10 rounded-full blur-[100px] pointer-events-none transition-transform duration-1000 group-hover:translate-x-20 group-hover:translate-y-10"></div>
-        <div className="absolute top-0 right-0 w-full h-full bg-[url('https://www.transparenttextures.com/patterns/cubes.png')] opacity-20 mix-blend-overlay pointer-events-none"></div>
+    <section
+      id="software-studio"
+      aria-label="THAKSA Software Studio"
+      className="relative w-full bg-transparent text-white pt-16 sm:pt-24 pb-8 px-4 sm:px-8"
+    >
+      <div className="max-w-[1280px] mx-auto">
+        <div className="relative rounded-3xl bg-gradient-to-br from-[#0B152C]/90 via-[#0A1122]/90 to-[#060B18]/90 backdrop-blur-md border border-white/15 p-6 sm:p-10 lg:p-12 shadow-[0_32px_80px_-24px_rgba(0,0,0,0.85)] overflow-hidden">
+          {/* Subtle Ambient Glow */}
+          <div
+            aria-hidden="true"
+            className="absolute -top-24 -left-24 w-72 h-72 rounded-full bg-[#6D8DFF]/15 blur-3xl pointer-events-none"
+          />
 
-        <div className="relative z-10 flex flex-col lg:flex-row items-start lg:items-center justify-between gap-12">
-          
-          <div className="max-w-2xl">
-            <span className="inline-flex items-center gap-2 text-xs font-sans text-[#9fff00] font-bold uppercase tracking-wider mb-5">
-              <span className="w-2 h-2 rounded-full bg-[#9fff00] animate-pulse"></span>
-              For Businesses & Startups
-            </span>
-            
-            <h2 className="text-4xl sm:text-5xl font-display font-bold text-white tracking-tight leading-[1.1] mb-6">
-              Need custom software built? <br />
-              <span className="text-zinc-500">Work with our studio.</span>
-            </h2>
-            
-            <p className="text-lg font-sans text-zinc-400 leading-relaxed font-normal mb-8 max-w-xl">
-              We use the best talent from our academy to build fast, secure websites, apps, and AI tools for your business. Get top-tier quality without the massive agency price tag.
-            </p>
+          {/* Executive Header + Direct Studio Redirect */}
+          <div className="relative z-10 flex flex-col lg:flex-row lg:items-end justify-between gap-6 mb-10">
+            <div className="max-w-2xl">
+              <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full text-xs font-bold bg-[#C7F36B]/15 text-[#C7F36B] border border-[#C7F36B]/30 mb-3.5">
+                <span className="w-1.5 h-1.5 rounded-full bg-[#C7F36B]" />
+                <span>THAKSA Software Studio · Gachibowli HQ</span>
+              </div>
+              <h2
+                className="font-display font-bold text-white tracking-[-0.03em] leading-[1.08] mb-3"
+                style={{ fontSize: 'clamp(1.9rem, 3.8vw, 3.25rem)' }}
+              >
+                Built by an active{' '}
+                <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#C7F36B] via-white to-[#6D8DFF]">
+                  software engineering studio.
+                </span>
+              </h2>
+              <p className="text-sm sm:text-base text-slate-300 leading-relaxed">
+                Alongside institutional programs, our Gachibowli engineering division designs and
+                ships production software for startups and enterprises—Directly infusing real
+                industry standards into our mentorship.
+              </p>
+            </div>
 
-            <ul className="flex flex-col gap-3 mb-10">
-              <li className="flex items-center gap-3 text-sm font-bold text-zinc-300 font-sans tracking-wide">
-                <svg className="w-5 h-5 text-[#9fff00]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="3" d="M5 13l4 4L19 7"></path></svg>
-                Custom Websites & Mobile Apps
-              </li>
-              <li className="flex items-center gap-3 text-sm font-bold text-zinc-300 font-sans tracking-wide">
-                <svg className="w-5 h-5 text-[#9fff00]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="3" d="M5 13l4 4L19 7"></path></svg>
-                AI Tools to Save You Time
-              </li>
-              <li className="flex items-center gap-3 text-sm font-bold text-zinc-300 font-sans tracking-wide">
-                <svg className="w-5 h-5 text-[#9fff00]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="3" d="M5 13l4 4L19 7"></path></svg>
-                No Hidden Agency Fees
-              </li>
-            </ul>
-
-            <button
-              type="button"
-              onClick={() => navigate("/studio")}
-              className="inline-flex items-center justify-center gap-3 bg-[#9fff00] text-[#111111] px-8 py-4 rounded-full text-sm font-bold tracking-wide hover:bg-white hover:-translate-y-1 transition-all shadow-[0_0_20px_rgba(159,255,0,0.3)] focus:outline-none focus:ring-2 focus:ring-white"
+            <Link
+              to="/studio"
+              className="min-h-[50px] px-7 py-3.5 rounded-full bg-[#C7F36B] hover:bg-[#d8fa88] text-[#050811] font-display font-bold text-sm sm:text-base transition-all inline-flex items-center justify-center gap-2 shrink-0 shadow-[0_0_30px_-5px_rgba(199,243,107,0.45)]"
             >
-              Tell Us About Your Project →
-            </button>
+              <span>Explore THAKSA Studio</span>
+              <span aria-hidden="true">→</span>
+            </Link>
           </div>
 
-          {/* Abstract Structural Element right side */}
-          <div className="hidden lg:flex w-full max-w-sm shrink-0 flex-col gap-4">
-            <div className="w-full bg-white/5 border border-white/10 rounded-2xl p-6 backdrop-blur-sm">
-              <div className="flex justify-between items-center mb-4 border-b border-white/10 pb-4">
-                 <span className="text-xs font-mono text-zinc-500 uppercase">Performance</span>
-                 <span className="text-xs font-bold text-[#9fff00] font-sans">Fast & Secure</span>
-              </div>
-              <div className="space-y-3">
-                 <div className="w-full h-2 bg-white/5 rounded-full overflow-hidden">
-                    <div className="w-[85%] h-full bg-gradient-to-r from-zinc-600 to-zinc-400"></div>
-                 </div>
-                 <div className="w-full h-2 bg-white/5 rounded-full overflow-hidden">
-                    <div className="w-[95%] h-full bg-gradient-to-r from-[#9fff00] to-emerald-400"></div>
-                 </div>
-                 <div className="w-full h-2 bg-white/5 rounded-full overflow-hidden">
-                    <div className="w-[70%] h-full bg-gradient-to-r from-blue-500 to-indigo-500"></div>
-                 </div>
-              </div>
-            </div>
-            
-            <div className="w-full bg-white/5 border border-white/10 rounded-2xl p-6 backdrop-blur-sm flex items-center justify-between">
-              <div>
-                <span className="block text-[10px] font-bold text-zinc-500 uppercase tracking-widest mb-1">Delivery</span>
-                <span className="text-xl font-display font-bold text-white tracking-tight">Built Quickly</span>
-              </div>
-              <div className="w-12 h-12 rounded-full border-2 border-[#9fff00]/30 flex items-center justify-center">
-                 <div className="w-2 h-2 bg-[#9fff00] rounded-full animate-ping"></div>
-              </div>
-            </div>
-          </div>
+          {/* 3 Executive Cards That Redirect Directly to /studio */}
+          <div className="relative z-10 grid grid-cols-1 md:grid-cols-3 gap-5">
+            {STUDIO_CAPABILITIES.map((item, idx) => (
+              <motion.div
+                key={item.title}
+                initial={{ opacity: 0, y: 18 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.4, delay: idx * 0.07 }}
+              >
+                <Link
+                  to="/studio"
+                  className="group h-full rounded-2xl p-6 bg-[#050811]/85 border border-white/12 hover:border-[#C7F36B]/60 flex flex-col justify-between transition-all block shadow-sm"
+                >
+                  <div>
+                    <div className="flex items-center justify-between gap-3 mb-4">
+                      <StudioMiniEmblem id={item.id} accent={item.accent} />
+                      <span className="text-xs font-bold text-slate-400 group-hover:text-[#C7F36B] transition-colors">
+                        0{idx + 1} ↗
+                      </span>
+                    </div>
+                    <h3 className="text-lg sm:text-xl font-display font-bold text-white group-hover:text-[#C7F36B] transition-colors mb-2">
+                      {item.title}
+                    </h3>
+                    <p className="text-xs sm:text-sm text-slate-300 leading-relaxed mb-5">
+                      {item.desc}
+                    </p>
+                  </div>
 
+                  <div className="pt-3.5 border-t border-white/10 flex items-center justify-between gap-2">
+                    <div className="flex flex-wrap gap-1.5">
+                      {item.tags.map((tag) => (
+                        <span
+                          key={tag}
+                          className="text-[11px] px-2.5 py-0.5 rounded-full bg-white/[0.06] text-slate-300"
+                        >
+                          {tag}
+                        </span>
+                      ))}
+                    </div>
+                    <span className="text-xs font-bold text-[#C7F36B] shrink-0 group-hover:translate-x-1 transition-transform">
+                      Studio →
+                    </span>
+                  </div>
+                </Link>
+              </motion.div>
+            ))}
+          </div>
         </div>
       </div>
     </section>

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+﻿import React, { useState } from "react";
 import {
   Alert,
   Box,
@@ -85,7 +85,7 @@ export default function CreateUserDialog({ open, onClose, onSuccess }) {
     >
       <Box sx={{ display: "flex", justifyContent: "space-between", alignItems: "center", px: 3, pt: 2, pb: 1, borderBottom: "1px solid rgba(0,0,0,0.06)" }}>
         <Stack direction="row" spacing={1.5} alignItems="center">
-          <Box sx={{ p: 1, bgcolor: "#1a1a1a", color: "#9fff00", borderRadius: "8px", display: "flex" }}>
+          <Box sx={{ p: 1, bgcolor: "#1a1a1a", color: "#C7F36B", borderRadius: "8px", display: "flex" }}>
             <PersonAddRoundedIcon fontSize="small" />
           </Box>
           <Box>
@@ -192,8 +192,8 @@ export default function CreateUserDialog({ open, onClose, onSuccess }) {
               "&:hover": { bgcolor: "#000000", transform: "translateY(-1px)" },
             }}
           >
-            <span style={{ display: "inline-block", width: 8, height: 8, borderRadius: "50%", backgroundColor: "#9fff00" }} />
-            {loading ? "Creating Account..." : "Create Account →"}
+            <span style={{ display: "inline-block", width: 8, height: 8, borderRadius: "50%", backgroundColor: "#C7F36B" }} />
+            {loading ? "Creating Account..." : "Create Account â†’"}
           </Button>
         </DialogActions>
       </form>

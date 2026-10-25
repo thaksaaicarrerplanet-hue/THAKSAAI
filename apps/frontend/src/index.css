@@ -1,17 +1,36 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Outfit:wght@100..900&display=swap');
 @import "tailwindcss";
 
 @theme {
-  --font-sans: "Inter", ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-  --font-display: "Outfit", ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-  --color-brand-green: #9fff00;
-  --color-bg-base: #EDEEF5;
+  --font-sans: "Work Sans", "Inter", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --font-display: "Plus Jakarta Sans", "Instrument Sans", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  --font-serif: "Instrument Serif", Georgia, serif;
+
+  --color-midnight: #101828;
+  --color-midnight2: #1A2335;
+  --color-porcelain: #F7F8F4;
+  --color-paper: #FFFFFF;
+  --color-hairline: #E3E5DE;
+  --color-slate: #5B6475;
+  --color-precision: #3659D9;
+  --color-electric: #C7F36B;
+  --color-danger: #D14343;
+
+  --color-brand-green: #C7F36B;
+  --color-bg-base: #F7F8F4;
 }
 
-/* 
- * Hardware-Accelerated Rendering & Native Scrolling Governance
- * Removes artificial JavaScript scroll drag and forces GPU compositing layers.
- */
+:root {
+  --color-ink: #101828;
+  --color-porcelain: #F7F8F4;
+  --color-deep-canvas: #101828;
+  --color-precision-blue: #3659D9;
+  --color-electric-lime: #C7F36B;
+  --color-slate: #5B6475;
+  --color-hairline: #E3E5DE;
+  --color-surface: #FFFFFF;
+}
+
 html {
   scroll-behavior: smooth;
   -webkit-font-smoothing: antialiased;
@@ -21,31 +40,107 @@ html {
 
 @layer base {
   * {
-    border-color: rgba(0, 0, 0, 0.08);
+    border-color: #E3E5DE;
   }
   body {
-    @apply bg-bg-base text-[#1a1a1a] font-sans antialiased selection:bg-[#9fff00] selection:text-black;
-    background-color: #EDEEF5 !important;
-    color: #1a1a1a;
-    overflow-x: hidden;
+    background-color: #F7F8F4;
+    color: #101828;
+    font-family: var(--font-sans);
+    line-height: 1.6;
+    overflow-x: clip;
+    user-select: text;
+  }
+  ::selection {
+    background-color: #C7F36B;
+    color: #101828;
   }
   h1, h2, h3, h4, h5, h6 {
-    @apply font-display tracking-tight;
+    font-family: var(--font-display);
+    letter-spacing: -0.02em;
+  }
+  input, select, textarea {
+    font-size: 16px;
+  }
+  :focus-visible {
+    outline: 2px solid #3659D9;
+    outline-offset: 3px;
   }
 }
 
-/* 
- * Lightweight Glassmorphism System
- * Replaces expensive GPU backdrop-filter blurs during scrolling with optimized alpha composites.
- */
+@utility spatial-surface {
+  background-color: #FFFFFF;
+  border: 1px solid #E3E5DE;
+  box-shadow: 0 1px 2px rgba(16, 24, 40, 0.06);
+}
+
+@utility hairline {
+  border-color: #E3E5DE;
+}
+
+@utility stage-dark {
+  background-color: #101828;
+  color: #F7F8F4;
+}
+
+@utility sheen {
+  position: relative;
+  overflow: hidden;
+}
+
+@utility grain {
+  background-image: radial-gradient(rgba(16, 24, 40, 0.04) 1px, transparent 0);
+  background-size: 20px 20px;
+}
+
+/* Lightweight Alpha-Composited Surfaces (Zero Expensive GPU Blur) */
 .neo-glass {
-  background: rgba(255, 255, 255, 0.92);
-  border: 1px solid rgba(26, 26, 26, 0.08);
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.03);
+  background: rgba(255, 255, 255, 0.94);
+  border: 1px solid #E3E5DE;
+  box-shadow: 0 1px 2px rgba(16, 24, 40, 0.06);
 }
 
 .neo-glass-dark {
-  background: rgba(26, 26, 26, 0.96);
-  border: 1px solid rgba(255, 255, 255, 0.12);
-  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.35);
+  background: rgba(26, 35, 53, 0.96);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 24px 48px -24px rgba(16, 24, 40, 0.28);
+}
+
+/* Specular sheen sweep for SpatialCard */
+.spatial-card-sheen::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(115deg, transparent 30%, rgba(255, 255, 255, 0.14) 50%, transparent 70%);
+  transform: translateX(-120%);
+  transition: transform 600ms cubic-bezier(0.22, 1, 0.36, 1);
+  pointer-events: none;
+  z-index: 1;
+}
+
+.spatial-card-sheen:hover::before {
+  transform: translateX(120%);
+}
+
+/* Isometric Architectural Blueprint Grid for Dark Stages */
+.iso-grid-dark {
+  background-image:
+    linear-gradient(to right, rgba(255, 255, 255, 0.04) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(255, 255, 255, 0.04) 1px, transparent 1px);
+  background-size: 36px 36px;
+}
+
+.iso-grid-light {
+  background-image:
+    linear-gradient(to right, rgba(16, 24, 40, 0.04) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(16, 24, 40, 0.04) 1px, transparent 1px);
+  background-size: 36px 36px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, ::before, ::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
 }

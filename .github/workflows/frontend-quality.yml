@@ -1,0 +1,73 @@
+name: Frontend and backend quality gates
+
+on:
+  push:
+    branches:
+      - main
+      - preview
+      - "audit/**"
+      - "work/**"
+  pull_request:
+    branches:
+      - main
+      - preview
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: quality-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  frontend:
+    name: Lint, production build, and bundle budgets
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out source
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Install frontend dependencies
+        working-directory: apps/frontend
+        run: npm install --no-audit --no-fund
+
+      - name: Lint frontend
+        working-directory: apps/frontend
+        run: npm run lint
+
+      - name: Build production assets
+        working-directory: apps/frontend
+        run: npm run build
+
+      - name: Enforce compressed bundle budgets
+        working-directory: apps/frontend
+        run: npm run check:bundle
+
+      - name: Install Playwright Chromium
+        working-directory: apps/frontend
+        run: npx playwright install --with-deps chromium
+
+      - name: Run browser smoke and auth regression tests
+        working-directory: apps/frontend
+        run: npm run test:e2e
+
+  backend-syntax:
+    name: Check backend JavaScript syntax
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out source
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Parse backend JavaScript files
+        run: find apps/backend -type f -name '*.js' -print0 | xargs -0 -r -n1 node --check

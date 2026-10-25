@@ -11,7 +11,6 @@ export default function AccessDenied() {
 
     return (
         <Box
-            className="thaksa-interior-page"
             sx={{
                 minHeight: "100vh",
                 display: "flex",

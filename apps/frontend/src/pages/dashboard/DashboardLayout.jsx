@@ -1,4 +1,4 @@
-import { useMemo, useState } from "react";
+﻿import { useMemo, useState } from "react";
 import { NavLink, Outlet, useLocation, useNavigate } from "react-router-dom";
 import BrandLogo from "../../components/common/BrandLogo";
 import {
@@ -63,7 +63,7 @@ export default function DashboardLayout() {
       <Box sx={{ mb: 4, pt: 1 }}>
         <BrandLogo variant="dashboard" customSub="Student" disableLink />
         <Box sx={{ mt: 2.5, p: 1.5, bgcolor: "rgba(255,255,255,0.05)", borderRadius: "8px", border: "1px solid rgba(255,255,255,0.1)" }}>
-          <Typography sx={{ fontSize: "0.72rem", fontWeight: 700, color: "#9fff00", textTransform: "uppercase", letterSpacing: "0.05em" }}>
+          <Typography sx={{ fontSize: "0.72rem", fontWeight: 700, color: "#C7F36B", textTransform: "uppercase", letterSpacing: "0.05em" }}>
             Student Portal
           </Typography>
           <Typography sx={{ fontSize: "0.78rem", color: "#a1a1aa", mt: 0.2 }}>
@@ -90,14 +90,14 @@ export default function DashboardLayout() {
                 px: 2,
                 borderRadius: "8px",
                 color: selected ? "#1a1a1a" : "#d4d4d8",
-                bgcolor: selected ? "#9fff00" : "transparent",
+                bgcolor: selected ? "#C7F36B" : "transparent",
                 transition: "all 0.15s ease",
                 "&:hover": {
-                  bgcolor: selected ? "#9fff00" : "rgba(255,255,255,0.08)",
+                  bgcolor: selected ? "#C7F36B" : "rgba(255,255,255,0.08)",
                   color: selected ? "#1a1a1a" : "#ffffff",
                 },
                 "&.Mui-selected": {
-                  bgcolor: "#9fff00",
+                  bgcolor: "#C7F36B",
                   color: "#1a1a1a",
                   fontWeight: 700,
                   "&:hover": {
@@ -107,7 +107,7 @@ export default function DashboardLayout() {
               }}
             >
               <Stack direction="row" spacing={1.5} alignItems="center">
-                <Box sx={{ color: selected ? "#1a1a1a" : "#9fff00", display: "flex" }}>
+                <Box sx={{ color: selected ? "#1a1a1a" : "#C7F36B", display: "flex" }}>
                   {item.icon}
                 </Box>
                 <ListItemText
@@ -150,7 +150,7 @@ export default function DashboardLayout() {
   );
 
   return (
-    <Box sx={{ display: "flex", minHeight: "100vh", bgcolor: "#f8f9fa", color: "#1a1a1a", selection: { bgcolor: "#9fff00", color: "#000000" } }}>
+    <Box sx={{ display: "flex", minHeight: "100vh", bgcolor: "#f8f9fa", color: "#1a1a1a", selection: { bgcolor: "#C7F36B", color: "#000000" } }}>
       <AppBar
         position="fixed"
         color="inherit"
@@ -195,7 +195,7 @@ export default function DashboardLayout() {
               >
                 Public Website
               </Button>
-              <Box sx={{ display: { xs: "none", sm: "flex" }, alignItems: "center", gap: 1, bgcolor: "#EDEEF5", px: 2, py: 0.6, borderRadius: "50px", border: "1px solid rgba(0,0,0,0.05)" }}>
+              <Box sx={{ display: { xs: "none", sm: "flex" }, alignItems: "center", gap: 1, bgcolor: "#F7F8F4", px: 2, py: 0.6, borderRadius: "50px", border: "1px solid rgba(0,0,0,0.05)" }}>
                 <Box sx={{ width: 8, height: 8, borderRadius: "50%", bgcolor: "#16a34a" }} />
                 <Typography sx={{ fontSize: "0.75rem", fontWeight: 700, color: "#1a1a1a" }}>
                   Online

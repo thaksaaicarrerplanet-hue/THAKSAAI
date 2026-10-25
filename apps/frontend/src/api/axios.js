@@ -1,49 +1,71 @@
 import axios from "axios";
 
-// Resolve baseURL defensively: in local development default to localhost:5000/api;
-// in production use VITE_API_URL or relative /api to avoid breaking cross-origin calls.
-const isLocal = typeof window !== "undefined" && (window.location.hostname === "localhost" || window.location.hostname === "127.0.0.1");
+const isLocal =
+  typeof window !== "undefined" &&
+  (window.location.hostname === "localhost" || window.location.hostname === "127.0.0.1");
+const configuredBaseUrl = import.meta.env.VITE_API_URL?.trim();
 const defaultBaseUrl = isLocal ? "http://localhost:5000/api" : "/api";
-const baseURL = import.meta.env.VITE_API_URL || defaultBaseUrl;
 
 const api = axios.create({
-    baseURL,
-    timeout: 8000,
-    headers: {
-        "Content-Type": "application/json",
-    }
+  baseURL: configuredBaseUrl || defaultBaseUrl,
+  timeout: 12000,
+  headers: {
+    "Content-Type": "application/json",
+  },
 });
 
 api.interceptors.request.use((req) => {
-    const token = typeof localStorage !== "undefined" ? localStorage.getItem("token") : null;
+  // Storage access can throw in hardened/private browser contexts.
+  try {
+    const token = typeof window !== "undefined" ? window.localStorage.getItem("token") : null;
     if (token) {
-        req.headers.Authorization = `Bearer ${token}`;
+      req.headers.Authorization = `Bearer ${token}`;
     }
-    return req;
+  } catch {
+    // Do not fail an otherwise public request because storage is unavailable.
+  }
+  return req;
 });
 
-// Fallback interceptor providing graceful offline responses when backend service is offline
 api.interceptors.response.use(
-    (response) => response,
-    (error) => {
-        const url = error.config?.url || "";
-        console.warn(`[THAKSA API] Backend call to ${url} unfulfilled or offline; using resilient fallback.`);
+  (response) => {
+    const contentType = String(response.headers?.["content-type"] || "").toLowerCase();
+    const requestUrl = String(response.config?.url || "");
+    const apiBase = String(response.config?.baseURL || "");
+    const isApiRequest = requestUrl.startsWith("/api") || apiBase.includes("/api");
 
-        if (url.includes("/reviews")) {
-            return Promise.resolve({ data: [] });
-        }
-        if (url.includes("/ratings")) {
-            return Promise.resolve({ data: { averageRating: 4.9, totalReviews: 28 } });
-        }
-        if (url.includes("/enrollments") || url.includes("/batches") || url.includes("/courses")) {
-            return Promise.resolve({ data: [] });
-        }
-        if (url.includes("/profile")) {
-            return Promise.resolve({ data: { profile: { name: "Guest Student", role: "STUDENT" } } });
-        }
-
-        return Promise.reject(error);
+    // The Vercel SPA fallback can return index.html with HTTP 200 for a missing /api route.
+    // Detect that configuration error rather than allowing HTML to masquerade as JSON.
+    if (isApiRequest && contentType.includes("text/html")) {
+      const error = new Error(
+        "The API returned website HTML instead of JSON. Configure VITE_API_URL or the deployment's /api routing."
+      );
+      error.response = response;
+      error.normalized = {
+        code: "API_PROXY_MISCONFIGURED",
+        message: error.message,
+      };
+      return Promise.reject(error);
     }
+
+    return response;
+  },
+  (error) => {
+    const normalizedError = Object.assign(error, {
+      normalized: {
+        code: error.response?.status || (error.request ? "NETWORK_ERR" : "REQUEST_ERR"),
+        message:
+          error.response?.data?.message ||
+          (error.request && !configuredBaseUrl && !isLocal
+            ? "The backend API is not configured for this deployment. Please contact the site administrator."
+            : error.message) ||
+          "Unable to reach the THAKSAAI server. Please verify your connection.",
+      },
+    });
+
+    // Fail closed: do not replace real API errors with fabricated users, ratings or records.
+    return Promise.reject(normalizedError);
+  }
 );
 
 export default api;

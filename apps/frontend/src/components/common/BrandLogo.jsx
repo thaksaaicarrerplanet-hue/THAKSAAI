@@ -1,4 +1,4 @@
-import React from "react";
+﻿import React from "react";
 import { Link } from "react-router-dom";
 import { BRAND_ASSETS, BRAND_METADATA } from "../../theme/brandIdentity";
 
@@ -8,8 +8,6 @@ import { BRAND_ASSETS, BRAND_METADATA } from "../../theme/brandIdentity";
  * and generous prominent sizing across Navbars, Footers, Dashboards, and Auth screens.
  */
 export default function BrandLogo({ variant = "navbar", customSub = "", className = "", disableLink = false }) {
-  const isDark = variant === "dark" || variant === "footer" || variant === "auth-dark";
-
   // Configure prominent enlarged dimensions and clean typography without period
   const config = {
     navbar: {
@@ -61,7 +59,7 @@ export default function BrandLogo({ variant = "navbar", customSub = "", classNam
       <span className={`font-display ${current.textSize} font-extrabold tracking-tight ${current.textColor} flex items-center`}>
         THAKSAAI
         {customSub && (
-          <span className="ml-2.5 px-2 py-0.5 bg-[#1a1a1a] text-[#9fff00] text-2xs sm:text-xs uppercase font-sans font-black tracking-wider rounded-sm shadow-2xs">
+          <span className="ml-2.5 px-2 py-0.5 bg-[#1a1a1a] text-[#C7F36B] text-2xs sm:text-xs uppercase font-sans font-black tracking-wider rounded-sm shadow-2xs">
             {customSub}
           </span>
         )}
@@ -77,7 +75,7 @@ export default function BrandLogo({ variant = "navbar", customSub = "", classNam
     <Link
       to="/"
       aria-label="Navigate to THAKSAAI homepage"
-      className="text-decoration-none focus:outline-none focus:ring-2 focus:ring-[#9fff00] rounded-sm shrink-0 inline-block"
+      className="text-decoration-none focus:outline-none focus:ring-2 focus:ring-[#C7F36B] rounded-sm shrink-0 inline-block"
     >
       {content}
     </Link>

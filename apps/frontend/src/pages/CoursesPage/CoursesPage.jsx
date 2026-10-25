@@ -21,28 +21,28 @@ const FEATURED_TRACKS = [
   {
     number: "01",
     icon: CodeRounded,
-    kicker: "BUILD WEBSITES",
+    kicker: "PRODUCT ENGINEERING",
     title: "Full Stack Web Development",
-    description: "Build a website or web app from start to finish. Plan the pages, add useful features, save information, test your work, and put it online.",
-    skills: ["Web pages", "Forms and features", "Save information", "Test and publish"],
+    description: "Build complete web products from polished React interfaces through APIs, data models, authentication, testing, and production deployment.",
+    skills: ["React + TypeScript", "Node.js APIs", "SQL + Auth", "Testing + Deploy"],
     accent: "blue",
   },
   {
     number: "02",
     icon: CloudSyncRounded,
-    kicker: "PUT PROJECTS ONLINE",
+    kicker: "CLOUD & DELIVERY",
     title: "AWS / DevOps / MLOps",
-    description: "Learn how to put projects online, keep them running, and make updates safely. This course also introduces how teams manage machine-learning projects.",
-    skills: ["AWS cloud basics", "Prepare a project", "Manage updates", "Machine-learning projects"],
+    description: "Learn to ship reliable workloads with cloud fundamentals, Linux, Docker, CI/CD, infrastructure automation, monitoring, and ML delivery workflows.",
+    skills: ["AWS + Linux", "Docker", "CI/CD", "MLOps"],
     accent: "lime",
   },
   {
     number: "03",
     icon: AutoAwesomeRounded,
-    kicker: "BUILD AI HELPERS",
+    kicker: "NEXT-GEN AI SYSTEMS",
     title: "Agentic AI",
-    description: "Build an AI helper that follows clear instructions, uses selected tools, and completes a useful task. Learn how to check its results and set clear limits.",
-    skills: ["Clear instructions", "Selected tools", "Useful information", "Check results"],
+    description: "Move beyond simple prompts to engineer tool-using AI workflows, retrieval, structured outputs, orchestration, evaluation, and practical guardrails.",
+    skills: ["LLMs + Tools", "RAG", "Orchestration", "Evaluation"],
     accent: "violet",
   },
 ];
@@ -76,10 +76,10 @@ export default function CoursesPage() {
                 Practical Course Directory
               </div>
               <h1 className="text-4xl sm:text-5xl md:text-6xl font-display font-bold text-[#1a1a1a] tracking-tight leading-tight">
-                Three practical courses. Skills you can show.
+                Practical courses designed to get students hired.
               </h1>
               <p className="text-base sm:text-lg font-sans text-zinc-600 mt-3 leading-relaxed">
-                Explore the three main learning paths first, then browse our workshops, campus training, and final-year project options below.
+                We design our courses around actual corporate technical interview exams and daily industry software engineering tools. Browse our practical training modules, short bootcamps, and student projects below.
               </p>
             </div>
 
@@ -108,10 +108,10 @@ export default function CoursesPage() {
             <div className="thaksa-featured-tracks-heading">
               <div className="min-w-0">
                 <span className="thaksa-track-eyebrow">SIGNATURE LEARNING PATHS / 03</span>
-                <h2 id="featured-tracks-heading">Three practical courses. Skills you can show.</h2>
-                <p>Choose a course, build a project, and practise explaining what you made.</p>
+                <h2 id="featured-tracks-heading">Three courses. Real engineering depth.</h2>
+                <p>Choose a focused path built around practical work, modern tooling, and skills students can demonstrate.</p>
               </div>
-              <span className="thaksa-track-heading-note">Build with guidance · learn by doing</span>
+              <span className="thaksa-track-heading-note">Hands-on · mentor-led · outcome-focused</span>
             </div>
 
             <div className="thaksa-featured-tracks">

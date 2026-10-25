@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from "react";
+﻿import { useEffect, useMemo, useState } from "react";
 import {
   Alert,
   Box,
@@ -135,7 +135,7 @@ export const UserTable = ({ onView, onEditRole, onDelete }) => {
                           display: "flex",
                           alignItems: "center",
                           justifyContent: "center",
-                          color: "#9fff00",
+                          color: "#C7F36B",
                           flexShrink: 0,
                         }}
                       >
@@ -197,7 +197,7 @@ export const UserTable = ({ onView, onEditRole, onDelete }) => {
           /* Desktop table view */
           <TableContainer sx={{ borderRadius: "10px", border: "1px solid rgba(0,0,0,0.06)", overflowX: "auto" }}>
             <Table sx={{ minWidth: 700 }}>
-              <TableHead sx={{ bgcolor: "#EDEEF5" }}>
+              <TableHead sx={{ bgcolor: "#F7F8F4" }}>
                 <TableRow>
                   <TableCell sx={{ fontWeight: 700, fontSize: "0.75rem", textTransform: "uppercase", color: "#475569", py: 1.5 }}>Name</TableCell>
                   <TableCell sx={{ fontWeight: 700, fontSize: "0.75rem", textTransform: "uppercase", color: "#475569", py: 1.5 }}>Email Address</TableCell>

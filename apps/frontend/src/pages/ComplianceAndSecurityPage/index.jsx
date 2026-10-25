@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+﻿import React from "react";
 import { Helmet } from "react-helmet-async";
 import { useLocation, useNavigate } from "react-router-dom";
 import { SITE_BRANDING } from "../../theme/masterThemeConfig";
@@ -8,13 +8,11 @@ export default function ComplianceAndSecurityPage() {
   const navigate = useNavigate();
 
   const path = location.pathname;
-  const initialTab = path.includes("privacy") 
-    ? "privacy" 
-    : path.includes("security") 
-      ? "security" 
+  const activeTab = path.includes("privacy")
+    ? "privacy"
+    : path.includes("security")
+      ? "security"
       : "terms";
-
-  const [activeTab, setActiveTab] = useState(initialTab);
 
   const tabs = [
     { id: "terms", label: "Terms of Service", route: "/terms-of-service" },
@@ -22,42 +20,42 @@ export default function ComplianceAndSecurityPage() {
     { id: "security", label: "Campus Security Guidelines", route: "/campus-security-guidelines" }
   ];
 
-  const handleTabChange = (t) => {
-    setActiveTab(t.id);
-    navigate(t.route, { replace: true });
-  };
+  const handleTabChange = (tab) => navigate(tab.route);
 
   return (
     <>
       <Helmet>
-        <title>Legal Compliance, Privacy & Security Guidelines | THAKSAAI</title>
+        <title>{activeTab === "privacy" ? "Privacy Policy" : activeTab === "security" ? "Campus Security Guidelines" : "Terms of Service"} | THAKSAAI</title>
         <meta 
           name="description" 
-          content="Review THAKSAAI Terms of Service, academic Privacy Policy, and physical/network Campus Security Guidelines for our Gachibowli engineering HQ." 
+          content={activeTab === "privacy" ? "Read the THAKSAAI privacy policy and how enquiry and account information is handled." : activeTab === "security" ? "Review the campus and platform security guidelines relevant to THAKSAAI training engagements." : "Review the terms that apply to THAKSAAI training programs, project mentorship, and software studio engagements."} 
         />
       </Helmet>
 
-      <main className="w-full min-h-screen bg-[#EDEEF5] pt-28 sm:pt-36 pb-24 px-4 sm:px-6 md:px-10 text-[#1a1a1a] selection:bg-[#9fff00] selection:text-black thaksa-interior-page">
+      <main className="w-full min-h-screen bg-[#F7F8F4] pt-28 sm:pt-36 pb-24 px-4 sm:px-6 md:px-10 text-[#1a1a1a] selection:bg-[#C7F36B] selection:text-black thaksa-interior-page">
         <div className="max-w-5xl mx-auto">
           
           {/* Header & Tab Bar */}
           <header className="mb-12 pb-8 border-b border-black/[0.08]">
             <div className="inline-flex items-center gap-2.5 bg-white/90 px-4 py-1.5 rounded-full text-xs font-bold uppercase tracking-wider text-[#1a1a1a] mb-4 shadow-2xs border border-black/5">
-              <span className="w-2 h-2 rounded-full bg-[#9fff00] block"></span>
+              <span className="w-2 h-2 rounded-full bg-[#C7F36B] block"></span>
               <span>Corporate Governance & Institutional Compliance</span>
             </div>
             <h1 className="text-3xl sm:text-4xl md:text-5xl font-display font-bold text-[#1a1a1a] tracking-tight mb-6">
-              Institutional Governance Framework
+              {tabs.find((tab) => tab.id === activeTab)?.label}
             </h1>
 
             {/* Interactive Tab Switcher */}
-            <div className="flex flex-col sm:flex-row flex-wrap items-stretch sm:items-center gap-2 bg-white/60 p-1.5 rounded-xl border border-black/[0.07] w-full lg:w-max">
+            <div role="tablist" aria-label="Legal documents" className="flex flex-col sm:flex-row flex-wrap items-stretch sm:items-center gap-2 bg-white/60 p-1.5 rounded-xl border border-black/[0.07] w-full lg:w-max">
               {tabs.map((tab) => {
                 const isActive = activeTab === tab.id;
                 return (
                   <button
                     key={tab.id}
                     type="button"
+                    role="tab"
+                    aria-selected={isActive}
+                    aria-controls="legal-document"
                     onClick={() => handleTabChange(tab)}
                     className={`px-5 py-3 sm:py-2.5 rounded-lg text-xs sm:text-sm font-bold transition-all focus:outline-none text-center w-full sm:w-auto ${
                       isActive 
@@ -73,7 +71,7 @@ export default function ComplianceAndSecurityPage() {
           </header>
 
           {/* Document Content Box */}
-          <article className="bg-white/95 p-8 sm:p-12 md:p-14 rounded-2xl border border-black/[0.07] shadow-sm font-sans text-zinc-700 leading-relaxed">
+          <article id="legal-document" role="tabpanel" tabIndex={0} aria-label={tabs.find((tab) => tab.id === activeTab)?.label} className="bg-white/95 p-8 sm:p-12 md:p-14 rounded-2xl border border-black/[0.07] shadow-sm font-sans text-zinc-700 leading-relaxed">
             
             {/* TERMS OF SERVICE SECTION */}
             {activeTab === "terms" && (
@@ -81,7 +79,7 @@ export default function ComplianceAndSecurityPage() {
                 <h2 className="text-2xl sm:text-3xl font-display font-bold text-[#1a1a1a]">
                   THAKSAAI Terms of Service (Academic & Enterprise Sprints)
                 </h2>
-                <p className="text-sm text-zinc-500 font-mono">Effective Date: August 2026 • Governing Office: {SITE_BRANDING.buildingName}, Hyderabad</p>
+                <p className="text-sm text-zinc-500 font-mono">Effective Date: August 2026 · Governing Office: {SITE_BRANDING.buildingName}, Hyderabad</p>
                 
                 <section className="flex flex-col gap-3 mt-2">
                   <h3 className="text-lg font-bold font-display text-[#1a1a1a]">1. Institutional Mandate & Agreement Scoping</h3>
@@ -100,7 +98,7 @@ export default function ComplianceAndSecurityPage() {
                 <section className="flex flex-col gap-3">
                   <h3 className="text-lg font-bold font-display text-[#1a1a1a]">3. Intellectual Property (IP) Allocation</h3>
                   <p>
-                    Open-source capstone projects developed during basic academic training remain the collaborative intellectual property of the candidate and university partner. For commercial enterprise client sprints conducted at our **{SITE_BRANDING.buildingName}, Gachibowli** studio, non-disclosure agreement (NDA) terms apply, and proprietary software architecture remains entirely vested in THAKSAAI and its corporate clients.
+                    Open-source capstone projects developed during basic academic training remain the collaborative intellectual property of the candidate and university partner. For commercial enterprise client sprints conducted at our {SITE_BRANDING.buildingName}, Gachibowli studio, non-disclosure agreement (NDA) terms apply, and proprietary software architecture remains entirely vested in THAKSAAI and its corporate clients.
                   </p>
                 </section>
 
@@ -181,7 +179,7 @@ export default function ComplianceAndSecurityPage() {
             )}
 
             {/* Bottom Contact Box */}
-            <div className="mt-12 pt-8 border-t border-black/[0.08] flex flex-col sm:flex-row items-center justify-between gap-6 bg-[#EDEEF5]/60 p-6 rounded-xl">
+            <div className="mt-12 pt-8 border-t border-black/[0.08] flex flex-col sm:flex-row items-center justify-between gap-6 bg-[#F7F8F4]/60 p-6 rounded-xl">
               <div>
                 <strong className="text-base font-display font-bold text-[#1a1a1a] block">Have Legal or Compliance Queries?</strong>
                 <p className="text-xs sm:text-sm text-zinc-600 mt-1">Directly contact our General Counsel & Admin Directorate at HQ.</p>
@@ -191,7 +189,7 @@ export default function ComplianceAndSecurityPage() {
                 onClick={() => navigate("/contact?college=Legal Compliance Inquiry")}
                 className="bg-[#1a1a1a] text-white px-6 py-3 rounded-full font-bold text-xs sm:text-sm tracking-wide hover:bg-black transition-all shrink-0 shadow-sm"
               >
-                Contact Directorate →
+                Contact Directorate â†’
               </button>
             </div>
 

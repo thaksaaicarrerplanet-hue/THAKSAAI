@@ -18,8 +18,8 @@ const CRT_COURSES = [
     id: 'cloud-devops-mlops',
     number: '02',
     title: 'AWS / DevOps / MLOps',
-    summary: 'Learn how to put software online and update it safely. We also explain MLOps: how teams manage machine-learning projects.',
-    topics: ['Cloud basics using AWS', 'Getting a project ready to run online', 'Practising the same checks before updates', 'Understanding how machine-learning projects are managed'],
+    summary: 'Learn how software is put online, how updates are managed, and how teams keep their work organised.',
+    topics: ['Cloud basics using AWS', 'Getting a project ready to run online', 'Making common checks and updates repeatable', 'Understanding how machine-learning projects are managed'],
     goal: 'Students understand how a project goes from a computer to a place where people can use it.',
   },
   {

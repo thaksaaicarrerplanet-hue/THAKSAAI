@@ -1,7 +1,9 @@
 node_modules/
-package-lock.json
 .env
+.env.local
+.env.*.local
 dist/
+*.log
 .DS_Store
 PROJECT_AUDIT_AND_NEXT_STEPS.md
 PROJECT_PROFESSIONAL_AUDITS.md

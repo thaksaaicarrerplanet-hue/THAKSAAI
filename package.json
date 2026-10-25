@@ -1,11 +1,11 @@
 {
-  "devDependencies": {
-    "@playwright/test": "^1.61.0"
-  },
-  "dependencies": {
-    "@gsap/react": "^2.1.2",
-    "@studio-freight/react-lenis": "^0.0.47",
-    "gsap": "^3.15.0",
-    "lenis": "^1.3.25"
+  "name": "thaksaai-platform",
+  "private": true,
+  "scripts": {
+    "dev": "npm --prefix apps/frontend run dev",
+    "build": "npm --prefix apps/frontend run build",
+    "lint": "npm --prefix apps/frontend run lint",
+    "check:bundle": "npm --prefix apps/frontend run check:bundle",
+    "test:e2e": "npm --prefix apps/frontend run test:e2e"
   }
 }

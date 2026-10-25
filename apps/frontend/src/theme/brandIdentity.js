@@ -1,4 +1,4 @@
-/**
+﻿/**
  * ============================================================================
  * MASTER BRAND IDENTITY & ASSET REGISTRY - THAKSAAI
  * Enterprise Identity Configuration & Cache-Busting Asset Pipeline
@@ -58,7 +58,7 @@ export const BRAND_METADATA = {
   tagline: "Develop engineers who can create value independently.",
   description:
     "Industry-Academia collaboration platform conducting practical engineering bootcamps, campus recruitment training (CRT), and verified capstone projects.",
-  defaultThemeColor: "#EDEEF5",
+  defaultThemeColor: "#F7F8F4",
   darkThemeColor: "#1a1a1a",
   keywords: [
     "THAKSAAI",

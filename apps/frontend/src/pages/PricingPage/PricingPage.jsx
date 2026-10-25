@@ -27,7 +27,7 @@ const plans = [
       "Weekly practical coding practice and automated feedback",
       "Every Friday timed online practice exams mirroring corporate hiring tests",
       "Regular weekly progress reports delivered directly to TPOs & Deans",
-      "Proven 94% average technical exam pass rate across colleges"
+      "Assessment-led progress checks, structured feedback, and institution-aligned reporting"
     ],
     tag: "MOST RECOMMENDED FOR TPOS",
     recommended: true
@@ -54,27 +54,27 @@ export default function PricingPage() {
   return (
     <>
       <Helmet>
-        <title>College Partnership Plans & Programs | THAKSAAI</title>
+        <title>College Partnership Options & Scoped Proposals | THAKSAAI</title>
         <meta
           name="description"
           content="Explore transparent, collaborative college training partnership options including short practical workshops and full semester campus recruitment bootcamps."
         />
       </Helmet>
 
-      <main className="w-full min-h-screen bg-[#EDEEF5] pt-28 sm:pt-36 pb-24 px-6 md:px-10 text-[#1a1a1a] selection:bg-[#9fff00] selection:text-black thaksa-interior-page">
+      <main className="w-full min-h-screen bg-[#F7F8F4] pt-28 sm:pt-36 pb-24 px-6 md:px-10 text-[#1a1a1a] selection:bg-[#C7F36B] selection:text-black thaksa-interior-page">
         <div className="max-w-7xl mx-auto">
           
           {/* Header */}
           <div className="max-w-3xl mb-16 pb-8 border-b border-black/[0.08]">
             <div className="inline-flex items-center gap-2 bg-white/80 backdrop-blur-md px-3.5 py-1 rounded-full text-xs font-bold uppercase tracking-widest text-zinc-600 mb-4 shadow-xs">
-              <span className="w-2 h-2 rounded-full bg-[#9fff00] block animate-pulse"></span>
+              <span className="w-2 h-2 rounded-full bg-[#C7F36B] block animate-pulse"></span>
               College Partnership Options
             </div>
             <h1 className="text-4xl sm:text-5xl md:text-6xl font-display font-bold text-[#1a1a1a] tracking-tight leading-tight mb-4">
-              Simple partnership plans for engineering colleges.
+              Partnerships scoped to the outcomes your institution needs.
             </h1>
             <p className="text-base sm:text-lg font-sans text-zinc-600 leading-relaxed">
-              We partner directly with college leadership and departments to run practical coding programs on campus. Choose the support option that fits your academic calendar and student hiring goals.
+              We work with college leadership and departments to scope workshops, semester training, and project mentorship around the academic calendar. Because delivery varies by cohort size, schedule, venue, and scope, we provide a tailored proposal instead of publishing an unsupported one-size-fits-all rate.
             </p>
           </div>
 
@@ -87,21 +87,21 @@ export default function PricingPage() {
                 transition={{ duration: 0.22 }}
                 className={`p-8 rounded-3xl flex flex-col justify-between transition-all relative ${
                   p.recommended
-                    ? "bg-[#1a1a1a] text-white border-2 border-[#9fff00] shadow-2xl scale-[1.02] z-10"
+                    ? "bg-[#1a1a1a] text-white border-2 border-[#C7F36B] shadow-2xl scale-[1.02] z-10"
                     : "neo-glass text-[#1a1a1a] border border-black/[0.08] shadow-sm"
                 }`}
               >
                 <div>
                   <div className="flex items-center justify-between mb-6">
                     <span className={`text-xs font-mono font-extrabold px-3.5 py-1.5 rounded-full uppercase tracking-wider ${
-                      p.recommended ? "bg-[#9fff00] text-[#1a1a1a]" : "bg-[#1a1a1a] text-white"
+                      p.recommended ? "bg-[#C7F36B] text-[#1a1a1a]" : "bg-[#1a1a1a] text-white"
                     }`}>
                       ● {p.tag}
                     </span>
                   </div>
 
                   <span className={`text-xs font-bold uppercase tracking-widest block mb-1 ${
-                    p.recommended ? "text-[#9fff00]" : "text-zinc-500"
+                    p.recommended ? "text-[#C7F36B]" : "text-zinc-500"
                   }`}>
                     {p.subtitle}
                   </span>
@@ -128,7 +128,7 @@ export default function PricingPage() {
                     {p.features.map((feat, i) => (
                       <li key={i} className="flex items-start gap-3 text-sm leading-snug">
                         <span className={`font-bold text-base mt-0.5 ${
-                          p.recommended ? "text-[#9fff00]" : "text-[#0D9488]"
+                          p.recommended ? "text-[#C7F36B]" : "text-[#0D9488]"
                         }`}>✓</span>
                         <span className={p.recommended ? "text-zinc-200 font-medium" : "text-zinc-700 font-medium"}>
                           {feat}
@@ -143,12 +143,12 @@ export default function PricingPage() {
                   onClick={() => navigate(`/contact?track=${encodeURIComponent(p.title)}`)}
                   className={`w-full py-4 rounded-full text-sm font-bold tracking-wide transition-all shadow-md flex items-center justify-center gap-2 focus:outline-none focus:ring-2 ${
                     p.recommended
-                      ? "bg-[#9fff00] text-[#1a1a1a] hover:bg-white focus:ring-white"
-                      : "bg-[#1a1a1a] text-white hover:bg-black focus:ring-[#9fff00]"
+                      ? "bg-[#C7F36B] text-[#1a1a1a] hover:bg-white focus:ring-white"
+                      : "bg-[#1a1a1a] text-white hover:bg-black focus:ring-[#C7F36B]"
                   }`}
                 >
                   <span className={`w-2.5 h-2.5 rounded-full animate-pulse ${
-                    p.recommended ? "bg-[#1a1a1a]" : "bg-[#9fff00]"
+                    p.recommended ? "bg-[#1a1a1a]" : "bg-[#C7F36B]"
                   }`}></span>
                   Discuss This Plan With Our Team →
                 </button>
@@ -173,7 +173,7 @@ export default function PricingPage() {
               <button
                 type="button"
                 onClick={() => navigate("/contact")}
-                className="bg-[#1a1a1a] text-white px-8 py-4 rounded-full text-sm font-bold tracking-wide hover:bg-black transition-all shadow-md focus:outline-none focus:ring-2 focus:ring-[#9fff00]"
+                className="bg-[#1a1a1a] text-white px-8 py-4 rounded-full text-sm font-bold tracking-wide hover:bg-black transition-all shadow-md focus:outline-none focus:ring-2 focus:ring-[#C7F36B]"
               >
                 Schedule a Friendly Meeting →
               </button>

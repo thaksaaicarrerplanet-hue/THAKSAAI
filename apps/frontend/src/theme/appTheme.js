@@ -1,73 +1,78 @@
 import { createTheme } from "@mui/material/styles";
-import { MASTER_PALETTE, MASTER_FONTS } from "./masterThemeConfig";
+import { tokens } from "./masterThemeConfig";
 
 export const appTheme = createTheme({
   palette: {
     mode: "light",
     primary: {
-      main: MASTER_PALETTE.ink,
+      main: tokens.color.precision,
+      dark: tokens.color.midnight,
       contrastText: "#FFFFFF",
     },
     secondary: {
-      main: MASTER_PALETTE.brandGreen,
-      contrastText: MASTER_PALETTE.ink,
+      main: tokens.color.electric,
+      contrastText: tokens.color.midnight,
+    },
+    error: {
+      main: tokens.color.danger,
     },
     background: {
-      default: MASTER_PALETTE.paper,
-      paper: "rgba(255, 255, 255, 0.72)",
+      default: tokens.color.porcelain,
+      paper: tokens.color.paper,
     },
     text: {
-      primary: MASTER_PALETTE.ink,
-      secondary: MASTER_PALETTE.inkMuted,
+      primary: tokens.color.midnight,
+      secondary: tokens.color.slate,
     },
-    divider: MASTER_PALETTE.hairline,
+    divider: tokens.color.hairline,
   },
   typography: {
-    fontFamily: MASTER_FONTS.sans,
-    h1: { fontFamily: MASTER_FONTS.display, fontWeight: 700, color: MASTER_PALETTE.ink, letterSpacing: "-0.03em" },
-    h2: { fontFamily: MASTER_FONTS.display, fontWeight: 600, color: MASTER_PALETTE.ink, letterSpacing: "-0.02em" },
-    h3: { fontFamily: MASTER_FONTS.display, fontWeight: 600, color: MASTER_PALETTE.ink },
-    h4: { fontFamily: MASTER_FONTS.display, fontWeight: 600, color: MASTER_PALETTE.ink },
-    h5: { fontFamily: MASTER_FONTS.sans, fontWeight: 600, color: MASTER_PALETTE.ink },
-    h6: { fontFamily: MASTER_FONTS.sans, fontWeight: 600, color: MASTER_PALETTE.ink },
-    body1: { fontFamily: MASTER_FONTS.sans, lineHeight: 1.6 },
-    body2: { fontFamily: MASTER_FONTS.sans, lineHeight: 1.6 },
-    button: { fontFamily: MASTER_FONTS.sans, fontWeight: 600, textTransform: "none" },
+    fontFamily: tokens.font.body,
+    h1: { fontFamily: tokens.font.display, fontWeight: 700, color: tokens.color.midnight, letterSpacing: "-0.02em" },
+    h2: { fontFamily: tokens.font.display, fontWeight: 700, color: tokens.color.midnight, letterSpacing: "-0.02em" },
+    h3: { fontFamily: tokens.font.display, fontWeight: 600, color: tokens.color.midnight, letterSpacing: "-0.02em" },
+    h4: { fontFamily: tokens.font.display, fontWeight: 600, color: tokens.color.midnight },
+    h5: { fontFamily: tokens.font.body, fontWeight: 600, color: tokens.color.midnight },
+    h6: { fontFamily: tokens.font.body, fontWeight: 600, color: tokens.color.midnight },
+    body1: { fontFamily: tokens.font.body, lineHeight: 1.6 },
+    body2: { fontFamily: tokens.font.body, lineHeight: 1.6 },
+    button: { fontFamily: tokens.font.body, fontWeight: 600, textTransform: "none" },
   },
   shape: {
-    borderRadius: 12,
+    borderRadius: tokens.radius.md,
   },
   components: {
     MuiCssBaseline: {
       styleOverrides: {
         body: {
-          backgroundColor: `${MASTER_PALETTE.paper} !important`,
-          color: MASTER_PALETTE.ink,
-          selection: {
-            backgroundColor: MASTER_PALETTE.brandGreen,
-            color: "#000000",
-          },
+          backgroundColor: `${tokens.color.porcelain} !important`,
+          color: tokens.color.midnight,
         },
       },
     },
     MuiButton: {
       styleOverrides: {
         root: {
-          borderRadius: "9999px",
-          padding: "10px 24px",
+          borderRadius: `${tokens.radius.md}px`,
+          minHeight: "44px",
+          padding: "10px 20px",
           fontWeight: 600,
-          boxShadow: "none",
-          transition: "all 0.2s ease",
+          boxShadow: tokens.elevation.e0,
+          transition: "all 0.2s cubic-bezier(0.22, 1, 0.36, 1)",
           "&:hover": {
             transform: "translateY(-1px)",
-            boxShadow: "0 4px 12px rgba(26, 26, 26, 0.15)",
+            boxShadow: tokens.elevation.e2,
+          },
+          "&:active": {
+            transform: "translateY(1px)",
+            boxShadow: tokens.elevation.e1,
           },
         },
         containedPrimary: {
-          backgroundColor: MASTER_PALETTE.ink,
+          backgroundColor: tokens.color.precision,
           color: "#FFFFFF",
           "&:hover": {
-            backgroundColor: "#000000",
+            backgroundColor: "#2948B8",
           },
         },
       },
@@ -75,11 +80,10 @@ export const appTheme = createTheme({
     MuiCard: {
       styleOverrides: {
         root: {
-          backgroundColor: "rgba(255, 255, 255, 0.72)",
-          backdropFilter: "blur(16px)",
-          border: `1px solid ${MASTER_PALETTE.hairline}`,
-          borderRadius: "16px",
-          boxShadow: "0 4px 24px rgba(0, 0, 0, 0.04)",
+          backgroundColor: tokens.color.paper,
+          border: `1px solid ${tokens.color.hairline}`,
+          borderRadius: `${tokens.radius.lg}px`,
+          boxShadow: tokens.elevation.e1,
         },
       },
     },
