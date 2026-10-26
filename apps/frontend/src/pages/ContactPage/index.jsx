@@ -88,7 +88,7 @@ export default function ContactPage() {
       "",
       "Message / requirements:",
       formData.scope.trim(),
-    ].join("\\n");
+    ].join("\n");
 
     try {
       await sendContactMessage({
@@ -120,7 +120,7 @@ export default function ContactPage() {
       "*College / organization:* " + (formData.company || "Not provided"),
       "*Enquiry:* " + (tracks.find((track) => track.value === formData.track)?.label || formData.track),
       "*Details:* " + (formData.scope || "Not provided"),
-    ].join("\\n");
+    ].join("\n");
     window.open("https://wa.me/" + WHATSAPP_NUMBER + "?text=" + encodeURIComponent(message), "_blank", "noopener,noreferrer");
   };
 
@@ -179,7 +179,7 @@ export default function ContactPage() {
                     <p className="font-semibold text-white">Need a quicker response?</p>
                     <p className="mt-1 text-sm leading-5 text-[#AAB3C2]">Start a direct conversation on WhatsApp.</p>
                   </div>
-                  <a href={SITE_BRANDING.whatsappLink} target="_blank" rel="noopener noreferrer" className="inline-flex min-h-11 shrink-0 items-center justify-center gap-2 rounded-xl bg-[#C7F36B] px-4 py-3 text-sm font-bold text-[#101828] transition hover:bg-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#C7F36B]">
+                  <a href={"https://wa.me/" + WHATSAPP_NUMBER} target="_blank" rel="noopener noreferrer" className="inline-flex min-h-11 shrink-0 items-center justify-center gap-2 rounded-xl bg-[#C7F36B] px-4 py-3 text-sm font-bold text-[#101828] transition hover:bg-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#C7F36B]">
                     WhatsApp <span aria-hidden="true">↗</span>
                   </a>
                 </div>
@@ -243,8 +243,8 @@ export default function ContactPage() {
 
                   <div>
                     <label htmlFor="contact-scope" className={labelClass}>Your message / requirements *</label>
-                    <textarea id="contact-scope" name="scope" rows={5} required maxLength={8000} value={formData.scope} onChange={handleChange} placeholder={formData.role === "student" ? "Tell us your year, branch, interests, or the program you’re asking about..." : formData.role === "college" ? "Share your department, batch size, tentative dates, or campus requirements..." : "Tell us a little about your enquiry, goals, or project requirements..."} className={fieldClass + " min-h-[140px] resize-y"} />
-                    <p className="mt-2 text-right text-xs text-[#7B8492]">{formData.scope.length}/8000</p>
+                    <textarea id="contact-scope" name="scope" rows={5} required maxLength={7000} value={formData.scope} onChange={handleChange} placeholder={formData.role === "student" ? "Tell us your year, branch, interests, or the program you’re asking about..." : formData.role === "college" ? "Share your department, batch size, tentative dates, or campus requirements..." : "Tell us a little about your enquiry, goals, or project requirements..."} className={fieldClass + " min-h-[140px] resize-y"} />
+                    <p className="mt-2 text-right text-xs text-[#7B8492]">{formData.scope.length}/7000</p>
                   </div>
 
                   {status === "error" && (
