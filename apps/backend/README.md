@@ -119,9 +119,13 @@ DB_PORT=5432
 # JSON Web Token
 JWT_SECRET=your_super_secret_jwt_key_here
 
-# Gmail (for OTP + email notifications)
-GMAIL=your_email@gmail.com
+# Gmail SMTP sender (use a dedicated professional Gmail + Google App Password)
+GMAIL=your_professional_gmail@gmail.com
 PASSWORD=your_gmail_app_password
+
+# Optional: enquiry recipient. Defaults to GMAIL when omitted.
+# Set this to the professional inbox that should receive website contact submissions.
+CONTACT_RECEIVER_EMAIL=your_professional_gmail@gmail.com
 ```
 
 > **⚠️ Important:** For `PASSWORD`, use a **Gmail App Password**, not your actual Gmail password.
