@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import { Helmet } from "react-helmet-async";
 import { useSearchParams } from "react-router-dom";
 import { SITE_BRANDING, WHATSAPP_NUMBER } from "../../theme/masterThemeConfig";
-import { sendContactMessage } from "../../services/contactService";
 
 const tracks = [
   { value: "crt", label: "Campus Recruitment Training (CRT)" },
@@ -38,6 +37,10 @@ const fieldClass =
   "w-full min-h-[50px] rounded-xl border border-[#E3E5DE] bg-[#F7F8F4] px-4 py-3 text-[16px] text-[#101828] placeholder:text-[#7B8492] transition focus:border-[#3659D9] focus:outline-none focus:ring-4 focus:ring-[#3659D9]/10";
 const labelClass =
   "mb-2 block font-mono text-[11px] font-semibold uppercase tracking-[0.12em] text-[#344054]";
+
+const CONTACT_EMAIL = import.meta.env.VITE_CONTACT_EMAIL?.trim();
+const FORM_SUBMIT_COOLDOWN_MS = 2500;
+let lastContactSubmitAt = 0;
 
 export default function ContactPage() {
   const [searchParams] = useSearchParams();
@@ -98,11 +101,35 @@ export default function ContactPage() {
   const handleSubmit = async (event) => {
     event.preventDefault();
     if (status === "submitting") return;
+
+    // Keep the honeypot silent: likely bots see a success state, but no message is sent.
+    if (formData.botcheck) {
+      setStatus("success");
+      return;
+    }
+
+    if (!CONTACT_EMAIL) {
+      setStatus("error");
+      setErrorMsg(
+        "The online contact form is not configured yet. Please use the email or WhatsApp contact options on this page."
+      );
+      return;
+    }
+
+    const now = Date.now();
+    if (now - lastContactSubmitAt < FORM_SUBMIT_COOLDOWN_MS) {
+      setStatus("error");
+      setErrorMsg("Please wait a moment before submitting again.");
+      return;
+    }
+
     setStatus("submitting");
     setErrorMsg("");
 
-    const trackLabel = tracks.find((track) => track.value === formData.track)?.label || formData.track;
-    const roleLabel = roles.find((role) => role.value === formData.role)?.label || formData.role;
+    const trackLabel =
+      tracks.find((track) => track.value === formData.track)?.label || formData.track;
+    const roleLabel =
+      roles.find((role) => role.value === formData.role)?.label || formData.role;
     const message = [
       "Enquiry type: " + roleLabel,
       "Requested service: " + trackLabel,
@@ -112,16 +139,37 @@ export default function ContactPage() {
       formData.scope.trim(),
     ].join("\n");
 
+    lastContactSubmitAt = now;
+
     try {
-      await sendContactMessage({
-        name: formData.name,
-        email: formData.email,
-        phone: formData.phone,
-        organization: formData.company,
-        subject: "Website enquiry — " + trackLabel,
-        message,
-        botcheck: formData.botcheck,
+      const response = await fetch("https://formsubmit.co/ajax/" + CONTACT_EMAIL, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+        },
+        body: JSON.stringify({
+          name: formData.name.trim(),
+          email: formData.email.trim(),
+          phone: formData.phone.trim(),
+          organization: formData.company.trim(),
+          audience: roleLabel,
+          enquiry_type: trackLabel,
+          message,
+          _subject: "[THAKSAAI Website] " + trackLabel + " enquiry",
+          _template: "table",
+          _honey: formData.botcheck,
+        }),
       });
+
+      const result = await response.json().catch(() => ({}));
+      if (!response.ok || result.success === false || result.success === "false") {
+        throw new Error(
+          result.message ||
+            "We could not submit your enquiry. Please try again or use WhatsApp."
+        );
+      }
+
       setStatus("success");
     } catch (error) {
       setStatus("error");
