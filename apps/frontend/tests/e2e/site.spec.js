@@ -6,18 +6,20 @@ test("homepage exposes accessible learning pathways on desktop and mobile", asyn
 
   await expect(page.getByRole("heading", { name: /real engineers/i })).toBeVisible();
 
-  const reactor = page.locator("#capability-reactor");
-  await reactor.scrollIntoViewIfNeeded();
-  await expect(reactor.getByText("Reduced-motion mode")).toBeVisible();
-
-  const moduleButtons = reactor.locator('button[aria-pressed]');
-  await expect(moduleButtons).toHaveCount(4);
-  await moduleButtons.nth(1).click();
-  await expect(moduleButtons.nth(1)).toHaveAttribute("aria-pressed", "true");
-  await expect(reactor.getByRole("heading", { name: /campus recruitment training/i })).toBeVisible();
+  // Keep smoke coverage aligned with the current PaperAudienceRouting homepage section.
+  const pathways = page.locator("#course-storytelling");
+  await expect(pathways).toBeAttached();
+  await pathways.scrollIntoViewIfNeeded();
+  await expect(
+    pathways.getByRole("heading", { name: /three structured pathways to/i })
+  ).toBeVisible();
+  await expect(pathways.getByRole("heading", { name: /campus crt training/i })).toBeVisible();
+  const workshopLink = pathways.getByRole("link", { name: /explore workshops/i });
+  await expect(workshopLink).toBeVisible();
 
   await page.setViewportSize({ width: 375, height: 812 });
-  await expect(moduleButtons.nth(1)).toBeVisible();
+  await workshopLink.scrollIntoViewIfNeeded();
+  await expect(workshopLink).toBeVisible();
 });
 
 test("failed login never fabricates a client session", async ({ page }) => {
