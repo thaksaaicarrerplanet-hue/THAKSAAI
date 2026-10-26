@@ -119,17 +119,9 @@ DB_PORT=5432
 # JSON Web Token
 JWT_SECRET=your_super_secret_jwt_key_here
 
-# Existing platform email (OTP and general notifications)
-GMAIL=your_existing_platform_gmail@gmail.com
-PASSWORD=your_existing_gmail_app_password
-
-# Dedicated contact form mailer (use a professional Gmail + Google App Password)
-# These override GMAIL/PASSWORD only for website contact submissions.
-CONTACT_GMAIL=your_professional_gmail@gmail.com
-CONTACT_GMAIL_APP_PASSWORD=your_professional_gmail_app_password
-
-# Optional recipient inbox for website enquiries; defaults to CONTACT_GMAIL.
-CONTACT_RECEIVER_EMAIL=your_professional_gmail@gmail.com
+# Gmail (for OTP + email notifications)
+GMAIL=your_email@gmail.com
+PASSWORD=your_gmail_app_password
 ```
 
 > **⚠️ Important:** For `PASSWORD`, use a **Gmail App Password**, not your actual Gmail password.
