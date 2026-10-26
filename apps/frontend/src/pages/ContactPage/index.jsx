@@ -1,63 +1,94 @@
-import React, { useEffect, useState } from 'react';
-import { Helmet } from 'react-helmet-async';
-import { useSearchParams } from 'react-router-dom';
-import { SITE_BRANDING, WHATSAPP_NUMBER } from '../../theme/masterThemeConfig';
-import { sendContactMessage } from '../../services/contactService';
-import { SpatialCard } from '../../components/ui/SpatialCard';
-import { DepthButton } from '../../components/ui/DepthButton';
+import React, { useEffect, useState } from "react";
+import { Helmet } from "react-helmet-async";
+import { useSearchParams } from "react-router-dom";
+import { SITE_BRANDING, WHATSAPP_NUMBER } from "../../theme/masterThemeConfig";
+import { sendContactMessage } from "../../services/contactService";
+import { SpatialCard } from "../../components/ui/SpatialCard";
+import { DepthButton } from "../../components/ui/DepthButton";
+
+const tracks = [
+  { value: "crt", label: "Campus Recruitment Training (CRT)" },
+  { value: "workshops", label: "Technical workshops" },
+  { value: "internships", label: "Student internships" },
+  { value: "projects", label: "Final-year projects" },
+  { value: "studio", label: "Software studio / business enquiry" },
+  { value: "general", label: "General enquiry" },
+];
+
+const roles = [
+  { value: "student", label: "Student" },
+  { value: "college", label: "College / faculty / placement team" },
+  { value: "business", label: "Company / project partner" },
+  { value: "other", label: "Other" },
+];
+
+const fieldClass =
+  "w-full min-h-[50px] rounded-xl border border-[#E3E5DE] bg-[#F7F8F4] px-4 py-3 text-[16px] text-[#101828] placeholder:text-[#7B8492] transition focus:border-[#3659D9] focus:outline-none focus:ring-4 focus:ring-[#3659D9]/10";
+const labelClass =
+  "mb-2 block font-mono text-[11px] font-semibold uppercase tracking-[0.12em] text-[#344054]";
 
 export default function ContactPage() {
   const [searchParams] = useSearchParams();
-  const initialQuery = searchParams.get('query') || '';
-  const initialCompany = searchParams.get('college') || searchParams.get('organization') || '';
+  const initialQuery = searchParams.get("query") || "";
+  const initialCompany = searchParams.get("college") || searchParams.get("organization") || "";
   const initialTrack =
-    searchParams.get('track') ||
-    searchParams.get('interest') ||
-    (searchParams.get('audience') === 'studio' ? 'studio' : 'crt');
+    searchParams.get("track") ||
+    searchParams.get("interest") ||
+    (searchParams.get("audience") === "studio" ? "studio" : "crt");
 
-  const [status, setStatus] = useState('idle'); // 'idle' | 'submitting' | 'success' | 'error'
-  const [errorMsg, setErrorMsg] = useState('');
-
+  const [status, setStatus] = useState("idle");
+  const [errorMsg, setErrorMsg] = useState("");
   const [formData, setFormData] = useState({
     company: initialCompany,
-    name: '',
-    email: '',
-    phone: '',
+    name: "",
+    email: "",
+    phone: "",
+    role: searchParams.get("audience") === "studio" ? "business" : "student",
     track: initialTrack,
     scope: initialQuery,
-    botcheck: '',
+    botcheck: "",
   });
 
-  // Keep campaign/program context in sync when navigation changes only the query string.
   useEffect(() => {
-    const nextCompany = searchParams.get('college') || searchParams.get('organization');
+    const nextCompany = searchParams.get("college") || searchParams.get("organization");
     const nextTrack =
-      searchParams.get('track') ||
-      searchParams.get('interest') ||
-      (searchParams.get('audience') === 'studio' ? 'studio' : null);
-    const nextScope = searchParams.get('query');
+      searchParams.get("track") ||
+      searchParams.get("interest") ||
+      (searchParams.get("audience") === "studio" ? "studio" : null);
+    const nextScope = searchParams.get("query");
+    const nextRole = searchParams.get("audience") === "studio" ? "business" : null;
 
-    if (!nextCompany && !nextTrack && !nextScope) return;
-
+    if (!nextCompany && !nextTrack && !nextScope && !nextRole) return;
     setFormData((current) => ({
       ...current,
       ...(nextCompany ? { company: nextCompany } : {}),
       ...(nextTrack ? { track: nextTrack } : {}),
       ...(nextScope ? { scope: nextScope } : {}),
+      ...(nextRole ? { role: nextRole } : {}),
     }));
   }, [searchParams]);
 
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormData((prev) => ({ ...prev, [name]: value }));
+  const handleChange = (event) => {
+    const { name, value } = event.target;
+    setFormData((current) => ({ ...current, [name]: value }));
   };
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    if (status === 'submitting') return;
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+    if (status === "submitting") return;
+    setStatus("submitting");
+    setErrorMsg("");
 
-    setStatus('submitting');
-    setErrorMsg('');
+    const trackLabel = tracks.find((track) => track.value === formData.track)?.label || formData.track;
+    const roleLabel = roles.find((role) => role.value === formData.role)?.label || formData.role;
+    const message = [
+      "Enquiry type: " + roleLabel,
+      "Requested service: " + trackLabel,
+      "Organization / college: " + (formData.company.trim() || "Not provided"),
+      "",
+      "Message / requirements:",
+      formData.scope.trim(),
+    ].join("\\n");
 
     try {
       await sendContactMessage({
@@ -65,323 +96,178 @@ export default function ContactPage() {
         email: formData.email,
         phone: formData.phone,
         organization: formData.company,
-        subject: `THAKSA Inquiry (${formData.track.toUpperCase()})`,
-        message: formData.scope || `Program inquiry for ${formData.track}`,
+        subject: "Website enquiry — " + trackLabel,
+        message,
         botcheck: formData.botcheck,
       });
-      setStatus('success');
-    } catch (err) {
-      setStatus('error');
+      setStatus("success");
+    } catch (error) {
+      setStatus("error");
       setErrorMsg(
-        err?.message || 'Unable to submit online right now. You can also reach us immediately via WhatsApp.'
+        error?.message ||
+          "We could not submit your enquiry right now. Please try again or contact us directly."
       );
     }
   };
 
   const openWhatsAppFallback = () => {
-    const msg = `*THAKSA.AI Direct Inquiry*\n*Institution/Organization:* ${formData.company || 'N/A'}\n*Name:* ${formData.name}\n*Email:* ${formData.email}\n*Phone:* ${formData.phone}\n*Track:* ${formData.track}\n*Scope:* ${formData.scope}`;
-    window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(msg)}`, '_blank');
+    const message = [
+      "*THAKSAAI Website Enquiry*",
+      "*I am:* " + (roles.find((role) => role.value === formData.role)?.label || formData.role),
+      "*Name:* " + (formData.name || "Not provided"),
+      "*Email:* " + (formData.email || "Not provided"),
+      "*Phone:* " + (formData.phone || "Not provided"),
+      "*College / organization:* " + (formData.company || "Not provided"),
+      "*Enquiry:* " + (tracks.find((track) => track.value === formData.track)?.label || formData.track),
+      "*Details:* " + (formData.scope || "Not provided"),
+    ].join("\\n");
+    window.open("https://wa.me/" + WHATSAPP_NUMBER + "?text=" + encodeURIComponent(message), "_blank", "noopener,noreferrer");
   };
 
   return (
     <>
       <Helmet>
-        <title>Contact Academic Directorate &amp; Studio | THAKSA.AI</title>
+        <title>Contact THAKSAAI | Student, College &amp; Project Enquiries</title>
         <meta
           name="description"
-          content="Schedule a Campus Recruitment Training (CRT) cohort, technical workshop, student internship, or software studio consultation with THAKSA.AI in Gachibowli, Hyderabad."
+          content="Contact THAKSAAI about student training, technical workshops, internships, final-year projects, college partnerships, and software studio work."
         />
       </Helmet>
 
-      <div className="w-full min-h-screen bg-[#F7F8F4] py-14 sm:py-20 px-4 sm:px-6 md:px-10 text-[#101828] thaksa-interior-page">
-        <div className="max-w-[1280px] mx-auto grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-start">
-          {/* Left Column: Direct Institutional & Student Channels (5 cols) */}
-          <div className="lg:col-span-5 flex flex-col gap-6">
-            <div>
-              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#101828]/[0.06] border border-[#E3E5DE] mb-4">
-                <span className="w-2 h-2 rounded-full bg-[#3659D9]" aria-hidden="true" />
-                <span className="font-mono text-[11px] uppercase tracking-[0.14em] text-[#101828]">
-                  DIRECT ROUTING / GACHIBOWLI HQ
-                </span>
-              </div>
-
-              <h1
-                className="font-display font-bold text-[#101828] tracking-[-0.025em] leading-[1.1] mb-4"
-                style={{ fontSize: 'clamp(2rem, 3.4vw + 1rem, 3.25rem)' }}
-              >
-                Partner with our Directorate or apply for a cohort.
-              </h1>
-
-              <p className="text-base text-[#5B6475] leading-relaxed">
-                Share your institution’s academic calendar, student batch details, or software
-                studio scope. Our Gachibowli directorate responds within one business day.
-              </p>
-            </div>
-
-            <SpatialCard tone="midnight" elevation="e3" className="p-7 flex flex-col gap-4">
-              <div className="font-mono text-xs uppercase tracking-[0.16em] text-[#C7F36B]">
-                OFFICIAL HEADQUARTERS
-              </div>
-              <div>
-                <div className="font-display font-bold text-white text-base">
-                  {SITE_BRANDING.buildingName}
-                </div>
-                <p className="text-xs text-slate-300 mt-1 leading-relaxed">
-                  {SITE_BRANDING.officeAddress}
-                </p>
-              </div>
-              <div className="h-px bg-white/10" />
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs font-mono">
-                <div>
-                  <span className="text-slate-400 block uppercase text-[10px] mb-0.5">Direct Phone</span>
-                  <a href={`tel:${SITE_BRANDING.supportPhone.replace(/[^0-9+]/g, '')}`} className="text-white hover:text-[#C7F36B]">
-                    {SITE_BRANDING.supportPhone}
-                  </a>
-                </div>
-                <div>
-                  <span className="text-slate-400 block uppercase text-[10px] mb-0.5">Electronic Mail</span>
-                  <a href={`mailto:${SITE_BRANDING.contactEmail}`} className="text-white hover:text-[#C7F36B] break-all">
-                    {SITE_BRANDING.contactEmail}
-                  </a>
-                </div>
-              </div>
-            </SpatialCard>
-
-            <SpatialCard tone="paper" elevation="e1" className="p-6 flex flex-col gap-3">
-              <div className="font-mono text-xs font-semibold uppercase tracking-[0.14em] text-[#3659D9]">
-                FAST-TRACK STUDENT WHATSAPP LINE
-              </div>
-              <p className="text-sm text-[#5B6475] leading-relaxed">
-                Engineering students enquiring about Internships, Workshops, or Final-Year Projects
-                can message our mentor coordinator directly on WhatsApp.
-              </p>
-              <div className="pt-1">
-                <DepthButton
-                  href={SITE_BRANDING.whatsappLink}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  variant="primary"
-                  size="md"
-                >
-                  <span>Chat on WhatsApp ({SITE_BRANDING.supportPhone})</span>
-                  <span aria-hidden="true">↗</span>
-                </DepthButton>
-              </div>
-            </SpatialCard>
+      <main className="min-h-screen bg-[#101828] px-4 py-10 text-white sm:px-6 sm:py-16 lg:px-8 thaksa-interior-page">
+        <div className="mx-auto max-w-[1240px]">
+          <div className="mb-8 flex flex-wrap items-center justify-between gap-4">
+            <a href="/" className="inline-flex items-center gap-3 rounded-lg focus-visible:outline focus-visible:outline-2 focus-visible:outline-[#C7F36B]" aria-label="THAKSAAI home">
+              <span className="grid h-10 w-10 place-items-center rounded-xl bg-[#C7F36B] font-mono text-sm font-black text-[#101828]">T.</span>
+              <span className="font-display text-lg font-bold tracking-[-0.04em]">THAKSAAI</span>
+            </a>
+            <span className="rounded-full border border-white/15 px-3 py-2 font-mono text-[10px] uppercase tracking-[0.16em] text-white/70">
+              Contact / Enquiry desk
+            </span>
           </div>
 
-          {/* Right Column: Accessible Intake Form (7 cols) */}
-          <div className="lg:col-span-7">
-            <SpatialCard tone="paper" elevation="e2" className="p-7 sm:p-10">
-              {status === 'success' ? (
-                <div role="status" aria-live="polite" className="py-12 text-center flex flex-col items-center gap-4">
-                  <div className="w-14 h-14 rounded-2xl bg-[#101828] text-[#C7F36B] flex items-center justify-center font-mono text-2xl font-bold">
-                    ✓
-                  </div>
-                  <h2 className="text-2xl font-display font-bold text-[#101828]">
-                    Enquiry Logged with THAKSA Directorate
-                  </h2>
-                  <p className="text-sm text-[#5B6475] max-w-md leading-relaxed">
-                    Your details have been routed to our academic &amp; engineering coordinator in
-                    Gachibowli. You can also open a direct WhatsApp thread below for immediate
-                    scheduling.
+          <div className="grid items-stretch gap-6 lg:grid-cols-[0.9fr_1.1fr] lg:gap-8">
+            <section className="flex flex-col justify-between rounded-[28px] border border-white/10 bg-[#171F30] p-6 sm:p-9 lg:p-10">
+              <div>
+                <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-[#C7F36B]/25 bg-[#C7F36B]/10 px-3 py-2 font-mono text-[10px] uppercase tracking-[0.15em] text-[#C7F36B]">
+                  <span className="h-2 w-2 rounded-full bg-[#C7F36B]" aria-hidden="true" />
+                  Tell us what you need
+                </div>
+                <h1 className="max-w-xl font-display text-[clamp(2.5rem,5vw,4.6rem)] font-bold leading-[0.98] tracking-[-0.055em] text-white">
+                  Let’s build something that <span className="text-[#C7F36B]">moves you forward.</span>
+                </h1>
+                <p className="mt-6 max-w-lg text-base leading-7 text-[#C6CCD6] sm:text-lg">
+                  Tell us whether you are a student, a college team, or a potential project partner. We’ll route your enquiry to the right THAKSAAI team.
+                </p>
+              </div>
+
+              <div className="mt-10 space-y-4">
+                <div className="rounded-2xl border border-white/10 bg-white/[0.04] p-5">
+                  <p className="mb-3 font-mono text-[10px] uppercase tracking-[0.16em] text-[#C7F36B]">Direct contact</p>
+                  <a href={"mailto:" + SITE_BRANDING.contactEmail} className="block break-all text-base font-semibold text-white transition hover:text-[#C7F36B]">
+                    {SITE_BRANDING.contactEmail}
+                  </a>
+                  <a href={"tel:" + SITE_BRANDING.supportPhone.replace(/[^0-9+]/g, "")} className="mt-2 inline-block text-sm text-[#C6CCD6] transition hover:text-white">
+                    {SITE_BRANDING.supportPhone}
+                  </a>
+                  <p className="mt-4 text-sm leading-6 text-[#AAB3C2]">
+                    {SITE_BRANDING.buildingName}, {SITE_BRANDING.shortAddress}
                   </p>
-                  <div className="flex flex-wrap items-center justify-center gap-3 pt-3">
-                    <DepthButton onClick={openWhatsAppFallback} variant="precision" size="md">
-                      <span>Also Send via WhatsApp</span>
-                      <span aria-hidden="true">↗</span>
-                    </DepthButton>
-                    <DepthButton onClick={() => setStatus('idle')} variant="secondary" size="md">
-                      <span>Submit Another Enquiry</span>
-                    </DepthButton>
+                </div>
+                <div className="flex flex-col gap-3 rounded-2xl border border-white/10 p-5 sm:flex-row sm:items-center sm:justify-between">
+                  <div>
+                    <p className="font-semibold text-white">Need a quicker response?</p>
+                    <p className="mt-1 text-sm leading-5 text-[#AAB3C2]">Start a direct conversation on WhatsApp.</p>
+                  </div>
+                  <a href={SITE_BRANDING.whatsappLink} target="_blank" rel="noopener noreferrer" className="inline-flex min-h-11 shrink-0 items-center justify-center gap-2 rounded-xl bg-[#C7F36B] px-4 py-3 text-sm font-bold text-[#101828] transition hover:bg-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#C7F36B]">
+                    WhatsApp <span aria-hidden="true">↗</span>
+                  </a>
+                </div>
+              </div>
+            </section>
+
+            <section className="rounded-[28px] bg-[#FFFFFF] p-5 text-[#101828] shadow-[0_28px_80px_-40px_rgba(0,0,0,0.65)] sm:p-8 lg:p-10">
+              {status === "success" ? (
+                <div role="status" aria-live="polite" className="flex min-h-[520px] flex-col items-start justify-center">
+                  <div className="mb-6 grid h-14 w-14 place-items-center rounded-2xl bg-[#101828] font-mono text-2xl font-bold text-[#C7F36B]" aria-hidden="true">✓</div>
+                  <p className="font-mono text-[10px] uppercase tracking-[0.16em] text-[#3659D9]">Message submitted</p>
+                  <h2 className="mt-3 font-display text-3xl font-bold leading-tight tracking-[-0.04em] sm:text-4xl">Thanks for reaching out.</h2>
+                  <p className="mt-4 max-w-md leading-7 text-[#5B6475]">Your enquiry has been submitted to THAKSAAI. If your request is time-sensitive, you can also send the details through WhatsApp.</p>
+                  <div className="mt-8 flex flex-wrap gap-3">
+                    <button type="button" onClick={openWhatsAppFallback} className="inline-flex min-h-12 items-center justify-center gap-2 rounded-xl bg-[#101828] px-5 py-3 font-semibold text-white transition hover:bg-[#26344A]">Also send via WhatsApp ↗</button>
+                    <button type="button" onClick={() => { setStatus("idle"); setFormData((current) => ({ ...current, name: "", email: "", phone: "", scope: "", botcheck: "" })); }} className="inline-flex min-h-12 items-center justify-center rounded-xl border border-[#E3E5DE] px-5 py-3 font-semibold text-[#101828] transition hover:bg-[#F7F8F4]">Send another enquiry</button>
                   </div>
                 </div>
               ) : (
                 <form onSubmit={handleSubmit} className="flex flex-col gap-5">
-                  <div className="pb-4 border-b border-[#E3E5DE]">
-                    <span className="font-mono text-[11px] uppercase tracking-[0.14em] text-[#3659D9]">
-                      INTAKE SPECIFICATION
-                    </span>
-                    <h2 className="text-2xl font-display font-bold text-[#101828] mt-1">
-                      Institutional &amp; Cohort Enquiry Form
-                    </h2>
+                  <div className="border-b border-[#E3E5DE] pb-5">
+                    <p className="font-mono text-[10px] uppercase tracking-[0.16em] text-[#3659D9]">Contact form / 01</p>
+                    <h2 className="mt-2 font-display text-3xl font-bold tracking-[-0.045em] sm:text-4xl">Send us a message.</h2>
+                    <p className="mt-2 text-sm leading-6 text-[#5B6475]">Fields marked * are required. Share enough detail so we can direct you to the right team.</p>
                   </div>
 
-                  {/* Honeypot field */}
-                  <input
-                    type="text"
-                    name="botcheck"
-                    value={formData.botcheck}
-                    onChange={handleChange}
-                    tabIndex={-1}
-                    autoComplete="off"
-                    className="sr-only"
-                    aria-hidden="true"
-                  />
+                  <input type="text" name="botcheck" value={formData.botcheck} onChange={handleChange} tabIndex={-1} autoComplete="off" className="sr-only" aria-hidden="true" />
 
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
-                    <div className="flex flex-col gap-1.5">
-                      <label
-                        htmlFor="contact-company"
-                        className="font-mono text-xs uppercase tracking-wider text-[#101828] font-semibold"
-                      >
-                        College / Organization Name *
-                      </label>
-                      <input
-                        id="contact-company"
-                        name="company"
-                        type="text"
-                        required
-                        value={formData.company}
-                        onChange={handleChange}
-                        placeholder="e.g. JNTU / Vaagdevi / Studio Client"
-                        className="min-h-[46px] px-4 py-2.5 rounded-xl bg-[#F7F8F4] border border-[#E3E5DE] text-[16px] text-[#101828] focus:outline-2 focus:outline-[#3659D9]"
-                      />
+                  <div className="grid gap-5 sm:grid-cols-2">
+                    <div>
+                      <label htmlFor="contact-name" className={labelClass}>Full name *</label>
+                      <input id="contact-name" name="name" type="text" autoComplete="name" required maxLength={120} value={formData.name} onChange={handleChange} placeholder="Your name" className={fieldClass} />
                     </div>
-
-                    <div className="flex flex-col gap-1.5">
-                      <label
-                        htmlFor="contact-name"
-                        className="font-mono text-xs uppercase tracking-wider text-[#101828] font-semibold"
-                      >
-                        Your Name &amp; Role *
-                      </label>
-                      <input
-                        id="contact-name"
-                        name="name"
-                        type="text"
-                        required
-                        value={formData.name}
-                        onChange={handleChange}
-                        placeholder="e.g. Dr. Ramesh, Head TPO"
-                        className="min-h-[46px] px-4 py-2.5 rounded-xl bg-[#F7F8F4] border border-[#E3E5DE] text-[16px] text-[#101828] focus:outline-2 focus:outline-[#3659D9]"
-                      />
+                    <div>
+                      <label htmlFor="contact-email" className={labelClass}>Email address *</label>
+                      <input id="contact-email" name="email" type="email" autoComplete="email" required maxLength={254} value={formData.email} onChange={handleChange} placeholder="you@example.com" className={fieldClass} />
                     </div>
-
-                    <div className="flex flex-col gap-1.5">
-                      <label
-                        htmlFor="contact-email"
-                        className="font-mono text-xs uppercase tracking-wider text-[#101828] font-semibold"
-                      >
-                        Official Email *
-                      </label>
-                      <input
-                        id="contact-email"
-                        name="email"
-                        type="email"
-                        required
-                        value={formData.email}
-                        onChange={handleChange}
-                        placeholder="name@institution.edu.in"
-                        className="min-h-[46px] px-4 py-2.5 rounded-xl bg-[#F7F8F4] border border-[#E3E5DE] text-[16px] text-[#101828] focus:outline-2 focus:outline-[#3659D9]"
-                      />
+                    <div>
+                      <label htmlFor="contact-phone" className={labelClass}>Phone / WhatsApp</label>
+                      <input id="contact-phone" name="phone" type="tel" autoComplete="tel" maxLength={40} value={formData.phone} onChange={handleChange} placeholder="+91 98765 43210" className={fieldClass} />
                     </div>
-
-                    <div className="flex flex-col gap-1.5">
-                      <label
-                        htmlFor="contact-phone"
-                        className="font-mono text-xs uppercase tracking-wider text-[#101828] font-semibold"
-                      >
-                        Phone / WhatsApp Number *
-                      </label>
-                      <input
-                        id="contact-phone"
-                        name="phone"
-                        type="tel"
-                        required
-                        value={formData.phone}
-                        onChange={handleChange}
-                        placeholder="+91 98765 43210"
-                        className="min-h-[46px] px-4 py-2.5 rounded-xl bg-[#F7F8F4] border border-[#E3E5DE] text-[16px] text-[#101828] focus:outline-2 focus:outline-[#3659D9]"
-                      />
+                    <div>
+                      <label htmlFor="contact-role" className={labelClass}>I am a... *</label>
+                      <select id="contact-role" name="role" required value={formData.role} onChange={handleChange} className={fieldClass}>
+                        {roles.map((role) => <option key={role.value} value={role.value}>{role.label}</option>)}
+                      </select>
                     </div>
                   </div>
 
-                  <div className="flex flex-col gap-1.5">
-                    <label
-                      htmlFor="contact-track"
-                      className="font-mono text-xs uppercase tracking-wider text-[#101828] font-semibold"
-                    >
-                      Pathway / Engagement Track *
-                    </label>
-                    <select
-                      id="contact-track"
-                      name="track"
-                      value={formData.track}
-                      onChange={handleChange}
-                      className="min-h-[46px] px-4 py-2.5 rounded-xl bg-[#F7F8F4] border border-[#E3E5DE] text-[16px] text-[#101828] focus:outline-2 focus:outline-[#3659D9]"
-                    >
-                      <option value="crt">Campus Recruitment Training (CRT Cohort)</option>
-                      <option value="workshops">On-Campus Technical Workshop (3–6 Days)</option>
-                      <option value="internships">Domain Internship Application</option>
-                      <option value="projects">Final-Year IEEE / System Capstone Project</option>
-                      <option value="studio">THAKSA Software Studio (B2B Engineering)</option>
+                  <div>
+                    <label htmlFor="contact-company" className={labelClass}>{formData.role === "student" ? "College / institution (if applicable)" : formData.role === "college" ? "College / institution name *" : formData.role === "business" ? "Company / organization" : "College / organization (optional)"}</label>
+                    <input id="contact-company" name="company" type="text" autoComplete="organization" maxLength={180} required={formData.role === "college"} value={formData.company} onChange={handleChange} placeholder={formData.role === "student" ? "Your college or university" : formData.role === "college" ? "College / institution name" : "Organization name (if applicable)"} className={fieldClass} />
+                  </div>
+
+                  <div>
+                    <label htmlFor="contact-track" className={labelClass}>What can we help you with? *</label>
+                    <select id="contact-track" name="track" required value={formData.track} onChange={handleChange} className={fieldClass}>
+                      {tracks.map((track) => <option key={track.value} value={track.value}>{track.label}</option>)}
                     </select>
                   </div>
 
-                  <div className="flex flex-col gap-1.5">
-                    <label
-                      htmlFor="contact-scope"
-                      className="font-mono text-xs uppercase tracking-wider text-[#101828] font-semibold"
-                    >
-                      Cohort Size, Semester Dates, or Requirement *
-                    </label>
-                    <textarea
-                      id="contact-scope"
-                      name="scope"
-                      rows={4}
-                      required
-                      value={formData.scope}
-                      onChange={handleChange}
-                      placeholder="Share department, batch size, preferred schedule, or project requirements..."
-                      className="p-4 rounded-xl bg-[#F7F8F4] border border-[#E3E5DE] text-[16px] text-[#101828] focus:outline-2 focus:outline-[#3659D9]"
-                    />
+                  <div>
+                    <label htmlFor="contact-scope" className={labelClass}>Your message / requirements *</label>
+                    <textarea id="contact-scope" name="scope" rows={5} required maxLength={8000} value={formData.scope} onChange={handleChange} placeholder={formData.role === "student" ? "Tell us your year, branch, interests, or the program you’re asking about..." : formData.role === "college" ? "Share your department, batch size, tentative dates, or campus requirements..." : "Tell us a little about your enquiry, goals, or project requirements..."} className={fieldClass + " min-h-[140px] resize-y"} />
+                    <p className="mt-2 text-right text-xs text-[#7B8492]">{formData.scope.length}/8000</p>
                   </div>
 
-                  {status === 'error' && (
-                    <div
-                      role="alert"
-                      aria-live="polite"
-                      className="p-4 rounded-xl bg-[#D14343]/10 border border-[#D14343]/30 text-xs text-[#D14343] flex flex-col sm:flex-row sm:items-center justify-between gap-3"
-                    >
-                      <span>{errorMsg}</span>
-                      <button
-                        type="button"
-                        onClick={openWhatsAppFallback}
-                        className="px-3 py-1.5 rounded-lg bg-[#101828] text-white font-mono text-xs shrink-0 cursor-pointer"
-                      >
-                        Send via WhatsApp →
-                      </button>
+                  {status === "error" && (
+                    <div role="alert" aria-live="polite" className="rounded-xl border border-[#D14343]/25 bg-[#D14343]/[0.06] p-4 text-sm text-[#A52D2D]">
+                      <p>{errorMsg}</p>
+                      <button type="button" onClick={openWhatsAppFallback} className="mt-3 font-semibold underline underline-offset-4">Send via WhatsApp instead ↗</button>
                     </div>
                   )}
 
-                  <div className="pt-2 flex flex-wrap items-center justify-between gap-4">
-                    <DepthButton
-                      type="submit"
-                      disabled={status === 'submitting'}
-                      variant="precision"
-                      size="lg"
-                    >
-                      <span>
-                        {status === 'submitting' ? 'Routing to Directorate...' : 'Submit Enquiry'}
-                      </span>
-                      <span aria-hidden="true">→</span>
-                    </DepthButton>
-
-                    <button
-                      type="button"
-                      onClick={openWhatsAppFallback}
-                      className="min-h-[44px] px-4 py-2 rounded-xl font-mono text-xs uppercase tracking-wider text-[#5B6475] hover:text-[#101828] transition-colors cursor-pointer"
-                    >
-                      Or open directly in WhatsApp ↗
+                  <div className="flex flex-col gap-3 border-t border-[#E3E5DE] pt-5 sm:flex-row sm:items-center sm:justify-between">
+                    <p className="max-w-xs text-xs leading-5 text-[#7B8492]">Your details are used to respond to this enquiry. Please don’t include passwords or sensitive personal information.</p>
+                    <button type="submit" disabled={status === "submitting"} className="inline-flex min-h-12 shrink-0 items-center justify-center gap-3 rounded-xl bg-[#101828] px-6 py-3 font-semibold text-white transition hover:bg-[#26344A] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#3659D9] disabled:cursor-not-allowed disabled:opacity-60">
+                      {status === "submitting" ? "Sending enquiry..." : "Send enquiry"}
+                      <span aria-hidden="true">{status === "submitting" ? "…" : "→"}</span>
                     </button>
                   </div>
                 </form>
               )}
-            </SpatialCard>
+            </section>
           </div>
+          <p className="mt-7 text-center font-mono text-[10px] uppercase tracking-[0.14em] text-white/45">THAKSAAI · Student success / Academic partnerships / Engineering studio</p>
         </div>
-      </div>
+      </main>
     </>
   );
 }
