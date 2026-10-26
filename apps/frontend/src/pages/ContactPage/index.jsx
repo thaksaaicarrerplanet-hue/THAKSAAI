@@ -22,6 +22,20 @@ const roles = [
   { value: "other", label: "Other" },
 ];
 
+const resolveTrack = (candidate) => {
+  const normalized = String(candidate || "").trim().toLowerCase();
+  const exact = tracks.find((track) => track.value === normalized);
+  if (exact) return exact.value;
+  const labelMatch = tracks.find((track) => track.label.toLowerCase() === normalized);
+  if (labelMatch) return labelMatch.value;
+  if (normalized.includes("internship")) return "internships";
+  if (normalized.includes("workshop")) return "workshops";
+  if (normalized.includes("project") || normalized.includes("capstone")) return "projects";
+  if (normalized.includes("studio") || normalized.includes("software")) return "studio";
+  if (normalized.includes("crt") || normalized.includes("training")) return "crt";
+  return "general";
+};
+
 const fieldClass =
   "w-full min-h-[50px] rounded-xl border border-[#E3E5DE] bg-[#F7F8F4] px-4 py-3 text-[16px] text-[#101828] placeholder:text-[#7B8492] transition focus:border-[#3659D9] focus:outline-none focus:ring-4 focus:ring-[#3659D9]/10";
 const labelClass =
@@ -31,10 +45,17 @@ export default function ContactPage() {
   const [searchParams] = useSearchParams();
   const initialQuery = searchParams.get("query") || "";
   const initialCompany = searchParams.get("college") || searchParams.get("organization") || "";
-  const initialTrack =
+  const initialTrack = resolveTrack(
     searchParams.get("track") ||
-    searchParams.get("interest") ||
-    (searchParams.get("audience") === "studio" ? "studio" : "crt");
+      searchParams.get("interest") ||
+      (searchParams.get("audience") === "studio" ? "studio" : "crt")
+  );
+  const initialRole =
+    searchParams.get("audience") === "studio"
+      ? "business"
+      : searchParams.get("audience") === "institution"
+        ? "college"
+        : "student";
 
   const [status, setStatus] = useState("idle");
   const [errorMsg, setErrorMsg] = useState("");
@@ -43,7 +64,7 @@ export default function ContactPage() {
     name: "",
     email: "",
     phone: "",
-    role: searchParams.get("audience") === "studio" ? "business" : "student",
+    role: initialRole,
     track: initialTrack,
     scope: initialQuery,
     botcheck: "",
@@ -51,12 +72,15 @@ export default function ContactPage() {
 
   useEffect(() => {
     const nextCompany = searchParams.get("college") || searchParams.get("organization");
-    const nextTrack =
+    const rawTrack =
       searchParams.get("track") ||
       searchParams.get("interest") ||
       (searchParams.get("audience") === "studio" ? "studio" : null);
+    const nextTrack = rawTrack ? resolveTrack(rawTrack) : null;
     const nextScope = searchParams.get("query");
-    const nextRole = searchParams.get("audience") === "studio" ? "business" : null;
+    const audience = searchParams.get("audience");
+    const nextRole =
+      audience === "studio" ? "business" : audience === "institution" ? "college" : audience === "student" ? "student" : null;
 
     if (!nextCompany && !nextTrack && !nextScope && !nextRole) return;
     setFormData((current) => ({
