@@ -72,19 +72,20 @@ const submitContactForm = async (req, res) => {
       return res.status(400).json({ message: "Please enter a valid email address." });
     }
 
-    // GMAIL is the authenticated SMTP sender. CONTACT_RECEIVER_EMAIL is optional;
-    // when omitted, enquiries are delivered to the same professional Gmail account.
-    const senderEmail = process.env.GMAIL;
+    // Dedicated contact SMTP settings are isolated from the platform's OTP mailer.
+    // Legacy GMAIL/PASSWORD remain a fallback for existing deployments.
+    const senderEmail = process.env.CONTACT_GMAIL || process.env.GMAIL;
+    const senderPassword = process.env.CONTACT_GMAIL_APP_PASSWORD || process.env.PASSWORD;
     const receiverEmail = process.env.CONTACT_RECEIVER_EMAIL || senderEmail;
-    if (!senderEmail || !receiverEmail || !process.env.PASSWORD) {
-      console.error("Contact delivery is not configured: GMAIL/PASSWORD (and optional CONTACT_RECEIVER_EMAIL) must be set.");
+    if (!senderEmail || !senderPassword || !receiverEmail) {
+      console.error("Contact delivery is not configured: CONTACT_GMAIL/CONTACT_GMAIL_APP_PASSWORD (or legacy GMAIL/PASSWORD) are required.");
       return res.status(503).json({
         message: "Online enquiry delivery is temporarily unavailable. Please use the WhatsApp or email contact options.",
       });
     }
 
     const submittedAt = new Date().toISOString();
-    const transport = createMailer();
+    const transport = createMailer({ user: senderEmail, pass: senderPassword });
     const html = `
       <div style="font-family: Arial, sans-serif; line-height: 1.6;">
         <h2>New THAKSAAI Website Enquiry</h2>
