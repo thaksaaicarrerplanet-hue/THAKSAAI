@@ -72,9 +72,12 @@ const submitContactForm = async (req, res) => {
       return res.status(400).json({ message: "Please enter a valid email address." });
     }
 
-    const receiverEmail = process.env.GMAIL;
-    if (!receiverEmail || !process.env.PASSWORD) {
-      console.error("Contact delivery is not configured: GMAIL/PASSWORD are missing.");
+    // GMAIL is the authenticated SMTP sender. CONTACT_RECEIVER_EMAIL is optional;
+    // when omitted, enquiries are delivered to the same professional Gmail account.
+    const senderEmail = process.env.GMAIL;
+    const receiverEmail = process.env.CONTACT_RECEIVER_EMAIL || senderEmail;
+    if (!senderEmail || !receiverEmail || !process.env.PASSWORD) {
+      console.error("Contact delivery is not configured: GMAIL/PASSWORD (and optional CONTACT_RECEIVER_EMAIL) must be set.");
       return res.status(503).json({
         message: "Online enquiry delivery is temporarily unavailable. Please use the WhatsApp or email contact options.",
       });
@@ -97,7 +100,7 @@ const submitContactForm = async (req, res) => {
     `;
 
     await transport.sendMail({
-      from: receiverEmail,
+      from: senderEmail,
       to: receiverEmail,
       subject: `[THAKSAAI Enquiry] ${fields.subject}`,
       replyTo: fields.email,
