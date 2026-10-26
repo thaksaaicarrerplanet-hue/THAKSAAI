@@ -3,8 +3,6 @@ import { Helmet } from "react-helmet-async";
 import { useSearchParams } from "react-router-dom";
 import { SITE_BRANDING, WHATSAPP_NUMBER } from "../../theme/masterThemeConfig";
 import { sendContactMessage } from "../../services/contactService";
-import { SpatialCard } from "../../components/ui/SpatialCard";
-import { DepthButton } from "../../components/ui/DepthButton";
 
 const tracks = [
   { value: "crt", label: "Campus Recruitment Training (CRT)" },
