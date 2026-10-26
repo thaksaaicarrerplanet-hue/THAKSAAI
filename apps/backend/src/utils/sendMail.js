@@ -1,14 +1,11 @@
 import { createTransport } from "nodemailer";
 
-const createMailer = () =>
+const createMailer = ({ user = process.env.GMAIL, pass = process.env.PASSWORD } = {}) =>
   createTransport({
     host: "smtp.gmail.com",
     port: 465,
     secure: true,
-    auth: {
-      user: process.env.GMAIL,
-      pass: process.env.PASSWORD,
-    },
+    auth: { user, pass },
   });
 
 const sendMail = async (email, subject, data) => {
