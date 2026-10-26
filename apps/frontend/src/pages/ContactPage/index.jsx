@@ -20,7 +20,8 @@ const roles = [
 ];
 
 const resolveTrack = (candidate) => {
-  const normalized = String(candidate || "").trim().toLowerCase();
+  const raw = String(candidate || "").trim();
+  const normalized = raw.toLowerCase();
   const exact = tracks.find((track) => track.value === normalized);
   if (exact) return exact.value;
   const labelMatch = tracks.find((track) => track.label.toLowerCase() === normalized);
@@ -30,7 +31,13 @@ const resolveTrack = (candidate) => {
   if (normalized.includes("project") || normalized.includes("capstone")) return "projects";
   if (normalized.includes("studio") || normalized.includes("software")) return "studio";
   if (normalized.includes("crt") || normalized.includes("training")) return "crt";
-  return "general";
+  // Keep arbitrary course / pricing CTA labels instead of losing them as "General enquiry".
+  return raw ? "custom:" + raw : "general";
+};
+
+const getTrackLabel = (value) => {
+  const match = tracks.find((track) => track.value === value);
+  return match?.label || (String(value).startsWith("custom:") ? String(value).slice(7) : value);
 };
 
 const fieldClass =
@@ -126,8 +133,7 @@ export default function ContactPage() {
     setStatus("submitting");
     setErrorMsg("");
 
-    const trackLabel =
-      tracks.find((track) => track.value === formData.track)?.label || formData.track;
+    const trackLabel = getTrackLabel(formData.track);
     const roleLabel =
       roles.find((role) => role.value === formData.role)?.label || formData.role;
     const message = [
@@ -188,7 +194,7 @@ export default function ContactPage() {
       "*Email:* " + (formData.email || "Not provided"),
       "*Phone:* " + (formData.phone || "Not provided"),
       "*College / organization:* " + (formData.company || "Not provided"),
-      "*Enquiry:* " + (tracks.find((track) => track.value === formData.track)?.label || formData.track),
+      "*Enquiry:* " + getTrackLabel(formData.track),
       "*Details:* " + (formData.scope || "Not provided"),
     ].join("\n");
     window.open("https://wa.me/" + WHATSAPP_NUMBER + "?text=" + encodeURIComponent(message), "_blank", "noopener,noreferrer");
@@ -308,6 +314,9 @@ export default function ContactPage() {
                     <label htmlFor="contact-track" className={labelClass}>What can we help you with? *</label>
                     <select id="contact-track" name="track" required value={formData.track} onChange={handleChange} className={fieldClass}>
                       {tracks.map((track) => <option key={track.value} value={track.value}>{track.label}</option>)}
+                      {!tracks.some((track) => track.value === formData.track) && (
+                        <option value={formData.track}>{getTrackLabel(formData.track)}</option>
+                      )}
                     </select>
                   </div>
 
